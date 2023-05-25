@@ -1,0 +1,77 @@
+QSlider::groove:horizontal {
+    border: 1px solid;
+    height: 10px;
+    background-color: transparent;
+    margin: 0;
+}
+QSlider::handle:horizontal {
+    border-image: url(:/Image/icon/Slider_Handle.png);
+    width: 30px;
+    margin: -10px -10px -10px -10px;
+    border: none;
+}
+QSlider::add-page:horizontal {
+    background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 #bcbcbc, stop:0.25 #bcbcbc, stop:0.5 #bcbcbc, stop:1 #bcbcbc);
+}
+
+QSlider::sub-page:horizontal {
+ background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 #439cf3, stop:0.25 #439cf3, stop:0.5 #439cf3, stop:1 #439cf3);
+}
+
+QCheckBox::indicator {
+    width: 78px;
+    height: 35px;
+}
+
+QCheckBox::indicator::unchecked {
+    border-image: url(:/Image/24/23.bmp);
+}
+
+QCheckBox::indicator::unchecked::hover {
+    border-image: url(:/Image/24/23.bmp);
+}
+
+QCheckBox::indicator::unchecked::pressed {
+    border-image: url(:/Image/24/23.bmp);
+}
+
+QCheckBox::indicator::checked {
+    border-image: url(:/Image/24/24.bmp);
+}
+
+QCheckBox::indicator::checked::hover {
+    border-image: url(:/Image/24/24.bmp);
+}
+
+QCheckBox::indicator::checked::pressed {
+    border-image: url(:/Image/24/24.bmp);
+}
+
+QRadioButton::indicator {
+    width: 21px;
+    height: 21px;
+}
+
+QRadioButton::indicator::unchecked {
+    image: url(:/Image/24/20.png);
+}
+
+QRadioButton::indicator::unchecked::hover {
+    image: url(:/Image/24/20.png);
+}
+
+QRadioButton::indicator::unchecked::pressed {
+    image: url(:/Image/24/20.png);
+}
+
+QRadioButton::indicator::checked {
+    image: url(:/Image/24/21.png);
+}
+
+QRadioButton::indicator::checked::hover {
+    image: url(:/Image/24/21.png);
+}
+
+QRadioButton:: indicator::checked::pressed {
+    image: url(:/Image/24/21.png);
+}

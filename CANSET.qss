@@ -1,0 +1,28 @@
+QCheckBox::indicator {
+    width:21px;
+    height:21px;
+}
+
+QCheckBox::indicator::unchecked {
+    border-image: url(:/Image/24/20.png);
+}
+
+QCheckBox::indicator::unchecked::hover {
+    border-image: url(:/Image/24/20.png);
+}
+
+QCheckBox::indicator::unchecked::pressed {
+    border-image: url(:/Image/24/20.png);
+}
+
+QCheckBox::indicator::checked {
+    border-image: url(:/Image/24/21.png);
+}
+
+QCheckBox::indicator::checked::hover {
+    border-image: url(:/Image/24/21.png);
+}
+
+QCheckBox::indicator::checked::pressed {
+    border-image: url(:/Image/24/21.png);
+}
