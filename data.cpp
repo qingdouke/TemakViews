@@ -3,6 +3,7 @@
 #include "sqliteoperator.h"
 #include "sql_generic_data.h"
 #include <QDebug>
+#include <complex>
 
 Data::Data(QObject *parent)
     : QObject{parent}
