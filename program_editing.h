@@ -49,8 +49,8 @@ public:
 private:
     Ui::Program_Editing *ui;
 
-    QString chooseProgram="";
-    QString programName="";
+    QString chooseProgram="1";
+    QString programName="test";
     QString lowTempProtect="";
     QString highTempProtect="";
     int dataAddressInfoNum=1;

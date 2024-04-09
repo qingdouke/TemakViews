@@ -277,3 +277,4 @@ void UserPasswordPage01::freezeOneSec()
     ui->server_checkBox_3->setEnabled(true);
     ui->server_checkBox_4->setEnabled(true);
 }
+

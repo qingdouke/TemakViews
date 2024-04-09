@@ -35,33 +35,12 @@
      <property name="font">
       <font>
        <pointsize>24</pointsize>
+       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
      <property name="text">
       <string/>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="current_time">
-     <property name="geometry">
-      <rect>
-       <x>930</x>
-       <y>0</y>
-       <width>310</width>
-       <height>60</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>16</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>yyyy-MM-dd hh:mm:ss</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -78,12 +57,14 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>26</pointsize>
+       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
      <property name="text">
-      <string>目 录</string>
+      <string>Menu</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -95,9 +76,9 @@
     <widget class="QPushButton" name="login">
      <property name="geometry">
       <rect>
-       <x>1200</x>
+       <x>1100</x>
        <y>0</y>
-       <width>75</width>
+       <width>181</width>
        <height>61</height>
       </rect>
      </property>
@@ -105,6 +86,34 @@
       <string/>
      </property>
     </widget>
+    <widget class="QLabel" name="current_time">
+     <property name="geometry">
+      <rect>
+       <x>970</x>
+       <y>0</y>
+       <width>310</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+       <pointsize>14</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>yyyy-MM-dd hh:mm:ss</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <zorder>current_time</zorder>
+    <zorder>logo</zorder>
+    <zorder>title</zorder>
+    <zorder>login</zorder>
    </widget>
    <widget class="QWidget" name="Main" native="true">
     <property name="geometry">
@@ -641,6 +650,8 @@
      </widget>
     </widget>
    </widget>
+   <zorder>Main</zorder>
+   <zorder>Header</zorder>
   </widget>
  </widget>
  <resources/>

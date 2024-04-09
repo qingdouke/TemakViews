@@ -26,12 +26,15 @@ public:
     QString getr4h2Text();
     QString getr4h3Text();
     QString getr4h4Text();
+    void setr2h1Text(QString);
     void setr2h2Text(QString);
     void setr2h3Text(QString);
     void setr2h4Text(QString);
+    void setr3h1Text(QString);
     void setr3h2Text(QString);
     void setr3h3Text(QString);
     void setr3h4Text(QString);
+    void setr4h1Text(QString);
     void setr4h2Text(QString);
     void setr4h3Text(QString);
     void setr4h4Text(QString);
@@ -53,22 +56,27 @@ public:
 private:
     Ui::Program_Loop *ui;
 
+    QString r2h1text="0";
     QString r2h2text="0";
     QString r2h3text="0";
     QString r2h4text="0";
+    QString r3h1text="0";
     QString r3h2text="0";
     QString r3h3text="0";
     QString r3h4text="0";
+    QString r4h1text="0";
     QString r4h2text="0";
     QString r4h3text="0";
     QString r4h4text="0";
-    QString chooseProgram="";
-    QString link="";
-    QString programName="";
-    QString all_loops="";
+    QString chooseProgram="1";
+    QString link="0";
+    QString programName="test";
+    QString all_loops="2";
 
 private slots:
     void currentTime();
+
+
 
 
 signals:

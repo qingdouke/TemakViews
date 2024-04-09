@@ -33,7 +33,7 @@ public:
 private:
     Ui::UserPasswordPage01 *ui;
     bool isChangingPassword = false;
-    QString currentPassword = "123";
+    QString currentPassword = "3337";
     QString tempPassword = "";
     QString confirmPassword = "";
     PopUpWindow07 popUpWindow07;
@@ -41,6 +41,7 @@ private:
 private slots:
     void currentTime();
     void on_confirm_pushButton_clicked();
+
 
 signals:
     void Request_Use_Keyboard_Signal(int);

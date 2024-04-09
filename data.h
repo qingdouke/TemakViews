@@ -1,6 +1,10 @@
 #ifndef DATA_H
 #define DATA_H
 
+#include "sqliteoperator.h"
+#include "sql_generic_data.h"
+#include "server.h"
+
 #include <QObject>
 #include <QMap>
 #include <QList>
@@ -16,7 +20,6 @@
 #include <error_log.h>
 #include <QThread>
 #include <QTimer>
-//#include <sqlite3.h>
 
 class Data : public QObject
 {
@@ -41,10 +44,8 @@ public:
     UserPasswordPage03 userPasswordPage03;
     Error_Log error_log;
 
-//    sqlite3 *pDb;
-
     //数据处理
-    void send_temperaturePv_signals();
+    void send_updateInterfaceNumber_signals(int,QString);
     void send_curveData_signals();
     //数据发送
     void dataFunction(int);
@@ -220,7 +221,11 @@ private:
     int user_password_page03_temperature_control;
 
 signals:
-    void updateTemperaturePv(QString);
+    void updateInterfaceNumberSignal(int,QString);
+
+    void sql_updateMonitorInterfaceDataSignal(int,QString);
+    void sql_updateOutputInterfaceDataSignal(int,QString);
+
     void updateCurve(int num,int size,QVector<QVector<double>> xdata,QVector<QVector<double>> data,QString startTime,double* dataInfo,QString* axisInfo,int status);
 };
 

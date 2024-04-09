@@ -1,5 +1,7 @@
 #include "output_monitoring.h"
 #include "ui_output_monitoring.h"
+#include "sql_generic_data.h"
+#include "sqliteoperator.h"
 
 #include <QTimer>
 #include <QDateTime>
@@ -64,13 +66,13 @@ Output_Monitoring::Output_Monitoring(QWidget *parent) :
     ui->temperature_image->setStyleSheet("QLabel#temperature_image{background-image:url(:/Image/icon/temperature.png)}");
 
     //Temperature_sv
-    ui->temperature_sv_company->setStyleSheet("QLabel#temperature_sv_company{color:rgb(255,201,14)}");
+    ui->temperature_sv_unit->setStyleSheet("QLabel#temperature_sv_unit{color:rgb(255,127,36)}");
     ui->temperature_sv_edit->setStyleSheet("QLineEdit#temperature_sv_edit{border:none;background:transparent}");
     ui->temperature_sv_edit->setInputMask("00.00");
     ui->temperature_sv_edit->setText("12.12");
 
     //Temperature_pv
-    ui->temperature_pv_company->setStyleSheet("QLabel#temperature_pv_company{color:rgb(255,201,14)}");
+    ui->temperature_pv_unit->setStyleSheet("QLabel#temperature_pv_unit{color:rgb(255,127,36)}");
     ui->temperature_pv_edit->setStyleSheet("QLineEdit#temperature_pv_edit{border:none;background:transparent;color:red}");
     ui->temperature_pv_edit->setInputMask("00.00");
     ui->temperature_pv_edit->setText("12.12");
@@ -79,13 +81,13 @@ Output_Monitoring::Output_Monitoring(QWidget *parent) :
     ui->humidity_image->setStyleSheet("QLabel#humidity_image{background-image:url(:/Image/icon/humidity.png)}");
 
     //Humidity_sv
-    ui->humidity_sv_company->setStyleSheet("QLabel#humidity_sv_company{color:rgb(255,201,14)}");
+    ui->humidity_sv_unit->setStyleSheet("QLabel#humidity_sv_unit{color:rgb(255,127,36)}");
     ui->humidity_sv_edit->setStyleSheet("QLineEdit#humidity_sv_edit{border:none;background:transparent}");
     ui->humidity_sv_edit->setInputMask("00.00");
     ui->humidity_sv_edit->setText("12.12");
 
     //Humidity_pv
-    ui->humidity_pv_company->setStyleSheet("QLabel#humidity_pv_company{color:rgb(255,201,14)}");
+    ui->humidity_pv_unit->setStyleSheet("QLabel#humidity_pv_unit{color:rgb(255,127,36)}");
     ui->humidity_pv_edit->setStyleSheet("QLineEdit#humidity_pv_edit{border:none;background:transparent;color:blue}");
     ui->humidity_pv_edit->setInputMask("00.00");
     ui->humidity_pv_edit->setText("12.12");
@@ -99,8 +101,17 @@ Output_Monitoring::Output_Monitoring(QWidget *parent) :
     file.close();
 
     //Signal_box
-    ui->Signal_box->setStyleSheet("QWidget#Signal_box{border:2px solid rgb(203,230,200)"
-                                  "background-color:white}");
+   /* ui->Signal_box->setStyleSheet("QWidget#Signal_box{border:2px solid rgb(203,230,200)"
+                                  "background-color:white}");*/
+    ui->Signal_box->setStyleSheet("QWidget#Signal_box{background-color:white;"
+                                   "border:2px solid rgb(203,230,200);"
+                                   "border-radius:2px}");
+    ui->outputSignal_label->setStyleSheet("QLabel#outputSignal_label{color:rgb(255,127,36)}");
+    ui->ry_output_edit_1->setStyleSheet("QLineEdit#ry_output_edit_1{background:white;border:white}");
+    ui->ry_output_edit_2->setStyleSheet("QLineEdit#ry_output_edit_2{background:white;border:white}");
+    ui->ry_output_edit_3->setStyleSheet("QLineEdit#ry_output_edit_3{background:white;border:white}");
+    ui->ry_output_edit_4->setStyleSheet("QLineEdit#ry_output_edit_4{background:white;border:white}");
+    ui->ry_output_edit_5->setStyleSheet("QLineEdit#ry_output_edit_5{background:white;border:white}");
 
     //Step_box
     ui->Step_box->setStyleSheet("QWidget#Step_box{border:2px solid rgb(117,138,107)}");
@@ -204,7 +215,7 @@ Output_Monitoring::Output_Monitoring(QWidget *parent) :
     //将表格加入StackedWidge页面
     page = new QStackedWidget(this);
     page->addWidget(table[0]);
-    page->setGeometry(39,360,887,150);
+    page->setGeometry(42,350,887,150);
     //表格标题设置
     ui->line_step->setStyleSheet("QLabel#line_step{background-color:rgb(200,200,200);border:none}");
     ui->line_temp->setStyleSheet("QLabel#line_temp{background-color:rgb(200,200,200);border:none}");
@@ -223,26 +234,27 @@ Output_Monitoring::Output_Monitoring(QWidget *parent) :
     ui->label_wt->setStyleSheet("QLabel#label_wt{color:rgb(53,87,54)}");
 
     //高低温保护 单位
-    ui->company_temp_label_1->setStyleSheet("QLabel#company_temp_label_1{color:rgb(255,201,14)}");
-    ui->company_temp_label_2->setStyleSheet("QLabel#company_temp_label_2{color:rgb(255,201,14)}");
+    ui->unit_temp_label_1->setStyleSheet("QLabel#unit_temp_label_1{color:rgb(255,201,14)}");
+    ui->unit_temp_label_2->setStyleSheet("QLabel#unit_temp_label_2{color:rgb(255,201,14)}");
 
     //高低温保护 各种输出的 edit
     ui->highTemp_protect_edit->setStyleSheet("QLineEdit#highTemp_protect_edit{border-radius:4px;"
                                              "border:2px solid rgb(203,230,200)}");
-    ui->highTemp_protect_edit->setText("20.20");
+    //ui->highTemp_protect_edit->setText("20.20");
     ui->lowTemp_protect_edit->setStyleSheet("QLineEdit#lowTemp_protect_edit{border-radius:4px;"
                                              "border:2px solid rgb(203,230,200)}");
-    ui->lowTemp_protect_edit->setText("-20.20");
+    //ui->lowTemp_protect_edit->setText("-20.20");
     ui->temp_output_edit->setStyleSheet("QLineEdit#temp_output_edit{border-radius:4px;"
                                         "border:2px solid rgb(203,230,200)}");
-    ui->temp_output_edit->setText("2.02");
+   // ui->temp_output_edit->setText("2.02");
     ui->humi_output_edit->setStyleSheet("QLineEdit#humi_output_edit{border-radius:4px;"
                                         "border:2px solid rgb(203,230,200)}");
-    ui->humi_output_edit->setText("2.02");
-    ui->servo_output_edit->setStyleSheet("QLineEdit#servo_output_edit{border-radius:4px;"
+    //ui->humi_output_edit->setText("2.02");
+    ui->server_output_edit->setStyleSheet("QLineEdit#server_output_edit{border-radius:4px;"
                                         "border:2px solid rgb(203,230,200)}");
-    ui->servo_output_edit->setText("2.02");
-
+    //ui->server_output_edit->setText("2.02");
+    ui->rapid_percent_edit->setStyleSheet("QLineEdit#rapid_percent_edit{border-radius:4px;"
+                                        "border:2px solid rgb(203,230,200)}");
     //StackWidget 上一页 下一页 编辑 跳段
     ui->previousPage_pbtn->setStyleSheet("QPushButton#previousPage_pbtn{color:white;"
                                          "background-color:rgb(7,75,34);"
@@ -269,7 +281,7 @@ Output_Monitoring::Output_Monitoring(QWidget *parent) :
 
     //progrem_name部分
     ui->program_name_edit->setStyleSheet("QLineEdit#program_name_edit{background:transparent;border:none}");
-    ui->program_name_edit->setText(program_name);
+    ui->program_name_edit->setText(run_program_name);
 
     //program_time部分
     ui->program_time_edit->setStyleSheet("QLineEdit#program_time_edit{background:transparent;border:none}");
@@ -279,12 +291,12 @@ Output_Monitoring::Output_Monitoring(QWidget *parent) :
     //period_time部分
     ui->period_time_edit->setStyleSheet("QLineEdit#period_time_edit{background:transparent;border:none}");
     ui->period_time_edit->setInputMask("0000:00:00/0000:00:00");
-    ui->period_time_edit->setText(period_time);
+    ui->period_time_edit->setText(segment_time);
 
     //estimate_time 部分
     ui->estimate_time_edit->setStyleSheet("QLineEdit#estimate_time_edit{background:transparent;border:none}");
     ui->estimate_time_edit->setInputMask("0000-00-00 00:00:00");
-    ui->estimate_time_edit->setText(estimate_time);
+    ui->estimate_time_edit->setText(estimate_end_time);
 
     //program_cycle部分
     ui->program_cycle_edit->setStyleSheet("QLineEdit#program_cycle_edit{background:transparent;border:none}");
@@ -294,7 +306,7 @@ Output_Monitoring::Output_Monitoring(QWidget *parent) :
     //program_run_period部分
     ui->program_run_period_edit->setStyleSheet("QLineEdit#program_run_period_edit{background:transparent;border:none}");
     ui->program_run_period_edit->setInputMask("000");
-    ui->program_run_period_edit->setText(program_run_period);
+    ui->program_run_period_edit->setText(program_run_segment);
 
     //program_link部分
     ui->program_link_edit->setStyleSheet("QLineEdit#program_link_edit{background:transparent;border:none}");
@@ -546,28 +558,28 @@ void Output_Monitoring::on_nextPage_pbtn_clicked()
 }
 
 /*
- * time: 2022-11-2
+ * time: 2022-10-28
  * type: Get
  * effect: 获取程式名称
- * influence: QString program_name
+ * influence: QString run_program_name
 */
 QString Output_Monitoring::getProgramName(){
-    return program_name;
+    return run_program_name;
 }
 
 /*
- * time: 2022-11-2
+ * time: 2022-10-28
  * type: Set
  * effect: 设定程式名称
- * influence: QString program_name
+ * influence: QString run_program_name
 */
 void Output_Monitoring::setProgramName(QString strs){
-    this->program_name = strs;
-    ui->program_name_edit->setText(program_name);
+    this->run_program_name = strs;
+    ui->program_name_edit->setText(run_program_name);
 }
 
 /*
- * time: 2022-11-2
+ * time: 2022-10-28
  * type: Get
  * effect: 获取程式时间
  * influence: QString program_time
@@ -577,27 +589,27 @@ QString Output_Monitoring::getProgramTime(){
 }
 
 /*
- * time: 2022-11-2
+ * time: 2022-10-28
  * type: Get
  * effect: 获取段时间
  * influence: QString period_time
 */
-QString Output_Monitoring::getPeriodTime(){
-    return period_time;
+QString Output_Monitoring::getSegmentTime(){
+    return segment_time;
 }
 
 /*
- * time: 2022-11-2
+ * time: 2022-10-28
  * type: Get
  * effect: 获取预完成时间
  * influence: QString estimate_time
 */
 QString Output_Monitoring::getEstimateTime(){
-    return estimate_time;
+    return estimate_end_time;
 }
 
 /*
- * time: 2022-11-2
+ * time: 2022-10-28
  * type: Get
  * effect: 获取循环
  * influence: QString program_cycle
@@ -607,17 +619,17 @@ QString Output_Monitoring::getProgramCycle(){
 }
 
 /*
- * time: 2022-11-2
+ * time: 2022-10-28
  * type: Get
  * effect: 获取运行段
  * influence: QString program_run_period
 */
-QString Output_Monitoring::getProgramRunPeriod(){
-    return program_run_period;
+QString Output_Monitoring::getProgramRunSegment(){
+    return program_run_segment;
 }
 
 /*
- * time: 2022-11-2
+ * time: 2022-10-28
  * type: Get
  * effect: 获取链接
  * influence: QString program_link
@@ -627,60 +639,57 @@ QString Output_Monitoring::getProgramLink(){
 }
 
 /*
- * time: 2022-11-2
+ * time: 2022-10-28
  * type: Set
  * effect: 设置段时间
  * influence: QString period_time
 */
-void Output_Monitoring::setPeriodTime(QString A,QString B){
-    this->period_time_A = A;
-    this->period_time_B = B;
-    ui->period_time_edit->setText(period_time);
+void Output_Monitoring::setSegmentTime(QString A,QString B){
+    this->segment_run_time = A;
+    this->segment_free_time = B;
+    ui->period_time_edit->setText(segment_time);
 }
-
-void Output_Monitoring::setPeriodTime_A(QString A){
-    this->period_time_A = A;
-    ui->period_time_edit->setText(period_time);
+void Output_Monitoring::setSegmentRunTime(QString A){
+    this->segment_run_time = A;
+    ui->period_time_edit->setText(segment_run_time);
 }
-
-void Output_Monitoring::setPeriodTime_B(QString B){
-    this->period_time_B = B;
-    ui->period_time_edit->setText(period_time);
+void Output_Monitoring::setSegmentFreeTime(QString B){
+    this->segment_free_time = B;
+    ui->period_time_edit->setText(segment_free_time);
 }
-
 /*
- * time: 2022-11-2
+ * time: 2022-10-28
  * type: Set
  * effect: 设置程序时间
  * influence: QString program_time
 */
 void Output_Monitoring::setProgramTime(QString A,QString B){
-    this->program_time_A = A;
-    this->program_time_B = B;
+    this->program_run_time = A;
+    this->program_free_time = B;
     ui->program_time_edit->setText(program_time);
 }
-void Output_Monitoring::setProgramTime_A(QString A){
-    this->program_time_A = A;
-    ui->program_time_edit->setText(program_time);
+void Output_Monitoring::setProgramRunTime(QString A){
+    this->program_run_time = A;
+    ui->program_time_edit->setText(program_run_time);
 }
-void Output_Monitoring::setProgramTime_B(QString B){
-    this->program_time_B = B;
-    ui->program_time_edit->setText(program_time);
+void Output_Monitoring::setProgramFreeTime(QString B){
+    this->program_free_time = B;
+    ui->program_time_edit->setText(program_free_time);
 }
 
 /*
- * time: 2022-11-2
+ * time: 2022-10-28
  * type: Set
  * effect: 设置预完成时间
  * influence: QString estimate_time
 */
-void Output_Monitoring::setEstimateTime(QString strs){
-    this->estimate_time = strs;
-    ui->estimate_time_edit->setText(estimate_time);
+void Output_Monitoring::setEstimateEndTime(QString strs){
+    this->estimate_end_time = strs;
+    ui->estimate_time_edit->setText(estimate_end_time);
 }
 
 /*
- * time: 2022-11-2
+ * time: 2022-10-28
  * type: Set
  * effect: 设置循环
  * influence: QString program_cycle
@@ -691,18 +700,18 @@ void Output_Monitoring::setProgramCycle(QString strs){
 }
 
 /*
- * time: 2022-11-2
+ * time: 2022-10-28
  * type: Set
  * effect: 设置运行段
  * influence: QString program_run_period
 */
-void Output_Monitoring::setProgramRunPeriod(QString strs){
-    this->program_run_period = strs;
-    ui->program_run_period_edit->setText(program_run_period);
+void Output_Monitoring::setProgramRunSegment(QString strs){
+    this->program_run_segment = strs;
+    ui->program_run_period_edit->setText(program_run_segment);
 }
 
 /*
- * time: 2022-11-2
+ * time: 2022-10-28
  * type: Set
  * effect: 设置链接
  * influence: QString program_link
@@ -746,85 +755,84 @@ void Output_Monitoring::outputMonitoring_sendTo_curveMonitoring(){
     emit outputMonitoring_to_curveMonitoring();
 }
 
-QString Output_Monitoring::getTemperturePV(){
-    return temperaturePV;
+QString Output_Monitoring::getTestTemperaturePV(){
+   return test_temperature_pv;
+}
+QString Output_Monitoring::getTestTemperatureSV(){
+    return test_temperature_sv;
+}
+void Output_Monitoring::setTestTemperaturePV(QString strs){
+    this->test_temperature_pv = strs;
+    ui->temperature_pv_edit->setText(test_temperature_pv);
+}
+void Output_Monitoring::setTestTemperatureSV(QString strs){
+    this->test_temperature_sv = strs;
+    ui->temperature_sv_edit->setText(strs);
 }
 
-QString Output_Monitoring::getTempertureSV(){
-    return temperatureSV;
-}
 
+
+/*
+ * time: 2024-3-21
+ * type: Get
+ * effect: 获取湿度
+ * influence: QString humidity_pv
+*/
 QString Output_Monitoring::getHumidityPV(){
-    return humidityPV;
+    return humidity_pv;
 }
-
 QString Output_Monitoring::getHumiditySV(){
-    return humiditySV;
+    return humidity_sv;
 }
-
-void Output_Monitoring::setTemperaturePV(QString strs){
-    this->temperaturePV = strs;
-    ui->temperature_pv_edit->setText(temperaturePV);
-}
-
-void Output_Monitoring::setTemperatureSV(QString strs){
-    this->temperatureSV = strs;
-    ui->temperature_sv_edit->setText(temperatureSV);
-}
-
 void Output_Monitoring::setHumidityPV(QString strs){
-    this->humidityPV = strs;
-    ui->humidity_pv_edit->setText(humidityPV);
+    this->humidity_pv = strs;
+    ui->humidity_pv_edit->setText(humidity_pv);
+}
+void Output_Monitoring::setHumiditySV(QString strs){
+    this->humidity_sv = strs;
+    ui->humidity_sv_edit->setText(humidity_sv);
 }
 
-void Output_Monitoring::setHumiditySV(QString strs){
-    this->humiditySV = strs;
-    ui->humidity_sv_edit->setText(humiditySV);
-}
 
 QString Output_Monitoring::getHighTempProtect(){
-    return highTempProtect;
+    return high_temperature_protect;
 }
 
 QString Output_Monitoring::getLowTempProtect(){
-    return lowTempProtect;
+    return low_temperature_protect;
+}
+QString Output_Monitoring::getTestTemperaturePercent(){
+    return test_temperature_heat_percent;
+}
+QString Output_Monitoring::getHumidityPercent(){
+    return humidity_heat_percent;
 }
 
-QString Output_Monitoring::getTemperatureOutput(){
-    return temperatureOutput;
-}
-
-QString Output_Monitoring::getHumidityOutput(){
-    return humidityOutput;
-}
-
-QString Output_Monitoring::getServoOutput(){
-    return servoOutput;
+QString Output_Monitoring::getServerPercent(){
+    return server_percent;
 }
 
 void Output_Monitoring::setHighTempProtect(QString strs){
-    this->highTempProtect = strs;
-    ui->highTemp_protect_edit->setText(highTempProtect);
+    this->high_temperature_protect = strs;
+    ui->highTemp_protect_edit->setText(high_temperature_protect);
 }
 
 void Output_Monitoring::setLowTempProtect(QString strs){
-    this->lowTempProtect = strs;
-    ui->lowTemp_protect_edit->setText(lowTempProtect);
+    this->low_temperature_protect = strs;
+    ui->lowTemp_protect_edit->setText(low_temperature_protect);
+}
+void Output_Monitoring::setTestTemperaturePercent(QString strs){
+    this->test_temperature_heat_percent = strs;
+    ui->temp_output_edit->setText(test_temperature_heat_percent);
+}
+void Output_Monitoring::setHumidityPercent(QString strs){
+    this->humidity_heat_percent = strs;
+    ui->humi_output_edit->setText(humidity_heat_percent);
 }
 
-void Output_Monitoring::setTemperatureOutput(QString strs){
-    this->temperatureOutput = strs;
-    ui->temp_output_edit->setText(temperatureOutput);
-}
-
-void Output_Monitoring::setHumidityOutput(QString strs){
-    this->humidityOutput = strs;
-    ui->humi_output_edit->setText(humidityOutput);
-}
-
-void Output_Monitoring::setServoOutput(QString strs){
-    this->servoOutput = strs;
-    ui->servo_output_edit->setText(servoOutput);
+void Output_Monitoring::setServerPercent(QString strs){
+    this->server_percent = strs;
+    ui->server_output_edit->setText(server_percent);
 }
 
 void Output_Monitoring::on_edit_pbtn_clicked()
@@ -898,6 +906,8 @@ void Output_Monitoring::deal_popUpWindow04WithoutDataSignals(int WIDTH,int HEIGH
 
 void Output_Monitoring::InitProgram(int ID,QString Name)
 {
+    ID = ID;
+    printf("—————Output_Monitorin———————InitProgram——————/n");
     ui->program_name_edit->setText(Name);
 }
 
@@ -932,4 +942,122 @@ void Output_Monitoring::freezeOneSec()
     ui->edit_pbtn->setEnabled(true);
     ui->loading_pbtn->setEnabled(true);
     ui->jumpping_pbtn->setEnabled(true);
+}
+
+void Output_Monitoring::idSetOutputInterfaceData(int addr_num, QString pv_or_sv){
+    addr_num = addr_num;
+    pv_or_sv = pv_or_sv;
+    QVector<lcd_show_data_f> lcd_show_data;
+    readComDBData(lcd_show_data);
+    qDebug()<<"lcd_show_data 107 :"<<lcd_show_data[107].str;
+    if (id_test_temperature_pv < lcd_show_data.size())
+    {
+        test_temperature_pv = lcd_show_data[id_test_temperature_pv].str;
+        ui->temperature_pv_edit->setText(test_temperature_pv);
+    }
+    if (id_test_temperature_sv < lcd_show_data.size())
+    {
+        test_temperature_sv = lcd_show_data[id_test_temperature_sv].str;
+        ui->temperature_sv_edit->setText(test_temperature_sv);
+    }
+    if (id_humidity_pv < lcd_show_data.size())
+    {
+        humidity_pv = lcd_show_data[id_humidity_pv].str;
+        ui->humidity_pv_edit->setText((humidity_pv));
+    }
+    if (id_humidity_sv < lcd_show_data.size())
+    {
+        humidity_sv = lcd_show_data[id_humidity_sv].str;
+        ui->humidity_sv_edit->setText((humidity_sv));
+    }
+
+    if (id_test_temperature_heat_percent < lcd_show_data.size())
+    {
+        test_temperature_heat_percent = lcd_show_data[id_test_temperature_heat_percent].str;
+        ui->temp_output_edit->setText(test_temperature_heat_percent);
+    }
+    if (id_humidity_heat_percent < lcd_show_data.size())
+    {
+        humidity_heat_percent = lcd_show_data[id_humidity_heat_percent].str;
+        ui->humi_output_edit->setText(humidity_heat_percent);
+    }
+    if (id_server_percent < lcd_show_data.size())
+    {
+        server_percent = lcd_show_data[id_server_percent].str;
+        ui->server_output_edit->setText(server_percent);
+    }
+    if (id_high_temperature_protect < lcd_show_data.size())
+    {
+        high_temperature_protect = lcd_show_data[id_high_temperature_protect].str;
+        ui->highTemp_protect_edit->setText(high_temperature_protect);
+    }
+    if (id_low_temperature_protect < lcd_show_data.size())
+    {
+        low_temperature_protect = lcd_show_data[id_low_temperature_protect].str;
+        ui->lowTemp_protect_edit->setText(low_temperature_protect);
+    }
+
+
+    if (id_run_program_name < lcd_show_data.size())
+    {
+        run_program_name = lcd_show_data[id_run_program_name].str;
+        ui->program_name_edit->setText(run_program_name);
+    }
+    if (id_program_time < lcd_show_data.size())
+    {
+        program_time = lcd_show_data[id_program_time].str;
+        ui->program_time_edit->setText(program_time);
+    }
+    if (id_segment_time < lcd_show_data.size())
+    {
+        segment_time = lcd_show_data[id_segment_time].str;
+        ui->period_time_edit->setText(segment_time);
+    }
+    if (id_estimate_end_time < lcd_show_data.size())
+    {
+        estimate_end_time = lcd_show_data[id_estimate_end_time].str;
+        ui->estimate_time_edit->setText(estimate_end_time);
+    }
+    if (id_program_cycle < lcd_show_data.size())
+    {
+        program_cycle = lcd_show_data[id_program_cycle].str;
+        ui->program_cycle_edit->setText(program_cycle);
+    }
+    if (id_program_run_segment < lcd_show_data.size())
+    {
+        program_run_segment = lcd_show_data[id_program_run_segment].str;
+        ui->program_run_period_edit->setText(program_run_segment);
+    }
+    if (id_program_link < lcd_show_data.size())
+    {
+        program_link = lcd_show_data[id_program_link].str;
+        ui->program_link_edit->setText(program_link);
+    }
+
+    if (id_ry_output1 < lcd_show_data.size())
+    {
+        ry_output1 = lcd_show_data[id_ry_output1].str;
+        ui->ry_output_edit_1->setText(ry_output1);
+    }
+    if (id_ry_output2 < lcd_show_data.size())
+    {
+        ry_output2 = lcd_show_data[id_ry_output2].str;
+        ui->ry_output_edit_2->setText(ry_output2);
+    }
+    if (id_ry_output3 < lcd_show_data.size())
+    {
+        ry_output3 = lcd_show_data[id_ry_output3].str;
+        ui->ry_output_edit_3->setText(ry_output3);
+    }
+    if (id_ry_output4 < lcd_show_data.size())
+    {
+        ry_output4 = lcd_show_data[id_ry_output4].str;
+        ui->ry_output_edit_4->setText(ry_output4);
+    }
+    if (id_ry_output5 < lcd_show_data.size())
+    {
+        ry_output5 = lcd_show_data[id_ry_output5].str;
+        ui->ry_output_edit_1->setText(ry_output5);
+    }
+
 }

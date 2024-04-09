@@ -1,6 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "sqliteoperator.h"
+#include "sql_generic_data.h"
+#include "server.h"
+
 #include <QMainWindow>
 #include <monitoring_interface.h>
 #include <QMutex>
@@ -18,9 +22,30 @@
 #include <userpasswordpage01.h>
 #include <userpasswordpage02.h>
 #include <userpasswordpage03.h>
+#include <internal_param_set.h>
 #include <canset.h>
 #include <data.h>
 #include <QThread>
+
+
+#define TEMP_EGO_PAGE			(13)				// 温度保护设置提示页
+#define MAIN_PAGE				(12)				// 主目录界面号
+#define STATE_MONITOR			(1)				// 监视界面号
+#define OUTPUT_MONITOR			(2)				// 输出监视号
+#define CURE_SHOW				(3)				// 曲线监视号
+#define PGM_EDIT				(4)				// 程式编辑号
+#define PGM_CYCLE				(5)				// 程式循环号
+#define FIXED_FUN				(6)				// 定点功能号
+#define PARAM_SET				(7)				// 参数设置号
+#define ERR_LOG_PAGE			(10)				// 错误记录号
+#define PGM_SLT_PAGE			(11)				//程式选择界面
+#define CLT_DATA_PAGE			(14)				// 多通道监视
+#define USER_PSD_PAGE1			(15)				// 用户密码界面1
+#define USER_PSD_PAGE2			(16)				// 用户密码界面2
+#define USER_PSD_PAGE3			(17)				// 用户密码界面3
+//#define LIST_PARAM_PAGE		(20)				// 列表式系统参数页
+#define TAB_PARAM_PAGE			(21)				// 表格式系统参数页
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -50,9 +75,11 @@ public:
     UserPasswordPage01 userPasswordPage01;
     UserPasswordPage02 userPasswordPage02;
     UserPasswordPage03 userPasswordPage03;
+    internal_param_set internal_param_set_page;
     CANSET canset_page;
     Data* readData01;
     Data* readData02;
+    Server serverTask;
     QThread* dataReadThread;
 
     void deal_monitoring_interface_to_mainwindow();
@@ -86,16 +113,19 @@ public:
     void deal_userPasswordPage03_to_userPasswordPage02();
     void deal_canset_to_mainWindow();
     void deal_canset_to_parameterSetting();
+    void deal_internalParamSet_to_mainWindow();
     //鼠标按下
-    void mousePressEvent(QMouseEvent *event);
-    //鼠标拖动
-    void mouseMoveEvent(QMouseEvent *event);
-    // 声明函数 setWidgetsEnabled()
-    void setWidgetsEnabled(QList<QWidget*> widgets, bool enabled);
+//    void mousePressEvent(QMouseEvent *event);
+//    //鼠标拖动
+//    void mouseMoveEvent(QMouseEvent *event);
+//    // 声明函数 setWidgetsEnabled()
+//    void setWidgetsEnabled(QList<QWidget*> widgets, bool enabled);
 
 
     //数据处理
-    void deal_temperdaturePv_update(QString);
+    void deal_updateInterfaceNumber(int,QString);
+    void deal_SQLInterfaceData_update(int ,QString);
+    void deal_CommInterfaceData_update(int,QString);
     void deal_curveData_update(int num,int size,QVector<QVector<double>> xdata,QVector<QVector<double>> data,QString startTime,double* dataInfo,QString* axisInfo,int status);
 
     void freezeOneSec();
@@ -107,7 +137,7 @@ private:
     int calculate_ID=0;
     int current_Page=-1;
     //鼠标移动时窗体与左上角的偏移
-    QPoint mOffset;
+    //QPoint mOffset;
 private slots:
     void currentTime();
     void on_pBtn_1_clicked();
@@ -119,6 +149,9 @@ private slots:
     void on_pBtn_7_clicked();
     void on_pBtn_8_clicked();
     void on_login_clicked();
+    void on_pBtn_1_pressed();
+
+
 signals:
     void InitDataThread01(int);
     void InitDataThread02(int);

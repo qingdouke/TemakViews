@@ -1,6 +1,9 @@
 #ifndef MONITORING_INTERFACE_H
 #define MONITORING_INTERFACE_H
 
+#include "sql_generic_data.h"
+#include "sqliteoperator.h"
+
 #include <QWidget>
 #include <QString>
 #include <QMap>
@@ -24,36 +27,43 @@ public:
     ~Monitoring_Interface();
 
     bool eventFilter(QObject *watched, QEvent *event);
-    QString getTemperaturePV();
-    QString getTemperatureSV();
-    QString getTemperaturePercent();
-    void setTemperaturePV(QString);
-    void setTemperatureSV(QString);
-    void setTemperaturePercent(QString);
+
+    void idSetMonitorInterfaceData(int, QString);
+    void addrSetMonitorInterfaceData(int, QString);
+
+    QString getTestTemperaturePV();
+    QString getTestTemperatureSV();
+    QString getTestTemperaturePercent();
+    void setTestTemperaturePV(QString);
+    void setTestTemperatureSV(QString);
+    void setTestTemperaturePercent(QString);
     QString getHumidityPV();
     QString getHumiditySV();
     QString getHumidityPercent();
     void setHumidityPV(QString);
     void setHumiditySV(QString);
     void setHumidityPercent(QString);
+
     QString getProgramName();
     QString getProgramTime();
-    QString getPeriodTime();
+    QString getSegmentTime();
     QString getEstimateTime();
     QString getProgramCycle();
-    QString getProgramRunPeriod();
+    QString getProgramRunSegment();
     QString getProgramLink();
     void setProgramName(QString);
     void setProgramTime(QString,QString);
-    void setProgramTime_A(QString);
-    void setProgramTime_B(QString);
-    void setPeriodTime(QString,QString);
-    void setPeriodTime_A(QString);
-    void setPeriodTime_B(QString);
-    void setEstimateTime(QString);
+    void setProgramRunTime(QString);
+    void setProgramFreeTime(QString);
+    void setSegmentTime(QString,QString);
+    void setSegmentRunTime(QString);
+    void setSegmentFreeTime(QString);
+    void setEstimateEndTime(QString);
     void setProgramCycle(QString);
-    void setProgramRunPeriod(QString);
+    void setProgramRunSegment(QString);
     void setProgramLink(QString);
+
+
     void monitoring_interface_sendTo_mainwindow();
     void monitoringInterface_sendTo_outputMonitoring();
     void LED_pBtn_clicked();
@@ -72,24 +82,34 @@ public:
     void freezeOneSec();
 private:
     Ui::Monitoring_Interface *ui;
+    QString monitor_page_title = "Monitor";
 
-    QString temperature_pv="12.12";
-    QString temperature_sv="13.13";
-    QString temperature_percent="0.00";
-    QString humidity_pv="24.24";
-    QString humidity_sv="25.25";
-    QString humidity_percent="0.00";
-    QString program_name="Viola";
-    QString program_time_A="0000:00:00";
-    QString program_time_B="0000:00:00";
-    QString program_time=program_time_A+"/"+program_time_B;
-    QString period_time_A="0000:00:00";
-    QString period_time_B="0000:00:00";
-    QString period_time=period_time_A+"/"+period_time_B;
-    QString estimate_time="2022-10-28 14:42:50";
-    QString program_cycle="0000/0000";
-    QString program_run_period="000";
-    QString program_link="003/000";
+    QString test_temperature_pv = "--.--";
+    QString test_temperature_sv = "--.--";
+    QString prec_temperature_pv = "--.--";
+    QString prec_temperature_sv = "--.--";
+    QString preh_temperature_pv = "--.--";
+    QString preh_temperature_sv = "--.--";
+    QString humidity_pv = "--.-";
+    QString humidity_sv = "--.-";
+    QString wet_temperature_pv = "--.-";
+    QString wet_temperature_sv = "--.-";
+
+    QString test_temperature_heat_percent = "--.-";
+    QString humidity_heat_percent = "--.-";
+
+    QString run_program_name = "--------";
+    QString program_run_time = "0000:00:00";
+    QString program_free_time = "0000:00:00";
+    QString program_time = program_run_time + "/" + program_free_time;
+    QString segment_run_time = "0000:00:00";
+    QString segment_free_time = "0000:00:00";
+    QString segment_time = segment_run_time + "/" + segment_free_time;
+    QString estimate_end_time = "2022-10-28 14:42:50";
+    QString program_cycle = "0000/0000";
+    QString program_run_segment = "000";
+    QString program_link = "003/000";
+
     bool isStart = false;
     int run_gif_currentBmp = 11;
     bool isLEDChecked = false;

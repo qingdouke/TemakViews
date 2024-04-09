@@ -1,17 +1,19 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "sqliteoperator.h"
+#include "sql_generic_data.h"
+#include "server.h"
 
 #include <QTimer>
 #include <QDateTime>
 #include <QDebug>
 #include <QMutexLocker>
 #include <QDataStream>
-#include <QMouseEvent>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-{
+{    
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
     //Header背景颜色
@@ -145,13 +147,18 @@ MainWindow::MainWindow(QWidget *parent)
     connect(&userPasswordPage02,&UserPasswordPage02::userPasswordPage02_to_userPasswordPage03,this,&MainWindow::deal_userPasswordPage02_to_userPasswordPage03);
     connect(&userPasswordPage03,&UserPasswordPage03::userPasswordPage03_to_mainWindow,this,&MainWindow::deal_userPasswordPage03_to_mainWindow);
     connect(&userPasswordPage03,&UserPasswordPage03::userPasswordPage03_to_userPasswordPage02,this,&MainWindow::deal_userPasswordPage03_to_userPasswordPage02);
+
     connect(&canset_page,&CANSET::canset_to_mainWindow,this,&MainWindow::deal_canset_to_mainWindow);
     connect(&canset_page,&CANSET::canset_to_parameterSetting,this,&MainWindow::deal_canset_to_parameterSetting);
+    connect(&internal_param_set_page,&internal_param_set::internalParamSet_to_mainWindow,this,&MainWindow::deal_internalParamSet_to_mainWindow);
 
     //请求使用虚拟键盘
+    printf("use calculate  key\n");
     connect(&monitoring_interface_page,&Monitoring_Interface::Request_Use_Calculate_Signal,this,&MainWindow::deal_RequestUseCalculateSignal);
     connect(&program_editing_page,&Program_Editing::Request_Use_Keyboard_Signal,this,&MainWindow::deal_RequestUseKeyBoardSignal);
     connect(&userPasswordPage01,&UserPasswordPage01::Request_Use_Keyboard_Signal,this,&MainWindow::deal_RequestUseKeyBoardSignal);
+    connect(&internal_param_set_page,&internal_param_set::Request_Use_Calculate_Signal,this,&MainWindow::deal_RequestUseCalculateSignal);
+    connect(&internal_param_set_page,&internal_param_set::Request_Use_Keyboard_Signal,this,&MainWindow::deal_RequestUseKeyBoardSignal);
 
     //数据处理
     connect(&monitoring_interface_page,&Monitoring_Interface::monitoring_interface_choose_program,this,&MainWindow::deal_ChooseProgramSignals);
@@ -161,8 +168,12 @@ MainWindow::MainWindow(QWidget *parent)
     //线程处理
     connect(this,&MainWindow::InitDataThread01,readData01,&Data::dataFunction);
     connect(this,&MainWindow::InitDataThread02,readData02,&Data::dataFunction);
-    connect(readData01,&Data::updateTemperaturePv,this,&MainWindow::deal_temperdaturePv_update);
-    connect(readData02,&Data::updateTemperaturePv,this,&MainWindow::deal_temperdaturePv_update);
+    connect(readData01,&Data::updateInterfaceNumberSignal,this,&MainWindow::deal_updateInterfaceNumber);
+    connect(readData02,&Data::updateInterfaceNumberSignal,this,&MainWindow::deal_updateInterfaceNumber);
+
+    //connect(readData01,&Data::sql_updateMonitorInterfaceDataSignal,this,&MainWindow::deal_SQLInterfaceData_update);
+    //connect(readData02,&Data::sql_updateMonitorInterfaceDataSignal,this,&MainWindow::deal_SQLInterfaceData_update);
+    connect(&serverTask,&Server::comm_updateInterfaceDataSignal,this,&MainWindow::deal_CommInterfaceData_update);
     connect(readData01,&Data::updateCurve,this,&MainWindow::deal_curveData_update);
     connect(readData02,&Data::updateCurve,this,&MainWindow::deal_curveData_update);
 }
@@ -199,8 +210,8 @@ void MainWindow::on_pBtn_1_clicked()
     //线程启动
     if(readData01->isRunning==false)
     {
-        readData02->isRunning = false;
         readData01->isRunning = true;
+        readData02->isRunning = false;        
         emit InitDataThread01(current_Page);
     }
     else
@@ -214,7 +225,12 @@ void MainWindow::on_pBtn_1_clicked()
 //    while(QTime::currentTime()<dieTime){
 //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 //    }
+    qDebug() <<"on_pBtn_1_clicked end";
     this->hide();
+}
+void MainWindow:: on_pBtn_1_pressed()
+{
+
 }
 
 /*
@@ -230,8 +246,8 @@ void MainWindow::deal_monitoring_interface_to_mainwindow(){
     current_Page=0;
     if(readData01->isRunning==false)
     {
-        readData02->isRunning = false;
         readData01->isRunning = true;
+        readData02->isRunning = false;        
         emit InitDataThread01(current_Page);
     }
     else
@@ -245,6 +261,7 @@ void MainWindow::deal_monitoring_interface_to_mainwindow(){
 //    while(QTime::currentTime()<dieTime){
 //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 //    }
+    qDebug() <<"deal_monitoring_interface_to_mainwindow end";
     monitoring_interface_page.hide();
 }
 
@@ -940,6 +957,27 @@ void MainWindow::deal_KeyboardEnter(){
 //            }
             this->hide();
         }
+        else
+            if(keyboardStrs == internal_param_set_page.getViewPassword())
+            {
+                QMutexLocker locker(&page_mutex);
+                internal_param_set_page.move(0,0);
+                internal_param_set_page.show();
+                current_Page = 21;
+                if(readData01->isRunning==false)
+                {
+                    readData02->isRunning = false;
+                    readData01->isRunning = true;
+                    emit InitDataThread01(current_Page);
+                }
+                else
+                {
+                    readData01->isRunning = false;
+                    readData02->isRunning = true;
+                    emit InitDataThread02(current_Page);
+                }
+                this->hide();
+            }
         else{
             popUpWindow07.setChinese("密码错误！");
             popUpWindow07.setEnglish("Password Error!");
@@ -971,13 +1009,27 @@ void MainWindow::deal_KeyboardEnter(){
 
 void MainWindow::deal_CalculateOk(){
     calculateStrs = calculate.get_strs();
-    double number = calculateStrs.toDouble();
+    int number = calculateStrs.toInt();
+    writeTouchDBData(1, 1,calculate_ID,number,calculateStrs, 1,"null",0,"null","null","null");
     switch (calculate_ID) {
-    case 1:
+    case 258:
     {
-        if(number>=-75&&number<=150)
+        if(number >= -100 && number <= 3000)
         {
-            monitoring_interface_page.setTemperatureSV(calculateStrs);
+            monitoring_interface_page.setTestTemperatureSV(calculateStrs);
+            monitoring_interface_page.setFocus();
+        }
+        else{
+            monitoring_interface_page.setFocus();
+        }
+        //monitoring_interface_page.setTemperatureSV("15.11");
+        break;
+    }
+    case 262:
+    {
+        if(number >= -100 && number <= 3000)
+        {
+            monitoring_interface_page.setHumiditySV(calculateStrs);
             monitoring_interface_page.setFocus();
         }
         else{
@@ -1064,6 +1116,7 @@ void MainWindow::deal_RequestUseKeyBoardSignal(int ID){
     }
     keyboard.move((this->width()-keyboard.width())/2,(this->height()-keyboard.height())/2);
     keyboard.show();
+    printf("string key id is %d\n",ID);
     current_ID = ID;
 }
 
@@ -1077,6 +1130,7 @@ void MainWindow::deal_RequestUseCalculateSignal(int ID){
     }
     calculate.move((this->width()-calculate.width())/2,(this->height()-calculate.height())/2);
     calculate.show();
+    printf("calculate key id is %d\n",ID);
     calculate_ID = ID;
 }
 
@@ -1310,50 +1364,127 @@ void MainWindow::deal_canset_to_parameterSetting()
 //    }
     canset_page.hide();
 }
-//鼠标按下
-void MainWindow::mousePressEvent(QMouseEvent *event)
+
+void MainWindow::deal_internalParamSet_to_mainWindow()
 {
-    mOffset =  event->globalPosition().toPoint() - this->pos();
+    QMutexLocker locker(&page_mutex);
+    this->show();
+    current_Page = 0;
+    if(readData01->isRunning==false)
+    {
+        readData02->isRunning = false;
+        readData01->isRunning = true;
+        emit InitDataThread01(current_Page);
+    }
+    else
+    {
+        readData01->isRunning = false;
+        readData02->isRunning = true;
+        emit InitDataThread02(current_Page);
+    }
+    this->freezeOneSec();
+//    QTime dieTime = QTime::currentTime().addMSecs(100);
+//    while(QTime::currentTime()<dieTime){
+//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+//    }
+    internal_param_set_page.hide();
+}
+////鼠标按下
+//void MainWindow::mousePressEvent(QMouseEvent *event)
+//{
+//    mOffset =  event->globalPosition().toPoint() - this->pos();
+//}
+
+////鼠标移动
+//void MainWindow::mouseMoveEvent(QMouseEvent *event)
+//{
+//    this->move(event->globalPosition().toPoint()-mOffset);
+//}
+
+void MainWindow::freezeOneSec()
+{
+    ui->pBtn_1->setEnabled(false);
+    ui->pBtn_2->setEnabled(false);
+    ui->pBtn_3->setEnabled(false);
+    ui->pBtn_4->setEnabled(false);
+    ui->pBtn_5->setEnabled(false);
+    ui->pBtn_6->setEnabled(false);
+    ui->pBtn_7->setEnabled(false);
+    ui->pBtn_8->setEnabled(false);
+    ui->pBtn_9->setEnabled(false);
+    ui->login->setEnabled(false);
+    QTime dieTime = QTime::currentTime().addMSecs(1000);
+    while(QTime::currentTime()<dieTime){
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    }
+    ui->login->setEnabled(false);
+    ui->pBtn_1->setEnabled(true);
+    ui->pBtn_2->setEnabled(true);
+    ui->pBtn_3->setEnabled(true);
+    ui->pBtn_4->setEnabled(true);
+    ui->pBtn_5->setEnabled(true);
+    ui->pBtn_6->setEnabled(true);
+    ui->pBtn_7->setEnabled(true);
+    ui->pBtn_8->setEnabled(true);
+    ui->pBtn_9->setEnabled(true);
 }
 
-//鼠标移动
-void MainWindow::mouseMoveEvent(QMouseEvent *event)
+
+void MainWindow::deal_updateInterfaceNumber(int addr,QString strs)
 {
-    this->move(event->globalPosition().toPoint()-mOffset);
+    serverTask.sendData(addr,strs);
 }
 
-void MainWindow::deal_temperdaturePv_update(QString strs)
+void MainWindow::deal_SQLInterfaceData_update(int id_num,QString data_strs)
 {
-    monitoring_interface_page.setTemperaturePV(strs);
+    switch(current_Page)
+    {
+    case STATE_MONITOR:     monitoring_interface_page.idSetMonitorInterfaceData(id_num , data_strs);   break;
+    case OUTPUT_MONITOR:    output_monitoring_page.idSetOutputInterfaceData(id_num , data_strs);         break;
+    case CURE_SHOW:         break;
+    case PGM_EDIT:          break;
+    case PGM_CYCLE:         break;
+    case FIXED_FUN:         break;
+    case PARAM_SET:         break;
+    case ERR_LOG_PAGE:      break;
+    case PGM_SLT_PAGE:      break;
+    case CLT_DATA_PAGE:     break;
+    case USER_PSD_PAGE1:    break;
+    case USER_PSD_PAGE2:    break;
+    case USER_PSD_PAGE3:    break;
+    case TAB_PARAM_PAGE:    break;
+    default: break;
+    }
 }
+
+void MainWindow::deal_CommInterfaceData_update(int addr_num,QString data_strs)
+{
+    qDebug() << QString("addr_num: %1").arg(addr_num);
+    qDebug() << QString("data_strs: %1").arg(data_strs);
+    qDebug() << QString("current_Page:%1").arg(current_Page);
+    switch(current_Page)
+    {
+    case STATE_MONITOR:     monitoring_interface_page.addrSetMonitorInterfaceData(addr_num , data_strs);   break;
+    case OUTPUT_MONITOR:    break;
+    case CURE_SHOW:         break;
+    case PGM_EDIT:          break;
+    case PGM_CYCLE:         break;
+    case FIXED_FUN:         break;
+    case PARAM_SET:         break;
+    case ERR_LOG_PAGE:      break;
+    case PGM_SLT_PAGE:      break;
+    case CLT_DATA_PAGE:     break;
+    case USER_PSD_PAGE1:    break;
+    case USER_PSD_PAGE2:    break;
+    case USER_PSD_PAGE3:    break;
+    case TAB_PARAM_PAGE:    break;
+    default: break;
+    }
+}
+
+
 
 void MainWindow::deal_curveData_update(int num, int size, QVector<QVector<double> > xdata, QVector<QVector<double> > data, QString startTime, double *dataInfo, QString *axisInfo, int status)
 {
     curve_monitoring_page.draw(num,size,xdata,data,startTime,dataInfo,axisInfo,status);
 }
-
-
-void MainWindow::setWidgetsEnabled(QList<QWidget*> widgets, bool enabled)
-{
-    foreach (QWidget *widget, widgets) {
-        widget->setEnabled(enabled);
-    }
-}
-
-void MainWindow::freezeOneSec()
-{
-    QList<QWidget*> widgetsToEnableDisable = {ui->pBtn_1, ui->pBtn_2, ui->pBtn_3, ui->pBtn_4,
-                                               ui->pBtn_5, ui->pBtn_6, ui->pBtn_7, ui->pBtn_8,
-                                               ui->pBtn_9, ui->login};
-    setWidgetsEnabled(widgetsToEnableDisable, false);
-
-    QTime dieTime = QTime::currentTime().addMSecs(1000);
-    while(QTime::currentTime() < dieTime){
-        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    }
-
-    setWidgetsEnabled(widgetsToEnableDisable, true);
-}
-
-
-

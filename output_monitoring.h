@@ -35,43 +35,51 @@ public:
     int ncount = 0;
     int nindex = 0;
 
-    QString getProgramName();
-    QString getProgramTime();
-    QString getPeriodTime();
-    QString getEstimateTime();
-    QString getProgramCycle();
-    QString getProgramRunPeriod();
-    QString getProgramLink();
-    void setProgramName(QString);
-    void setProgramTime_A(QString);
-    void setProgramTime_B(QString);
-    void setProgramTime(QString,QString);
-    void setPeriodTime_A(QString);
-    void setPeriodTime_B(QString);
-    void setPeriodTime(QString,QString);
-    void setEstimateTime(QString);
-    void setProgramCycle(QString);
-    void setProgramRunPeriod(QString);
-    void setProgramLink(QString);
-    void setTableItem(int,int,int,QString);
-    QString getTemperturePV();
-    QString getTempertureSV();
+    void idSetOutputInterfaceData(int, QString);
+
+    QString getTestTemperaturePV();
+    QString getTestTemperatureSV();
+    void setTestTemperaturePV(QString);
+    void setTestTemperatureSV(QString);
     QString getHumidityPV();
     QString getHumiditySV();
-    void setTemperaturePV(QString);
-    void setTemperatureSV(QString);
     void setHumidityPV(QString);
     void setHumiditySV(QString);
+
+    QString getProgramName();
+    QString getProgramTime();
+    QString getSegmentTime();
+    QString getEstimateTime();
+    QString getProgramCycle();
+    QString getProgramRunSegment();
+    QString getProgramLink();
+    void setProgramName(QString);
+    void setProgramTime(QString,QString);
+    void setProgramRunTime(QString);
+    void setProgramFreeTime(QString);
+    void setSegmentTime(QString,QString);
+    void setSegmentRunTime(QString);
+    void setSegmentFreeTime(QString);
+    void setEstimateEndTime(QString);
+    void setProgramCycle(QString);
+    void setProgramRunSegment(QString);
+    void setProgramLink(QString);
+
+    void setTableItem(int,int,int,QString);
+
+
     QString getHighTempProtect();
     QString getLowTempProtect();
-    QString getTemperatureOutput();
-    QString getHumidityOutput();
-    QString getServoOutput();
+    QString getTestTemperaturePercent();
+    QString getHumidityPercent();
+    QString getServerPercent();
+
     void setHighTempProtect(QString);
     void setLowTempProtect(QString);
-    void setTemperatureOutput(QString);
-    void setHumidityOutput(QString);
-    void setServoOutput(QString);
+    void setTestTemperaturePercent(QString);
+    void setHumidityPercent(QString);
+    void setServerPercent(QString);
+
     void setCurrentReceive(QString);
     void InitProgram(int,QString);
 
@@ -91,30 +99,46 @@ public:
 private:
     Ui::Output_Monitoring *ui;
 
-    QString temperaturePV="";
-    QString temperatureSV="";
-    QString humidityPV="";
-    QString humiditySV="";
-    QString highTempProtect="";
-    QString lowTempProtect="";
-    QString temperatureOutput="";
-    QString humidityOutput="";
-    QString servoOutput="";
-    QString program_name="Viola";
-    QString program_time_A="0000:00:00";
-    QString program_time_B="0000:00:00";
-    QString program_time=program_time_A+"/"+program_time_B;
-    QString period_time_A="0000:00:00";
-    QString period_time_B="0000:00:00";
-    QString period_time=period_time_A+"/"+period_time_B;
-    QString estimate_time="2022-10-28 14:42:50";
-    QString program_cycle="0000/0000";
-    QString program_run_period="000";
-    QString program_link="003/000";
-    QString H="0";
-    QString M="0";
-    QString S="0";
-    QString HMS=H+":"+M+":"+S;
+    QString test_temperature_pv = "--.--";
+    QString test_temperature_sv = "--.--";
+    QString prec_temperature_pv = "--.--";
+    QString prec_temperature_sv = "--.--";
+    QString preh_temperature_pv = "--.--";
+    QString preh_temperature_sv = "--.--";
+    QString humidity_pv = "--.-";
+    QString humidity_sv = "--.-";
+    QString wet_temperature_pv = "--.-";
+    QString wet_temperature_sv = "--.-";
+
+    QString high_temperature_protect = "--.-";
+    QString low_temperature_protect = "--.-";
+    QString test_temperature_heat_percent = "--.-";
+    QString humidity_heat_percent = "--.-";
+    QString server_percent = "--.-";
+
+    QString run_program_name = "--------";
+    QString program_run_time = "0000:00:00";
+    QString program_free_time = "0000:00:00";
+    QString program_time = program_run_time + "/" + program_free_time;
+    QString segment_run_time = "0000:00:00";
+    QString segment_free_time = "0000:00:00";
+    QString segment_time = segment_run_time + "/" + segment_free_time;
+    QString estimate_end_time = "2022-10-28 14:42:50";
+    QString program_cycle = "0000/0000";
+    QString program_run_segment = "000";
+    QString program_link = "003/000";
+
+    QString ry_output1;
+    QString ry_output2;
+    QString ry_output3;
+    QString ry_output4;
+    QString ry_output5;
+    QString ry_output6;
+
+    QString H = "0";
+    QString M = "0";
+    QString S = "0";
+    QString HMS = H+":"+M+":"+S;
     bool isRunning = false;
 
     PopUpWindow01 popUpWindow01;

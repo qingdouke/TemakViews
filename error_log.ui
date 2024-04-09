@@ -34,6 +34,7 @@
     <property name="font">
      <font>
       <pointsize>24</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -55,7 +56,9 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -77,12 +80,14 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>26</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
     <property name="text">
-     <string>故障记录</string>
+     <string>Sick Log</string>
     </property>
     <property name="textFormat">
      <enum>Qt::PlainText</enum>
@@ -239,7 +244,7 @@
    <widget class="QLabel" name="Errcode_label">
     <property name="geometry">
      <rect>
-      <x>550</x>
+      <x>660</x>
       <y>40</y>
       <width>121</width>
       <height>40</height>
@@ -311,7 +316,7 @@
    <widget class="QLabel" name="Cyc_label">
     <property name="geometry">
      <rect>
-      <x>670</x>
+      <x>660</x>
       <y>160</y>
       <width>121</width>
       <height>40</height>
@@ -329,7 +334,7 @@
    <widget class="QLabel" name="Link_label">
     <property name="geometry">
      <rect>
-      <x>930</x>
+      <x>910</x>
       <y>160</y>
       <width>71</width>
       <height>40</height>
@@ -349,7 +354,7 @@
      <rect>
       <x>160</x>
       <y>220</y>
-      <width>131</width>
+      <width>151</width>
       <height>40</height>
      </rect>
     </property>
@@ -360,24 +365,6 @@
     </property>
     <property name="text">
      <string>Free time:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="empty_label">
-    <property name="geometry">
-     <rect>
-      <x>430</x>
-      <y>220</y>
-      <width>16</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>20</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>:</string>
     </property>
    </widget>
    <widget class="QLabel" name="Hilimit_label">
@@ -401,7 +388,7 @@
    <widget class="QLabel" name="Iolimit_label">
     <property name="geometry">
      <rect>
-      <x>650</x>
+      <x>660</x>
       <y>270</y>
       <width>131</width>
       <height>40</height>
@@ -413,7 +400,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Iolimit:</string>
+     <string>Lolimit:</string>
     </property>
    </widget>
    <widget class="QLabel" name="Tpv_label">
@@ -581,7 +568,7 @@
    <widget class="QLabel" name="Svr_label">
     <property name="geometry">
      <rect>
-      <x>670</x>
+      <x>660</x>
       <y>520</y>
       <width>91</width>
       <height>40</height>
@@ -635,11 +622,12 @@
     </property>
     <property name="font">
      <font>
+      <family>微软雅黑</family>
       <pointsize>22</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>目  录</string>
+     <string>Menu</string>
     </property>
    </widget>
    <widget class="QPushButton" name="saving_pbtn">
@@ -653,11 +641,12 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>22</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>保存到U盘</string>
+     <string>Download</string>
     </property>
    </widget>
    <widget class="QPushButton" name="clear_log_pbtn">
@@ -671,11 +660,12 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>17</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>清空错误记录</string>
+     <string>ClearErrLog</string>
     </property>
    </widget>
    <widget class="QLabel" name="footer_line">

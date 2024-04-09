@@ -88,21 +88,31 @@ Program_Loop::Program_Loop(QWidget *parent) :
                             "background-color:rgb(173,199,160)}");
     ui->r4h1->setStyleSheet("QLabel#r4h1{border:1px solid rgb(200,200,200);"
                             "background-color:rgb(173,199,160)}");
-    ui->r1h2->setStyleSheet("QLineEdit#r1h2{background-color:white;"
+    ui->r1h1->setStyleSheet("QLineEdit#r1h1{background-color:white;"
                             "border:1px solid rgb(200,200,200);"
                             "color:orange}");
-    ui->r1h2->setText("1");
+    ui->r1h1->setText("1");
+    ui->r1h2->setStyleSheet("QLineEdit#r1h2{background-color:white;"
+                            "border:1px solid rgb(200,200,200);"
+                            "color:orange}");    
+    ui->r1h2->setText("2");
     ui->r1h3->setStyleSheet("QLineEdit#r1h3{background-color:white;"
                             "border:1px solid rgb(200,200,200);"
                             "color:orange}");
-    ui->r1h3->setText("2");
+    ui->r1h3->setText("3");
     ui->r1h4->setStyleSheet("QLineEdit#r1h4{background-color:white;"
                             "border:1px solid rgb(200,200,200);"
                             "color:orange}");
-    ui->r1h4->setText("3");
-    ui->r2h2->setStyleSheet("QLineEdit#r2h2{background-color:white;"
+    ui->r1h4->setText("4");
+
+    ui->r2h1->setStyleSheet("QLineEdit#r2h2{background-color:white;"
                             "border:1px solid rgb(200,200,200);"
                             "color:black}");
+    ui->r2h1->setInputMask("0");
+    ui->r2h1->setText(r2h1text);
+    ui->r2h2->setStyleSheet("QLineEdit#r2h2{background-color:white;"
+                            "border:1px solid rgb(200,200,200);"
+                            "color:black}");    
     ui->r2h2->setInputMask("0");
     ui->r2h2->setText(r2h2text);
     ui->r2h3->setStyleSheet("QLineEdit#r2h3{background-color:white;"
@@ -115,6 +125,11 @@ Program_Loop::Program_Loop(QWidget *parent) :
                             "color:black}");
     ui->r2h4->setInputMask("0");
     ui->r2h4->setText(r2h4text);
+    ui->r3h1->setStyleSheet("QLineEdit#r3h2{background-color:white;"
+                            "border:1px solid rgb(200,200,200);"
+                            "color:black}");
+    ui->r3h1->setInputMask("0");
+    ui->r3h1->setText(r3h1text);
     ui->r3h2->setStyleSheet("QLineEdit#r3h2{background-color:white;"
                             "border:1px solid rgb(200,200,200);"
                             "color:black}");
@@ -130,6 +145,11 @@ Program_Loop::Program_Loop(QWidget *parent) :
                             "color:black}");
     ui->r3h4->setInputMask("0");
     ui->r3h4->setText(r3h4text);
+    ui->r4h1->setStyleSheet("QLineEdit#r4h2{background-color:white;"
+                            "border:1px solid rgb(200,200,200);"
+                            "color:black}");
+    ui->r4h1->setInputMask("0");
+    ui->r4h1->setText(r4h1text);
     ui->r4h2->setStyleSheet("QLineEdit#r4h2{background-color:white;"
                             "border:1px solid rgb(200,200,200);"
                             "color:black}");
@@ -411,6 +431,16 @@ QString Program_Loop::getr4h4Text(){
 }
 
 /*
+ * time: 2024-1-18
+ * type: Set
+ * effect: Set函数
+ * influence: r2h1text
+*/
+void Program_Loop::setr2h1Text(QString strs){
+    r2h1text = strs;
+    ui->r2h1->setText(r2h1text);
+}
+/*
  * time: 2022-11-15
  * type: Set
  * effect: Set函数
@@ -432,6 +462,8 @@ void Program_Loop::setr2h3Text(QString strs){
     ui->r2h3->setText(r2h3text);
 }
 
+
+
 /*
  * time: 2022-11-15
  * type: Set
@@ -441,6 +473,17 @@ void Program_Loop::setr2h3Text(QString strs){
 void Program_Loop::setr2h4Text(QString strs){
     r2h4text = strs;
     ui->r2h4->setText(r2h4text);
+}
+
+/*
+ * time: 2024-1-18
+ * type: Set
+ * effect: Set函数
+ * influence: r3h1text
+*/
+void Program_Loop::setr3h1Text(QString strs){
+    r3h1text = strs;
+    ui->r3h1->setText(r3h1text);
 }
 
 /*
@@ -473,6 +516,17 @@ void Program_Loop::setr3h3Text(QString strs){
 void Program_Loop::setr3h4Text(QString strs){
     r3h4text = strs;
     ui->r3h4->setText(r3h4text);
+}
+
+/*
+ * time: 2024-1-18
+ * type: Set
+ * effect: Set函数
+ * influence: r4h1text
+*/
+void Program_Loop::setr4h1Text(QString strs){
+    r4h1text = strs;
+    ui->r4h1->setText(r4h1text);
 }
 
 /*
@@ -579,3 +633,4 @@ void Program_Loop::freezeOneSec()
     ui->next_page_pbtn->setEnabled(true);
     ui->saving_pbtn->setEnabled(true);
 }
+

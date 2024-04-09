@@ -1,6 +1,8 @@
 QT       += core gui sql printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += sql
+QT += network widgets
 
 CONFIG += c++11
 
@@ -33,7 +35,11 @@ SOURCES += \
     qcustomplot.cpp \
     userpasswordpage01.cpp \
     userpasswordpage02.cpp \
-    userpasswordpage03.cpp
+    userpasswordpage03.cpp \
+    internal_param_set.cpp \
+    sql_generic_data.cpp \
+    sqliteoperator.cpp \
+    server.cpp
 
 HEADERS += \
     calculate.h \
@@ -59,7 +65,11 @@ HEADERS += \
     qcustomplot.h \
     userpasswordpage01.h \
     userpasswordpage02.h \
-    userpasswordpage03.h
+    userpasswordpage03.h \
+    internal_param_set.h \
+    sqliteoperator.h \
+    sql_generic_data.h \
+    server.h
 
 FORMS += \
     calculate.ui \
@@ -83,8 +93,11 @@ FORMS += \
     program_loop.ui \
     userpasswordpage01.ui \
     userpasswordpage02.ui \
-    userpasswordpage03.ui
-
+    userpasswordpage03.ui \
+    internal_param_set.ui
+#! [0] #! [1]
+TRANSLATIONS = temak_cn.ts \
+               temak_tw.ts
 #LIBS += -ldl
 
 # Default rules for deployment.

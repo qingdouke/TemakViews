@@ -427,6 +427,7 @@ void Program_Editing::setChooseProgram(QString strs){
 
 void Program_Editing::setProgramName(QString strs){
     this->programName = strs;
+    printf("—————Program_Editing———————setProgramName——————/n");
     ui->program_name_edit->setText(programName);
 }
 
@@ -493,6 +494,7 @@ void Program_Editing::on_delete_program_pbtn_clicked()
 
 void Program_Editing::InitProgram(int ID, QString Name)
 {
+    printf("—————Program_Editing———————InitProgram——————/n");
     ui->program_name_edit->setText(Name);
     ui->choose_program_edit->setText(QString::number(ID));
 }

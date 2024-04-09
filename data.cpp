@@ -1,5 +1,7 @@
 #include "data.h"
 #include "qtimer.h"
+#include "sqliteoperator.h"
+#include "sql_generic_data.h"
 #include <QDebug>
 
 Data::Data(QObject *parent)
@@ -66,65 +68,43 @@ Data::Data(QObject *parent)
 Data::~Data(){
 //    sqlite3_close(pDb);
 }
-
+int count_data = 0;
 void Data::dataFunction(int pageID)
 {
-    switch (pageID) {
-    case 1:
-    {
-        while(isRunning)
+
+
+    while(isRunning)
+    {        
+        //qDebug()<<"current ID:"<<pageID;
+        ++count_data;
+        send_updateInterfaceNumber_signals(0x10,QString("%1").arg(pageID));
+        switch (pageID) {
+        case 1:
         {
-//            this->send_temperaturePv_signals();
-            qDebug()<<"current ID:"<<pageID;
-            QThread::msleep(1000);
+           emit sql_updateMonitorInterfaceDataSignal(101,"99");
+           break;
         }
-        break;
-    }
-    case 2:
-    {
-        while(isRunning)
+        case 2:
         {
-            qDebug()<<"current ID:"<<pageID;
-            QThread::msleep(1000);
+            emit sql_updateOutputInterfaceDataSignal(101,"99");
+            break;
         }
-        break;
-    }
-    case 3:
-    {
-        while(isRunning)
+        case 3:
         {
-//            this->send_curveData_signals();
-            qDebug()<<"current ID:"<<pageID;
-            QThread::msleep(1000);
+            break;
         }
-        break;
-    }
-    default:
-        qDebug()<<"UnkonwPageID!"<<"current ID:"<<pageID;
-        QThread::msleep(1000);
-        break;
+        default:
+            //qDebug()<<"UnkonwPageID!"<<"current ID:"<<pageID;
+            QThread::msleep(1000);
+            break;
+        }
+        QThread::msleep(1000);        
     }
 }
-
-//static int sql_callback(void *arg, int col, char **str, char **name)
-//{
-//    //恢复对象的类型
-//    Data *pDb = static_cast<Data *>(arg);
-//    pDb->callback_strs = str[0];
-//    return SQLITE_OK;
-//}
-
-void Data::send_temperaturePv_signals()
+void Data::send_updateInterfaceNumber_signals(int addr,QString pageID)
 {
-//    QString sql = "SELECT TPV FROM Base WHERE ID=1;";
-//    int res = sqlite3_exec(pDb,sql.toStdString().c_str(),sql_callback,this,nullptr);
-//    if(res!=SQLITE_OK){
-//        qDebug()<<"select faild......try restart......";
-//        QThread::msleep(100);
-//        return;
-//    }
-//    this->temperaturePv = callback_strs;
-    emit updateTemperaturePv(this->temperaturePv);
+
+    emit updateInterfaceNumberSignal(addr,pageID);
 }
 
 void Data::send_curveData_signals()

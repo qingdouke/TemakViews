@@ -1,9 +1,13 @@
 #include "monitoring_interface.h"
 #include "ui_monitoring_interface.h"
+#include "sql_generic_data.h"
+#include "sqliteoperator.h"
+//#include "qtimer.h"
 
 #include<QTimer>
 #include<QDateTime>
 #include <QDebug>
+
 
 Monitoring_Interface::Monitoring_Interface(QWidget *parent) :
     QWidget(parent),
@@ -20,7 +24,8 @@ Monitoring_Interface::Monitoring_Interface(QWidget *parent) :
 
     //Main背景颜色渐变
     ui->Main->setStyleSheet("QWidget#Main{background-color:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 white,stop:1 rgb(177,203,166))}");
-
+    //Header标题label初始化
+    //ui->title->setText(tr("Monitor"));
     //Header时间label初始化
     QDateTime datetime = QDateTime::currentDateTime();
     QString datetimestrs = datetime.toString("yyyy-MM-dd hh:mm:ss");
@@ -41,16 +46,16 @@ Monitoring_Interface::Monitoring_Interface(QWidget *parent) :
     ui->temperature_company_pv->setStyleSheet("QLabel#temperature_company_pv{color:rgb(255,201,14)}");
     ui->temperature_edit_pv->setStyleSheet("QLineEdit#temperature_edit_pv{color:red;border:none;background:transparent}");
     ui->temperature_edit_pv->setInputMask("xxxxxx");
-    ui->temperature_edit_pv->setText(temperature_pv);
+    ui->temperature_edit_pv->setText(test_temperature_pv);
     //temperature SV部分
     ui->temperature_edit_sv->setStyleSheet("QLineEdit#temperature_edit_sv{border:none;background:transparent}");
     ui->temperature_edit_sv->setInputMask("xxxxxx");
-    ui->temperature_edit_sv->setText(temperature_sv);
+    ui->temperature_edit_sv->setText(test_temperature_sv);
     //temperature 百分比部分
     ui->temperature_image->setStyleSheet("QLabel#temperature_image{background-image:url(:/Image/icon/temperature.png)}");
     ui->temperature_edit_percent->setStyleSheet("QLineEdit#temperature_edit_percent{border:none;background:transparent}");
     ui->temperature_edit_percent->setInputMask("xxxxxx");
-    ui->temperature_edit_percent->setText(temperature_percent);
+    ui->temperature_edit_percent->setText(test_temperature_heat_percent);
     //humidity PV部分
     ui->humidity_company_pv->setStyleSheet("QLabel#humidity_company_pv{color:rgb(255,201,14)}");
     ui->humidity_edit_pv->setStyleSheet("QLineEdit#humidity_edit_pv{color:blue;border:none;background:transparent}");
@@ -64,9 +69,9 @@ Monitoring_Interface::Monitoring_Interface(QWidget *parent) :
     ui->humidity_image->setStyleSheet("QLabel#humidity_image{background-image:url(:/Image/icon/humidity.png)}");
     ui->humidity_edit_percent->setStyleSheet("QLineEdit#humidity_edit_percent{border:none;background:transparent}");
     ui->humidity_edit_percent->setInputMask("xxxxxx");
-    ui->humidity_edit_percent->setText(humidity_percent);
+    ui->humidity_edit_percent->setText(humidity_heat_percent);
     //temperature_check_icon
-    ui->temperature_check_icon->setStyleSheet("QLabel#temperature_check_icon{background-image:url(:/Image/24/42.bmp)}");
+    //ui->temperature_check_icon->setStyleSheet("QLabel#temperature_check_icon{background-image:url(:/Image/24/42.bmp)}");
 
     //添加事件过滤器 处理焦点和光标
     ui->temperature_edit_pv->installEventFilter(this);
@@ -83,7 +88,7 @@ Monitoring_Interface::Monitoring_Interface(QWidget *parent) :
                                    "border-radius:20px}");
     //progrem_name部分
     ui->program_name_edit->setStyleSheet("QLineEdit#program_name_edit{background:transparent;border:none}");
-    ui->program_name_edit->setText(program_name);
+    ui->program_name_edit->setText(run_program_name);
     //program_time部分
     ui->program_time_edit->setStyleSheet("QLineEdit#program_time_edit{background:transparent;border:none}");
     ui->program_time_edit->setInputMask("xxxx:xx:xx/xxxx:xx:xx");
@@ -91,11 +96,11 @@ Monitoring_Interface::Monitoring_Interface(QWidget *parent) :
     //period_time部分
     ui->period_time_edit->setStyleSheet("QLineEdit#period_time_edit{background:transparent;border:none}");
     ui->period_time_edit->setInputMask("xxxx:xx:xx/xxxx:xx:xx");
-    ui->period_time_edit->setText(period_time);
+    ui->period_time_edit->setText(segment_time);
     //estimate_time 部分
     ui->estimate_time_edit->setStyleSheet("QLineEdit#estimate_time_edit{background:transparent;border:none}");
     ui->estimate_time_edit->setInputMask("xxxx-xx-xx xx:xx:xx");
-    ui->estimate_time_edit->setText(estimate_time);
+    ui->estimate_time_edit->setText(estimate_end_time);
     //program_cycle部分
     ui->program_cycle_edit->setStyleSheet("QLineEdit#program_cycle_edit{background:transparent;border:none}");
     ui->program_cycle_edit->setInputMask("xxxx/xxxx");
@@ -103,7 +108,7 @@ Monitoring_Interface::Monitoring_Interface(QWidget *parent) :
     //program_run_period部分
     ui->program_run_period_edit->setStyleSheet("QLineEdit#program_run_period_edit{background:transparent;border:none}");
     ui->program_run_period_edit->setInputMask("xxx");
-    ui->program_run_period_edit->setText(program_run_period);
+    ui->program_run_period_edit->setText(program_run_segment);
     //program_link部分
     ui->program_link_edit->setStyleSheet("QLineEdit#program_link_edit{background:transparent;border:none}");
     ui->program_link_edit->setInputMask("xxx/xxx");
@@ -179,6 +184,8 @@ Monitoring_Interface::Monitoring_Interface(QWidget *parent) :
 
     //数据处理
     connect(&popUpWindow04,&PopUpWindow04::popUpWindow04ButtonClickedSignals,this,&Monitoring_Interface::deal_popUpWindow04PushButtonClickedSignals);
+
+
 }
 
 
@@ -234,17 +241,19 @@ bool Monitoring_Interface::eventFilter(QObject *watched, QEvent *event)
     }
 
     //监听lineEdit
+
+
     if(watched == ui->temperature_edit_sv)
     {
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Calculate_Signal(1);
+            emit Request_Use_Calculate_Signal(258);
             ui->temperature_edit_sv->setFocus();
         }
     }
     else if(watched == ui->humidity_edit_sv)
     {
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Calculate_Signal(2);
+            emit Request_Use_Calculate_Signal(262);
             ui->humidity_edit_sv->setFocus();
         }
     }
@@ -255,42 +264,42 @@ bool Monitoring_Interface::eventFilter(QObject *watched, QEvent *event)
  * time: 2022-10-28
  * type: Get
  * effect: 获取温度PV
- * influence: QString temperature_pv
+ * influence: QString test_temperature_pv
 */
-QString Monitoring_Interface::getTemperaturePV(){
-    return temperature_pv;
+QString Monitoring_Interface::getTestTemperaturePV(){
+   return test_temperature_pv;
 }
-
+/*
+ * time: 2022-10-28
+ * type: Set
+ * effect: 设置温度PV
+ * influence: QString test_temperature_pv
+*/
+void Monitoring_Interface::setTestTemperaturePV(QString strs){
+    this->test_temperature_pv = strs;
+    ui->temperature_edit_pv->setText(test_temperature_pv);
+}
 /*
  * time: 2022-10-28
  * type: Get
  * effect: 获取温度SV
  * influence: QString temperature_sv
 */
-QString Monitoring_Interface::getTemperatureSV(){
-    return temperature_sv;
+QString Monitoring_Interface::getTestTemperatureSV(){
+    return test_temperature_sv;
 }
 
 /*
  * time: 2022-10-28
  * type: Get
  * effect: 获取温度百分比
- * influence: QString temperature_percent
+ * influence: QString test_temperature_heat_percent
 */
-QString Monitoring_Interface::getTemperaturePercent(){
-    return temperature_percent;
+QString Monitoring_Interface::getTestTemperaturePercent(){
+    return test_temperature_heat_percent;
 }
 
-/*
- * time: 2022-10-28
- * type: Set
- * effect: 设置温度PV
- * influence: QString temperature_pv
-*/
-void Monitoring_Interface::setTemperaturePV(QString strs){
-    this->temperature_pv = strs;
-    ui->temperature_edit_pv->setText(temperature_pv);
-}
+
 
 /*
  * time: 2022-10-28
@@ -298,9 +307,9 @@ void Monitoring_Interface::setTemperaturePV(QString strs){
  * effect: 设置温度SV
  * influence: QString temperature_sv
 */
-void Monitoring_Interface::setTemperatureSV(QString strs){
-    this->temperature_sv = strs;
-    ui->temperature_edit_sv->setText(temperature_sv);
+void Monitoring_Interface::setTestTemperatureSV(QString strs){
+    this->test_temperature_sv = strs;
+    ui->temperature_edit_sv->setText(strs);
 }
 
 /*
@@ -309,9 +318,9 @@ void Monitoring_Interface::setTemperatureSV(QString strs){
  * effect: 设置温度百分比
  * influence: QString temperature_percent
 */
-void Monitoring_Interface::setTemperaturePercent(QString strs){
-    this->temperature_percent = strs;
-    ui->temperature_edit_percent->setText(temperature_percent);
+void Monitoring_Interface::setTestTemperaturePercent(QString strs){
+    this->test_temperature_heat_percent = strs;
+    ui->temperature_edit_percent->setText(test_temperature_heat_percent);
 }
 
 /*
@@ -341,7 +350,7 @@ QString Monitoring_Interface::getHumiditySV(){
  * influence: QString humidity_percent
 */
 QString Monitoring_Interface::getHumidityPercent(){
-    return humidity_percent;
+    return humidity_heat_percent;
 }
 
 /*
@@ -373,29 +382,29 @@ void Monitoring_Interface::setHumiditySV(QString strs){
  * influence: QString humidity_percent
 */
 void Monitoring_Interface::setHumidityPercent(QString strs){
-    this->humidity_percent = strs;
-    ui->humidity_edit_percent->setText(humidity_percent);
+    this->humidity_heat_percent = strs;
+    ui->humidity_edit_percent->setText(humidity_heat_percent);
 }
 
 /*
  * time: 2022-10-28
  * type: Get
  * effect: 获取程式名称
- * influence: QString program_name
+ * influence: QString run_program_name
 */
 QString Monitoring_Interface::getProgramName(){
-    return program_name;
+    return run_program_name;
 }
 
 /*
  * time: 2022-10-28
  * type: Set
  * effect: 设定程式名称
- * influence: QString program_name
+ * influence: QString run_program_name
 */
 void Monitoring_Interface::setProgramName(QString strs){
-    this->program_name = strs;
-    ui->program_name_edit->setText(program_name);
+    this->run_program_name = strs;
+    ui->program_name_edit->setText(run_program_name);
 }
 
 /*
@@ -414,8 +423,8 @@ QString Monitoring_Interface::getProgramTime(){
  * effect: 获取段时间
  * influence: QString period_time
 */
-QString Monitoring_Interface::getPeriodTime(){
-    return period_time;
+QString Monitoring_Interface::getSegmentTime(){
+    return segment_time;
 }
 
 /*
@@ -425,7 +434,7 @@ QString Monitoring_Interface::getPeriodTime(){
  * influence: QString estimate_time
 */
 QString Monitoring_Interface::getEstimateTime(){
-    return estimate_time;
+    return estimate_end_time;
 }
 
 /*
@@ -444,8 +453,8 @@ QString Monitoring_Interface::getProgramCycle(){
  * effect: 获取运行段
  * influence: QString program_run_period
 */
-QString Monitoring_Interface::getProgramRunPeriod(){
-    return program_run_period;
+QString Monitoring_Interface::getProgramRunSegment(){
+    return program_run_segment;
 }
 
 /*
@@ -464,18 +473,18 @@ QString Monitoring_Interface::getProgramLink(){
  * effect: 设置段时间
  * influence: QString period_time
 */
-void Monitoring_Interface::setPeriodTime(QString A,QString B){
-    this->period_time_A = A;
-    this->period_time_B = B;
-    ui->period_time_edit->setText(period_time);
+void Monitoring_Interface::setSegmentTime(QString A,QString B){
+    this->segment_run_time = A;
+    this->segment_free_time = B;
+    ui->period_time_edit->setText(segment_time);
 }
-void Monitoring_Interface::setPeriodTime_A(QString A){
-    this->period_time_A = A;
-    ui->period_time_edit->setText(period_time);
+void Monitoring_Interface::setSegmentRunTime(QString A){
+    this->segment_run_time = A;
+    ui->period_time_edit->setText(segment_run_time);
 }
-void Monitoring_Interface::setPeriodTime_B(QString B){
-    this->period_time_B = B;
-    ui->period_time_edit->setText(period_time);
+void Monitoring_Interface::setSegmentFreeTime(QString B){
+    this->segment_free_time = B;
+    ui->period_time_edit->setText(segment_free_time);
 }
 /*
  * time: 2022-10-28
@@ -484,17 +493,17 @@ void Monitoring_Interface::setPeriodTime_B(QString B){
  * influence: QString program_time
 */
 void Monitoring_Interface::setProgramTime(QString A,QString B){
-    this->program_time_A = A;
-    this->program_time_B = B;
+    this->program_run_time = A;
+    this->program_free_time = B;
     ui->program_time_edit->setText(program_time);
 }
-void Monitoring_Interface::setProgramTime_A(QString A){
-    this->program_time_A = A;
-    ui->program_time_edit->setText(program_time);
+void Monitoring_Interface::setProgramRunTime(QString A){
+    this->program_run_time = A;
+    ui->program_time_edit->setText(program_run_time);
 }
-void Monitoring_Interface::setProgramTime_B(QString B){
-    this->program_time_B = B;
-    ui->program_time_edit->setText(program_time);
+void Monitoring_Interface::setProgramFreeTime(QString B){
+    this->program_free_time = B;
+    ui->program_time_edit->setText(program_free_time);
 }
 
 /*
@@ -503,9 +512,9 @@ void Monitoring_Interface::setProgramTime_B(QString B){
  * effect: 设置预完成时间
  * influence: QString estimate_time
 */
-void Monitoring_Interface::setEstimateTime(QString strs){
-    this->estimate_time = strs;
-    ui->estimate_time_edit->setText(estimate_time);
+void Monitoring_Interface::setEstimateEndTime(QString strs){
+    this->estimate_end_time = strs;
+    ui->estimate_time_edit->setText(estimate_end_time);
 }
 
 /*
@@ -525,9 +534,9 @@ void Monitoring_Interface::setProgramCycle(QString strs){
  * effect: 设置运行段
  * influence: QString program_run_period
 */
-void Monitoring_Interface::setProgramRunPeriod(QString strs){
-    this->program_run_period = strs;
-    ui->program_run_period_edit->setText(program_run_period);
+void Monitoring_Interface::setProgramRunSegment(QString strs){
+    this->program_run_segment = strs;
+    ui->program_run_period_edit->setText(program_run_segment);
 }
 
 /*
@@ -651,6 +660,8 @@ void Monitoring_Interface::deal_popUpWindow04WithoutDataSignals(int WIDTH,int HE
 
 void Monitoring_Interface::InitProgram(int ID,QString Name)
 {
+    printf("—————Monitoring_Interface———————InitProgram——————%d/n",ID);
+
     ui->program_name_edit->setText(Name);
 }
 
@@ -672,9 +683,10 @@ void Monitoring_Interface::freezeOneSec()
     ui->running_pBtn->setEnabled(false);
     ui->reset_pbth->setEnabled(false);
     QTime dieTime = QTime::currentTime().addMSecs(1000);
-    while(QTime::currentTime()<dieTime){
-        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    }
+    dieTime = dieTime;
+   // while(QTime::currentTime()<dieTime){  //此处会引发死循环，从而宕机
+     //   QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+   // }
     ui->font_page_pbtn->setEnabled(true);
     ui->next_page_pbtn->setEnabled(true);
     ui->LED_pbtn->setEnabled(true);
@@ -682,4 +694,150 @@ void Monitoring_Interface::freezeOneSec()
     ui->constant_value_running_pbtn->setEnabled(true);
     ui->running_pBtn->setEnabled(true);
     ui->reset_pbth->setEnabled(true);
+}
+
+void Monitoring_Interface::idSetMonitorInterfaceData(int id_num, QString data_string){
+    id_num = id_num;
+    data_string = data_string;
+    QVector<lcd_show_data_f> lcd_show_data;
+    readComDBData(lcd_show_data);
+    //qDebug()<<"lcd_show_data :"<<lcd_show_data[101].str;
+    if (id_test_temperature_pv < lcd_show_data.size())
+    {
+        test_temperature_pv = lcd_show_data[id_test_temperature_pv].str;
+        ui->temperature_edit_pv->setText(test_temperature_pv);
+    }
+    if (id_test_temperature_sv < lcd_show_data.size())
+    {
+        test_temperature_sv = lcd_show_data[id_test_temperature_sv].str;
+        ui->temperature_edit_sv->setText(test_temperature_sv);
+    }
+    if (id_humidity_pv < lcd_show_data.size())
+    {
+        humidity_pv = lcd_show_data[id_humidity_pv].str;
+        ui->humidity_edit_pv->setText((humidity_pv));
+    }
+    if (id_humidity_sv < lcd_show_data.size())
+    {
+        humidity_sv = lcd_show_data[id_humidity_sv].str;
+        ui->humidity_edit_sv->setText((humidity_sv));
+    }
+    if (id_test_temperature_heat_percent < lcd_show_data.size())
+    {
+        test_temperature_heat_percent = lcd_show_data[id_test_temperature_heat_percent].str;
+        ui->temperature_edit_percent->setText(test_temperature_heat_percent);
+    }
+    if (id_humidity_heat_percent < lcd_show_data.size())
+    {
+        humidity_heat_percent = lcd_show_data[id_humidity_heat_percent].str;
+        ui->humidity_edit_percent->setText(humidity_heat_percent);
+    }
+    if (id_run_program_name < lcd_show_data.size())
+    {
+        run_program_name = lcd_show_data[id_run_program_name].str;
+        ui->program_name_edit->setText(run_program_name);
+    }
+    if (id_program_time < lcd_show_data.size())
+    {
+        program_time = lcd_show_data[id_program_time].str;
+        ui->program_time_edit->setText(program_time);
+    }
+    if (id_segment_time < lcd_show_data.size())
+    {
+        segment_time = lcd_show_data[id_segment_time].str;
+        ui->period_time_edit->setText(segment_time);
+    }
+    if (id_estimate_end_time < lcd_show_data.size())
+    {
+        estimate_end_time = lcd_show_data[id_estimate_end_time].str;
+        ui->estimate_time_edit->setText(estimate_end_time);
+    }
+    if (id_program_cycle < lcd_show_data.size())
+    {
+        program_cycle = lcd_show_data[id_program_cycle].str;
+        ui->program_cycle_edit->setText(program_cycle);
+    }
+    if (id_program_run_segment < lcd_show_data.size())
+    {
+        program_run_segment = lcd_show_data[id_program_run_segment].str;
+        ui->program_run_period_label->setText(program_run_segment);
+    }
+    if (id_program_link < lcd_show_data.size())
+    {
+        program_link = lcd_show_data[id_program_link].str;
+        ui->program_link_edit->setText(program_link);
+    }
+}
+
+void Monitoring_Interface::addrSetMonitorInterfaceData(int addr_num, QString pv_or_sv){
+
+
+    qDebug() << QString("addrSetMonitorInterfaceData addr_num: %1").arg(addr_num);
+
+    if (addr_test_temperature_pv == addr_num)
+    {
+         qDebug() << QString("pv_or_sv: %1").arg(pv_or_sv);
+        test_temperature_pv = pv_or_sv;
+        ui->temperature_edit_pv->setText(test_temperature_pv);
+    }
+    if (addr_test_temperature_sv == addr_num)
+    {
+        test_temperature_sv = pv_or_sv;
+        ui->temperature_edit_sv->setText(test_temperature_sv);
+    }
+    if (addr_humidity_pv == addr_num)
+    {
+        humidity_pv = pv_or_sv;
+        ui->humidity_edit_pv->setText((humidity_pv));
+    }
+    if (addr_humidity_sv == addr_num)
+    {
+        humidity_sv = pv_or_sv;
+        ui->humidity_edit_sv->setText((humidity_sv));
+    }
+    if (addr_test_temperature_heat_percent == addr_num)
+    {
+        test_temperature_heat_percent = pv_or_sv;
+        ui->temperature_edit_percent->setText(test_temperature_heat_percent);
+    }
+    if (addr_humidity_heat_percent == addr_num)
+    {
+        humidity_heat_percent = pv_or_sv;
+        ui->humidity_edit_percent->setText(humidity_heat_percent);
+    }
+    if (addr_run_program_name == addr_num)
+    {
+        run_program_name = pv_or_sv;
+        ui->program_name_edit->setText(run_program_name);
+    }
+    if (addr_program_time == addr_num)
+    {
+        program_time = pv_or_sv;
+        ui->program_time_edit->setText(program_time);
+    }
+    if (addr_segment_time == addr_num)
+    {
+        segment_time = pv_or_sv;
+        ui->period_time_edit->setText(segment_time);
+    }
+    if (addr_estimate_end_time == addr_num)
+    {
+        estimate_end_time = pv_or_sv;
+        ui->estimate_time_edit->setText(estimate_end_time);
+    }
+    if (addr_program_cycle == addr_num)
+    {
+        program_cycle = pv_or_sv;
+        ui->program_cycle_edit->setText(program_cycle);
+    }
+    if (addr_program_run_segment == addr_num)
+    {
+        program_run_segment = pv_or_sv;
+        ui->program_run_period_label->setText(program_run_segment);
+    }
+    if (addr_program_link == addr_num)
+    {
+        program_link = pv_or_sv;
+        ui->program_link_edit->setText(program_link);
+    }
 }

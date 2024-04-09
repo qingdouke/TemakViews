@@ -11,8 +11,8 @@ CANSET::CANSET(QWidget *parent) :
     ui(new Ui::CANSET)
 {
     ui->setupUi(this);
-    setWindowFlags(Qt::FramelessWindowHint);
-    this->move(0,0);
+    setWindowFlags(Qt::FramelessWindowHint); //设置为无边框
+    this->move(0,0); // 窗口移动到屏幕的左上角位置(0,0)
 
     //Header背景颜色
     ui->Header->setStyleSheet("QWidget#Header{background-color:rgb(72,129,52)}");

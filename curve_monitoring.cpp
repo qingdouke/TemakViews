@@ -517,6 +517,9 @@ void Curve_Monitoring::freezeOneSec()
  */
 void Curve_Monitoring::draw(int num,int size,QVector<QVector<double>> xdata,QVector<QVector<double>> data,QString startTime,double* dataInfo,QString* axisInfo,int status)
 {
+    startTime = startTime;
+    axisInfo = axisInfo;
+    size = size;
     switch (status) {
     case 1:
     {
