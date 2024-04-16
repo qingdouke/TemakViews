@@ -174,6 +174,8 @@ MainWindow::MainWindow(QWidget *parent)
     //connect(readData01,&Data::sql_updateMonitorInterfaceDataSignal,this,&MainWindow::deal_SQLInterfaceData_update);
     //connect(readData02,&Data::sql_updateMonitorInterfaceDataSignal,this,&MainWindow::deal_SQLInterfaceData_update);
     connect(&serverTask,&Server::comm_updateInterfaceDataSignal,this,&MainWindow::deal_CommInterfaceData_update);
+    connect(&tcpServerTask,&tcpServer::comm_updateInterfaceDataSignal,this,&MainWindow::deal_CommInterfaceData_update);
+
     connect(readData01,&Data::updateCurve,this,&MainWindow::deal_curveData_update);
     connect(readData02,&Data::updateCurve,this,&MainWindow::deal_curveData_update);
 }

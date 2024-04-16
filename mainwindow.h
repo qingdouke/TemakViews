@@ -4,6 +4,7 @@
 #include "sqliteoperator.h"
 #include "sql_generic_data.h"
 #include "server.h"
+#include "tcp_server.h"
 
 #include <QMainWindow>
 #include <monitoring_interface.h>
@@ -80,6 +81,7 @@ public:
     Data* readData01;
     Data* readData02;
     Server serverTask;
+    tcpServer tcpServerTask;
     QThread* dataReadThread;
 
     void deal_monitoring_interface_to_mainwindow();

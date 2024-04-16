@@ -3,9 +3,7 @@
 
 #include <stdlib.h>
 
-#include "server.h"
-#include <qlocalserver.h>
-#include <qlocalsocket.h>
+#include "tcp_server.h"
 #include <QDebug>
 #include <iostream>
 #include <vector>
@@ -13,25 +11,29 @@
 #include <QCoreApplication>
 #include <QStringList>
 #include <QDebug>
+#include <QtNetwork/QTcpServer>
+#include <QtNetwork/QTcpSocket>
 
-Server::Server(QWidget *parent)
+tcpServer::tcpServer(QWidget *parent)
     : QDialog(parent)
 {
     connect_flag = 0;
-    server = new QLocalServer(this);
-    if (!server->listen("tmk_hmi_server")) {
-        QMessageBox::critical(this, QString("tmk_hmi_server Server"),
-                              QString("Unable to start the server: %1.")
-                              .arg(server->errorString()));
+    tcp_server = new QTcpServer(this);
+
+    if (!tcp_server->listen(QHostAddress::LocalHost, 12345)) {
+        QMessageBox::critical(this, "Server",
+                              "Unable to start the server: " + tcp_server->errorString());
         close();
         return;
     }
-    qDebug() << QString("connect slot");
-    connect(server, SIGNAL(newConnection()),this,SLOT(createConnection()));
 
+    qDebug() << "Server started on IP: " << tcp_server->serverAddress().toString()
+             << " and Port " << tcp_server->serverPort();
+
+    connect(tcp_server, SIGNAL(newConnection()), this, SLOT(createConnection()));
 }
-int send_count = 0;
-void Server::sendData(int addr,QString strs)
+int tcp_send_count = 0;
+void tcpServer::sendData(int addr,QString strs)
 {
     if(1 == connect_flag)
     {
@@ -39,24 +41,24 @@ void Server::sendData(int addr,QString strs)
         QDataStream out(&block, QIODevice::WriteOnly);
         out.setVersion(QDataStream::Qt_4_0);
         out << (quint32)0;
-        if(++send_count > 10000)
-            send_count = 0;
-        //qDebug() << QString("send data send count is %1").arg(send_count);
+        if(++tcp_send_count > 10000)
+            tcp_send_count = 0;
+        //qDebug() << QString("send data send count is %1").arg(tcp_send_count);
         out << QString("send%1:%2").arg(addr).arg(strs);
         out.device()->seek(0);
         out << (quint32)(block.size() - sizeof(quint32));
-        socket->write(block);
+        tcp_socket->write(block);
     }
 }
-void Server::recvData()
+void tcpServer::recvData()
 {
-    QByteArray rcv_data = socket->readAll();
+    QByteArray rcv_data = tcp_socket->readAll();
     qDebug()<<"rcv_data:"<<rcv_data;
     getSocketData(&rcv_data);
     //clentLineEdit->setText(QString("getdata:%1").arg(QString(rcv_data)));
 }
 
-void Server::createConnection()
+void tcpServer::createConnection()
 {
 
     QByteArray block;
@@ -68,31 +70,31 @@ void Server::createConnection()
     out << QString("discover new connection");
     out.device()->seek(0);
     out << (quint32)(block.size() - sizeof(quint32));
-    socket = server->nextPendingConnection();
-    connect(socket, SIGNAL(readyRead()), this, SLOT(recvData()));
+    tcp_socket = tcp_server->nextPendingConnection();
+    connect(tcp_socket, SIGNAL(readyRead()), this, SLOT(recvData()));
     //connect(sendButton,SIGNAL(clicked()),this,SLOT(sendData()));
-    socket->write(block);
-    socket->flush();
+    tcp_socket->write(block);
+    tcp_socket->flush();
     qDebug() << QString("connect start");
     connect_flag = 1;
 }
 
-void Server::endConnection()
+void tcpServer::endConnection()
 {
-    socket->flush();
+    tcp_socket->flush();
     //qDebug() << QString("send end");
     qDebug() << QString("disconnectFromServer");
-    socket->disconnectFromServer();
+    //tcp_socket->disconnectFromServer();
 }
 
 
-bool Server::isNumberValid(const QString& number) {
+bool tcpServer::isNumberValid(const QString& number) {
     bool ok;
     number.toInt(&ok);
     return ok;
 }
 
-QVector<QString> Server:: extractNumbers(QString input) {
+QVector<QString> tcpServer::extractNumbers(QString input) {
     QVector<QString> numbers;
     QStringList stringList = input.split(',');
     foreach (const QString& str, stringList) {
@@ -110,7 +112,7 @@ QVector<QString> Server:: extractNumbers(QString input) {
 **           无
 ** 返回值  ：TRUE:处理成功，FALSE:处理失败
 *********************************************************************************************************/
-bool Server:: getSocketData(QByteArray* socketbuf)
+bool tcpServer:: getSocketData(QByteArray* socketbuf)
 {
     int start_addr;
     QString text_addr;

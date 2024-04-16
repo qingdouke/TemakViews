@@ -39,7 +39,8 @@ SOURCES += \
     internal_param_set.cpp \
     sql_generic_data.cpp \
     sqliteoperator.cpp \
-    server.cpp
+    server.cpp \
+    tcp_server.cpp
 
 HEADERS += \
     calculate.h \
@@ -69,7 +70,8 @@ HEADERS += \
     internal_param_set.h \
     sqliteoperator.h \
     sql_generic_data.h \
-    server.h
+    server.h \
+    tcp_server.h
 
 FORMS += \
     calculate.ui \

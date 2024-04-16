@@ -1,25 +1,25 @@
-#ifndef SERVER_H
-#define SERVER_H
+#ifndef TCP_SERVER_H
+#define TCP_SERVER_H
 
 #include <QDialog>
-#include <qlocalserver.h>
-#include <qlocalsocket.h>
+#include <QtNetwork/QTcpServer>
+#include <QtNetwork/QTcpSocket>
 
 
 QT_BEGIN_NAMESPACE
 class QLabel;
 class QPushButton;
-class QLocalServer;
+class QTcpServer;
 class QLineEdit;
 
 QT_END_NAMESPACE
 
-class Server : public QDialog
+class tcpServer : public QDialog
 {
     Q_OBJECT
 
 public:
-    Server(QWidget *parent = 0);
+    tcpServer(QWidget *parent = 0);
     int connect_flag;
     void sendData(int,QString);
 private slots:
@@ -32,8 +32,8 @@ private slots:
 private:
     int send_count;
     int recv_count;
-    QLocalServer *server;
-    QLocalSocket *socket;
+    QTcpServer *tcp_server;
+    QTcpSocket *tcp_socket;
 signals:
     void updateInterfaceNumberSignal(int,QString);
     void comm_updateInterfaceDataSignal(int,QString);
