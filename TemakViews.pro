@@ -17,6 +17,7 @@ SOURCES += \
     data.cpp \
     error_log.cpp \
     fixed_value_setting.cpp \
+    general_tools.cpp \
     keyboard.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -49,6 +50,7 @@ HEADERS += \
     data.h \
     error_log.h \
     fixed_value_setting.h \
+    general_tools.h \
     keyboard.h \
     mainwindow.h \
     monitoring_interface.h \

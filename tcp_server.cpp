@@ -50,11 +50,37 @@ void tcpServer::sendData(int addr,QString strs)
         tcp_socket->write(block);
     }
 }
+QByteArray m_buffer_car;
 void tcpServer::recvData()
 {
-    QByteArray rcv_data = tcp_socket->readAll();
-    qDebug()<<"rcv_data:"<<rcv_data;
-    getSocketData(&rcv_data);
+    if(tcp_socket->bytesAvailable() <=0)
+        return;
+    QByteArray buffer = tcp_socket->readAll();
+    m_buffer_car.append(buffer);
+    qDebug()<<"rcv_data:"<<m_buffer_car;
+    while (m_buffer_car.size() > 17) {
+
+        int startIndex = m_buffer_car.indexOf("Send");
+        if (startIndex == -1) {
+            // 如果没有找到符合条件的起始字符串，则退出循环
+            m_buffer_car.clear();
+            break;
+        }
+
+        // 查找第一个符合条件的结束字符串 "SendEnd"
+        int endIndex = m_buffer_car.indexOf("SendEnd", startIndex);
+        if (endIndex == -1) {
+            // 如果没有找到符合条件的结束字符串，则退出循环
+            break;
+        }
+
+        // 提取符合条件的字符串并进行处理
+        QByteArray extractedData = m_buffer_car.mid(startIndex, endIndex - startIndex + 7); // 加上 "SendEnd" 的长度
+        qDebug() << "Extracted data:" << extractedData;
+        getSocketData(&extractedData);
+        // 清除提取的字符串
+        m_buffer_car.remove(0, endIndex + 7); // 加上 "SendEnd" 的长度
+    }
     //clentLineEdit->setText(QString("getdata:%1").arg(QString(rcv_data)));
 }
 
@@ -72,7 +98,6 @@ void tcpServer::createConnection()
     out << (quint32)(block.size() - sizeof(quint32));
     tcp_socket = tcp_server->nextPendingConnection();
     connect(tcp_socket, SIGNAL(readyRead()), this, SLOT(recvData()));
-    //connect(sendButton,SIGNAL(clicked()),this,SLOT(sendData()));
     tcp_socket->write(block);
     tcp_socket->flush();
     qDebug() << QString("connect start");
@@ -118,9 +143,10 @@ bool tcpServer:: getSocketData(QByteArray* socketbuf)
     QString text_addr;
     QVector<QString> numbers;
     QString saveBuf = *socketbuf;
-    if(socketbuf->startsWith("SendData"))
+    if((socketbuf->startsWith("SendData")) && (socketbuf->endsWith("SendEnd")))
     {
         saveBuf.remove(0,8);
+        saveBuf.remove(saveBuf.length() - 7 ,7);
         numbers = extractNumbers(saveBuf);
         text_addr = numbers[0];
 
@@ -142,9 +168,10 @@ bool tcpServer:: getSocketData(QByteArray* socketbuf)
 
 
     }else
-        if(socketbuf->startsWith("SendText"))
+        if((socketbuf->startsWith("SendText"))&& (socketbuf->endsWith("SendEnd")))
         {
             saveBuf.remove(0,8);
+            saveBuf.remove(saveBuf.length() - 7 ,7);
             QStringList parts = saveBuf.split(",");
             text_addr = parts[0];
             if(isNumberValid(text_addr))
@@ -156,8 +183,6 @@ bool tcpServer:: getSocketData(QByteArray* socketbuf)
             {
                 return false;
             }
-
-
         }else
         {
             return false;

@@ -2,7 +2,7 @@
 #include "ui_monitoring_interface.h"
 #include "sql_generic_data.h"
 #include "sqliteoperator.h"
-//#include "qtimer.h"
+#include "general_tools.h"
 
 #include<QTimer>
 #include<QDateTime>
@@ -776,8 +776,8 @@ void Monitoring_Interface::addrSetMonitorInterfaceData(int addr_num, QString pv_
 
     if (addr_test_temperature_pv == addr_num)
     {
-         qDebug() << QString("pv_or_sv: %1").arg(pv_or_sv);
-        test_temperature_pv = pv_or_sv;
+        qDebug() << QString("pv_or_sv: %1").arg(pv_or_sv);
+        test_temperature_pv = convertToDecimalString(pv_or_sv,2);
         ui->temperature_edit_pv->setText(test_temperature_pv);
     }
     if (addr_test_temperature_sv == addr_num)

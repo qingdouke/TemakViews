@@ -8,10 +8,7 @@
 Data::Data(QObject *parent)
     : QObject{parent}
 {
-//    int res = sqlite3_open("/test/first.db",&pDb);
-//    if(res != SQLITE_OK){
-//        qDebug()<<"sqlite open faild......";
-//    }
+
     //测试曲线
     num = 12;
     size = 1000;
