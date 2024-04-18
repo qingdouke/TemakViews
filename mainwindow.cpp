@@ -1013,25 +1013,25 @@ void MainWindow::deal_CalculateOk(){
     calculateStrs = calculate.get_strs();
     int number = calculateStrs.toInt();
     writeTouchDBData(1, 1,calculate_ID,number,calculateStrs, 1,"null",0,"null","null","null");
+    tcpServerTask.sendData(calculate_ID,calculateStrs);
     switch (calculate_ID) {
     case 258:
     {
-        if(number >= -100 && number <= 3000)
+        if(number >= -1000 && number <= 30000)
         {
-            monitoring_interface_page.setTestTemperatureSV(calculateStrs);
+            //monitoring_interface_page.setTestTemperatureSV(calculateStrs);
             monitoring_interface_page.setFocus();
         }
         else{
             monitoring_interface_page.setFocus();
         }
-        //monitoring_interface_page.setTemperatureSV("15.11");
         break;
     }
     case 262:
     {
-        if(number >= -100 && number <= 3000)
+        if(number >= -10000 && number <= 30000)
         {
-            monitoring_interface_page.setHumiditySV(calculateStrs);
+            //monitoring_interface_page.setHumiditySV(calculateStrs);
             monitoring_interface_page.setFocus();
         }
         else{

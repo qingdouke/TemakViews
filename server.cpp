@@ -41,7 +41,6 @@ void Server::sendData(int addr,QString strs)
         out << (quint32)0;
         if(++send_count > 10000)
             send_count = 0;
-        //qDebug() << QString("send data send count is %1").arg(send_count);
         out << QString("send%1:%2").arg(addr).arg(strs);
         out.device()->seek(0);
         out << (quint32)(block.size() - sizeof(quint32));
@@ -53,12 +52,11 @@ void Server::recvData()
     QByteArray rcv_data = socket->readAll();
     qDebug()<<"rcv_data:"<<rcv_data;
     getSocketData(&rcv_data);
-    //clentLineEdit->setText(QString("getdata:%1").arg(QString(rcv_data)));
 }
 
 void Server::createConnection()
 {
-
+    /*
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_4_0);
@@ -74,7 +72,7 @@ void Server::createConnection()
     socket->write(block);
     socket->flush();
     qDebug() << QString("connect start");
-    connect_flag = 1;
+    connect_flag = 1;*/
 }
 
 void Server::endConnection()
