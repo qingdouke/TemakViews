@@ -56,6 +56,7 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
       <weight>75</weight>
       <bold>true</bold>
@@ -79,13 +80,14 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>26</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
     <property name="text">
-     <string>程式编辑</string>
+     <string>Pgm Edit</string>
     </property>
     <property name="textFormat">
      <enum>Qt::PlainText</enum>
@@ -104,46 +106,53 @@
      <height>660</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>思源黑体</family>
+    </font>
+   </property>
    <widget class="QLabel" name="choose_program_label">
     <property name="geometry">
      <rect>
-      <x>910</x>
+      <x>900</x>
       <y>110</y>
-      <width>91</width>
+      <width>101</width>
       <height>25</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>选择程式：</string>
+     <string>PgmNumb：</string>
     </property>
    </widget>
    <widget class="QLabel" name="program_name_label">
     <property name="geometry">
      <rect>
-      <x>910</x>
+      <x>900</x>
       <y>180</y>
-      <width>91</width>
+      <width>101</width>
       <height>25</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>程式名称：</string>
+     <string>PgmName：</string>
     </property>
    </widget>
    <widget class="QLabel" name="highTemp_protect_label">
     <property name="geometry">
      <rect>
-      <x>910</x>
+      <x>900</x>
       <y>250</y>
       <width>91</width>
       <height>25</height>
@@ -151,17 +160,18 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>高温保护：</string>
+     <string>HiLimit：</string>
     </property>
    </widget>
    <widget class="QLabel" name="lowTemp_protect_label">
     <property name="geometry">
      <rect>
-      <x>910</x>
+      <x>900</x>
       <y>320</y>
       <width>91</width>
       <height>25</height>
@@ -169,11 +179,12 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>低温保护：</string>
+     <string>LoLimit：</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="choose_program_edit">
@@ -292,6 +303,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>14</pointsize>
       </font>
      </property>
@@ -326,6 +338,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>14</pointsize>
       </font>
      </property>
@@ -360,6 +373,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>14</pointsize>
       </font>
      </property>
@@ -394,6 +408,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>14</pointsize>
       </font>
      </property>
@@ -428,6 +443,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>14</pointsize>
       </font>
      </property>
@@ -462,6 +478,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>14</pointsize>
       </font>
      </property>
@@ -496,6 +513,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>14</pointsize>
       </font>
      </property>
@@ -530,6 +548,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>14</pointsize>
       </font>
      </property>
@@ -604,11 +623,12 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>开新程式</string>
+     <string>New Pgm</string>
     </property>
    </widget>
    <widget class="QPushButton" name="delete_program_pbtn">
@@ -622,11 +642,12 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>删除程式</string>
+     <string>Delete Pgm</string>
     </property>
    </widget>
    <widget class="QPushButton" name="insert_pbtn">
@@ -640,11 +661,12 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>插  入</string>
+     <string>Insert Sgm</string>
     </property>
    </widget>
    <widget class="QPushButton" name="delete_program">
@@ -658,11 +680,12 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>删  除</string>
+     <string>Delete Sgm</string>
     </property>
    </widget>
    <widget class="QPushButton" name="choose_program_pushButton">
@@ -699,11 +722,12 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>22</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>目  录</string>
+     <string>Menu</string>
     </property>
    </widget>
    <widget class="QPushButton" name="saving_pbtn">
@@ -717,11 +741,12 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>22</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>保  存</string>
+     <string>Save</string>
     </property>
    </widget>
    <widget class="QPushButton" name="loop_setting_pbtn">
@@ -735,11 +760,12 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>22</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>循环设置</string>
+     <string>Cycle Set</string>
     </property>
    </widget>
    <widget class="QLabel" name="footer_line">
@@ -780,19 +806,20 @@
     <widget class="QLabel" name="status_text">
      <property name="geometry">
       <rect>
-       <x>15</x>
+       <x>0</x>
        <y>15</y>
-       <width>121</width>
+       <width>151</width>
        <height>31</height>
       </rect>
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>18</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>定值运行</string>
+      <string>One-Point</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

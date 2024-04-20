@@ -34,6 +34,7 @@
     <property name="font">
      <font>
       <pointsize>24</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -55,7 +56,9 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -77,12 +80,14 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>26</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
     <property name="text">
-     <string>曲线监视</string>
+     <string>Recorder</string>
     </property>
     <property name="textFormat">
      <enum>Qt::PlainText</enum>
@@ -121,11 +126,12 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>18</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>  温度 PV</string>
+      <string>  Temp PV</string>
      </property>
     </widget>
     <widget class="QLabel" name="temperature_pv_company_label">
@@ -139,6 +145,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>20</pointsize>
       </font>
      </property>
@@ -207,11 +214,12 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>18</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>  温度 SV</string>
+      <string>  Temp SV</string>
      </property>
     </widget>
     <widget class="QCheckBox" name="temperature_sv_checkbox">
@@ -262,6 +270,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>20</pointsize>
       </font>
      </property>
@@ -293,11 +302,12 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>18</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>  湿度 PV</string>
+      <string>  Humi PV</string>
      </property>
     </widget>
     <widget class="QCheckBox" name="humidity_pv_checkbox">
@@ -324,6 +334,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>20</pointsize>
       </font>
      </property>
@@ -379,11 +390,12 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>18</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>  湿度 SV</string>
+      <string>  Humi SV</string>
      </property>
     </widget>
     <widget class="QCheckBox" name="humidity_sv_checkbox">
@@ -434,6 +446,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>20</pointsize>
       </font>
      </property>
@@ -552,19 +565,20 @@
    <widget class="QLabel" name="storage_frequency_label">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>20</x>
       <y>600</y>
-      <width>101</width>
+      <width>131</width>
       <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>16</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>存储频率：</string>
+     <string>Sample Rate：</string>
     </property>
    </widget>
    <widget class="QLabel" name="storage_frequency_line">
@@ -607,19 +621,20 @@
    <widget class="QLabel" name="storage_spacing_label">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>320</x>
       <y>600</y>
-      <width>101</width>
+      <width>111</width>
       <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>16</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>存储空间：</string>
+     <string>Storage：</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="storage_spacing_lineEdit">
@@ -662,19 +677,20 @@
    <widget class="QLabel" name="cursor_time_label">
     <property name="geometry">
      <rect>
-      <x>640</x>
+      <x>610</x>
       <y>600</y>
-      <width>101</width>
+      <width>141</width>
       <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>16</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>光标时间：</string>
+     <string>Cursor Time：</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="cursor_time_lineEdit">
@@ -752,17 +768,18 @@
      <rect>
       <x>30</x>
       <y>10</y>
-      <width>145</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>22</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>目  录</string>
+     <string>Menu</string>
     </property>
    </widget>
    <widget class="QPushButton" name="previous_page_pbth">
@@ -770,17 +787,18 @@
      <rect>
       <x>240</x>
       <y>10</y>
-      <width>145</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>22</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>上一页</string>
+     <string>LastPage</string>
     </property>
    </widget>
    <widget class="QPushButton" name="saving_pbtn">
@@ -788,17 +806,18 @@
      <rect>
       <x>450</x>
       <y>10</y>
-      <width>145</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>22</pointsize>
+      <family>思源黑体</family>
+      <pointsize>18</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>保存至U盘</string>
+     <string>SaveToUSB</string>
     </property>
    </widget>
    <widget class="QPushButton" name="real_time_pbtn">
@@ -806,17 +825,18 @@
      <rect>
       <x>650</x>
       <y>10</y>
-      <width>145</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>22</pointsize>
+      <family>思源黑体</family>
+      <pointsize>18</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>实  时</string>
+     <string>RealTime</string>
     </property>
    </widget>
    <widget class="QLabel" name="footer_line">
@@ -857,19 +877,20 @@
     <widget class="QLabel" name="status_text">
      <property name="geometry">
       <rect>
-       <x>15</x>
+       <x>0</x>
        <y>15</y>
-       <width>121</width>
+       <width>151</width>
        <height>31</height>
       </rect>
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>18</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>定值运行</string>
+      <string>One-Point</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

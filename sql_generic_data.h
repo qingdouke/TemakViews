@@ -302,7 +302,7 @@
 #define addr_run_pgm_roll_row4                0x0
 
 
-
+#define addr_onepoint_save_pgm                0x600
 #define addr_onepoint_test_temperature        0x612
 #define addr_onepoint_test_humidity           0x614
 #define addr_onepoint_ramptime_hour           0x622
@@ -327,6 +327,8 @@
 #define addr_touch_onepoint_timesignal_2              0x643
 #define addr_touch_onepoint_timesignal_3              0x645
 #define addr_touch_onepoint_wait                      0x651
+
+
 
 
 

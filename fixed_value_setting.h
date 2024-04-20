@@ -19,6 +19,9 @@ public:
     bool eventFilter(QObject *watched, QEvent *event);
     void fixedValueSetting_sendTo_mainWindow();
     void fixedValueSetting_sendTo_programLoop();
+    void OnepointSavePgm();
+    void addrSetOnepointInterfaceData(int , QString );
+
     QString getTemperatureText();
     QString getHumidityText();
     QString getSlopeTimeHText();
@@ -69,6 +72,7 @@ signals:
     void fixedValueSetting_to_programLoop();
     void Request_Use_Keyboard_Signal(int);
     void Request_Use_Calculate_Signal(int);
+    void touch_InterfaceDataSignal(int,QString);
 
 };
 

@@ -1408,6 +1408,7 @@ void MainWindow::deal_CalculateOk(){
     writeTouchDBData(1, 1,calculate_ID,number,calculateStrs, 1,"null",0,"null","null","null");
     switch (calculate_ID) {
     case addr_touch_test_temperature_sv:
+    case addr_touch_onepoint_test_temperature:
     {
         if(number >= -1000 && number <= 30000)
         {
@@ -1417,6 +1418,7 @@ void MainWindow::deal_CalculateOk(){
         break;
     }
     case addr_touch_humidity_sv:
+    case addr_touch_onepoint_test_humidity:
     {
         if(number >= -1000 && number <= 30000)
         {
@@ -1426,6 +1428,8 @@ void MainWindow::deal_CalculateOk(){
         break;
     }
     default:
+        tcpServerTask.sendData(calculate_ID,convertToIntegerString(calculateStrs,1));
+        monitoring_interface_page.setFocus();
         break;
     }
 }

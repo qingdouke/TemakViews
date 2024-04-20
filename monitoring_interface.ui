@@ -34,6 +34,7 @@
     <property name="font">
      <font>
       <pointsize>24</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -57,6 +58,7 @@
      <font>
       <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -80,6 +82,7 @@
      <font>
       <family>思源黑体</family>
       <pointsize>26</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -154,6 +157,7 @@
       <font>
        <family>思源黑体</family>
        <pointsize>102</pointsize>
+       <weight>50</weight>
        <bold>false</bold>
       </font>
      </property>
@@ -177,6 +181,7 @@
       <font>
        <family>思源黑体</family>
        <pointsize>28</pointsize>
+       <weight>50</weight>
        <bold>false</bold>
       </font>
      </property>
@@ -197,6 +202,7 @@
       <font>
        <family>思源黑体</family>
        <pointsize>18</pointsize>
+       <weight>50</weight>
        <bold>false</bold>
       </font>
      </property>
@@ -220,6 +226,7 @@
       <font>
        <family>思源黑体</family>
        <pointsize>36</pointsize>
+       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
@@ -243,6 +250,7 @@
       <font>
        <family>思源黑体</family>
        <pointsize>24</pointsize>
+       <weight>50</weight>
        <bold>false</bold>
       </font>
      </property>
@@ -266,6 +274,7 @@
       <font>
        <family>思源黑体</family>
        <pointsize>36</pointsize>
+       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
@@ -321,6 +330,7 @@
       <font>
        <family>思源黑体</family>
        <pointsize>16</pointsize>
+       <weight>50</weight>
        <bold>false</bold>
       </font>
      </property>
@@ -390,6 +400,7 @@
       <font>
        <family>思源黑体</family>
        <pointsize>102</pointsize>
+       <weight>50</weight>
        <bold>false</bold>
       </font>
      </property>
@@ -416,6 +427,7 @@
       <font>
        <family>思源黑体</family>
        <pointsize>28</pointsize>
+       <weight>50</weight>
        <bold>false</bold>
       </font>
      </property>
@@ -436,6 +448,7 @@
       <font>
        <family>思源黑体</family>
        <pointsize>18</pointsize>
+       <weight>50</weight>
        <bold>false</bold>
       </font>
      </property>
@@ -459,6 +472,7 @@
       <font>
        <family>思源黑体</family>
        <pointsize>36</pointsize>
+       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
@@ -482,6 +496,7 @@
       <font>
        <family>思源黑体</family>
        <pointsize>24</pointsize>
+       <weight>50</weight>
        <bold>false</bold>
       </font>
      </property>
@@ -505,6 +520,7 @@
       <font>
        <family>思源黑体</family>
        <pointsize>16</pointsize>
+       <weight>50</weight>
        <bold>false</bold>
       </font>
      </property>
@@ -528,6 +544,7 @@
       <font>
        <family>思源黑体</family>
        <pointsize>36</pointsize>
+       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
@@ -899,6 +916,7 @@
      <font>
       <family>思源黑体</family>
       <pointsize>20</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -919,6 +937,7 @@
      <font>
       <family>思源黑体</family>
       <pointsize>20</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -1069,9 +1088,9 @@
     <widget class="QLabel" name="status_text">
      <property name="geometry">
       <rect>
-       <x>15</x>
+       <x>0</x>
        <y>15</y>
-       <width>121</width>
+       <width>151</width>
        <height>31</height>
       </rect>
      </property>

@@ -34,6 +34,7 @@
     <property name="font">
      <font>
       <pointsize>24</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -55,7 +56,9 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -77,12 +80,14 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>26</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
     <property name="text">
-     <string>参数设置</string>
+     <string>ParamSet</string>
     </property>
     <property name="textFormat">
      <enum>Qt::PlainText</enum>
@@ -103,26 +108,29 @@
    </property>
    <property name="font">
     <font>
+     <weight>50</weight>
      <bold>false</bold>
     </font>
    </property>
    <widget class="QLabel" name="systemTimeSetting_label">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>290</x>
       <y>20</y>
-      <width>121</width>
+      <width>141</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>系统时间设置</string>
+     <string>SystemTimeSet</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -131,20 +139,22 @@
    <widget class="QLabel" name="language_label">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>290</x>
       <y>60</y>
-      <width>81</width>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>语言选择</string>
+     <string>Language</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -153,20 +163,22 @@
    <widget class="QLabel" name="passwordChange_label">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>290</x>
       <y>100</y>
-      <width>121</width>
+      <width>141</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>屏锁密码修改</string>
+     <string>ScreenLockPsd</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -175,20 +187,22 @@
    <widget class="QLabel" name="screenLock_label">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>290</x>
       <y>140</y>
-      <width>91</width>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>屏锁开关</string>
+     <string>ScreenLockSw</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -197,20 +211,22 @@
    <widget class="QLabel" name="lightingSetting_label">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>290</x>
       <y>180</y>
-      <width>91</width>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>亮度调节</string>
+     <string>ScreenLight</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -219,20 +235,22 @@
    <widget class="QLabel" name="backLightingTime_label">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>290</x>
       <y>220</y>
-      <width>91</width>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>背光时间</string>
+     <string>SleepTime</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -241,20 +259,22 @@
    <widget class="QLabel" name="programPrepared_label">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>290</x>
       <y>260</y>
-      <width>81</width>
+      <width>161</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>程式预约</string>
+     <string>AppointmentRun</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -263,20 +283,22 @@
    <widget class="QLabel" name="chooseProgram_label">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>290</x>
       <y>300</y>
-      <width>81</width>
+      <width>141</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>选择程式</string>
+     <string>PgmSelect</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -285,20 +307,22 @@
    <widget class="QLabel" name="communicationProtocal_label">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>290</x>
       <y>340</y>
-      <width>81</width>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>通信协议</string>
+     <string>CommProtocol</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -307,7 +331,7 @@
    <widget class="QLabel" name="communicationAddress485_label">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>290</x>
       <y>380</y>
       <width>111</width>
       <height>31</height>
@@ -315,12 +339,14 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>485通信地址</string>
+     <string>485Address</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -329,20 +355,22 @@
    <widget class="QLabel" name="baudRate_label">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>290</x>
       <y>420</y>
-      <width>61</width>
+      <width>91</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>波特率</string>
+     <string>Baudrate</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -351,20 +379,22 @@
    <widget class="QLabel" name="ipAddress_label">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>290</x>
       <y>460</y>
-      <width>61</width>
+      <width>81</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>ip地址</string>
+     <string>IpAddress</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -373,20 +403,22 @@
    <widget class="QLabel" name="subnetMask_label">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>290</x>
       <y>500</y>
-      <width>81</width>
+      <width>111</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>子网掩码</string>
+     <string>SubnetMask</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -395,20 +427,22 @@
    <widget class="QLabel" name="defaultGateway_label">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>290</x>
       <y>540</y>
-      <width>81</width>
+      <width>151</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>默认网关</string>
+     <string>DefaultGateway</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -417,20 +451,22 @@
    <widget class="QLabel" name="port_label">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>290</x>
       <y>580</y>
-      <width>51</width>
+      <width>71</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>端口</string>
+     <string>Port</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -489,7 +525,9 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>12</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -515,6 +553,7 @@
     <property name="font">
      <font>
       <pointsize>12</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -546,12 +585,14 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>12</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>中文</string>
+     <string>中文简体</string>
     </property>
    </widget>
    <widget class="QPushButton" name="languageEnglish_pBtn">
@@ -565,7 +606,9 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>12</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -584,12 +627,14 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>12</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>繁体</string>
+     <string>中文繁体</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="backLightingTime_lineEdit">
@@ -604,6 +649,7 @@
     <property name="font">
      <font>
       <pointsize>12</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -623,6 +669,7 @@
     <property name="font">
      <font>
       <pointsize>12</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -642,6 +689,7 @@
     <property name="font">
      <font>
       <pointsize>12</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -661,6 +709,7 @@
     <property name="font">
      <font>
       <pointsize>12</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -680,6 +729,7 @@
     <property name="font">
      <font>
       <pointsize>12</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -699,6 +749,7 @@
     <property name="font">
      <font>
       <pointsize>12</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -718,6 +769,7 @@
     <property name="font">
      <font>
       <pointsize>12</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -737,6 +789,7 @@
     <property name="font">
      <font>
       <pointsize>12</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -755,7 +808,9 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -774,7 +829,9 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -793,7 +850,9 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -812,7 +871,9 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -831,7 +892,9 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -850,7 +913,9 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -869,7 +934,9 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -888,7 +955,9 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -917,11 +986,12 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>22</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>目  录</string>
+     <string>Menu</string>
     </property>
    </widget>
    <widget class="QPushButton" name="next_page_pbtn">
@@ -935,11 +1005,12 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>22</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>下一页</string>
+     <string>NextPage</string>
     </property>
    </widget>
    <widget class="QLabel" name="footer_line">
@@ -980,19 +1051,20 @@
     <widget class="QLabel" name="status_text">
      <property name="geometry">
       <rect>
-       <x>15</x>
+       <x>0</x>
        <y>15</y>
-       <width>121</width>
+       <width>151</width>
        <height>31</height>
       </rect>
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>18</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>定值运行</string>
+      <string>One-Point</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

@@ -1,6 +1,8 @@
-          #include "fixed_value_setting.h"
+#include "fixed_value_setting.h"
 #include "ui_fixed_value_setting.h"
-
+#include "sql_generic_data.h"
+#include "general_tools.h"
+#include "mainwindow.h"
 #include <QTimer>
 #include <QDateTime>
 #include <QDebug>
@@ -170,6 +172,8 @@ Fixed_Value_Setting::Fixed_Value_Setting(QWidget *parent) :
 
     connect(ui->font_page_pbtn,&QPushButton::clicked,this,&Fixed_Value_Setting::fixedValueSetting_sendTo_mainWindow);
     connect(ui->previous_page_pbtn,&QPushButton::clicked,this,&Fixed_Value_Setting::fixedValueSetting_sendTo_programLoop);
+    connect(ui->saving_pbtn,&QPushButton::clicked,this,&Fixed_Value_Setting::OnepointSavePgm);
+
 }
 
 Fixed_Value_Setting::~Fixed_Value_Setting()
@@ -243,73 +247,73 @@ bool Fixed_Value_Setting::eventFilter(QObject *watched, QEvent *event)
 
     if(watched == ui->temperature_lineEdit){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Calculate_Signal(18);
+            emit Request_Use_Calculate_Signal(addr_touch_onepoint_test_temperature);
             ui->temperature_lineEdit->setFocus();   //lineEdit聚焦
         }
     }
     else if(watched == ui->humidity_lineEdit){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Calculate_Signal(19);
+            emit Request_Use_Calculate_Signal(addr_touch_onepoint_test_humidity);
             ui->humidity_lineEdit->setFocus();   //lineEdit聚焦
         }
     }
     else if(watched == ui->slopeTime_H_lineEdit){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Calculate_Signal(20);
+            emit Request_Use_Calculate_Signal(addr_touch_onepoint_ramptime_hour);
             ui->slopeTime_H_lineEdit->setFocus();   //lineEdit聚焦
         }
     }
     else if(watched == ui->slopeTime_M_lineEdit){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Calculate_Signal(21);
+            emit Request_Use_Calculate_Signal(addr_touch_onepoint_ramptime_min);
             ui->slopeTime_M_lineEdit->setFocus();   //lineEdit聚焦
         }
     }
     else if(watched == ui->slopeTime_S_lineEdit){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Calculate_Signal(22);
+            emit Request_Use_Calculate_Signal(addr_touch_onepoint_ramptime_sec);
             ui->slopeTime_S_lineEdit->setFocus();   //lineEdit聚焦
         }
     }
     else if(watched == ui->constantTemp_H_lineEdit){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Calculate_Signal(23);
+            emit Request_Use_Calculate_Signal(addr_touch_onepoint_constime_hour);
             ui->constantTemp_H_lineEdit->setFocus();   //lineEdit聚焦
         }
     }
     else if(watched == ui->constantTemp_M_lineEdit){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Calculate_Signal(24);
+            emit Request_Use_Calculate_Signal(addr_touch_onepoint_constime_min);
             ui->constantTemp_M_lineEdit->setFocus();   //lineEdit聚焦
         }
     }
     else if(watched == ui->constantTemp_S_lineEdit){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Calculate_Signal(25);
+            emit Request_Use_Calculate_Signal(addr_touch_onepoint_constime_sec);
             ui->constantTemp_S_lineEdit->setFocus();   //lineEdit聚焦
         }
     }
     else if(watched == ui->TS1_lineEdit){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Calculate_Signal(26);
+            emit Request_Use_Calculate_Signal(addr_touch_onepoint_timesignal_1);
             ui->TS1_lineEdit->setFocus();   //lineEdit聚焦
         }
     }
     else if(watched == ui->TS2_lineEdit){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Calculate_Signal(27);
+            emit Request_Use_Calculate_Signal(addr_touch_onepoint_timesignal_2);
             ui->TS2_lineEdit->setFocus();   //lineEdit聚焦
         }
     }
     else if(watched == ui->TS3_lineEdit){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Calculate_Signal(28);
+            emit Request_Use_Calculate_Signal(addr_touch_onepoint_timesignal_3);
             ui->TS3_lineEdit->setFocus();   //lineEdit聚焦
         }
     }
     else if(watched == ui->Wait_lineEdit){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Calculate_Signal(29);
+            emit Request_Use_Calculate_Signal(addr_touch_onepoint_wait);
             ui->Wait_lineEdit->setFocus();   //lineEdit聚焦
         }
     }
@@ -324,6 +328,8 @@ bool Fixed_Value_Setting::eventFilter(QObject *watched, QEvent *event)
 */
 void Fixed_Value_Setting::fixedValueSetting_sendTo_mainWindow(){
     emit fixedValueSetting_to_mainWindow();
+    emit touch_InterfaceDataSignal(addr_touch_pageturn_pbtn, QString::number(PGM_CYCLE));
+
 }
 
 /*
@@ -334,8 +340,12 @@ void Fixed_Value_Setting::fixedValueSetting_sendTo_mainWindow(){
 */
 void Fixed_Value_Setting::fixedValueSetting_sendTo_programLoop(){
     emit fixedValueSetting_to_programLoop();
+    emit touch_InterfaceDataSignal(addr_touch_pageturn_pbtn, QString::number(MAIN_PAGE));
 }
 
+void Fixed_Value_Setting::OnepointSavePgm(){
+    emit touch_InterfaceDataSignal(addr_onepoint_save_pgm, "0");
+}
 /*
  * time: 2022-11-17
  * type: Get
@@ -601,4 +611,53 @@ void Fixed_Value_Setting::freezeOneSec()
     ui->font_page_pbtn->setEnabled(true);
     ui->previous_page_pbtn->setEnabled(true);
     ui->saving_pbtn->setEnabled(true);
+}
+
+void Fixed_Value_Setting::addrSetOnepointInterfaceData(int addr_num, QString set_value){
+
+    QString covert_data;
+    switch(addr_num)
+    {
+    case addr_onepoint_test_temperature:
+        covert_data = convertToDecimalString(set_value,2);
+        setTemperatureText(covert_data);
+        break;
+    case addr_onepoint_test_humidity :
+        covert_data = convertToDecimalString(set_value,2);
+        setHumidityText(covert_data);
+        break;
+    case addr_onepoint_ramptime_hour:
+        setSlopeTimeHText(set_value);
+        break;
+    case addr_onepoint_ramptime_min:
+        setSlopeTimeMText(set_value);
+        break;
+    case addr_onepoint_ramptime_sec:
+        setSlopeTimeSText(set_value);
+        break;
+    case addr_onepoint_constime_hour:
+        setconstantTempHText(set_value);
+        break;
+    case addr_onepoint_constime_min:
+        setconstantTempMText(set_value);
+        break;
+    case addr_onepoint_constime_sec:
+        setconstantTempSText(set_value);
+        break;
+    case addr_onepoint_timesignal_1:
+        setTS1Text(set_value);
+        break;
+    case addr_onepoint_timesignal_2:
+        setTS2Text(set_value);
+        break;
+    case addr_onepoint_timesignal_3:
+        setTS3Text(set_value);
+        break;
+    case addr_onepoint_wait:
+        setWaitText(set_value);
+        break;
+    default:
+        break;
+    }
+
 }

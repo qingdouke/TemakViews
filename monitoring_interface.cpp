@@ -3,6 +3,7 @@
 #include "sql_generic_data.h"
 #include "sqliteoperator.h"
 #include "general_tools.h"
+#include "mainwindow.h"
 
 #include<QTimer>
 #include<QDateTime>
@@ -115,8 +116,6 @@ Monitoring_Interface::Monitoring_Interface(QWidget *parent) :
     ui->program_link_edit->setText(program_link);
     //run_gif部分
     ui->run_gif->setStyleSheet("QLabel#run_gif{background-image:url(:/Image/24/10.bmp)}");
-//    QTimer* gifTimer = new QTimer(this);
-//    gifTimer->start(500);
 
 
     //Footer
@@ -557,6 +556,7 @@ void Monitoring_Interface::setProgramLink(QString strs){
 */
 void Monitoring_Interface::monitoring_interface_sendTo_mainwindow(){
     emit monitoring_interface_to_mainwindow();
+    emit touch_InterfaceDataSignal(addr_touch_pageturn_pbtn, QString::number(MAIN_PAGE));
 }
 
 /*
@@ -567,6 +567,7 @@ void Monitoring_Interface::monitoring_interface_sendTo_mainwindow(){
 */
 void Monitoring_Interface::monitoringInterface_sendTo_outputMonitoring(){
     emit monitoringInterface_to_outputMonitoring();
+    emit touch_InterfaceDataSignal(addr_touch_monitor_nextpage_pbtn, "0");
 }
 
 void Monitoring_Interface::pause_pBtn_clicked(){
@@ -781,75 +782,71 @@ void Monitoring_Interface::idSetMonitorInterfaceData(int id_num, QString data_st
     }
 }
 
-void Monitoring_Interface::addrSetMonitorInterfaceData(int addr_num, QString pv_or_sv){
+void Monitoring_Interface::addrSetMonitorInterfaceData(int addr_num, QString set_value){
 
 
     qDebug() << QString("addrSetMonitorInterfaceData addr_num: %1").arg(addr_num);
-
-    if (addr_test_temperature_pv == addr_num)
+    QString covert_data;
+    switch(addr_num)
     {
-        qDebug() << QString("pv_or_sv: %1").arg(pv_or_sv);
-        test_temperature_pv = convertToDecimalString(pv_or_sv,2);
-        ui->temperature_edit_pv->setText(test_temperature_pv);
-    }
-    if (addr_test_temperature_sv == addr_num)
-    {
-        test_temperature_sv = pv_or_sv;
+    case addr_test_temperature_pv:
+        qDebug() << QString("set_value: %1").arg(set_value);
+        covert_data = convertToDecimalString(set_value,2);
+        setTestTemperaturePV(covert_data);
+        break;
+    case addr_test_temperature_sv:
+        test_temperature_sv = convertToDecimalString(set_value,2);
         ui->temperature_edit_sv->setText(test_temperature_sv);
-    }
-    if (addr_humidity_pv == addr_num)
-    {
-        humidity_pv = pv_or_sv;
+        break;
+    case addr_humidity_pv:
+        humidity_pv = set_value;
         ui->humidity_edit_pv->setText((humidity_pv));
-    }
-    if (addr_humidity_sv == addr_num)
-    {
-        humidity_sv = pv_or_sv;
+        break;
+    case addr_humidity_sv:
+        humidity_sv = convertToDecimalString(set_value,1);
         ui->humidity_edit_sv->setText((humidity_sv));
-    }
-    if (addr_test_temperature_heat_percent == addr_num)
-    {
-        test_temperature_heat_percent = pv_or_sv;
+        break;
+    case addr_test_temperature_heat_percent:
+        test_temperature_heat_percent = convertToDecimalString(set_value,1);
         ui->temperature_edit_percent->setText(test_temperature_heat_percent);
-    }
-    if (addr_humidity_heat_percent == addr_num)
-    {
-        humidity_heat_percent = pv_or_sv;
+        break;
+    case addr_humidity_heat_percent:
+        humidity_heat_percent = convertToDecimalString(set_value,1);
         ui->humidity_edit_percent->setText(humidity_heat_percent);
-    }
-    if (addr_run_program_name == addr_num)
-    {
-        run_program_name = pv_or_sv;
+        break;
+    case addr_run_program_name:
+        run_program_name = set_value;
         ui->program_name_edit->setText(run_program_name);
-    }
-    if (addr_program_time == addr_num)
-    {
-        program_time = pv_or_sv;
+        break;
+    case addr_program_time:
+        program_time = set_value;
         ui->program_time_edit->setText(program_time);
-    }
-    if (addr_segment_time == addr_num)
-    {
-        segment_time = pv_or_sv;
+        break;
+    case addr_segment_time :
+        segment_time = set_value;
         ui->period_time_edit->setText(segment_time);
-    }
-    if (addr_estimate_end_time == addr_num)
-    {
-        estimate_end_time = pv_or_sv;
+        break;
+    case addr_estimate_end_time:
+        estimate_end_time = set_value;
         ui->estimate_time_edit->setText(estimate_end_time);
-    }
-    if (addr_program_cycle == addr_num)
-    {
-        program_cycle = pv_or_sv;
+        break;
+    case addr_program_cycle:
+        program_cycle = set_value;
         ui->program_cycle_edit->setText(program_cycle);
-    }
-    if (addr_program_run_segment == addr_num)
-    {
-        program_run_segment = pv_or_sv;
+        break;
+    case addr_program_run_segment:
+        program_run_segment = set_value;
         ui->program_run_period_label->setText(program_run_segment);
-    }
-    if (addr_program_link == addr_num)
-    {
-        program_link = pv_or_sv;
+        break;
+    case addr_program_link :
+        program_link = set_value;
         ui->program_link_edit->setText(program_link);
+        break;
+    default:break;
     }
+
+
+
+
+
 }

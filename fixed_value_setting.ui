@@ -34,6 +34,7 @@
     <property name="font">
      <font>
       <pointsize>24</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -55,7 +56,9 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>14</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -77,7 +80,9 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>26</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -121,6 +126,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>22</pointsize>
       </font>
      </property>
@@ -142,6 +148,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>22</pointsize>
       </font>
      </property>
@@ -163,6 +170,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>22</pointsize>
       </font>
      </property>
@@ -184,6 +192,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>22</pointsize>
       </font>
      </property>
@@ -205,6 +214,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>22</pointsize>
       </font>
      </property>
@@ -226,6 +236,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>22</pointsize>
       </font>
      </property>
@@ -247,6 +258,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>22</pointsize>
       </font>
      </property>
@@ -268,6 +280,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>19</pointsize>
       </font>
      </property>
@@ -331,6 +344,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>19</pointsize>
       </font>
      </property>
@@ -352,6 +366,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>19</pointsize>
       </font>
      </property>
@@ -373,6 +388,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>19</pointsize>
       </font>
      </property>
@@ -394,6 +410,7 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>19</pointsize>
       </font>
      </property>
@@ -730,12 +747,13 @@
      <rect>
       <x>30</x>
       <y>10</y>
-      <width>145</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>22</pointsize>
      </font>
     </property>
@@ -748,12 +766,13 @@
      <rect>
       <x>410</x>
       <y>10</y>
-      <width>145</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>22</pointsize>
      </font>
     </property>
@@ -766,12 +785,13 @@
      <rect>
       <x>220</x>
       <y>10</y>
-      <width>145</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>22</pointsize>
      </font>
     </property>
@@ -817,14 +837,15 @@
     <widget class="QLabel" name="status_text">
      <property name="geometry">
       <rect>
-       <x>15</x>
+       <x>0</x>
        <y>15</y>
-       <width>141</width>
+       <width>151</width>
        <height>31</height>
       </rect>
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>18</pointsize>
       </font>
      </property>

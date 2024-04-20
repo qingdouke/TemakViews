@@ -49,9 +49,9 @@
     <widget class="QLabel" name="title">
      <property name="geometry">
       <rect>
-       <x>580</x>
+       <x>569</x>
        <y>0</y>
-       <width>120</width>
+       <width>141</width>
        <height>60</height>
       </rect>
      </property>
@@ -127,10 +127,10 @@
     <widget class="QWidget" name="index_1" native="true">
      <property name="geometry">
       <rect>
-       <x>320</x>
+       <x>310</x>
        <y>80</y>
-       <width>100</width>
-       <height>130</height>
+       <width>121</width>
+       <height>151</height>
       </rect>
      </property>
      <widget class="QLabel" name="image_1">
@@ -138,8 +138,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>100</width>
-        <height>100</height>
+        <width>121</width>
+        <height>121</height>
        </rect>
       </property>
       <property name="text">
@@ -150,19 +150,20 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>100</y>
-        <width>100</width>
-        <height>30</height>
+        <y>120</y>
+        <width>121</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>12</pointsize>
+        <family>思源黑体</family>
+        <pointsize>15</pointsize>
         <kerning>true</kerning>
        </font>
       </property>
       <property name="text">
-       <string>监视界面</string>
+       <string>Monitor</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -179,8 +180,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>101</width>
-        <height>131</height>
+        <width>121</width>
+        <height>151</height>
        </rect>
       </property>
       <property name="text">
@@ -191,10 +192,10 @@
     <widget class="QWidget" name="index_2" native="true">
      <property name="geometry">
       <rect>
-       <x>590</x>
+       <x>580</x>
        <y>80</y>
-       <width>100</width>
-       <height>130</height>
+       <width>121</width>
+       <height>151</height>
       </rect>
      </property>
      <widget class="QLabel" name="image_2">
@@ -202,8 +203,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>100</width>
-        <height>100</height>
+        <width>121</width>
+        <height>121</height>
        </rect>
       </property>
       <property name="font">
@@ -219,18 +220,19 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>100</y>
-        <width>100</width>
-        <height>30</height>
+        <y>120</y>
+        <width>121</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>12</pointsize>
+        <family>思源黑体</family>
+        <pointsize>15</pointsize>
        </font>
       </property>
       <property name="text">
-       <string>输出监视</string>
+       <string>Pgm Monitor</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -241,8 +243,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>101</width>
-        <height>131</height>
+        <width>121</width>
+        <height>151</height>
        </rect>
       </property>
       <property name="text">
@@ -253,10 +255,10 @@
     <widget class="QWidget" name="index_3" native="true">
      <property name="geometry">
       <rect>
-       <x>860</x>
+       <x>849</x>
        <y>80</y>
-       <width>100</width>
-       <height>130</height>
+       <width>121</width>
+       <height>151</height>
       </rect>
      </property>
      <widget class="QLabel" name="image_3">
@@ -264,8 +266,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>100</width>
-        <height>100</height>
+        <width>121</width>
+        <height>121</height>
        </rect>
       </property>
       <property name="text">
@@ -276,18 +278,19 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>100</y>
-        <width>100</width>
-        <height>30</height>
+        <y>120</y>
+        <width>121</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>12</pointsize>
+        <family>思源黑体</family>
+        <pointsize>15</pointsize>
        </font>
       </property>
       <property name="text">
-       <string>曲线监视</string>
+       <string>Recoder</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -298,8 +301,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>101</width>
-        <height>131</height>
+        <width>121</width>
+        <height>151</height>
        </rect>
       </property>
       <property name="text">
@@ -310,10 +313,10 @@
     <widget class="QWidget" name="index_4" native="true">
      <property name="geometry">
       <rect>
-       <x>320</x>
+       <x>309</x>
        <y>290</y>
-       <width>100</width>
-       <height>130</height>
+       <width>121</width>
+       <height>151</height>
       </rect>
      </property>
      <widget class="QLabel" name="image_4">
@@ -321,8 +324,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>100</width>
-        <height>100</height>
+        <width>121</width>
+        <height>121</height>
        </rect>
       </property>
       <property name="text">
@@ -333,18 +336,19 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>100</y>
-        <width>100</width>
-        <height>30</height>
+        <y>120</y>
+        <width>121</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>12</pointsize>
+        <family>思源黑体</family>
+        <pointsize>15</pointsize>
        </font>
       </property>
       <property name="text">
-       <string>程式编辑</string>
+       <string>Pgm Edit</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -355,8 +359,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>101</width>
-        <height>131</height>
+        <width>121</width>
+        <height>151</height>
        </rect>
       </property>
       <property name="text">
@@ -367,10 +371,10 @@
     <widget class="QWidget" name="index_5" native="true">
      <property name="geometry">
       <rect>
-       <x>590</x>
+       <x>579</x>
        <y>290</y>
-       <width>100</width>
-       <height>130</height>
+       <width>121</width>
+       <height>151</height>
       </rect>
      </property>
      <widget class="QLabel" name="image_5">
@@ -378,8 +382,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>100</width>
-        <height>100</height>
+        <width>121</width>
+        <height>121</height>
        </rect>
       </property>
       <property name="text">
@@ -390,18 +394,19 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>100</y>
-        <width>100</width>
-        <height>30</height>
+        <y>120</y>
+        <width>121</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>12</pointsize>
+        <family>思源黑体</family>
+        <pointsize>15</pointsize>
        </font>
       </property>
       <property name="text">
-       <string>程式循环</string>
+       <string>Pgm Cycle</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -412,8 +417,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>101</width>
-        <height>131</height>
+        <width>121</width>
+        <height>151</height>
        </rect>
       </property>
       <property name="text">
@@ -424,10 +429,10 @@
     <widget class="QWidget" name="index_6" native="true">
      <property name="geometry">
       <rect>
-       <x>860</x>
+       <x>850</x>
        <y>290</y>
-       <width>100</width>
-       <height>130</height>
+       <width>121</width>
+       <height>151</height>
       </rect>
      </property>
      <widget class="QLabel" name="image_6">
@@ -435,8 +440,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>100</width>
-        <height>100</height>
+        <width>121</width>
+        <height>121</height>
        </rect>
       </property>
       <property name="text">
@@ -447,18 +452,19 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>100</y>
-        <width>100</width>
-        <height>30</height>
+        <y>120</y>
+        <width>121</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>12</pointsize>
+        <family>思源黑体</family>
+        <pointsize>15</pointsize>
        </font>
       </property>
       <property name="text">
-       <string>定值设置</string>
+       <string>One Point</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -469,8 +475,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>101</width>
-        <height>131</height>
+        <width>121</width>
+        <height>151</height>
        </rect>
       </property>
       <property name="text">
@@ -481,10 +487,10 @@
     <widget class="QWidget" name="index_7" native="true">
      <property name="geometry">
       <rect>
-       <x>320</x>
+       <x>310</x>
        <y>500</y>
-       <width>100</width>
-       <height>130</height>
+       <width>121</width>
+       <height>151</height>
       </rect>
      </property>
      <widget class="QLabel" name="image_7">
@@ -492,8 +498,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>100</width>
-        <height>100</height>
+        <width>121</width>
+        <height>121</height>
        </rect>
       </property>
       <property name="text">
@@ -504,18 +510,19 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>100</y>
-        <width>100</width>
-        <height>30</height>
+        <y>120</y>
+        <width>121</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>12</pointsize>
+        <family>思源黑体</family>
+        <pointsize>15</pointsize>
        </font>
       </property>
       <property name="text">
-       <string>参数设置</string>
+       <string>Param Set</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -526,8 +533,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>101</width>
-        <height>131</height>
+        <width>121</width>
+        <height>151</height>
        </rect>
       </property>
       <property name="text">
@@ -538,10 +545,10 @@
     <widget class="QWidget" name="index_8" native="true">
      <property name="geometry">
       <rect>
-       <x>590</x>
+       <x>579</x>
        <y>500</y>
-       <width>100</width>
-       <height>130</height>
+       <width>121</width>
+       <height>151</height>
       </rect>
      </property>
      <widget class="QLabel" name="image_8">
@@ -549,8 +556,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>100</width>
-        <height>100</height>
+        <width>121</width>
+        <height>121</height>
        </rect>
       </property>
       <property name="text">
@@ -561,18 +568,19 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>100</y>
-        <width>100</width>
-        <height>30</height>
+        <y>120</y>
+        <width>121</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>12</pointsize>
+        <family>思源黑体</family>
+        <pointsize>15</pointsize>
        </font>
       </property>
       <property name="text">
-       <string>故障记录</string>
+       <string>Sick Record</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -583,8 +591,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>101</width>
-        <height>131</height>
+        <width>121</width>
+        <height>151</height>
        </rect>
       </property>
       <property name="text">
@@ -595,10 +603,10 @@
     <widget class="QWidget" name="index_9" native="true">
      <property name="geometry">
       <rect>
-       <x>860</x>
+       <x>849</x>
        <y>500</y>
-       <width>100</width>
-       <height>130</height>
+       <width>121</width>
+       <height>151</height>
       </rect>
      </property>
      <widget class="QLabel" name="image_9">
@@ -606,8 +614,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>100</width>
-        <height>100</height>
+        <width>121</width>
+        <height>121</height>
        </rect>
       </property>
       <property name="text">
@@ -618,18 +626,19 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>100</y>
-        <width>100</width>
-        <height>30</height>
+        <y>120</y>
+        <width>121</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>12</pointsize>
+        <family>思源黑体</family>
+        <pointsize>15</pointsize>
        </font>
       </property>
       <property name="text">
-       <string>故障说明</string>
+       <string>Help</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -640,8 +649,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>101</width>
-        <height>131</height>
+        <width>121</width>
+        <height>151</height>
        </rect>
       </property>
       <property name="text">
@@ -649,6 +658,16 @@
       </property>
      </widget>
     </widget>
+    <zorder>index_1</zorder>
+    <zorder>index_2</zorder>
+    <zorder>index_3</zorder>
+    <zorder>index_4</zorder>
+    <zorder>index_5</zorder>
+    <zorder>index_6</zorder>
+    <zorder>index_7</zorder>
+    <zorder>index_8</zorder>
+    <zorder>index_9</zorder>
+    <zorder>pBtn_2</zorder>
    </widget>
    <zorder>Main</zorder>
    <zorder>Header</zorder>

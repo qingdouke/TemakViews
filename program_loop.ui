@@ -101,7 +101,7 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>50</y>
+     <y>60</y>
      <width>1280</width>
      <height>660</height>
     </rect>
@@ -109,9 +109,9 @@
    <widget class="QLabel" name="choose_program_label">
     <property name="geometry">
      <rect>
-      <x>190</x>
+      <x>170</x>
       <y>120</y>
-      <width>121</width>
+      <width>141</width>
       <height>51</height>
      </rect>
     </property>
@@ -122,13 +122,13 @@
      </font>
     </property>
     <property name="text">
-     <string>Pgm No.：</string>
+     <string>Pgm Numb:</string>
     </property>
    </widget>
    <widget class="QLabel" name="all_loops_label">
     <property name="geometry">
      <rect>
-      <x>190</x>
+      <x>170</x>
       <y>230</y>
       <width>121</width>
       <height>51</height>
@@ -149,7 +149,7 @@
      <rect>
       <x>630</x>
       <y>120</y>
-      <width>121</width>
+      <width>141</width>
       <height>51</height>
      </rect>
     </property>
@@ -840,21 +840,6 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <zorder>choose_program_label</zorder>
-   <zorder>all_loops_label</zorder>
-   <zorder>program_name_label</zorder>
-   <zorder>link_label</zorder>
-   <zorder>choose_program_line</zorder>
-   <zorder>all_loops_line</zorder>
-   <zorder>program_name_line</zorder>
-   <zorder>link_line</zorder>
-   <zorder>table_box</zorder>
-   <zorder>choose_program_edit</zorder>
-   <zorder>all_loops_edit</zorder>
-   <zorder>program_name_edit</zorder>
-   <zorder>link_edit</zorder>
-   <zorder>Header</zorder>
-   <zorder>Header</zorder>
   </widget>
   <widget class="QWidget" name="Footer" native="true">
    <property name="geometry">
@@ -870,7 +855,7 @@
      <rect>
       <x>30</x>
       <y>10</y>
-      <width>145</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
@@ -889,7 +874,7 @@
      <rect>
       <x>410</x>
       <y>10</y>
-      <width>145</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
@@ -908,7 +893,7 @@
      <rect>
       <x>220</x>
       <y>10</y>
-      <width>145</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
@@ -940,7 +925,7 @@
      <rect>
       <x>600</x>
       <y>10</y>
-      <width>145</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
@@ -979,19 +964,20 @@
     <widget class="QLabel" name="status_text">
      <property name="geometry">
       <rect>
-       <x>15</x>
+       <x>0</x>
        <y>15</y>
-       <width>121</width>
+       <width>151</width>
        <height>31</height>
       </rect>
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>18</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>定值运行</string>
+      <string>One-Point</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
