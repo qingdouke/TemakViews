@@ -125,6 +125,8 @@ public:
 
 
     //数据处理
+    void deal_TouchInterfaceDataSignal(int ,QString );
+
     void deal_updateInterfaceNumber(int,QString);
     void deal_SQLInterfaceData_update(int ,QString);
     void deal_CommInterfaceData_update(int,QString);

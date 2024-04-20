@@ -34,7 +34,6 @@
     <property name="font">
      <font>
       <pointsize>24</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -58,7 +57,6 @@
      <font>
       <family>思源黑体</family>
       <pointsize>14</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -82,7 +80,6 @@
      <font>
       <family>思源黑体</family>
       <pointsize>26</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -157,7 +154,6 @@
       <font>
        <family>思源黑体</family>
        <pointsize>102</pointsize>
-       <weight>50</weight>
        <bold>false</bold>
       </font>
      </property>
@@ -181,7 +177,6 @@
       <font>
        <family>思源黑体</family>
        <pointsize>28</pointsize>
-       <weight>50</weight>
        <bold>false</bold>
       </font>
      </property>
@@ -202,7 +197,6 @@
       <font>
        <family>思源黑体</family>
        <pointsize>18</pointsize>
-       <weight>50</weight>
        <bold>false</bold>
       </font>
      </property>
@@ -226,7 +220,6 @@
       <font>
        <family>思源黑体</family>
        <pointsize>36</pointsize>
-       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
@@ -250,7 +243,6 @@
       <font>
        <family>思源黑体</family>
        <pointsize>24</pointsize>
-       <weight>50</weight>
        <bold>false</bold>
       </font>
      </property>
@@ -274,7 +266,6 @@
       <font>
        <family>思源黑体</family>
        <pointsize>36</pointsize>
-       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
@@ -330,7 +321,6 @@
       <font>
        <family>思源黑体</family>
        <pointsize>16</pointsize>
-       <weight>50</weight>
        <bold>false</bold>
       </font>
      </property>
@@ -400,7 +390,6 @@
       <font>
        <family>思源黑体</family>
        <pointsize>102</pointsize>
-       <weight>50</weight>
        <bold>false</bold>
       </font>
      </property>
@@ -427,7 +416,6 @@
       <font>
        <family>思源黑体</family>
        <pointsize>28</pointsize>
-       <weight>50</weight>
        <bold>false</bold>
       </font>
      </property>
@@ -448,7 +436,6 @@
       <font>
        <family>思源黑体</family>
        <pointsize>18</pointsize>
-       <weight>50</weight>
        <bold>false</bold>
       </font>
      </property>
@@ -472,7 +459,6 @@
       <font>
        <family>思源黑体</family>
        <pointsize>36</pointsize>
-       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
@@ -496,7 +482,6 @@
       <font>
        <family>思源黑体</family>
        <pointsize>24</pointsize>
-       <weight>50</weight>
        <bold>false</bold>
       </font>
      </property>
@@ -520,7 +505,6 @@
       <font>
        <family>思源黑体</family>
        <pointsize>16</pointsize>
-       <weight>50</weight>
        <bold>false</bold>
       </font>
      </property>
@@ -544,7 +528,6 @@
       <font>
        <family>思源黑体</family>
        <pointsize>36</pointsize>
-       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
@@ -916,7 +899,6 @@
      <font>
       <family>思源黑体</family>
       <pointsize>20</pointsize>
-      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -937,7 +919,6 @@
      <font>
       <family>思源黑体</family>
       <pointsize>20</pointsize>
-      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -958,9 +939,9 @@
    <widget class="QPushButton" name="font_page_pbtn">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>10</x>
       <y>10</y>
-      <width>145</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
@@ -977,9 +958,9 @@
    <widget class="QPushButton" name="LED_pbtn">
     <property name="geometry">
      <rect>
-      <x>180</x>
+      <x>170</x>
       <y>10</y>
-      <width>145</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
@@ -990,7 +971,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Pause</string>
+     <string>Light</string>
     </property>
    </widget>
    <widget class="QPushButton" name="reset_pbth">
@@ -998,7 +979,7 @@
      <rect>
       <x>330</x>
       <y>10</y>
-      <width>145</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
@@ -1015,9 +996,9 @@
    <widget class="QPushButton" name="constant_value_running_pbtn">
     <property name="geometry">
      <rect>
-      <x>480</x>
+      <x>500</x>
       <y>10</y>
-      <width>145</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
@@ -1028,15 +1009,15 @@
      </font>
     </property>
     <property name="text">
-     <string>One-Point</string>
+     <string>OnePoint</string>
     </property>
    </widget>
    <widget class="QPushButton" name="next_page_pbtn">
     <property name="geometry">
      <rect>
-      <x>630</x>
+      <x>670</x>
       <y>10</y>
-      <width>145</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>

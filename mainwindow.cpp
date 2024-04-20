@@ -3,6 +3,7 @@
 #include "sqliteoperator.h"
 #include "sql_generic_data.h"
 #include "server.h"
+#include "general_tools.h"
 
 #include <QTimer>
 #include <QDateTime>
@@ -13,7 +14,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-{    
+{
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
     //Header背景颜色
@@ -173,9 +174,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     //connect(readData01,&Data::sql_updateMonitorInterfaceDataSignal,this,&MainWindow::deal_SQLInterfaceData_update);
     //connect(readData02,&Data::sql_updateMonitorInterfaceDataSignal,this,&MainWindow::deal_SQLInterfaceData_update);
-    connect(&serverTask,&Server::comm_updateInterfaceDataSignal,this,&MainWindow::deal_CommInterfaceData_update);
+    //connect(&serverTask,&Server::comm_updateInterfaceDataSignal,this,&MainWindow::deal_CommInterfaceData_update);
     connect(&tcpServerTask,&tcpServer::comm_updateInterfaceDataSignal,this,&MainWindow::deal_CommInterfaceData_update);
-
+    connect(&monitoring_interface_page,&Monitoring_Interface::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
     connect(readData01,&Data::updateCurve,this,&MainWindow::deal_curveData_update);
     connect(readData02,&Data::updateCurve,this,&MainWindow::deal_curveData_update);
 }
@@ -213,7 +214,7 @@ void MainWindow::on_pBtn_1_clicked()
     if(readData01->isRunning==false)
     {
         readData01->isRunning = true;
-        readData02->isRunning = false;        
+        readData02->isRunning = false;
         emit InitDataThread01(current_Page);
     }
     else
@@ -223,10 +224,10 @@ void MainWindow::on_pBtn_1_clicked()
         emit InitDataThread02(current_Page);
     }
     monitoring_interface_page.freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     qDebug() <<"on_pBtn_1_clicked end";
     this->hide();
 }
@@ -249,7 +250,7 @@ void MainWindow::deal_monitoring_interface_to_mainwindow(){
     if(readData01->isRunning==false)
     {
         readData01->isRunning = true;
-        readData02->isRunning = false;        
+        readData02->isRunning = false;
         emit InitDataThread01(current_Page);
     }
     else
@@ -259,10 +260,10 @@ void MainWindow::deal_monitoring_interface_to_mainwindow(){
         emit InitDataThread02(current_Page);
     }
     this->freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     qDebug() <<"deal_monitoring_interface_to_mainwindow end";
     monitoring_interface_page.hide();
 }
@@ -292,10 +293,10 @@ void MainWindow::on_pBtn_2_clicked()
         emit InitDataThread02(current_Page);
     }
     output_monitoring_page.freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     this->hide();
 
 }
@@ -324,10 +325,10 @@ void MainWindow::deal_outputMonitoring_to_mainWindow(){
         emit InitDataThread02(current_Page);
     }
     this->freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     output_monitoring_page.hide();
 }
 
@@ -355,10 +356,10 @@ void MainWindow::deal_outputMonitoring_to_monitoringInterface(){
         emit InitDataThread02(current_Page);
     }
     monitoring_interface_page.freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     output_monitoring_page.hide();
 }
 
@@ -386,10 +387,10 @@ void MainWindow::deal_monitoringInterface_to_outputMonitoring(){
         emit InitDataThread02(current_Page);
     }
     output_monitoring_page.freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     monitoring_interface_page.hide();
 }
 
@@ -418,10 +419,10 @@ void MainWindow::on_pBtn_3_clicked()
         emit InitDataThread02(current_Page);
     }
     curve_monitoring_page.freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     this->hide();
 }
 
@@ -449,10 +450,10 @@ void MainWindow::deal_curveMonitoring_to_mainWindow(){
         emit InitDataThread02(current_Page);
     }
     this->freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     curve_monitoring_page.hide();
 }
 
@@ -480,10 +481,10 @@ void MainWindow::deal_curveMonitoring_to_outputMonitoring(){
         emit InitDataThread02(current_Page);
     }
     output_monitoring_page.freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     curve_monitoring_page.hide();
 }
 
@@ -511,10 +512,10 @@ void MainWindow::deal_outputMonitoring_to_curveMonitoring(){
         emit InitDataThread02(current_Page);
     }
     curve_monitoring_page.freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     output_monitoring_page.hide();
 }
 
@@ -543,10 +544,10 @@ void MainWindow::on_pBtn_4_clicked()
         emit InitDataThread02(current_Page);
     }
     program_editing_page.freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     this->hide();
 }
 
@@ -574,10 +575,10 @@ void MainWindow::deal_programEditing_to_mainWindow(){
         emit InitDataThread02(current_Page);
     }
     this->freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     program_editing_page.hide();
 }
 
@@ -606,10 +607,10 @@ void MainWindow::on_pBtn_5_clicked()
         emit InitDataThread02(current_Page);
     }
     program_loop_page.freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     this->hide();
 }
 
@@ -637,10 +638,10 @@ void MainWindow::deal_programLoop_to_mainWindow(){
         emit InitDataThread02(current_Page);
     }
     this->freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     program_loop_page.hide();
 }
 
@@ -668,10 +669,10 @@ void MainWindow::deal_programLoop_to_programEditing(){
         emit InitDataThread02(current_Page);
     }
     program_editing_page.freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     program_loop_page.hide();
 }
 
@@ -700,10 +701,10 @@ void MainWindow::on_pBtn_6_clicked()
         emit InitDataThread02(current_Page);
     }
     fixed_value_setting_page.freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     this->hide();
 }
 
@@ -731,10 +732,10 @@ void MainWindow::deal_fixedValueSetting_to_mainWindow(){
         emit InitDataThread02(current_Page);
     }
     this->freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     fixed_value_setting_page.hide();
 }
 
@@ -762,10 +763,10 @@ void MainWindow::deal_fixedValueSetting_to_programLoop(){
         emit InitDataThread02(current_Page);
     }
     program_loop_page.freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     fixed_value_setting_page.hide();
 }
 
@@ -793,10 +794,10 @@ void MainWindow::deal_programLoop_to_fixedValueSetting(){
         emit InitDataThread02(current_Page);
     }
     fixed_value_setting_page.freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     program_loop_page.hide();
 }
 
@@ -825,10 +826,10 @@ void MainWindow::on_pBtn_7_clicked()
         emit InitDataThread02(current_Page);
     }
     parameter_setting_page.freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     this->hide();
 }
 
@@ -887,10 +888,10 @@ void MainWindow::deal_errorLog_to_mainWindow(){
         emit InitDataThread02(current_Page);
     }
     this->freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents,100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents,100);
+    //    }
     error_log_page.hide();
 }
 
@@ -908,140 +909,6 @@ void MainWindow::on_login_clicked()
     keyboard.Clean_Keyboard_CapsLock();
     keyboard.show();
     current_ID = -1;
-}
-
-/*
- * time: 2022-11-22
- * type: private slots
- * effect: 处理虚拟键盘信号
- * influence: keyboard
-*/
-void MainWindow::deal_KeyboardEsc(){
-    keyboard.hide();
-    keyboard.Clean_Keyboard_LineEdit();
-    keyboard.Clean_Keyboard_CapsLock();
-}
-
-/*
- * time: 2022-11-22
- * type: private slots
- * effect: 处理虚拟键盘信号
- * influence: keyboard
-*/
-void MainWindow::deal_KeyboardEnter(){
-    keyboardStrs = keyboard.get_strs();
-    //    double number = keyboardStrs.toDouble();
-    switch (current_ID) {
-    case -1:
-    {
-        if(keyboardStrs==userPasswordPage01.getCurrentPassword())
-        {
-            QMutexLocker locker(&page_mutex);
-            userPasswordPage01.move(0,0);
-            userPasswordPage01.show();
-            current_Page = 11;
-            if(readData01->isRunning==false)
-            {
-                readData02->isRunning = false;
-                readData01->isRunning = true;
-                emit InitDataThread01(current_Page);
-            }
-            else
-            {
-                readData01->isRunning = false;
-                readData02->isRunning = true;
-                emit InitDataThread02(current_Page);
-            }
-            userPasswordPage01.freezeOneSec();
-//            QTime dieTime = QTime::currentTime().addMSecs(100);
-//            while(QTime::currentTime()<dieTime){
-//                QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//            }
-            this->hide();
-        }
-        else
-            if(keyboardStrs == internal_param_set_page.getViewPassword())
-            {
-                QMutexLocker locker(&page_mutex);
-                internal_param_set_page.move(0,0);
-                internal_param_set_page.show();
-                current_Page = 21;
-                if(readData01->isRunning==false)
-                {
-                    readData02->isRunning = false;
-                    readData01->isRunning = true;
-                    emit InitDataThread01(current_Page);
-                }
-                else
-                {
-                    readData01->isRunning = false;
-                    readData02->isRunning = true;
-                    emit InitDataThread02(current_Page);
-                }
-                this->hide();
-            }
-        else{
-            popUpWindow07.setChinese("密码错误！");
-            popUpWindow07.setEnglish("Password Error!");
-            popUpWindow07.centerShow(this->width(),this->height());
-        }
-        break;
-    }
-    case 0:
-    {
-        if(keyboardStrs ==""){
-            popUpWindow07.setChinese("输入为空!");
-            popUpWindow07.setEnglish("Input Empty!");
-            popUpWindow07.centerShow(this->width(),this->height());
-        }
-        else{
-            program_editing_page.inset(keyboardStrs);
-            program_editing_page.setProgramName(keyboardStrs);
-            program_editing_page.setFocus();
-        }
-    }
-    case 1:
-    {
-        userPasswordPage01.setPasswordLineEdit(keyboardStrs);
-        userPasswordPage01.setFocus();
-        break;
-    }
-    }
-}
-
-void MainWindow::deal_CalculateOk(){
-    calculateStrs = calculate.get_strs();
-    int number = calculateStrs.toInt();
-    writeTouchDBData(1, 1,calculate_ID,number,calculateStrs, 1,"null",0,"null","null","null");
-    tcpServerTask.sendData(calculate_ID,calculateStrs);
-    switch (calculate_ID) {
-    case 258:
-    {
-        if(number >= -1000 && number <= 30000)
-        {
-            //monitoring_interface_page.setTestTemperatureSV(calculateStrs);
-            monitoring_interface_page.setFocus();
-        }
-        else{
-            monitoring_interface_page.setFocus();
-        }
-        break;
-    }
-    case 262:
-    {
-        if(number >= -10000 && number <= 30000)
-        {
-            //monitoring_interface_page.setHumiditySV(calculateStrs);
-            monitoring_interface_page.setFocus();
-        }
-        else{
-            monitoring_interface_page.setFocus();
-        }
-        break;
-    }
-    default:
-        break;
-    }
 }
 
 
@@ -1069,10 +936,10 @@ void MainWindow::deal_parameterSetting_to_mainWindow(){
         emit InitDataThread02(current_Page);
     }
     this->freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     parameter_setting_page.hide();
 }
 
@@ -1100,10 +967,10 @@ void MainWindow::deal_parameterSetting_to_CANSET(){
         emit InitDataThread02(current_Page);
     }
     canset_page.freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     parameter_setting_page.hide();
 }
 
@@ -1160,10 +1027,10 @@ void MainWindow::deal_userPasswordPage01_to_mainWindow(){
         emit InitDataThread02(current_Page);
     }
     this->freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     userPasswordPage01.hide();
 }
 
@@ -1185,10 +1052,10 @@ void MainWindow::deal_userPasswordPage01_to_userPasswordPage02()
         emit InitDataThread02(current_Page);
     }
     userPasswordPage02.freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     userPasswordPage01.hide();
 }
 
@@ -1210,10 +1077,10 @@ void MainWindow::deal_userPasswordPage02_to_mainWindow()
         emit InitDataThread02(current_Page);
     }
     this->freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     userPasswordPage02.hide();
 }
 
@@ -1235,10 +1102,10 @@ void MainWindow::deal_userPasswordPage02_to_userPasswordPage01()
         emit InitDataThread02(current_Page);
     }
     userPasswordPage01.freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     userPasswordPage02.hide();
 }
 
@@ -1260,10 +1127,10 @@ void MainWindow::deal_userPasswordPage02_to_userPasswordPage03()
         emit InitDataThread02(current_Page);
     }
     userPasswordPage03.freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     userPasswordPage02.hide();
 }
 
@@ -1285,10 +1152,10 @@ void MainWindow::deal_userPasswordPage03_to_mainWindow()
         emit InitDataThread02(current_Page);
     }
     this->freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     userPasswordPage03.hide();
 }
 
@@ -1310,10 +1177,10 @@ void MainWindow::deal_userPasswordPage03_to_userPasswordPage02()
         emit InitDataThread02(current_Page);
     }
     userPasswordPage02.freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     userPasswordPage03.hide();
 }
 
@@ -1335,10 +1202,10 @@ void MainWindow::deal_canset_to_mainWindow()
         emit InitDataThread02(current_Page);
     }
     this->freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     canset_page.hide();
 }
 
@@ -1360,10 +1227,10 @@ void MainWindow::deal_canset_to_parameterSetting()
         emit InitDataThread02(current_Page);
     }
     parameter_setting_page.freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     canset_page.hide();
 }
 
@@ -1385,10 +1252,10 @@ void MainWindow::deal_internalParamSet_to_mainWindow()
         emit InitDataThread02(current_Page);
     }
     this->freezeOneSec();
-//    QTime dieTime = QTime::currentTime().addMSecs(100);
-//    while(QTime::currentTime()<dieTime){
-//        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-//    }
+    //    QTime dieTime = QTime::currentTime().addMSecs(100);
+    //    while(QTime::currentTime()<dieTime){
+    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    //    }
     internal_param_set_page.hide();
 }
 ////鼠标按下
@@ -1431,10 +1298,140 @@ void MainWindow::freezeOneSec()
     ui->pBtn_9->setEnabled(true);
 }
 
-
 void MainWindow::deal_updateInterfaceNumber(int addr,QString strs)
 {
     serverTask.sendData(addr,strs);
+}
+
+/*
+ * time: 2022-11-22
+ * type: private slots
+ * effect: 处理虚拟键盘信号
+ * influence: keyboard
+*/
+void MainWindow::deal_KeyboardEsc(){
+    keyboard.hide();
+    keyboard.Clean_Keyboard_LineEdit();
+    keyboard.Clean_Keyboard_CapsLock();
+}
+
+/*
+ * time: 2022-11-22
+ * type: private slots
+ * effect: 处理虚拟键盘信号
+ * influence: keyboard
+*/
+void MainWindow::deal_KeyboardEnter(){
+    keyboardStrs = keyboard.get_strs();
+    //    double number = keyboardStrs.toDouble();
+    switch (current_ID) {
+    case -1:
+    {
+        if(keyboardStrs==userPasswordPage01.getCurrentPassword())
+        {
+            QMutexLocker locker(&page_mutex);
+            userPasswordPage01.move(0,0);
+            userPasswordPage01.show();
+            current_Page = 11;
+            if(readData01->isRunning==false)
+            {
+                readData02->isRunning = false;
+                readData01->isRunning = true;
+                emit InitDataThread01(current_Page);
+            }
+            else
+            {
+                readData01->isRunning = false;
+                readData02->isRunning = true;
+                emit InitDataThread02(current_Page);
+            }
+            userPasswordPage01.freezeOneSec();
+            //            QTime dieTime = QTime::currentTime().addMSecs(100);
+            //            while(QTime::currentTime()<dieTime){
+            //                QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+            //            }
+            this->hide();
+        }
+        else
+            if(keyboardStrs == internal_param_set_page.getViewPassword())
+            {
+                QMutexLocker locker(&page_mutex);
+                internal_param_set_page.move(0,0);
+                internal_param_set_page.show();
+                current_Page = 21;
+                if(readData01->isRunning==false)
+                {
+                    readData02->isRunning = false;
+                    readData01->isRunning = true;
+                    emit InitDataThread01(current_Page);
+                }
+                else
+                {
+                    readData01->isRunning = false;
+                    readData02->isRunning = true;
+                    emit InitDataThread02(current_Page);
+                }
+                this->hide();
+            }
+            else{
+                popUpWindow07.setChinese("密码错误！");
+                popUpWindow07.setEnglish("Password Error!");
+                popUpWindow07.centerShow(this->width(),this->height());
+            }
+        break;
+    }
+    case 0:
+    {
+        if(keyboardStrs ==""){
+            popUpWindow07.setChinese("输入为空!");
+            popUpWindow07.setEnglish("Input Empty!");
+            popUpWindow07.centerShow(this->width(),this->height());
+        }
+        else{
+            program_editing_page.inset(keyboardStrs);
+            program_editing_page.setProgramName(keyboardStrs);
+            program_editing_page.setFocus();
+        }
+    }
+    case 1:
+    {
+        userPasswordPage01.setPasswordLineEdit(keyboardStrs);
+        userPasswordPage01.setFocus();
+        break;
+    }
+    }
+}
+
+void MainWindow::deal_CalculateOk(){
+    calculateStrs = calculate.get_strs();
+    int number = calculateStrs.toInt();
+    writeTouchDBData(1, 1,calculate_ID,number,calculateStrs, 1,"null",0,"null","null","null");
+    switch (calculate_ID) {
+    case addr_touch_test_temperature_sv:
+    {
+        if(number >= -1000 && number <= 30000)
+        {
+            tcpServerTask.sendData(calculate_ID,convertToIntegerString(calculateStrs,2));
+        }
+        monitoring_interface_page.setFocus();
+        break;
+    }
+    case addr_touch_humidity_sv:
+    {
+        if(number >= -1000 && number <= 30000)
+        {
+            tcpServerTask.sendData(calculate_ID,convertToIntegerString(calculateStrs,1));
+        }
+        monitoring_interface_page.setFocus();
+        break;
+    }
+    default:
+        break;
+    }
+}
+void MainWindow::deal_TouchInterfaceDataSignal(int addr,QString strs)
+{
+    tcpServerTask.sendData(addr,strs);
 }
 
 void MainWindow::deal_SQLInterfaceData_update(int id_num,QString data_strs)
@@ -1458,6 +1455,8 @@ void MainWindow::deal_SQLInterfaceData_update(int id_num,QString data_strs)
     default: break;
     }
 }
+
+
 
 void MainWindow::deal_CommInterfaceData_update(int addr_num,QString data_strs)
 {

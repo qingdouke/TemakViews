@@ -168,9 +168,6 @@ signals:
     void tablePreviousPageClickedSignals();
     void tableEditClickedSignals();
     void tabelJumppingClickedSignals();
-    void running_pBtn_clickedSignals();
-    void loading_pBtn_clickedSignals();
-    void constantValueRunning_pBtn_clickedSignals();
     void outputMonitoringChooseProgramSignals(int,QString);
 };
 

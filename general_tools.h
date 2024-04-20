@@ -8,4 +8,5 @@
 using namespace std;
 
 QString convertToDecimalString(QString,int);
+QString convertToIntegerString(QString,int );
 #endif // GENERAL_TOOLS_H

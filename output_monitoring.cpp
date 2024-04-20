@@ -849,7 +849,6 @@ void Output_Monitoring::on_jumpping_pbtn_clicked()
 
 void Output_Monitoring::on_running_pbtn_clicked()
 {
-    emit running_pBtn_clickedSignals();
     if(isRunning==false){
         popUpWindow01.move((this->width()-popUpWindow01.width())/2,(this->height()-popUpWindow01.height())/2);
         popUpWindow01.show();
@@ -864,14 +863,12 @@ void Output_Monitoring::on_running_pbtn_clicked()
 
 void Output_Monitoring::on_loading_pbtn_clicked()
 {
-    emit loading_pBtn_clickedSignals();
     popUpWindow04.move(0,0);
     popUpWindow04.show();
 }
 
 void Output_Monitoring::on_constant_value_running_pbtn_clicked()
 {
-    emit constantValueRunning_pBtn_clickedSignals();
 }
 
 void Output_Monitoring::deal_popUpWindow01PushButtonOKClickedSignal(){

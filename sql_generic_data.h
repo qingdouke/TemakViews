@@ -147,8 +147,17 @@
 #define id_run_pgm_roll_row4                296
 
 
+#define addr_touch_pageturn_pbtn           0x10
 
 #define addr_logo_show                        0x00
+#define addr_touch_run_pbtn                   0x20
+#define addr_touch_load_pbtn                  0x60
+#define addr_touch_onepoint_pbtn              0x6A
+#define addr_touch_reset_pbtn                 0xA0
+#define addr_touch_pause_pbtn               0x6B
+#define addr_touch_lamp_pbtn                0xA0
+#define addr_touch_monitor_nextpage_pbtn    0x1B0
+
 #define addr_sys_prompt_info                  0xE0
 #define addr_sys_run_state                    0xA1
 #define addr_sys_usb_state                    0x79
@@ -158,9 +167,9 @@
 #define addr_sys_comm_state                   0x7C
 #define addr_sys_abnormal_state               0x7D
 
-#define addr_test_temperature_state           0x1A0
-#define addr_test_humidity_state              0x1A3
+
 #define addr_test_temperature_pv              0x101
+#define addr_touch_test_temperature_sv        0x102
 #define addr_test_temperature_sv              0x103
 #define addr_prec_temperature_pv              0x00
 #define addr_prec_temperature_sv              0x00
@@ -168,6 +177,7 @@
 #define addr_preh_temperature_sv              0x00
 #define addr_humidity_pv                      0x10B
 #define addr_humidity_sv                      0x105
+#define addr_touch_humidity_sv                0x106
 #define addr_wet_temperature_pv               0x00
 #define addr_wet_temperature_sv               0x00
 
@@ -182,7 +192,8 @@
 #define addr_program_cycle                    0x130
 #define addr_program_run_segment              0x127
 #define addr_program_link                     0x140
-
+#define addr_test_temperature_state           0x1A0
+#define addr_test_humidity_state              0x1A3
 #define addr_test_temperature_heat_percent    0x263
 #define addr_humidity_heat_percent            0x264
 #define addr_server_percent                   0x265
@@ -292,8 +303,30 @@
 
 
 
-
-
+#define addr_onepoint_test_temperature        0x612
+#define addr_onepoint_test_humidity           0x614
+#define addr_onepoint_ramptime_hour           0x622
+#define addr_onepoint_ramptime_min            0x624
+#define addr_onepoint_ramptime_sec             0x626
+#define addr_onepoint_constime_hour             0x632
+#define addr_onepoint_constime_min              0x634
+#define addr_onepoint_constime_sec              0x636
+#define addr_onepoint_timesignal_1              0x642
+#define addr_onepoint_timesignal_2              0x644
+#define addr_onepoint_timesignal_3              0x646
+#define addr_onepoint_wait                      0x652
+#define addr_touch_onepoint_test_temperature        0x611
+#define addr_touch_onepoint_test_humidity           0x613
+#define addr_touch_onepoint_ramptime_hour           0x621
+#define addr_touch_onepoint_ramptime_min            0x623
+#define addr_touch_onepoint_ramptime_sec             0x625
+#define addr_touch_onepoint_constime_hour             0x631
+#define addr_touch_onepoint_constime_min              0x633
+#define addr_touch_onepoint_constime_sec              0x635
+#define addr_touch_onepoint_timesignal_1              0x641
+#define addr_touch_onepoint_timesignal_2              0x643
+#define addr_touch_onepoint_timesignal_3              0x645
+#define addr_touch_onepoint_wait                      0x651
 
 
 

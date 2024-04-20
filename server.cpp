@@ -18,7 +18,7 @@ Server::Server(QWidget *parent)
     : QDialog(parent)
 {
     connect_flag = 0;
-    server = new QLocalServer(this);
+    /*server = new QLocalServer(this);
     if (!server->listen("tmk_hmi_server")) {
         QMessageBox::critical(this, QString("tmk_hmi_server Server"),
                               QString("Unable to start the server: %1.")
@@ -27,7 +27,7 @@ Server::Server(QWidget *parent)
         return;
     }
     qDebug() << QString("connect slot");
-    connect(server, SIGNAL(newConnection()),this,SLOT(createConnection()));
+    connect(server, SIGNAL(newConnection()),this,SLOT(createConnection()));*/
 
 }
 int send_count = 0;

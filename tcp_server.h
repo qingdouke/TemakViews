@@ -22,6 +22,7 @@ public:
     tcpServer(QWidget *parent = 0);
     int connect_flag;
     void sendData(int,QString);
+    void sendText(int,QString);
 private slots:
     void recvData();
     void createConnection();

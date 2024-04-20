@@ -175,6 +175,8 @@ Monitoring_Interface::Monitoring_Interface(QWidget *parent) :
     connect(ui->LED_pbtn,&QPushButton::clicked,this,&Monitoring_Interface::LED_pBtn_clicked);
     connect(ui->running_pBtn,&QPushButton::clicked,this,&Monitoring_Interface::running_pBtn_clicked);
     connect(ui->loading_pBtn,&QPushButton::clicked,this,&Monitoring_Interface::loading_pBtn_clicked);
+    connect(ui->reset_pbth,&QPushButton::clicked,this,&Monitoring_Interface::reset_pBtn_clicked);
+    connect(ui->constant_value_running_pbtn,&QPushButton::clicked,this,&Monitoring_Interface::onepoint_pBtn_clicked);
 
     //弹窗
     connect(&popUpWindow01,&PopUpWindow01::popWindow01PushButtonOKClickedSignal,this,&Monitoring_Interface::deal_popUpWindow01PushButtonOKClickedSignal);
@@ -239,21 +241,18 @@ bool Monitoring_Interface::eventFilter(QObject *watched, QEvent *event)
             }
         }
     }
-
     //监听lineEdit
-
-
     if(watched == ui->temperature_edit_sv)
     {
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Calculate_Signal(258);
+            emit Request_Use_Calculate_Signal(addr_touch_test_temperature_sv);
             ui->temperature_edit_sv->setFocus();
         }
     }
     else if(watched == ui->humidity_edit_sv)
     {
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Calculate_Signal(262);
+            emit Request_Use_Calculate_Signal(addr_touch_humidity_sv);
             ui->humidity_edit_sv->setFocus();
         }
     }
@@ -570,6 +569,19 @@ void Monitoring_Interface::monitoringInterface_sendTo_outputMonitoring(){
     emit monitoringInterface_to_outputMonitoring();
 }
 
+void Monitoring_Interface::pause_pBtn_clicked(){
+    emit touch_InterfaceDataSignal(addr_touch_pause_pbtn,"0");
+}
+void Monitoring_Interface::onepoint_pBtn_clicked(){
+    emit touch_InterfaceDataSignal(addr_touch_onepoint_pbtn,"0");
+}
+void Monitoring_Interface::reset_pBtn_clicked(){
+    emit touch_InterfaceDataSignal(addr_touch_reset_pbtn,"0");
+}
+
+void Monitoring_Interface::monitor_nextpage_pBtn_clicked(){
+    emit touch_InterfaceDataSignal(addr_touch_monitor_nextpage_pbtn,"0");
+}
 /*
  * time: 2022-10-31
  * type: send Signals
@@ -577,7 +589,6 @@ void Monitoring_Interface::monitoringInterface_sendTo_outputMonitoring(){
  * influence: this
 */
 void Monitoring_Interface::LED_pBtn_clicked(){
-    emit LED_pBtn_clickedSignals();
     isLEDChecked = !isLEDChecked;
     if(isLEDChecked==true){
         ui->LED_pbtn->setStyleSheet("QPushButton#LED_pbtn{border:2px solid rgb(74,122,60);"
@@ -591,10 +602,10 @@ void Monitoring_Interface::LED_pBtn_clicked(){
                                     "border-radius:8px;"
                                     "color:rgb(74,122,60)}");
     }
+    emit touch_InterfaceDataSignal(addr_touch_lamp_pbtn,"2");
 }
 
 void Monitoring_Interface::running_pBtn_clicked(){
-    emit running_pBtn_clickedSignals();
     if(isRunning==false){
         popUpWindow01.move((this->width()-popUpWindow01.width())/2,(this->height()-popUpWindow01.height())/2);
         popUpWindow01.show();
@@ -604,13 +615,14 @@ void Monitoring_Interface::running_pBtn_clicked(){
         popUpWindow03.move((this->width()-popUpWindow03.width())/2,(this->height()-popUpWindow03.height())/2);
         popUpWindow03.show();
     }
+    emit touch_InterfaceDataSignal(addr_touch_onepoint_pbtn,"0");
 }
 
 void Monitoring_Interface::loading_pBtn_clicked(){
-    emit loading_pBtn_clickedSignals();
     popUpWindow04.move(0,0);
     popUpWindow04.setStatus(0);
     popUpWindow04.show();
+    emit touch_InterfaceDataSignal(addr_touch_load_pbtn,"0");
 }
 
 void Monitoring_Interface::start_run_gif(){

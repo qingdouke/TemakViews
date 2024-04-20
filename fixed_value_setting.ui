@@ -69,9 +69,9 @@
    <widget class="QLabel" name="title">
     <property name="geometry">
      <rect>
-      <x>550</x>
+      <x>519</x>
       <y>0</y>
-      <width>180</width>
+      <width>211</width>
       <height>60</height>
      </rect>
     </property>
@@ -82,7 +82,7 @@
      </font>
     </property>
     <property name="text">
-     <string>定点功能</string>
+     <string>ONE-POINT</string>
     </property>
     <property name="textFormat">
      <enum>Qt::PlainText</enum>
@@ -125,7 +125,7 @@
       </font>
      </property>
      <property name="text">
-      <string>程    式</string>
+      <string>PgmName</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -146,7 +146,7 @@
       </font>
      </property>
      <property name="text">
-      <string>温      度</string>
+      <string>Temp</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -167,7 +167,7 @@
       </font>
      </property>
      <property name="text">
-      <string>湿      度</string>
+      <string>Humi</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -188,7 +188,7 @@
       </font>
      </property>
      <property name="text">
-      <string>斜率时间</string>
+      <string>RampTime</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -209,7 +209,7 @@
       </font>
      </property>
      <property name="text">
-      <string>恒温时间</string>
+      <string>ConsTime</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -230,7 +230,7 @@
       </font>
      </property>
      <property name="text">
-      <string>时      序</string>
+      <string>TimeSignal</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -251,7 +251,7 @@
       </font>
      </property>
      <property name="text">
-      <string>W a i t</string>
+      <string>Wait</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -260,9 +260,9 @@
     <widget class="QLabel" name="t1">
      <property name="geometry">
       <rect>
-       <x>242</x>
+       <x>240</x>
        <y>2</y>
-       <width>710</width>
+       <width>711</width>
        <height>70</height>
       </rect>
      </property>
@@ -507,7 +507,7 @@
     <widget class="QLineEdit" name="slopeTime_H_lineEdit">
      <property name="geometry">
       <rect>
-       <x>410</x>
+       <x>420</x>
        <y>225</y>
        <width>41</width>
        <height>41</height>
@@ -549,7 +549,7 @@
     <widget class="QLineEdit" name="slopeTime_S_lineEdit">
      <property name="geometry">
       <rect>
-       <x>670</x>
+       <x>640</x>
        <y>225</y>
        <width>41</width>
        <height>41</height>
@@ -570,7 +570,7 @@
     <widget class="QLineEdit" name="constantTemp_H_lineEdit">
      <property name="geometry">
       <rect>
-       <x>410</x>
+       <x>420</x>
        <y>295</y>
        <width>41</width>
        <height>41</height>
@@ -612,7 +612,7 @@
     <widget class="QLineEdit" name="constantTemp_S_lineEdit">
      <property name="geometry">
       <rect>
-       <x>670</x>
+       <x>640</x>
        <y>295</y>
        <width>41</width>
        <height>41</height>
@@ -740,7 +740,7 @@
      </font>
     </property>
     <property name="text">
-     <string>目  录</string>
+     <string>Menu</string>
     </property>
    </widget>
    <widget class="QPushButton" name="saving_pbtn">
@@ -758,7 +758,7 @@
      </font>
     </property>
     <property name="text">
-     <string>保  存</string>
+     <string>SAVE</string>
     </property>
    </widget>
    <widget class="QPushButton" name="previous_page_pbtn">
@@ -776,7 +776,7 @@
      </font>
     </property>
     <property name="text">
-     <string>上一页</string>
+     <string>LastPage</string>
     </property>
    </widget>
    <widget class="QLabel" name="footer_line">
@@ -819,7 +819,7 @@
       <rect>
        <x>15</x>
        <y>15</y>
-       <width>121</width>
+       <width>141</width>
        <height>31</height>
       </rect>
      </property>
@@ -829,7 +829,7 @@
       </font>
      </property>
      <property name="text">
-      <string>定值运行</string>
+      <string>ONE-POINT</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

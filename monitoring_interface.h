@@ -69,6 +69,10 @@ public:
     void LED_pBtn_clicked();
     void running_pBtn_clicked();
     void loading_pBtn_clicked();
+    void pause_pBtn_clicked();
+    void onepoint_pBtn_clicked();
+    void reset_pBtn_clicked();
+    void monitor_nextpage_pBtn_clicked();
 
     void start_run_gif();
     void InitProgram(int,QString);
@@ -127,12 +131,9 @@ private slots:
 signals:
     void monitoring_interface_to_mainwindow();
     void monitoringInterface_to_outputMonitoring();
-//    void Request_Use_Keyboard_Signal(int);
     void Request_Use_Calculate_Signal(int);
-    void LED_pBtn_clickedSignals();
-    void running_pBtn_clickedSignals();
-    void loading_pBtn_clickedSignals();
     void monitoring_interface_choose_program(int,QString);
+    void touch_InterfaceDataSignal(int,QString);
 };
 
 #endif // MONITORING_INTERFACE_H

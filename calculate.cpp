@@ -53,101 +53,87 @@ void Calculate::Clean_Calculater_LineEdit()
 
 void Calculate::pushButton_0_clicked()
 {
-    QWidget *receiver = QApplication::focusWidget();
+    /*QWidget *receiver = QApplication::focusWidget();
     QKeyEvent keyPress(QEvent::KeyPress, Qt::Key_0, Qt::NoModifier, QString("0"));
     QKeyEvent keyRelease(QEvent::KeyRelease, Qt::Key_0, Qt::NoModifier, QString("0"));
     QApplication::sendEvent(receiver, &keyPress);
-    QApplication::sendEvent(receiver, &keyRelease);
+    QApplication::sendEvent(receiver, &keyRelease);*/
+    QString strs_ = ui->lineEdit->text();
+    strs_.append("0");
+    ui->lineEdit->setText(strs_);
 
 }
 
 void Calculate::pushButton_1_clicked()
 {
-    QWidget *receiver = QApplication::focusWidget();
+    /*QWidget *receiver = QApplication::focusWidget();
     QKeyEvent keyPress(QEvent::KeyPress, Qt::Key_1, Qt::NoModifier, QString("1"));
     QKeyEvent keyRelease(QEvent::KeyRelease, Qt::Key_1, Qt::NoModifier, QString("1"));
     QApplication::sendEvent(receiver, &keyPress);
-    QApplication::sendEvent(receiver, &keyRelease);
+    QApplication::sendEvent(receiver, &keyRelease);*/
+    QString strs_ = ui->lineEdit->text();
+    strs_.append("1");
+    ui->lineEdit->setText(strs_);
 
 }
 
 void Calculate::pushButton_2_clicked()
 {
-    QWidget *receiver = QApplication::focusWidget();
-    QKeyEvent keyPress(QEvent::KeyPress, Qt::Key_2, Qt::NoModifier, QString("2"));
-    QKeyEvent keyRelease(QEvent::KeyRelease, Qt::Key_2, Qt::NoModifier, QString("2"));
-    QApplication::sendEvent(receiver, &keyPress);
-    QApplication::sendEvent(receiver, &keyRelease);
+    QString strs_ = ui->lineEdit->text();
+    strs_.append("2");
+    ui->lineEdit->setText(strs_);
 
 }
 
 void Calculate::pushButton_3_clicked()
 {
-    QWidget *receiver = QApplication::focusWidget();
-    QKeyEvent keyPress(QEvent::KeyPress, Qt::Key_3, Qt::NoModifier, QString("3"));
-    QKeyEvent keyRelease(QEvent::KeyRelease, Qt::Key_3, Qt::NoModifier, QString("3"));
-    QApplication::sendEvent(receiver, &keyPress);
-    QApplication::sendEvent(receiver, &keyRelease);
-
+    QString strs_ = ui->lineEdit->text();
+    strs_.append("3");
+    ui->lineEdit->setText(strs_);
 }
 
 void Calculate::pushButton_4_clicked()
 {
-    QWidget *receiver = QApplication::focusWidget();
-    QKeyEvent keyPress(QEvent::KeyPress, Qt::Key_4, Qt::NoModifier, QString("4"));
-    QKeyEvent keyRelease(QEvent::KeyRelease, Qt::Key_4, Qt::NoModifier, QString("4"));
-    QApplication::sendEvent(receiver, &keyPress);
-    QApplication::sendEvent(receiver, &keyRelease);
+    QString strs_ = ui->lineEdit->text();
+    strs_.append("4");
+    ui->lineEdit->setText(strs_);
 
 }
 
 void Calculate::pushButton_5_clicked()
 {
-    QWidget *receiver = QApplication::focusWidget();
-    QKeyEvent keyPress(QEvent::KeyPress, Qt::Key_5, Qt::NoModifier, QString("5"));
-    QKeyEvent keyRelease(QEvent::KeyRelease, Qt::Key_5, Qt::NoModifier, QString("5"));
-    QApplication::sendEvent(receiver, &keyPress);
-    QApplication::sendEvent(receiver, &keyRelease);
-
+    QString strs_ = ui->lineEdit->text();
+    strs_.append("5");
+    ui->lineEdit->setText(strs_);
 }
 
 void Calculate::pushButton_6_clicked()
 {
-    QWidget *receiver = QApplication::focusWidget();
-    QKeyEvent keyPress(QEvent::KeyPress, Qt::Key_6, Qt::NoModifier, QString("6"));
-    QKeyEvent keyRelease(QEvent::KeyRelease, Qt::Key_6, Qt::NoModifier, QString("6"));
-    QApplication::sendEvent(receiver, &keyPress);
-    QApplication::sendEvent(receiver, &keyRelease);
-
+    QString strs_ = ui->lineEdit->text();
+    strs_.append("6");
+    ui->lineEdit->setText(strs_);
 }
 
 void Calculate::pushButton_7_clicked()
 {
-    QWidget *receiver = QApplication::focusWidget();
-    QKeyEvent keyPress(QEvent::KeyPress, Qt::Key_7, Qt::NoModifier, QString("7"));
-    QKeyEvent keyRelease(QEvent::KeyRelease, Qt::Key_7, Qt::NoModifier, QString("7"));
-    QApplication::sendEvent(receiver, &keyPress);
-    QApplication::sendEvent(receiver, &keyRelease);
+    QString strs_ = ui->lineEdit->text();
+    strs_.append("7");
+    ui->lineEdit->setText(strs_);
 
 }
 
 void Calculate::pushButton_8_clicked()
 {
-    QWidget *receiver = QApplication::focusWidget();
-    QKeyEvent keyPress(QEvent::KeyPress, Qt::Key_8, Qt::NoModifier, QString("8"));
-    QKeyEvent keyRelease(QEvent::KeyRelease, Qt::Key_8, Qt::NoModifier, QString("8"));
-    QApplication::sendEvent(receiver, &keyPress);
-    QApplication::sendEvent(receiver, &keyRelease);
-
+    QString strs_ = ui->lineEdit->text();
+    strs_.append("8");
+    ui->lineEdit->setText(strs_);
 }
 
 void Calculate::pushButton_9_clicked()
 {
-    QWidget *receiver = QApplication::focusWidget();
-    QKeyEvent keyPress(QEvent::KeyPress, Qt::Key_9, Qt::NoModifier, QString("9"));
-    QKeyEvent keyRelease(QEvent::KeyRelease, Qt::Key_9, Qt::NoModifier, QString("9"));
-    QApplication::sendEvent(receiver, &keyPress);
-    QApplication::sendEvent(receiver, &keyRelease);
+    QString strs_ = ui->lineEdit->text();
+    strs_.append("9");
+    ui->lineEdit->setText(strs_);
 
 }
 
@@ -159,11 +145,19 @@ void Calculate::pushButton_Esc_clicked()
 
 void Calculate::pushButton_Period_clicked()
 {
-    QWidget *receiver = QApplication::focusWidget();
+    /*QWidget *receiver = QApplication::focusWidget();
     QKeyEvent keyPress(QEvent::KeyPress, Qt::Key_Period, Qt::NoModifier, QString("."));
     QKeyEvent keyRelease(QEvent::KeyRelease, Qt::Key_Period, Qt::NoModifier, QString("."));
     QApplication::sendEvent(receiver, &keyPress);
-    QApplication::sendEvent(receiver, &keyRelease);
+    QApplication::sendEvent(receiver, &keyRelease);*/
+    QString strs_ = ui->lineEdit->text();
+    int startIndex = strs_.indexOf(".");
+    {
+        if (startIndex == -1) {
+            strs_.append(".");
+        }
+    }
+    ui->lineEdit->setText(strs_);
 }
 
 void Calculate::pushButton_Minus_clicked()
@@ -190,11 +184,14 @@ void Calculate::pushButton_Minus_clicked()
 }
 
 void Calculate::pushButton_Backspace_clicked(){
-    QWidget *receiver = QApplication::focusWidget();
+    /*QWidget *receiver = QApplication::focusWidget();
     QKeyEvent keyPress(QEvent::KeyPress, Qt::Key_Backspace, Qt::NoModifier, QString(""));
     QKeyEvent keyRelease(QEvent::KeyRelease, Qt::Key_Backspace, Qt::NoModifier, QString(""));
     QApplication::sendEvent(receiver, &keyPress);
-    QApplication::sendEvent(receiver, &keyRelease);
+    QApplication::sendEvent(receiver, &keyRelease);*/
+    QString strs_ = ui->lineEdit->text();
+    strs_.chop(1);
+    ui->lineEdit->setText(strs_);
 }
 
 void Calculate::pushButton_sendOK_clicked()

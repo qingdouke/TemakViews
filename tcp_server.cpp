@@ -35,19 +35,62 @@ tcpServer::tcpServer(QWidget *parent)
 int tcp_send_count = 0;
 void tcpServer::sendData(int addr,QString strs)
 {
+
     if(1 == connect_flag)
     {
-        QByteArray block;
+        /*QByteArray block;
         QDataStream out(&block, QIODevice::WriteOnly);
         out.setVersion(QDataStream::Qt_4_0);
         out << (quint32)0;
         if(++tcp_send_count > 10000)
             tcp_send_count = 0;
-        //qDebug() << QString("send data send count is %1").arg(tcp_send_count);
+        //tcp_socket->write("adfadfasdfaa");
+        out << QString("send%1:%2").arg(addr).arg(strs);
+        out.device()->seek(0);        
+        out << (quint32)(block.size() - sizeof(quint32));
+        QString outstr = QString(block);
+        qDebug() << QString("send data is %1").arg(outstr);
+        tcp_socket->write(block);*/
+        char sendbuf[1024] = { 0 };
+        strcpy(sendbuf,"QtData");
+        char databuf[32] = { 0 };
+        sprintf(databuf,"%d,",addr);
+        strcat(sendbuf,databuf);
+        QByteArray ba = strs.toLatin1();
+        char *strbuf = ba.data();
+        strcat(sendbuf,strbuf);
+        strcat(sendbuf,"SendEnd");
+        tcp_socket->write(sendbuf);
+    }
+}
+void tcpServer::sendText(int addr,QString strs)
+{
+
+    if(1 == connect_flag)
+    {
+        /*QByteArray block;
+        QDataStream out(&block, QIODevice::WriteOnly);
+        out.setVersion(QDataStream::Qt_4_0);
+        out << (quint32)0;
+        if(++tcp_send_count > 10000)
+            tcp_send_count = 0;
+        //tcp_socket->write("adfadfasdfaa");
         out << QString("send%1:%2").arg(addr).arg(strs);
         out.device()->seek(0);
         out << (quint32)(block.size() - sizeof(quint32));
-        tcp_socket->write(block);
+        QString outstr = QString(block);
+        qDebug() << QString("send data is %1").arg(outstr);
+        tcp_socket->write(block);*/
+        char sendbuf[1024] = { 0 };
+        strcpy(sendbuf,"QtText");
+        char databuf[32] = { 0 };
+        sprintf(databuf,"%d,",addr);
+        strcat(sendbuf,databuf);
+        QByteArray ba = strs.toLatin1();
+        char *strbuf = ba.data();
+        strcat(sendbuf,strbuf);
+        strcat(sendbuf,"SendEnd");
+        tcp_socket->write(sendbuf);
     }
 }
 QByteArray m_buffer_car;
@@ -55,7 +98,7 @@ void tcpServer::recvData()
 {
     if(tcp_socket->bytesAvailable() <=0)
         return;
-    QByteArray buffer = tcp_socket->readAll();
+    QByteArray buffer = tcp_socket->readAll();    
     m_buffer_car.append(buffer);
     qDebug()<<"rcv_data:"<<m_buffer_car;
     while (m_buffer_car.size() > 17) {

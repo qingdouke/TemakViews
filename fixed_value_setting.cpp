@@ -240,78 +240,79 @@ bool Fixed_Value_Setting::eventFilter(QObject *watched, QEvent *event)
             }
         }
     }
-//    if(watched == ui->temperature_lineEdit){
-//        if(event->type() == QEvent::MouseButtonPress){
-//            emit Request_Use_Keyboard_Signal(18);
-//            ui->temperature_lineEdit->setFocus();   //lineEdit聚焦
-//        }
-//    }
-//    else if(watched == ui->humidity_lineEdit){
-//        if(event->type() == QEvent::MouseButtonPress){
-//            emit Request_Use_Keyboard_Signal(19);
-//            ui->humidity_lineEdit->setFocus();   //lineEdit聚焦
-//        }
-//    }
-//    else if(watched == ui->slopeTime_H_lineEdit){
-//        if(event->type() == QEvent::MouseButtonPress){
-//            emit Request_Use_Keyboard_Signal(20);
-//            ui->slopeTime_H_lineEdit->setFocus();   //lineEdit聚焦
-//        }
-//    }
-//    else if(watched == ui->slopeTime_M_lineEdit){
-//        if(event->type() == QEvent::MouseButtonPress){
-//            emit Request_Use_Keyboard_Signal(21);
-//            ui->slopeTime_M_lineEdit->setFocus();   //lineEdit聚焦
-//        }
-//    }
-//    else if(watched == ui->slopeTime_S_lineEdit){
-//        if(event->type() == QEvent::MouseButtonPress){
-//            emit Request_Use_Keyboard_Signal(22);
-//            ui->slopeTime_S_lineEdit->setFocus();   //lineEdit聚焦
-//        }
-//    }
-//    else if(watched == ui->constantTemp_H_lineEdit){
-//        if(event->type() == QEvent::MouseButtonPress){
-//            emit Request_Use_Keyboard_Signal(23);
-//            ui->constantTemp_H_lineEdit->setFocus();   //lineEdit聚焦
-//        }
-//    }
-//    else if(watched == ui->constantTemp_M_lineEdit){
-//        if(event->type() == QEvent::MouseButtonPress){
-//            emit Request_Use_Keyboard_Signal(24);
-//            ui->constantTemp_M_lineEdit->setFocus();   //lineEdit聚焦
-//        }
-//    }
-//    else if(watched == ui->constantTemp_S_lineEdit){
-//        if(event->type() == QEvent::MouseButtonPress){
-//            emit Request_Use_Keyboard_Signal(25);
-//            ui->constantTemp_S_lineEdit->setFocus();   //lineEdit聚焦
-//        }
-//    }
-//    else if(watched == ui->TS1_lineEdit){
-//        if(event->type() == QEvent::MouseButtonPress){
-//            emit Request_Use_Keyboard_Signal(26);
-//            ui->TS1_lineEdit->setFocus();   //lineEdit聚焦
-//        }
-//    }
-//    else if(watched == ui->TS2_lineEdit){
-//        if(event->type() == QEvent::MouseButtonPress){
-//            emit Request_Use_Keyboard_Signal(27);
-//            ui->TS2_lineEdit->setFocus();   //lineEdit聚焦
-//        }
-//    }
-//    else if(watched == ui->TS3_lineEdit){
-//        if(event->type() == QEvent::MouseButtonPress){
-//            emit Request_Use_Keyboard_Signal(28);
-//            ui->TS3_lineEdit->setFocus();   //lineEdit聚焦
-//        }
-//    }
-//    else if(watched == ui->Wait_lineEdit){
-//        if(event->type() == QEvent::MouseButtonPress){
-//            emit Request_Use_Keyboard_Signal(29);
-//            ui->Wait_lineEdit->setFocus();   //lineEdit聚焦
-//        }
-//    }
+
+    if(watched == ui->temperature_lineEdit){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(18);
+            ui->temperature_lineEdit->setFocus();   //lineEdit聚焦
+        }
+    }
+    else if(watched == ui->humidity_lineEdit){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(19);
+            ui->humidity_lineEdit->setFocus();   //lineEdit聚焦
+        }
+    }
+    else if(watched == ui->slopeTime_H_lineEdit){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(20);
+            ui->slopeTime_H_lineEdit->setFocus();   //lineEdit聚焦
+        }
+    }
+    else if(watched == ui->slopeTime_M_lineEdit){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(21);
+            ui->slopeTime_M_lineEdit->setFocus();   //lineEdit聚焦
+        }
+    }
+    else if(watched == ui->slopeTime_S_lineEdit){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(22);
+            ui->slopeTime_S_lineEdit->setFocus();   //lineEdit聚焦
+        }
+    }
+    else if(watched == ui->constantTemp_H_lineEdit){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(23);
+            ui->constantTemp_H_lineEdit->setFocus();   //lineEdit聚焦
+        }
+    }
+    else if(watched == ui->constantTemp_M_lineEdit){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(24);
+            ui->constantTemp_M_lineEdit->setFocus();   //lineEdit聚焦
+        }
+    }
+    else if(watched == ui->constantTemp_S_lineEdit){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(25);
+            ui->constantTemp_S_lineEdit->setFocus();   //lineEdit聚焦
+        }
+    }
+    else if(watched == ui->TS1_lineEdit){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(26);
+            ui->TS1_lineEdit->setFocus();   //lineEdit聚焦
+        }
+    }
+    else if(watched == ui->TS2_lineEdit){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(27);
+            ui->TS2_lineEdit->setFocus();   //lineEdit聚焦
+        }
+    }
+    else if(watched == ui->TS3_lineEdit){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(28);
+            ui->TS3_lineEdit->setFocus();   //lineEdit聚焦
+        }
+    }
+    else if(watched == ui->Wait_lineEdit){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(29);
+            ui->Wait_lineEdit->setFocus();   //lineEdit聚焦
+        }
+    }
     return QWidget::eventFilter(watched,event);         //返回事件过滤器
 }
 
