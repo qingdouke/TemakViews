@@ -151,15 +151,25 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(&canset_page,&CANSET::canset_to_mainWindow,this,&MainWindow::deal_canset_to_mainWindow);
     connect(&canset_page,&CANSET::canset_to_parameterSetting,this,&MainWindow::deal_canset_to_parameterSetting);
-    connect(&internal_param_set_page,&internal_param_set::internalParamSet_to_mainWindow,this,&MainWindow::deal_internalParamSet_to_mainWindow);
+    connect(&internal_param_set_page,&InternalParamSet::internalParamSet_to_mainWindow,this,&MainWindow::deal_internalParamSet_to_mainWindow);
 
-    //请求使用虚拟键盘
-    printf("use calculate  key\n");
+    //请求使用数字键盘
     connect(&monitoring_interface_page,&Monitoring_Interface::Request_Use_Calculate_Signal,this,&MainWindow::deal_RequestUseCalculateSignal);
+    connect(&output_monitoring_page,&Output_Monitoring::Request_Use_Calculate_Signal,this,&MainWindow::deal_RequestUseCalculateSignal);
+    connect(&curve_monitoring_page,&Curve_Monitoring::Request_Use_Calculate_Signal,this,&MainWindow::deal_RequestUseCalculateSignal);
+    connect(&program_editing_page,&Program_Editing::Request_Use_Calculate_Signal,this,&MainWindow::deal_RequestUseCalculateSignal);
+    connect(&program_loop_page,&Program_Loop::Request_Use_Calculate_Signal,this,&MainWindow::deal_RequestUseCalculateSignal);
+    connect(&fixed_value_setting_page,&Fixed_Value_Setting::Request_Use_Calculate_Signal,this,&MainWindow::deal_RequestUseCalculateSignal);
+    connect(&error_log_page,&Error_Log::Request_Use_Calculate_Signal,this,&MainWindow::deal_RequestUseCalculateSignal);
+    connect(&userPasswordPage01,&UserPasswordPage01::Request_Use_Calculate_Signal,this,&MainWindow::deal_RequestUseCalculateSignal);
+    connect(&userPasswordPage02,&UserPasswordPage02::Request_Use_Calculate_Signal,this,&MainWindow::deal_RequestUseCalculateSignal);
+    connect(&userPasswordPage03,&UserPasswordPage03::Request_Use_Calculate_Signal,this,&MainWindow::deal_RequestUseCalculateSignal);
+    connect(&internal_param_set_page,&InternalParamSet::Request_Use_Calculate_Signal,this,&MainWindow::deal_RequestUseCalculateSignal);
+
+    //请求使用虚拟全键盘
     connect(&program_editing_page,&Program_Editing::Request_Use_Keyboard_Signal,this,&MainWindow::deal_RequestUseKeyBoardSignal);
     connect(&userPasswordPage01,&UserPasswordPage01::Request_Use_Keyboard_Signal,this,&MainWindow::deal_RequestUseKeyBoardSignal);
-    connect(&internal_param_set_page,&internal_param_set::Request_Use_Calculate_Signal,this,&MainWindow::deal_RequestUseCalculateSignal);
-    connect(&internal_param_set_page,&internal_param_set::Request_Use_Keyboard_Signal,this,&MainWindow::deal_RequestUseKeyBoardSignal);
+    connect(&internal_param_set_page,&InternalParamSet::Request_Use_Keyboard_Signal,this,&MainWindow::deal_RequestUseKeyBoardSignal);
 
     //数据处理
     connect(&monitoring_interface_page,&Monitoring_Interface::monitoring_interface_choose_program,this,&MainWindow::deal_ChooseProgramSignals);
@@ -1474,7 +1484,7 @@ void MainWindow::deal_CommInterfaceData_update(int addr_num,QString data_strs)
     case CURE_SHOW:         break;
     case PGM_EDIT:          break;
     case PGM_CYCLE:         break;
-    case FIXED_FUN:         break;
+    case FIXED_FUN:         fixed_value_setting_page.addrSetOnepointInterfaceData(adr_num,data_strs);  break;
     case PARAM_SET:         break;
     case ERR_LOG_PAGE:      break;
     case PGM_SLT_PAGE:      break;

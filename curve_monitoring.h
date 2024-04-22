@@ -97,6 +97,9 @@ signals:
     void Request_Use_Keyboard_Signal(int);
     void savingClickedSignals();
     void realTimeClickedSignals(int);
+
+    void Request_Use_Calculate_Signal(int);
+
 };
 
 #endif // CURVE_MONITORING_H

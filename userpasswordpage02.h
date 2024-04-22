@@ -28,10 +28,11 @@ private slots:
     void currentTime();
 
 signals:
-    void Request_Use_Keyboard_Signal(int);
     void userPasswordPage02_to_mainWindow();
     void userPasswordPage02_to_userPasswordPage01();
     void userPasswordPage02_to_userPasswordPage03();
+    void Request_Use_Keyboard_Signal(int);
+    void Request_Use_Calculate_Signal(int);
 };
 
 #endif // USERPASSWORDPAGE02_H

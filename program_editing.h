@@ -79,12 +79,15 @@ public slots:
 
 signals:
     void programEditing_to_mainWindow();
-    void Request_Use_Keyboard_Signal(int);
     void creatNewProgramClickedSignals();
     void deleteProgramClickedSignals();
     void insertClickedSignals();
     void deleteClickedSignals();
     void programEditingChooseProgramSignals(int,QString);
+
+    void Request_Use_Keyboard_Signal(int);
+    void Request_Use_Calculate_Signal(int);
+
 };
 
 #endif // PROGRAM_EDITING_H

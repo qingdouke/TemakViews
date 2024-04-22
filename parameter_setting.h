@@ -102,6 +102,7 @@ signals:
     void parameterSetting_to_mainWindow();
     void parameterSetting_to_CANSET();
     void Request_Use_Keyboard_Signal(int);
+    void Request_Use_Calculate_Signal(int);
 };
 
 #endif // PARAMETER_SETTING_H

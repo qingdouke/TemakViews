@@ -1,19 +1,19 @@
-#ifndef INTERNAL_PARAM_SET_H
-#define INTERNAL_PARAM_SET_H
+#ifndef INTERNALPARAMSET_H
+#define INTERNALPARAMSET_H
 
 #include <QWidget>
 
 namespace Ui {
-class internal_param_set;
+class InternalParamSet;
 }
 
-class internal_param_set : public QWidget
+class InternalParamSet : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit internal_param_set(QWidget *parent = 0);
-    ~internal_param_set();
+    explicit InternalParamSet(QWidget *parent = 0);
+    ~InternalParamSet();
     QString getViewPassword();
     void internalParamSet_sendTo_mainWindow();
     void clearPage();
@@ -27,12 +27,13 @@ private slots:
     void on_row2column1_clicked();
 
 private:
-    Ui::internal_param_set *ui;
+    Ui::InternalParamSet *ui;
     QString viewPassword = "8";
 signals:
     void internalParamSet_to_mainWindow();
     void Request_Use_Calculate_Signal(int);
     void Request_Use_Keyboard_Signal(int);
+
 };
 
-#endif // INTERNAL_PARAM_SET_H
+#endif // InternalParamSet

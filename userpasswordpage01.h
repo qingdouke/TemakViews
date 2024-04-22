@@ -44,9 +44,10 @@ private slots:
 
 
 signals:
-    void Request_Use_Keyboard_Signal(int);
     void userPasswordPage01_to_mainWindow();
     void userPasswordPage01_to_userPasswordPage02();
+    void Request_Use_Keyboard_Signal(int);
+    void Request_Use_Calculate_Signal(int);
 };
 
 #endif // USERPASSWORDPAGE01_H

@@ -169,6 +169,8 @@ signals:
     void tableEditClickedSignals();
     void tabelJumppingClickedSignals();
     void outputMonitoringChooseProgramSignals(int,QString);
+    void Request_Use_Calculate_Signal(int);
+
 };
 
 #endif // OUTPUT_MONITORING_H

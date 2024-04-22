@@ -84,6 +84,9 @@ signals:
     void programLoop_to_programEditing();
     void programLoop_to_fixedValueSetting();
     void Request_Use_Keyboard_Signal(int);
+    void Request_Use_Calculate_Signal(int);
+
+
 };
 
 #endif // PROGRAM_LOOP_H

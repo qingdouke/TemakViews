@@ -25,6 +25,8 @@ private slots:
 
 signals:
     void errorLog_to_mainWindow();
+    void Request_Use_Keyboard_Signal(int);
+    void Request_Use_Calculate_Signal(int);
 };
 
 #endif // ERROR_LOG_H

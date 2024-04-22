@@ -26,6 +26,8 @@ private:
 signals:
     void canset_to_mainWindow();
     void canset_to_parameterSetting();
+    void Request_Use_Keyboard_Signal(int);
+    void Request_Use_Calculate_Signal(int);
 };
 
 #endif // CANSET_H

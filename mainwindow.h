@@ -69,15 +69,17 @@ public:
     Program_Loop program_loop_page;
     Fixed_Value_Setting fixed_value_setting_page;
     Parameter_Setting parameter_setting_page;
+    CANSET canset_page;
     Error_Log error_log_page;
-    Keyboard keyboard;
-    Calculate calculate;
-    PopUpWindow07 popUpWindow07;
     UserPasswordPage01 userPasswordPage01;
     UserPasswordPage02 userPasswordPage02;
     UserPasswordPage03 userPasswordPage03;
-    internal_param_set internal_param_set_page;
-    CANSET canset_page;
+    InternalParamSet internal_param_set_page;
+
+    Keyboard keyboard;
+    Calculate calculate;
+    PopUpWindow07 popUpWindow07;
+
     Data* readData01;
     Data* readData02;
     Server serverTask;

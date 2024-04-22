@@ -2,9 +2,9 @@
 #include "ui_internal_param_set.h"
 #include <QTimer>
 #include <QDateTime>
-internal_param_set::internal_param_set(QWidget *parent) :
+InternalParamSet::InternalParamSet(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::internal_param_set)
+    ui(new Ui::InternalParamSet)
 {
     ui->setupUi(this);
 
@@ -16,7 +16,7 @@ internal_param_set::internal_param_set(QWidget *parent) :
 
     //ui->current_time的connect 显示实时时间
     QTimer *timer = new QTimer(this);
-    connect(timer,&QTimer::timeout,this,&internal_param_set::currentTime);
+    connect(timer,&QTimer::timeout,this,&InternalParamSet::currentTime);
     timer->start(1000);
 
     //Footer
@@ -165,7 +165,7 @@ internal_param_set::internal_param_set(QWidget *parent) :
     ui->row12column8->setStyleSheet("font-family:Monospace;font-size:20pt;background:transparent;border-width:0;border-style:outset");
     clearPage();
 
-    connect(ui->font_page_pbtn,&QPushButton::clicked,this,&internal_param_set::internalParamSet_sendTo_mainWindow);
+    connect(ui->font_page_pbtn,&QPushButton::clicked,this,&InternalParamSet::internalParamSet_sendTo_mainWindow);
 
 }
 /*
@@ -174,29 +174,29 @@ internal_param_set::internal_param_set(QWidget *parent) :
  * effect: 每秒更新一次当前时间
  * influence: ui->current_time
 */
-void internal_param_set::currentTime(){
+void InternalParamSet::currentTime(){
     QDateTime datetime = QDateTime::currentDateTime();
     QString datetimestrs = datetime.toString("yyyy-MM-dd hh:mm:ss");
     ui->current_time->setText(datetimestrs);
 }
 
-internal_param_set::~internal_param_set()
+InternalParamSet::~InternalParamSet()
 {
     delete ui;
 }
 
-void internal_param_set::on_font_page_pbtn_clicked()
+void InternalParamSet::on_font_page_pbtn_clicked()
 {
 
 }
-QString internal_param_set::getViewPassword(){
+QString InternalParamSet::getViewPassword(){
     return viewPassword;
 }
-void internal_param_set::internalParamSet_sendTo_mainWindow()
+void InternalParamSet::internalParamSet_sendTo_mainWindow()
 {
     emit internalParamSet_to_mainWindow();
 }
-void internal_param_set::clearPage()
+void InternalParamSet::clearPage()
 {
     ui->title->setText("");
 
@@ -309,7 +309,7 @@ void internal_param_set::clearPage()
     ui->row12column8->setText("");
 }
 int key_cal = 0;
-void internal_param_set::on_row1column1_clicked()
+void InternalParamSet::on_row1column1_clicked()
 {
     if(key_cal == 0)
     {
@@ -322,7 +322,7 @@ void internal_param_set::on_row1column1_clicked()
     }
 }
 
-void internal_param_set::on_row1column2_clicked()
+void InternalParamSet::on_row1column2_clicked()
 {
     if(key_cal == 0)
     {
@@ -335,7 +335,7 @@ void internal_param_set::on_row1column2_clicked()
     }
 }
 
-void internal_param_set::on_row1column3_clicked()
+void InternalParamSet::on_row1column3_clicked()
 {
     if(key_cal == 0)
     {
@@ -349,7 +349,7 @@ void internal_param_set::on_row1column3_clicked()
 }
 
 
-void internal_param_set::on_row2column1_clicked()
+void InternalParamSet::on_row2column1_clicked()
 {
     ui->row2column1->setText("swi");
     key_cal = !key_cal;
