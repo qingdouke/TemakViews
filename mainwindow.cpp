@@ -4,12 +4,16 @@
 #include "sql_generic_data.h"
 #include "server.h"
 #include "general_tools.h"
+#include "address_data_show.h"
 
 #include <QTimer>
 #include <QDateTime>
 #include <QDebug>
 #include <QMutexLocker>
 #include <QDataStream>
+
+
+SYS_INFO_F sys_info;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -32,7 +36,6 @@ MainWindow::MainWindow(QWidget *parent)
     //设置定时器 每一秒更新一次Header的时间label
     QTimer* timer = new QTimer(this);
     timer->start(1000);
-
     //Main背景颜色渐变
     ui->Main->setStyleSheet("QWidget#Main{background-color:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 white,stop:1 rgb(177,203,166))}");
 
@@ -167,9 +170,30 @@ MainWindow::MainWindow(QWidget *parent)
     connect(&internal_param_set_page,&InternalParamSet::Request_Use_Calculate_Signal,this,&MainWindow::deal_RequestUseCalculateSignal);
 
     //请求使用虚拟全键盘
+    connect(&monitoring_interface_page,&Monitoring_Interface::Request_Use_Keyboard_Signal,this,&MainWindow::deal_RequestUseKeyBoardSignal);
+    connect(&output_monitoring_page,&Output_Monitoring::Request_Use_Keyboard_Signal,this,&MainWindow::deal_RequestUseKeyBoardSignal);
+    connect(&curve_monitoring_page,&Curve_Monitoring::Request_Use_Keyboard_Signal,this,&MainWindow::deal_RequestUseKeyBoardSignal);
     connect(&program_editing_page,&Program_Editing::Request_Use_Keyboard_Signal,this,&MainWindow::deal_RequestUseKeyBoardSignal);
+    connect(&program_loop_page,&Program_Loop::Request_Use_Keyboard_Signal,this,&MainWindow::deal_RequestUseKeyBoardSignal);
+    connect(&fixed_value_setting_page,&Fixed_Value_Setting::Request_Use_Keyboard_Signal,this,&MainWindow::deal_RequestUseKeyBoardSignal);
+    connect(&error_log_page,&Error_Log::Request_Use_Keyboard_Signal,this,&MainWindow::deal_RequestUseKeyBoardSignal);
     connect(&userPasswordPage01,&UserPasswordPage01::Request_Use_Keyboard_Signal,this,&MainWindow::deal_RequestUseKeyBoardSignal);
+    connect(&userPasswordPage02,&UserPasswordPage02::Request_Use_Keyboard_Signal,this,&MainWindow::deal_RequestUseKeyBoardSignal);
+    connect(&userPasswordPage03,&UserPasswordPage03::Request_Use_Keyboard_Signal,this,&MainWindow::deal_RequestUseKeyBoardSignal);
     connect(&internal_param_set_page,&InternalParamSet::Request_Use_Keyboard_Signal,this,&MainWindow::deal_RequestUseKeyBoardSignal);
+
+    // 按键信号处理
+    connect(&monitoring_interface_page,&Monitoring_Interface::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
+    connect(&output_monitoring_page,&Output_Monitoring::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
+    connect(&curve_monitoring_page,&Curve_Monitoring::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
+    connect(&program_editing_page,&Program_Editing::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
+    connect(&program_loop_page,&Program_Loop::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
+    connect(&fixed_value_setting_page,&Fixed_Value_Setting::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
+    connect(&error_log_page,&Error_Log::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
+    connect(&userPasswordPage01,&UserPasswordPage01::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
+    connect(&userPasswordPage02,&UserPasswordPage02::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
+    connect(&userPasswordPage03,&UserPasswordPage03::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
+    connect(&internal_param_set_page,&InternalParamSet::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
 
     //数据处理
     connect(&monitoring_interface_page,&Monitoring_Interface::monitoring_interface_choose_program,this,&MainWindow::deal_ChooseProgramSignals);
@@ -186,7 +210,6 @@ MainWindow::MainWindow(QWidget *parent)
     //connect(readData02,&Data::sql_updateMonitorInterfaceDataSignal,this,&MainWindow::deal_SQLInterfaceData_update);
     //connect(&serverTask,&Server::comm_updateInterfaceDataSignal,this,&MainWindow::deal_CommInterfaceData_update);
     connect(&tcpServerTask,&tcpServer::comm_updateInterfaceDataSignal,this,&MainWindow::deal_CommInterfaceData_update);
-    connect(&monitoring_interface_page,&Monitoring_Interface::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
     connect(readData01,&Data::updateCurve,this,&MainWindow::deal_curveData_update);
     connect(readData02,&Data::updateCurve,this,&MainWindow::deal_curveData_update);
 }
@@ -219,20 +242,10 @@ void MainWindow::on_pBtn_1_clicked()
     QMutexLocker locker(&page_mutex);
     monitoring_interface_page.move(0,0);
     monitoring_interface_page.show();
-    current_Page=1;
+    current_Page = STATE_MONITOR;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
     //线程启动
-    if(readData01->isRunning==false)
-    {
-        readData01->isRunning = true;
-        readData02->isRunning = false;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    this->dataThreadInit(current_Page);
     monitoring_interface_page.freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -256,19 +269,9 @@ void MainWindow::deal_monitoring_interface_to_mainwindow(){
     QMutexLocker locker(&page_mutex);
     this->move(0,0);
     this->show();
-    current_Page=0;
-    if(readData01->isRunning==false)
-    {
-        readData01->isRunning = true;
-        readData02->isRunning = false;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = MAIN_PAGE;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     this->freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -289,19 +292,9 @@ void MainWindow::on_pBtn_2_clicked()
     QMutexLocker locker(&page_mutex);
     output_monitoring_page.move(0,0);
     output_monitoring_page.show();
-    current_Page=2;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = OUTPUT_MONITOR;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     output_monitoring_page.freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -321,19 +314,9 @@ void MainWindow::deal_outputMonitoring_to_mainWindow(){
     QMutexLocker locker(&page_mutex);
     this->move(0,0);
     this->show();
-    current_Page = 0;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = MAIN_PAGE;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     this->freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -352,24 +335,10 @@ void MainWindow::deal_outputMonitoring_to_monitoringInterface(){
     QMutexLocker locker(&page_mutex);
     monitoring_interface_page.move(0,0);
     monitoring_interface_page.show();
-    current_Page = 1;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
-    monitoring_interface_page.freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
+    current_Page = STATE_MONITOR;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+   this->dataThreadInit(current_Page);
+    monitoring_interface_page.freezeOneSec();    
     output_monitoring_page.hide();
 }
 
@@ -383,19 +352,8 @@ void MainWindow::deal_monitoringInterface_to_outputMonitoring(){
     QMutexLocker locker(&page_mutex);
     output_monitoring_page.move(0,0);
     output_monitoring_page.show();
-    current_Page=2;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = OUTPUT_MONITOR;
+    this->dataThreadInit(current_Page);
     output_monitoring_page.freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -415,19 +373,9 @@ void MainWindow::on_pBtn_3_clicked()
     QMutexLocker locker(&page_mutex);
     curve_monitoring_page.move(0,0);
     curve_monitoring_page.show();
-    current_Page=3;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = CURE_SHOW;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     curve_monitoring_page.freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -435,6 +383,7 @@ void MainWindow::on_pBtn_3_clicked()
     //    }
     this->hide();
 }
+
 
 /*
  * time: 2022-11-3
@@ -446,19 +395,9 @@ void MainWindow::deal_curveMonitoring_to_mainWindow(){
     QMutexLocker locker(&page_mutex);
     this->move(0,0);
     this->show();
-    current_Page = 0;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = MAIN_PAGE;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     this->freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -477,19 +416,9 @@ void MainWindow::deal_curveMonitoring_to_outputMonitoring(){
     QMutexLocker locker(&page_mutex);
     output_monitoring_page.move(0,0);
     output_monitoring_page.show();
-    current_Page = 2;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = OUTPUT_MONITOR;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     output_monitoring_page.freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -508,19 +437,9 @@ void MainWindow::deal_outputMonitoring_to_curveMonitoring(){
     QMutexLocker locker(&page_mutex);
     curve_monitoring_page.move(0,0);
     curve_monitoring_page.show();
-    current_Page = 3;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = CURE_SHOW;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     curve_monitoring_page.freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -540,19 +459,9 @@ void MainWindow::on_pBtn_4_clicked()
     QMutexLocker locker(&page_mutex);
     program_editing_page.move(0,0);
     program_editing_page.show();
-    current_Page=4;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = PGM_EDIT;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     program_editing_page.freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -571,19 +480,9 @@ void MainWindow::deal_programEditing_to_mainWindow(){
     QMutexLocker locker(&page_mutex);
     this->move(0,0);
     this->show();
-    current_Page = 0;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = MAIN_PAGE;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     this->freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -603,19 +502,9 @@ void MainWindow::on_pBtn_5_clicked()
     QMutexLocker locker(&page_mutex);
     program_loop_page.move(0,0);
     program_loop_page.show();
-    current_Page=5;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = PGM_CYCLE;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     program_loop_page.freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -634,19 +523,9 @@ void MainWindow::deal_programLoop_to_mainWindow(){
     QMutexLocker locker(&page_mutex);
     this->move(0,0);
     this->show();
-    current_Page=0;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = MAIN_PAGE;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     this->freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -665,19 +544,9 @@ void MainWindow::deal_programLoop_to_programEditing(){
     QMutexLocker locker(&page_mutex);
     program_editing_page.move(0,0);
     program_editing_page.show();
-    current_Page = 4;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = PGM_EDIT;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     program_editing_page.freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -697,19 +566,9 @@ void MainWindow::on_pBtn_6_clicked()
     QMutexLocker locker(&page_mutex);
     fixed_value_setting_page.move(0,0);
     fixed_value_setting_page.show();
-    current_Page=6;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = FIXED_FUN;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     fixed_value_setting_page.freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -726,27 +585,13 @@ void MainWindow::on_pBtn_6_clicked()
 */
 void MainWindow::deal_fixedValueSetting_to_mainWindow(){
     QMutexLocker locker(&page_mutex);
+    fixed_value_setting_page.hide();
+    current_Page = MAIN_PAGE;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
     this->move(0,0);
     this->show();
-    current_Page = 0;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    this->dataThreadInit(current_Page);
     this->freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    fixed_value_setting_page.hide();
 }
 
 /*
@@ -759,19 +604,9 @@ void MainWindow::deal_fixedValueSetting_to_programLoop(){
     QMutexLocker locker(&page_mutex);
     program_loop_page.move(0,0);
     program_loop_page.show();
-    current_Page=5;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = PGM_CYCLE;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     program_loop_page.freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -790,19 +625,9 @@ void MainWindow::deal_programLoop_to_fixedValueSetting(){
     QMutexLocker locker(&page_mutex);
     fixed_value_setting_page.move(0,0);
     fixed_value_setting_page.show();
-    current_Page = 6;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = FIXED_FUN;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     fixed_value_setting_page.freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -822,19 +647,9 @@ void MainWindow::on_pBtn_7_clicked()
     QMutexLocker locker(&page_mutex);
     parameter_setting_page.move(0,0);
     parameter_setting_page.show();
-    current_Page=7;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = PARAM_SET;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     parameter_setting_page.freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -854,19 +669,9 @@ void MainWindow::on_pBtn_8_clicked()
     QMutexLocker locker(&page_mutex);
     error_log_page.move(0,0);
     error_log_page.show();
-    current_Page=8;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = ERR_LOG_PAGE;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     QTime dieTime = QTime::currentTime().addMSecs(100);
     while(QTime::currentTime()<dieTime){
         QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
@@ -884,19 +689,9 @@ void MainWindow::deal_errorLog_to_mainWindow(){
     QMutexLocker locker(&page_mutex);
     this->move(0,0);
     this->show();
-    current_Page=0;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = MAIN_PAGE;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     this->freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -932,19 +727,9 @@ void MainWindow::deal_parameterSetting_to_mainWindow(){
     QMutexLocker locker(&page_mutex);
     this->move(0,0);
     this->show();
-    current_Page = 0;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = MAIN_PAGE;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     this->freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -963,19 +748,9 @@ void MainWindow::deal_parameterSetting_to_CANSET(){
     QMutexLocker locker(&page_mutex);
     canset_page.move(0,0);
     canset_page.show();
-    current_Page = 10;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = PARAM_SET + 1;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     canset_page.freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -1003,12 +778,15 @@ void MainWindow::deal_RequestUseCalculateSignal(int ID){
     QMutexLocker locker(&page_mutex);
     calculate.Clean_Calculater_LineEdit();
     calculate.hide();
-    QTime dieTime = QTime::currentTime().addMSecs(100);
+    /*QTime dieTime = QTime::currentTime().addMSecs(100);
     while(QTime::currentTime()<dieTime){
         QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    }
+    }*/
     calculate.move((this->width()-calculate.width())/2,(this->height()-calculate.height())/2);
     calculate.show();
+    Qt::WindowFlags flags = windowFlags();
+    flags &= ~Qt::WindowStaysOnTopHint;
+    calculate.setWindowFlags(flags);
     printf("calculate key id is %d\n",ID);
     calculate_ID = ID;
 }
@@ -1023,19 +801,9 @@ void MainWindow::deal_ChooseProgramSignals(int ID,QString Name)
 void MainWindow::deal_userPasswordPage01_to_mainWindow(){
     QMutexLocker locker(&page_mutex);
     this->show();
-    current_Page = 0;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = MAIN_PAGE;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     this->freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -1048,19 +816,9 @@ void MainWindow::deal_userPasswordPage01_to_userPasswordPage02()
 {
     QMutexLocker locker(&page_mutex);
     userPasswordPage02.show();
-    current_Page = 12;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = USER_PSD_PAGE2;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     userPasswordPage02.freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -1073,19 +831,9 @@ void MainWindow::deal_userPasswordPage02_to_mainWindow()
 {
     QMutexLocker locker(&page_mutex);
     this->show();
-    current_Page = 0;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = MAIN_PAGE;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     this->freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -1098,19 +846,9 @@ void MainWindow::deal_userPasswordPage02_to_userPasswordPage01()
 {
     QMutexLocker locker(&page_mutex);
     userPasswordPage01.show();
-    current_Page = 11;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = USER_PSD_PAGE1;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     userPasswordPage01.freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -1123,19 +861,9 @@ void MainWindow::deal_userPasswordPage02_to_userPasswordPage03()
 {
     QMutexLocker locker(&page_mutex);
     userPasswordPage03.show();
-    current_Page = 13;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = USER_PSD_PAGE3;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     userPasswordPage03.freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -1148,19 +876,9 @@ void MainWindow::deal_userPasswordPage03_to_mainWindow()
 {
     QMutexLocker locker(&page_mutex);
     this->show();
-    current_Page = 0;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = MAIN_PAGE;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     this->freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -1173,19 +891,9 @@ void MainWindow::deal_userPasswordPage03_to_userPasswordPage02()
 {
     QMutexLocker locker(&page_mutex);
     userPasswordPage02.show();
-    current_Page = 12;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = USER_PSD_PAGE2;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+   this->dataThreadInit(current_Page);
     userPasswordPage02.freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -1198,19 +906,9 @@ void MainWindow::deal_canset_to_mainWindow()
 {
     QMutexLocker locker(&page_mutex);
     this->show();
-    current_Page = 0;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = MAIN_PAGE;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     this->freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -1223,19 +921,9 @@ void MainWindow::deal_canset_to_parameterSetting()
 {
     QMutexLocker locker(&page_mutex);
     parameter_setting_page.show();
-    current_Page = 7;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = PARAM_SET;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     parameter_setting_page.freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -1248,19 +936,9 @@ void MainWindow::deal_internalParamSet_to_mainWindow()
 {
     QMutexLocker locker(&page_mutex);
     this->show();
-    current_Page = 0;
-    if(readData01->isRunning==false)
-    {
-        readData02->isRunning = false;
-        readData01->isRunning = true;
-        emit InitDataThread01(current_Page);
-    }
-    else
-    {
-        readData01->isRunning = false;
-        readData02->isRunning = true;
-        emit InitDataThread02(current_Page);
-    }
+    current_Page = MAIN_PAGE;
+    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    this->dataThreadInit(current_Page);
     this->freezeOneSec();
     //    QTime dieTime = QTime::currentTime().addMSecs(100);
     //    while(QTime::currentTime()<dieTime){
@@ -1279,10 +957,25 @@ void MainWindow::deal_internalParamSet_to_mainWindow()
 //{
 //    this->move(event->globalPosition().toPoint()-mOffset);
 //}
+void MainWindow:: dataThreadInit(int page_num)
+{
+    if(readData01->isRunning==false)
+    {
+        readData02->isRunning = false;
+        readData01->isRunning = true;
+        emit InitDataThread01(page_num);
+    }
+    else
+    {
+        readData01->isRunning = false;
+        readData02->isRunning = true;
+        emit InitDataThread02(page_num);
+    }
+}
 
 void MainWindow::freezeOneSec()
 {
-    ui->pBtn_1->setEnabled(false);
+    /*ui->pBtn_1->setEnabled(false);
     ui->pBtn_2->setEnabled(false);
     ui->pBtn_3->setEnabled(false);
     ui->pBtn_4->setEnabled(false);
@@ -1305,7 +998,7 @@ void MainWindow::freezeOneSec()
     ui->pBtn_6->setEnabled(true);
     ui->pBtn_7->setEnabled(true);
     ui->pBtn_8->setEnabled(true);
-    ui->pBtn_9->setEnabled(true);
+    ui->pBtn_9->setEnabled(true);*/
 }
 
 void MainWindow::deal_updateInterfaceNumber(int addr,QString strs)
@@ -1342,19 +1035,9 @@ void MainWindow::deal_KeyboardEnter(){
             QMutexLocker locker(&page_mutex);
             userPasswordPage01.move(0,0);
             userPasswordPage01.show();
-            current_Page = 11;
-            if(readData01->isRunning==false)
-            {
-                readData02->isRunning = false;
-                readData01->isRunning = true;
-                emit InitDataThread01(current_Page);
-            }
-            else
-            {
-                readData01->isRunning = false;
-                readData02->isRunning = true;
-                emit InitDataThread02(current_Page);
-            }
+            current_Page = USER_PSD_PAGE1;
+            tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+            this->dataThreadInit(current_Page);
             userPasswordPage01.freezeOneSec();
             //            QTime dieTime = QTime::currentTime().addMSecs(100);
             //            while(QTime::currentTime()<dieTime){
@@ -1368,19 +1051,9 @@ void MainWindow::deal_KeyboardEnter(){
                 QMutexLocker locker(&page_mutex);
                 internal_param_set_page.move(0,0);
                 internal_param_set_page.show();
-                current_Page = 21;
-                if(readData01->isRunning==false)
-                {
-                    readData02->isRunning = false;
-                    readData01->isRunning = true;
-                    emit InitDataThread01(current_Page);
-                }
-                else
-                {
-                    readData01->isRunning = false;
-                    readData02->isRunning = true;
-                    emit InitDataThread02(current_Page);
-                }
+                current_Page = TAB_PARAM_PAGE;
+                tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+                this->dataThreadInit(current_Page);
                 this->hide();
             }
             else{
@@ -1403,12 +1076,15 @@ void MainWindow::deal_KeyboardEnter(){
             program_editing_page.setFocus();
         }
     }
+        break;
     case 1:
     {
         userPasswordPage01.setPasswordLineEdit(keyboardStrs);
         userPasswordPage01.setFocus();
         break;
     }
+    default:
+        break;
     }
 }
 
@@ -1438,13 +1114,14 @@ void MainWindow::deal_CalculateOk(){
         break;
     }
     default:
-        tcpServerTask.sendData(calculate_ID,convertToIntegerString(calculateStrs,1));
+        tcpServerTask.sendData(calculate_ID,calculateStrs);
         monitoring_interface_page.setFocus();
         break;
     }
 }
 void MainWindow::deal_TouchInterfaceDataSignal(int addr,QString strs)
 {
+    qDebug() << QString("addr_num: %1 %2").arg(addr).arg(strs);
     tcpServerTask.sendData(addr,strs);
 }
 
@@ -1480,11 +1157,11 @@ void MainWindow::deal_CommInterfaceData_update(int addr_num,QString data_strs)
     switch(current_Page)
     {
     case STATE_MONITOR:     monitoring_interface_page.addrSetMonitorInterfaceData(addr_num , data_strs);   break;
-    case OUTPUT_MONITOR:    break;
+    case OUTPUT_MONITOR:    output_monitoring_page.addrSetOutputInterfaceData(addr_num , data_strs);   break;
     case CURE_SHOW:         break;
-    case PGM_EDIT:          break;
+    case PGM_EDIT:          program_editing_page.addrSetPgmEditInterfaceData(addr_num , data_strs);   break;
     case PGM_CYCLE:         break;
-    case FIXED_FUN:         fixed_value_setting_page.addrSetOnepointInterfaceData(adr_num,data_strs);  break;
+    case FIXED_FUN:         fixed_value_setting_page.addrSetOnepointInterfaceData(addr_num,data_strs);  break;
     case PARAM_SET:         break;
     case ERR_LOG_PAGE:      break;
     case PGM_SLT_PAGE:      break;

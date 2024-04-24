@@ -94,11 +94,12 @@ private slots:
 signals:
     void curveMonitoring_to_mainWindow();
     void curveMonitoring_to_outputMonitoring();
-    void Request_Use_Keyboard_Signal(int);
     void savingClickedSignals();
     void realTimeClickedSignals(int);
 
+    void Request_Use_Keyboard_Signal(int);
     void Request_Use_Calculate_Signal(int);
+    void touch_InterfaceDataSignal(int,QString);
 
 };
 

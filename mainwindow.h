@@ -28,7 +28,6 @@
 #include <data.h>
 #include <QThread>
 
-
 #define TEMP_EGO_PAGE			(13)				// 温度保护设置提示页
 #define MAIN_PAGE				(12)				// 主目录界面号
 #define STATE_MONITOR			(1)				// 监视界面号
@@ -47,10 +46,36 @@
 //#define LIST_PARAM_PAGE		(20)				// 列表式系统参数页
 #define TAB_PARAM_PAGE			(21)				// 表格式系统参数页
 
+                        //湿度显示状态
+
+class  SYS_INFO_F{
+ public:
+    bool sys_sta = false;					// 系统状态 definition
+    int lcd_socket_sta = 0;
+    int run_sta = 0;					// 运行状态
+    int temp_sta = 0;					// 温度状态
+    int humi_sta = 0;					// 湿度状态
+    bool humi_sw = false;					// 湿度开闭状态,0开1关,2，只显示不计算
+    bool usb_flag = false;					// U盘连接标志位，1：已连接 0：未连接
+    bool sd_flag = false;
+    bool host_mode = false;				// 与上位连接标志，0：未连接，1：通过485方式连接，2：通过网口连接
+    bool err_code = false;					// 错误码
+    short         alarm = 0;					// 系统警告模式，16位bit类型（short），alarm0 - alarm15
+    unsigned char lohumi = 0;					// 低湿状态  1105008
+    bool          led_sta = false;
+private:
+    int ver_num = 0;
+    unsigned char lcd_type = 1;					// the lcd type 0:vertical  (竖屏） 1:horizontal （横屏）
+
+
+};
+
+extern SYS_INFO_F sys_info;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
+
 
 class MainWindow : public QMainWindow
 {
@@ -135,6 +160,8 @@ public:
     void deal_curveData_update(int num,int size,QVector<QVector<double>> xdata,QVector<QVector<double>> data,QString startTime,double* dataInfo,QString* axisInfo,int status);
 
     void freezeOneSec();
+    void dataThreadInit(int page_num);
+
 private:
     Ui::MainWindow *ui;
     QString keyboardStrs;
@@ -161,5 +188,6 @@ private slots:
 signals:
     void InitDataThread01(int);
     void InitDataThread02(int);
+
 };
 #endif // MAINWINDOW_H

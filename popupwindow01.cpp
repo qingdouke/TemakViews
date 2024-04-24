@@ -1,6 +1,6 @@
 #include "popupwindow01.h"
 #include "ui_popupwindow01.h"
-
+// 是否运行弹出窗口
 PopUpWindow01::PopUpWindow01(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::PopUpWindow01)
@@ -17,7 +17,7 @@ PopUpWindow01::PopUpWindow01(QWidget *parent) :
                                    "color:white;"
                                    "border:none}");
 
-    connect(ui->pBtn_OK,&QPushButton::clicked,this,&PopUpWindow01::on_pBtn_OK_clicked);
+    //connect(ui->pBtn_OK,&QPushButton::clicked,this,&PopUpWindow01::on_pBtn_OK_clicked);
 }
 
 PopUpWindow01::~PopUpWindow01()

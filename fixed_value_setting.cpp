@@ -3,6 +3,8 @@
 #include "sql_generic_data.h"
 #include "general_tools.h"
 #include "mainwindow.h"
+#include "address_data_show.h"
+
 #include <QTimer>
 #include <QDateTime>
 #include <QDebug>
@@ -89,35 +91,35 @@ Fixed_Value_Setting::Fixed_Value_Setting(QWidget *parent) :
     ui->border_top->setStyleSheet("QLabel#border_top{background-color:rgb(117,150,107)}");
     ui->temperature_lineEdit->setStyleSheet("QLineEdit#temperature_lineEdit{background:transparent;"
                                             "border:none}");
-    ui->temperature_lineEdit->setInputMask("00.00");
+    ui->temperature_lineEdit->setInputMask("000.00");
     ui->temperature_lineEdit->setText(temperatureText);
     ui->humidity_lineEdit->setStyleSheet("QLineEdit#humidity_lineEdit{background:transparent;"
                                          "border:none}");
-    ui->humidity_lineEdit->setInputMask("0.0");
+    ui->humidity_lineEdit->setInputMask("00.0");
     ui->humidity_lineEdit->setText(humidityText);
     ui->slopeTime_H_lineEdit->setStyleSheet("QLineEdit#slopeTime_H_lineEdit{background:transparent;"
                                             "border:none}");
-    ui->slopeTime_H_lineEdit->setInputMask("0");
+    ui->slopeTime_H_lineEdit->setInputMask("0000");
     ui->slopeTime_H_lineEdit->setText(slopeTimeHText);
     ui->slopeTime_M_lineEdit->setStyleSheet("QLineEdit#slopeTime_M_lineEdit{background:transparent;"
                                             "border:none}");
-    ui->slopeTime_M_lineEdit->setInputMask("0");
+    ui->slopeTime_M_lineEdit->setInputMask("00");
     ui->slopeTime_M_lineEdit->setText(slopeTimeMText);
     ui->slopeTime_S_lineEdit->setStyleSheet("QLineEdit#slopeTime_S_lineEdit{background:transparent;"
                                             "border:none}");
-    ui->slopeTime_S_lineEdit->setInputMask("0");
+    ui->slopeTime_S_lineEdit->setInputMask("00");
     ui->slopeTime_S_lineEdit->setText(slopeTimeSText);
     ui->constantTemp_H_lineEdit->setStyleSheet("QLineEdit#constantTemp_H_lineEdit{background:transparent;"
                                                "border:none}");
-    ui->constantTemp_H_lineEdit->setInputMask("0");
+    ui->constantTemp_H_lineEdit->setInputMask("0000");
     ui->constantTemp_H_lineEdit->setText(constantTempHText);
     ui->constantTemp_M_lineEdit->setStyleSheet("QLineEdit#constantTemp_M_lineEdit{background:transparent;"
                                                "border:none}");
-    ui->constantTemp_M_lineEdit->setInputMask("0");
+    ui->constantTemp_M_lineEdit->setInputMask("00");
     ui->constantTemp_M_lineEdit->setText(constantTempMText);
     ui->constantTemp_S_lineEdit->setStyleSheet("QLineEdit#constantTemp_S_lineEdit{background:transparent;"
                                                "border:none}");
-    ui->constantTemp_S_lineEdit->setInputMask("0");
+    ui->constantTemp_S_lineEdit->setInputMask("00");
     ui->constantTemp_S_lineEdit->setText(constantTempSText);
     ui->TS1_lineEdit->setStyleSheet("QLineEdit#TS1_lineEdit{background:transparent;"
                                     "border:none}");
@@ -173,7 +175,6 @@ Fixed_Value_Setting::Fixed_Value_Setting(QWidget *parent) :
     connect(ui->font_page_pbtn,&QPushButton::clicked,this,&Fixed_Value_Setting::fixedValueSetting_sendTo_mainWindow);
     connect(ui->previous_page_pbtn,&QPushButton::clicked,this,&Fixed_Value_Setting::fixedValueSetting_sendTo_programLoop);
     connect(ui->saving_pbtn,&QPushButton::clicked,this,&Fixed_Value_Setting::OnepointSavePgm);
-
 }
 
 Fixed_Value_Setting::~Fixed_Value_Setting()
@@ -600,7 +601,7 @@ void Fixed_Value_Setting::setWaitText(QString strs){
 }
 
 void Fixed_Value_Setting::freezeOneSec()
-{
+{/*
     ui->font_page_pbtn->setEnabled(false);
     ui->previous_page_pbtn->setEnabled(false);
     ui->saving_pbtn->setEnabled(false);
@@ -610,7 +611,7 @@ void Fixed_Value_Setting::freezeOneSec()
     }
     ui->font_page_pbtn->setEnabled(true);
     ui->previous_page_pbtn->setEnabled(true);
-    ui->saving_pbtn->setEnabled(true);
+    ui->saving_pbtn->setEnabled(true);*/
 }
 
 void Fixed_Value_Setting::addrSetOnepointInterfaceData(int addr_num, QString set_value){
@@ -623,7 +624,7 @@ void Fixed_Value_Setting::addrSetOnepointInterfaceData(int addr_num, QString set
         setTemperatureText(covert_data);
         break;
     case addr_onepoint_test_humidity :
-        covert_data = convertToDecimalString(set_value,2);
+        covert_data = convertToDecimalString(set_value,1);
         setHumidityText(covert_data);
         break;
     case addr_onepoint_ramptime_hour:

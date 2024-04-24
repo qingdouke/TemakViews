@@ -73,7 +73,7 @@ void Data::dataFunction(int pageID)
 
     while(isRunning)
     {        
-        //qDebug()<<"current ID:"<<pageID;
+        qDebug()<<"current ID:"<<pageID;
         ++count_data;
         send_updateInterfaceNumber_signals(0x10,QString("%1").arg(pageID));
         switch (pageID) {

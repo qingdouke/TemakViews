@@ -1,5 +1,6 @@
 ﻿#include "curve_monitoring.h"
 #include "ui_curve_monitoring.h"
+#include "address_data_show.h"
 
 #include <QTimer>
 #include <QDateTime>
@@ -471,7 +472,7 @@ void Curve_Monitoring::deal_PopUpWindow06PushButtonClickedSignals(int storage_fr
 
 void Curve_Monitoring::freezeOneSec()
 {
-    ui->pushButton_0->setEnabled(false);
+   /* ui->pushButton_0->setEnabled(false);
     ui->pushButton_1->setEnabled(false);
     ui->pushButton_2->setEnabled(false);
     ui->pushButton_3->setEnabled(false);
@@ -501,7 +502,7 @@ void Curve_Monitoring::freezeOneSec()
     ui->font_page_pbtn->setEnabled(true);
     ui->previous_page_pbth->setEnabled(true);
     ui->real_time_pbtn->setEnabled(true);
-    ui->saving_pbtn->setEnabled(true);
+    ui->saving_pbtn->setEnabled(true);*/
 }
 
 /*

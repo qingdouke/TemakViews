@@ -1,6 +1,8 @@
 #include "program_editing.h"
 #include "ui_program_editing.h"
-
+#include "general_tools.h"
+#include "mainwindow.h"
+#include "address_data_show.h"
 #include <QTimer>
 #include <QDateTime>
 #include <QHeaderView>
@@ -61,101 +63,23 @@ Program_Editing::Program_Editing(QWidget *parent) :
 
     //Step_box
     ui->Step_box->setStyleSheet("QWidget#Step_box{border:2px solid rgb(117,138,107)}");
+    ui->pgm_table_step_edit_1->setText(edit_pgm_list_step[0]);
+    ui->pgm_table_step_edit_2->setText(edit_pgm_list_step[1]);
+    ui->pgm_table_step_edit_3->setText(edit_pgm_list_step[2]);
+    ui->pgm_table_step_edit_4->setText(edit_pgm_list_step[3]);
 
-    //创建Step组，共100组
-    for(int i=0 ;i<100 ;i++){
-        num.append(i+1);
-    }
-    //创建初始化页面（共4个Step）
-    table.append(new QTableWidget(this));
-    //设置行数列数和表格大小
-    table[0]->setRowCount(4);
-    table[0]->setColumnCount(8);
-    table[0]->resize(886,150);
-    //隐藏标题栏
-    QHeaderView* headerview_Vertical = table[0]->verticalHeader();
-    headerview_Vertical->setHidden(true);
-    QHeaderView* headerview_Horizontal = table[0]->horizontalHeader();
-    headerview_Horizontal->setHidden(true);
-    //设置Step
-    for(int i=0 ;i<4 ;i++){
-        table[0]->setItem(i,0,new QTableWidgetItem(QString::number(num[count++])));
-    }
-    //设置其余每列内容
-    for(int i=0 ;i<4 ;i++){
-        table[0]->setItem(i,1,new QTableWidgetItem("0.00"));
-    }
-    for(int i=0 ;i<4 ;i++){
-        table[0]->setItem(i,2,new QTableWidgetItem("0.0"));
-    }
-    for(int i=0 ;i<4 ;i++){
-        table[0]->setItem(i,3,new QTableWidgetItem("0:0:0"));
-    }
-    for(int i=0 ;i<4 ;i++){
-        table[0]->setItem(i,4,new QTableWidgetItem("0"));
-    }
-    for(int i=0 ;i<4 ;i++){
-        table[0]->setItem(i,5,new QTableWidgetItem("0"));
-    }
-    for(int i=0 ;i<4 ;i++){
-        table[0]->setItem(i,6,new QTableWidgetItem("0"));
-    }
-    for(int i=0 ;i<4 ;i++){
-        table[0]->setItem(i,7,new QTableWidgetItem("0"));
-    }
-    //设置Step不可修改
-    for(int i=0 ;i<table[0]->rowCount() ;i++){
-        table[0]->item(i,0)->setFlags(Qt::NoItemFlags);
-    }
-    table[0]->setSelectionBehavior(QAbstractItemView::SelectRows);
-    table[0]->setFocusPolicy(Qt::ClickFocus);
-    table[0]->viewport()->installEventFilter(this);
-    table[0]->setEditTriggers(QAbstractItemView::DoubleClicked | QAbstractItemView::SelectedClicked);
-    //设置表格文字格式居中
-    for(int i=0 ;i<4 ;i++){
-        for(int j=0 ;j<8 ;j++){
-            table[0]->item(i,j)->setTextAlignment(Qt::AlignCenter);
-            QFont font_tabel = table[0]->item(i,j)->font();
-            font_tabel.setPointSize(16);
-            font_tabel.setFamily("Micorsoft UI light");
-            table[0]->item(i,j)->setFont(font_tabel);
-        }
-    }
-    //控制表格格式
-    table[0]->setColumnWidth(0,77);
-    table[0]->setColumnWidth(1,155);
-    table[0]->setColumnWidth(2,156);
-    table[0]->setColumnWidth(3,224);
-    table[0]->setColumnWidth(4,60);
-    table[0]->setColumnWidth(5,61);
-    table[0]->setColumnWidth(6,60);
-    table[0]->setColumnWidth(7,61);
-    table[0]->setRowHeight(0,45);
-    table[0]->setRowHeight(1,45);
-    table[0]->setRowHeight(2,45);
-    table[0]->setRowHeight(3,45);
-    table[0]->setStyleSheet("QTableWidget::item{border-top:1px solid rgba(0,0,0,0.4);color:black}"
-                            "QTableWidget{border:none;font-size:14}");
-    //将表格加入StackedWidge页面
-    page = new QStackedWidget(this);
-    page->addWidget(table[0]);
-    page->setGeometry(37,508,854,180);
+
     //表格标题设置
-    ui->line_step->setStyleSheet("QLabel#line_step{background-color:rgb(200,200,200);border:none}");
-    ui->line_temp->setStyleSheet("QLabel#line_temp{background-color:rgb(200,200,200);border:none}");
-    ui->line_humi->setStyleSheet("QLabel#line_humi{background-color:rgb(200,200,200);border:none}");
-    ui->line_hms->setStyleSheet("QLabel#line_hms{background-color:rgb(200,200,200);border:none}");
-    ui->line_ts1->setStyleSheet("QLabel#line_ts1{background-color:rgb(200,200,200);border:none}");
-    ui->line_ts2->setStyleSheet("QLabel#line_ts2{background-color:rgb(200,200,200);border:none}");
-    ui->line_ts3->setStyleSheet("QLabel#line_ts3{background-color:rgb(200,200,200);border:none}");
-    ui->label_step->setStyleSheet("QLabel#label_step{color:rgb(53,87,54)}");
-    ui->label_temp->setStyleSheet("QLabel#label_temp{color:rgb(53,87,54)}");
-    ui->label_humi->setStyleSheet("QLabel#label_humi{color:rgb(53,87,54)}");
-    ui->label_hms->setStyleSheet("QLabel#label_hms{color:rgb(53,87,54)}");
-    ui->label_ts1->setStyleSheet("QLabel#label_ts1{color:rgb(53,87,54)}");
-    ui->label_ts2->setStyleSheet("QLabel#label_ts2{color:rgb(53,87,54)}");
-    ui->label_ts3->setStyleSheet("QLabel#label_ts3{color:rgb(53,87,54)}");
-    ui->label_wt->setStyleSheet("QLabel#label_wt{color:rgb(53,87,54)}");
+
+    ui->label_step->setStyleSheet("QLabel#label_step{color:rgb(53,87,54);border:1px solid rgb(200,200,200)}");
+    ui->label_temp->setStyleSheet("QLabel#label_temp{color:rgb(53,87,54)};border:1px solid rgb(200,200,200)}");
+    ui->label_humi->setStyleSheet("QLabel#label_humi{color:rgb(53,87,54)};border:1px solid rgb(200,200,200)}");
+    ui->label_hms->setStyleSheet("QLabel#label_hms{color:rgb(53,87,54);border:1px solid rgb(200,200,200)}");
+    ui->label_ts1->setStyleSheet("QLabel#label_ts1{color:rgb(53,87,54);border:1px solid rgb(200,200,200)}");
+    ui->label_ts2->setStyleSheet("QLabel#label_ts2{color:rgb(53,87,54);border:1px solid rgb(200,200,200)}");
+    ui->label_ts3->setStyleSheet("QLabel#label_ts3{color:rgb(53,87,54);border:1px solid rgb(200,200,200)}");
+    ui->label_wt->setStyleSheet("QLabel#label_wt{color:rgb(53,87,54);border:1px solid rgb(200,200,200)}");
+
     //表格翻页按钮
     ui->lastPage_pbtn->setStyleSheet("QPushButton#lastPage_pbtn{border:none;"
                                      "background-color:rgb(71,129,52);"
@@ -214,6 +138,9 @@ Program_Editing::Program_Editing(QWidget *parent) :
 
     //数据处理
     connect(&popUpWindow04,&PopUpWindow04::popUpWindow04ButtonClickedSignals,this,&Program_Editing::deal_popUpWindow04PushButtonClickedSignals);
+
+
+
 }
 
 Program_Editing::~Program_Editing()
@@ -241,14 +168,8 @@ void Program_Editing::currentTime(){
 */
 void Program_Editing::on_lastPage_pbtn_clicked()
 {
-    nindex--;
-    if(nindex>=0){
-        page->setCurrentIndex(nindex);
-    }
-    else{
-        nindex = index;
-        page->setCurrentIndex(nindex);
-    }
+
+    emit touch_InterfaceDataSignal(addr_touch_edit_pgm_lastpage,"1");
 
 }
 
@@ -260,81 +181,8 @@ void Program_Editing::on_lastPage_pbtn_clicked()
 */
 void Program_Editing::on_nextPage_pbtn_clicked()
 {
-    nindex++;
-    if(nindex>index&&nindex<=24){
-        table.append(new QTableWidget(this));
-        table[++index]->setRowCount(4);
-        table[index]->setColumnCount(8);
-        QHeaderView* headerview_Vertical = table[index]->verticalHeader();
-        headerview_Vertical->setHidden(true);
-        QHeaderView* headerview_Horizontal = table[index]->horizontalHeader();
-        headerview_Horizontal->setHidden(true);
-        for(int i=0 ;i<4 ;i++){
-            table[index]->setItem(i,0,new QTableWidgetItem(QString::number(num[count++])));
-        }
-        for(int i=0 ;i<4 ;i++){
-            table[index]->setItem(i,1,new QTableWidgetItem("0.00"));
-        }
-        for(int i=0 ;i<4 ;i++){
-            table[index]->setItem(i,2,new QTableWidgetItem("0.0"));
-        }
-        for(int i=0 ;i<4 ;i++){
-            table[index]->setItem(i,3,new QTableWidgetItem("0:0:0"));
-        }
-        for(int i=0 ;i<4 ;i++){
-            table[index]->setItem(i,4,new QTableWidgetItem("0"));
-        }
-        for(int i=0 ;i<4 ;i++){
-            table[index]->setItem(i,5,new QTableWidgetItem("0"));
-        }
-        for(int i=0 ;i<4 ;i++){
-            table[index]->setItem(i,6,new QTableWidgetItem("0"));
-        }
-        for(int i=0 ;i<4 ;i++){
-            table[index]->setItem(i,7,new QTableWidgetItem("0"));
-        }
-        for(int i=0 ;i<table[index]->rowCount() ;i++){
-            table[index]->item(i,0)->setFlags(Qt::NoItemFlags);
-            table[index]->setStyleSheet("color:black");
-        }
-        for(int i=0 ;i<4 ;i++){
-            for(int j=0 ;j<8 ;j++){
-                table[index]->item(i,j)->setTextAlignment(Qt::AlignCenter);
-                QFont font_tabel = table[index]->item(i,j)->font();
-                font_tabel.setPointSize(16);
-                font_tabel.setFamily("Micorsoft UI light");
-                table[index]->item(i,j)->setFont(font_tabel);
-            }
-        }
-        table[index]->setColumnWidth(0,77);
-        table[index]->setColumnWidth(1,155);
-        table[index]->setColumnWidth(2,156);
-        table[index]->setColumnWidth(3,224);
-        table[index]->setColumnWidth(4,60);
-        table[index]->setColumnWidth(5,61);
-        table[index]->setColumnWidth(6,60);
-        table[index]->setColumnWidth(7,61);
-        table[index]->setRowHeight(0,45);
-        table[index]->setRowHeight(1,45);
-        table[index]->setRowHeight(2,45);
-        table[index]->setRowHeight(3,45);
-        table[index]->setSelectionBehavior(QAbstractItemView::SelectRows);
-        table[index]->setFocusPolicy(Qt::ClickFocus);
-        table[index]->viewport()->installEventFilter(this);
-        table[index]->setEditTriggers(QAbstractItemView::DoubleClicked | QAbstractItemView::SelectedClicked);
-        table[index]->setStyleSheet("QTableWidget::item{border-top:1px solid rgba(0,0,0,0.4);color:black}"
-                                "QTableWidget{border:none;font-size:14}");
-        page->addWidget(table[index]);
-    }
-    if(nindex<=24)
-    {
-        page->setCurrentIndex(nindex);
-    }
-    else
-    {
-        nindex = 0;
-        page->setCurrentIndex(nindex);
-    }
+    emit touch_InterfaceDataSignal(addr_touch_edit_pgm_nextpage,"2");
+
 }
 
 /*
@@ -345,8 +193,7 @@ void Program_Editing::on_nextPage_pbtn_clicked()
 */
 void Program_Editing::on_firstPage_pbtn_clicked()
 {
-    nindex = 0;
-    page->setCurrentIndex(nindex);
+    emit touch_InterfaceDataSignal(addr_touch_edit_pgm_firstpage,"3");
 }
 
 /*
@@ -357,8 +204,7 @@ void Program_Editing::on_firstPage_pbtn_clicked()
 */
 void Program_Editing::on_endPage_pbtn_clicked()
 {
-    nindex = index;
-    page->setCurrentIndex(nindex);
+    emit touch_InterfaceDataSignal(addr_touch_edit_pgm_endpage,"4");
 }
 
 /*
@@ -384,8 +230,7 @@ bool Program_Editing::eventFilter(QObject *watched, QEvent *event)
     {
         //处理点击屏幕时的焦点问题
         if(event->type() == QEvent::MouseButtonPress){
-            if(table[nindex]->currentItem())
-                table[nindex]->setCurrentItem(nullptr);
+
             if(ui->choose_program_edit->hasFocus()){
                 ui->choose_program_edit->clearFocus();
             }
@@ -397,8 +242,188 @@ bool Program_Editing::eventFilter(QObject *watched, QEvent *event)
     if(watched == ui->program_name_edit)
     {
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Keyboard_Signal(0);
+            emit Request_Use_Keyboard_Signal(addr_touch_pgm_edit_pgm_name);
             ui->program_name_edit->setFocus();
+        }
+    }else if(watched == ui->pgm_table_temp_edit_1){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_value1_row1);
+            ui->pgm_table_temp_edit_1->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_temp_edit_2){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_value1_row2);
+            ui->pgm_table_temp_edit_2->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_temp_edit_3){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_value1_row3);
+            ui->pgm_table_temp_edit_3->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_temp_edit_4){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_value1_row4);
+            ui->pgm_table_temp_edit_4->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_humi_edit_1){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_value2_row1);
+            ui->pgm_table_humi_edit_1->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_humi_edit_2){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_value2_row2);
+            ui->pgm_table_humi_edit_2->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_humi_edit_3){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_value2_row3);
+            ui->pgm_table_humi_edit_3->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_humi_edit_4){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_value2_row4);
+            ui->pgm_table_humi_edit_4->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_hour_edit_1){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_hour_row1);
+            ui->pgm_table_hour_edit_1->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_hour_edit_2){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_hour_row2);
+            ui->pgm_table_hour_edit_2->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_hour_edit_3){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_hour_row3);
+            ui->pgm_table_hour_edit_3->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_hour_edit_4){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_hour_row4);
+            ui->pgm_table_hour_edit_4->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_min_edit_1){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_min_row1);
+            ui->pgm_table_min_edit_1->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_min_edit_2){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_min_row2);
+            ui->pgm_table_min_edit_2->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_min_edit_3){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_min_row3);
+            ui->pgm_table_min_edit_3->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_min_edit_4){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_min_row4);
+            ui->pgm_table_min_edit_4->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_sec_edit_1){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_sec_row1);
+            ui->pgm_table_sec_edit_1->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_sec_edit_2){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_sec_row2);
+            ui->pgm_table_sec_edit_2->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_sec_edit_3){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_sec_row3);
+            ui->pgm_table_sec_edit_3->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_sec_edit_4){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_sec_row4);
+            ui->pgm_table_sec_edit_4->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_ts1_edit_1){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_ts1_row1);
+            ui->pgm_table_ts1_edit_1->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_ts1_edit_2){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_ts1_row2);
+            ui->pgm_table_ts1_edit_2->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_ts1_edit_3){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_ts1_row3);
+            ui->pgm_table_ts1_edit_3->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_ts1_edit_4){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_ts1_row4);
+            ui->pgm_table_ts1_edit_4->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_ts2_edit_1){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_ts2_row1);
+            ui->pgm_table_ts2_edit_1->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_ts2_edit_2){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_ts2_row2);
+            ui->pgm_table_ts2_edit_2->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_ts2_edit_3){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_ts2_row3);
+            ui->pgm_table_ts2_edit_3->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_ts2_edit_4){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_ts2_row4);
+            ui->pgm_table_ts2_edit_4->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_ts3_edit_1){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_ts3_row1);
+            ui->pgm_table_ts3_edit_1->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_ts3_edit_2){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_ts3_row2);
+            ui->pgm_table_ts3_edit_2->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_ts3_edit_3){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_ts3_row3);
+            ui->pgm_table_ts3_edit_3->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_ts3_edit_4){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_ts3_row4);
+            ui->pgm_table_ts3_edit_4->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_wt_edit_1){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_wt_row1);
+            ui->pgm_table_wt_edit_1->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_wt_edit_2){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_wt_row2);
+            ui->pgm_table_wt_edit_2->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_wt_edit_3){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_wt_row3);
+            ui->pgm_table_wt_edit_3->setFocus();   //lineEdit聚焦
+        }
+    }else if(watched == ui->pgm_table_wt_edit_4){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_wt_row4);
+            ui->pgm_table_wt_edit_4->setFocus();   //lineEdit聚焦
         }
     }
     return QWidget::eventFilter(watched,event);         //返回事件过滤器
@@ -427,7 +452,6 @@ void Program_Editing::setChooseProgram(QString strs){
 
 void Program_Editing::setProgramName(QString strs){
     this->programName = strs;
-    printf("—————Program_Editing———————setProgramName——————/n");
     ui->program_name_edit->setText(programName);
 }
 
@@ -442,19 +466,20 @@ void Program_Editing::setHighTempProtect(QString strs){
 }
 
 void Program_Editing::creatNewProgramClicked(){
-    emit creatNewProgramClickedSignals();
+    emit touch_InterfaceDataSignal(addr_touch_edit_pgm_newpgm,"0");
+
 }
 
 void Program_Editing::deleteProgramClicked(){
-    emit deleteProgramClickedSignals();
+    emit touch_InterfaceDataSignal(addr_touch_edit_pgm_delpgm,"0");
 }
 
 void Program_Editing::deleteClicked(){
-    emit deleteClickedSignals();
+   emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_delsgm);
 }
-
 void Program_Editing::insertClicked(){
-    emit insertClickedSignals();
+    emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_insertsgm);
+
 }
 
 void Program_Editing::on_saving_pbtn_clicked()
@@ -506,6 +531,7 @@ void Program_Editing::deal_popUpWindow04PushButtonClickedSignals(int ID,QString 
 
 void Program_Editing::freezeOneSec()
 {
+    /*
     ui->choose_program_pushButton->setEnabled(false);
     ui->new_program_pbtn->setEnabled(false);
     ui->insert_pbtn->setEnabled(false);
@@ -533,5 +559,197 @@ void Program_Editing::freezeOneSec()
     ui->lastPage_pbtn->setEnabled(true);
     ui->font_page_pbtn->setEnabled(true);
     ui->saving_pbtn->setEnabled(true);
-    ui->loop_setting_pbtn->setEnabled(true);
+    ui->loop_setting_pbtn->setEnabled(true);*/
+}
+void Program_Editing::addrSetPgmEditInterfaceData(int addr_num, QString set_value){
+
+    qDebug() << QString("addrSetMonitorInterfaceData addr_num: %1").arg(addr_num);
+    QString covert_data;
+    switch(addr_num)
+    {
+    case addr_pgm_edit_pgm_number:
+        setChooseProgram(set_value);
+        break;
+    case addr_pgm_edit_pgm_name:
+        setProgramName(set_value);
+        break;
+    case addr_pgm_edit_hilimit:
+        covert_data = convertToDecimalString(set_value,2);
+        setHighTempProtect(covert_data);
+        break;
+    case addr_pgm_edit_lolimit:
+        covert_data = convertToDecimalString(set_value,2);
+        setLowTempProtect(covert_data);
+        break;
+    case addr_edit_pgm_step_row1:
+        edit_pgm_list_step[0] = set_value;
+        ui->pgm_table_step_edit_1->setText(set_value);
+        break;
+    case addr_edit_pgm_step_row2:
+        edit_pgm_list_step[1] = set_value;
+        ui->pgm_table_step_edit_2->setText(set_value);
+        break;
+    case addr_edit_pgm_step_row3:
+        edit_pgm_list_step[2] = set_value;
+        ui->pgm_table_step_edit_3->setText(set_value);
+        break;
+    case addr_edit_pgm_step_row4:
+        edit_pgm_list_step[3] = set_value;
+        ui->pgm_table_step_edit_4->setText(set_value);
+        break;
+    case addr_edit_pgm_value1_row1:
+        covert_data = convertToDecimalString(set_value,2);
+        edit_pgm_list_temp[0] = covert_data;
+        ui->pgm_table_temp_edit_1->setText(covert_data);
+        break;
+    case addr_edit_pgm_value1_row2:
+        covert_data = convertToDecimalString(set_value,2);
+        edit_pgm_list_temp[1] = covert_data;
+        ui->pgm_table_temp_edit_2->setText(covert_data);
+        break;
+    case addr_edit_pgm_value1_row3:
+        covert_data = convertToDecimalString(set_value,2);
+        edit_pgm_list_temp[2] = covert_data;
+        ui->pgm_table_temp_edit_3->setText(covert_data);
+        break;
+    case addr_edit_pgm_value1_row4:
+        covert_data = convertToDecimalString(set_value,2);
+        edit_pgm_list_temp[3] = covert_data;
+        ui->pgm_table_temp_edit_4->setText(covert_data);
+        break;
+    case addr_edit_pgm_value2_row1:
+        covert_data = convertToDecimalString(set_value,1);
+        edit_pgm_list_humi[0] = covert_data;
+        ui->pgm_table_humi_edit_1->setText(covert_data);
+        break;
+    case addr_edit_pgm_value2_row2:
+        covert_data = convertToDecimalString(set_value,1);
+        edit_pgm_list_humi[1] = covert_data;
+        ui->pgm_table_humi_edit_2->setText(covert_data);
+        break;
+    case addr_edit_pgm_value2_row3:
+        covert_data = convertToDecimalString(set_value,1);
+        edit_pgm_list_humi[2] = covert_data;
+        ui->pgm_table_humi_edit_3->setText(covert_data);
+        break;
+    case addr_edit_pgm_value2_row4:
+        covert_data = convertToDecimalString(set_value,1);
+        edit_pgm_list_humi[3] = covert_data;
+        ui->pgm_table_humi_edit_4->setText(covert_data);
+        break;
+    case addr_edit_pgm_hour_row1:
+        edit_pgm_list_hour[0] = set_value;
+        ui->pgm_table_hour_edit_1->setText(set_value);
+        break;
+    case addr_edit_pgm_hour_row2:
+        edit_pgm_list_hour[1] = set_value;
+        ui->pgm_table_hour_edit_2->setText(set_value);
+        break;
+    case addr_edit_pgm_hour_row3:
+        edit_pgm_list_hour[2] = set_value;
+        ui->pgm_table_hour_edit_3->setText(set_value);
+        break;
+    case addr_edit_pgm_hour_row4:
+        edit_pgm_list_hour[3] = set_value;
+        ui->pgm_table_hour_edit_4->setText(set_value);
+        break;
+    case addr_edit_pgm_min_row1:
+        edit_pgm_list_min[0] = set_value;
+        ui->pgm_table_min_edit_1->setText(set_value);
+        break;
+    case addr_edit_pgm_min_row2:
+        edit_pgm_list_min[1] = set_value;
+        ui->pgm_table_min_edit_2->setText(set_value);
+        break;
+    case addr_edit_pgm_min_row3:
+        edit_pgm_list_min[2] = set_value;
+        ui->pgm_table_min_edit_3->setText(set_value);
+        break;
+    case addr_edit_pgm_min_row4:
+        edit_pgm_list_min[3] = set_value;
+        ui->pgm_table_min_edit_4->setText(set_value);
+        break;
+    case addr_edit_pgm_sec_row1:
+        edit_pgm_list_sec[0] = set_value;
+        ui->pgm_table_sec_edit_1->setText(set_value);
+        break;
+    case addr_edit_pgm_sec_row2:
+        edit_pgm_list_sec[1] = set_value;
+        ui->pgm_table_sec_edit_2->setText(set_value);
+        break;
+    case addr_edit_pgm_sec_row3:
+        edit_pgm_list_sec[2] = set_value;
+        ui->pgm_table_sec_edit_3->setText(set_value);
+        break;
+    case addr_edit_pgm_sec_row4:
+        edit_pgm_list_sec[3] = set_value;
+        ui->pgm_table_sec_edit_4->setText(set_value);
+        break;
+    case addr_edit_pgm_ts1_row1:
+        edit_pgm_list_ts1[0] = set_value;
+        ui->pgm_table_ts1_edit_1->setText(set_value);
+        break;
+    case addr_edit_pgm_ts1_row2:
+        edit_pgm_list_ts1[1] = set_value;
+        ui->pgm_table_ts1_edit_2->setText(set_value);
+        break;
+    case addr_edit_pgm_ts1_row3:
+        edit_pgm_list_ts1[2] = set_value;
+        ui->pgm_table_ts1_edit_3->setText(set_value);
+        break;
+    case addr_edit_pgm_ts1_row4:
+        edit_pgm_list_ts1[3] = set_value;
+        ui->pgm_table_ts1_edit_4->setText(set_value);
+        break;
+    case addr_edit_pgm_ts2_row1:
+        edit_pgm_list_ts2[0] = set_value;
+        ui->pgm_table_ts2_edit_1->setText(set_value);
+        break;
+    case addr_edit_pgm_ts2_row2:
+        edit_pgm_list_ts2[1] = set_value;
+        ui->pgm_table_ts2_edit_2->setText(set_value);
+        break;
+    case addr_edit_pgm_ts2_row3:
+        edit_pgm_list_ts2[2] = set_value;
+        ui->pgm_table_ts2_edit_3->setText(set_value);
+        break;
+    case addr_edit_pgm_ts2_row4:
+        edit_pgm_list_ts2[3] = set_value;
+        ui->pgm_table_ts2_edit_4->setText(set_value);
+        break;
+    case addr_edit_pgm_ts3_row1:
+        edit_pgm_list_ts3[0] = set_value;
+        ui->pgm_table_ts3_edit_1->setText(set_value);
+        break;
+    case addr_edit_pgm_ts3_row2:
+        edit_pgm_list_ts3[1] = set_value;
+        ui->pgm_table_ts3_edit_2->setText(set_value);
+        break;
+    case addr_edit_pgm_ts3_row3:
+        edit_pgm_list_ts3[2] = set_value;
+        ui->pgm_table_ts3_edit_3->setText(set_value);
+        break;
+    case addr_edit_pgm_ts3_row4:
+        edit_pgm_list_ts3[3] = set_value;
+        ui->pgm_table_ts3_edit_4->setText(set_value);
+        break;
+    case addr_edit_pgm_wt_row1:
+        edit_pgm_list_wt[0] = set_value;
+        ui->pgm_table_wt_edit_1->setText(set_value);
+        break;
+    case addr_edit_pgm_wt_row2:
+        edit_pgm_list_wt[1] = set_value;
+        ui->pgm_table_wt_edit_2->setText(set_value);
+        break;
+    case addr_edit_pgm_wt_row3:
+        edit_pgm_list_wt[2] = set_value;
+        ui->pgm_table_wt_edit_3->setText(set_value);
+        break;
+    case addr_edit_pgm_wt_row4:
+        edit_pgm_list_wt[3] = set_value;
+        ui->pgm_table_wt_edit_4->setText(set_value);
+        break;
+
+    default:break;
+    }
 }

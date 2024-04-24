@@ -33,6 +33,8 @@ signals:
     void userPasswordPage02_to_userPasswordPage03();
     void Request_Use_Keyboard_Signal(int);
     void Request_Use_Calculate_Signal(int);
+    void touch_InterfaceDataSignal(int,QString);
+
 };
 
 #endif // USERPASSWORDPAGE02_H

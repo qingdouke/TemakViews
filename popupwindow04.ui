@@ -34,6 +34,7 @@
     <property name="font">
      <font>
       <pointsize>24</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -47,20 +48,22 @@
    <widget class="QLabel" name="title">
     <property name="geometry">
      <rect>
-      <x>550</x>
+      <x>500</x>
       <y>0</y>
-      <width>180</width>
+      <width>271</width>
       <height>60</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>26</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
     <property name="text">
-     <string>程式选择</string>
+     <string>PROGRAM LIST</string>
     </property>
     <property name="textFormat">
      <enum>Qt::PlainText</enum>
@@ -294,11 +297,12 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>18</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>编号</string>
+      <string>Number</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -315,11 +319,12 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>18</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>程式名称</string>
+      <string>Pgm Name</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -336,11 +341,12 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>18</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>编号</string>
+      <string>Number</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -357,11 +363,12 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>18</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>程式名称</string>
+      <string>Pgm Name</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -378,11 +385,12 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>18</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>编号</string>
+      <string>Number</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -399,11 +407,12 @@
      </property>
      <property name="font">
       <font>
+       <family>思源黑体</family>
        <pointsize>18</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>程式名称</string>
+      <string>Pgm Name</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -1678,6 +1687,11 @@
        <height>56</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -1690,6 +1704,11 @@
        <width>400</width>
        <height>56</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
      </property>
      <property name="text">
       <string/>
@@ -1704,6 +1723,11 @@
        <height>56</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -1716,6 +1740,11 @@
        <width>400</width>
        <height>56</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
      </property>
      <property name="text">
       <string/>
@@ -1730,6 +1759,11 @@
        <height>56</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -1742,6 +1776,11 @@
        <width>400</width>
        <height>56</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
      </property>
      <property name="text">
       <string/>
@@ -1756,6 +1795,11 @@
        <height>56</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -1768,6 +1812,11 @@
        <width>400</width>
        <height>56</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
      </property>
      <property name="text">
       <string/>
@@ -1782,6 +1831,11 @@
        <height>56</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -1794,6 +1848,11 @@
        <width>400</width>
        <height>56</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
      </property>
      <property name="text">
       <string/>
@@ -1808,6 +1867,11 @@
        <height>56</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -1820,6 +1884,11 @@
        <width>400</width>
        <height>56</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
      </property>
      <property name="text">
       <string/>
@@ -1834,6 +1903,11 @@
        <height>56</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -1846,6 +1920,11 @@
        <width>400</width>
        <height>56</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
      </property>
      <property name="text">
       <string/>
@@ -1860,6 +1939,11 @@
        <height>56</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -1872,6 +1956,11 @@
        <width>400</width>
        <height>56</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
      </property>
      <property name="text">
       <string/>
@@ -1886,6 +1975,11 @@
        <height>56</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -1898,6 +1992,11 @@
        <width>400</width>
        <height>56</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
      </property>
      <property name="text">
       <string/>
@@ -1912,6 +2011,11 @@
        <height>56</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -1924,6 +2028,11 @@
        <width>400</width>
        <height>56</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
      </property>
      <property name="text">
       <string/>
@@ -1938,6 +2047,11 @@
        <height>56</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -1950,6 +2064,11 @@
        <width>400</width>
        <height>56</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
      </property>
      <property name="text">
       <string/>
@@ -1964,6 +2083,11 @@
        <height>56</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -1977,6 +2101,11 @@
        <height>56</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -1989,6 +2118,11 @@
        <width>400</width>
        <height>56</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
      </property>
      <property name="text">
       <string/>
@@ -2016,6 +2150,11 @@
        <height>56</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -2028,6 +2167,11 @@
        <width>400</width>
        <height>56</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
      </property>
      <property name="text">
       <string/>
@@ -2042,6 +2186,11 @@
        <height>56</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -2054,6 +2203,11 @@
        <width>400</width>
        <height>56</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>思源黑体</family>
+      </font>
      </property>
      <property name="text">
       <string/>
@@ -2088,17 +2242,18 @@
      <rect>
       <x>60</x>
       <y>10</y>
-      <width>145</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>22</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>返  回</string>
+     <string>Return</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pervious_page_pbtn">
@@ -2106,17 +2261,18 @@
      <rect>
       <x>570</x>
       <y>10</y>
-      <width>145</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>22</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>上一页</string>
+     <string>LastPage</string>
     </property>
    </widget>
    <widget class="QPushButton" name="next_page_pbtn">
@@ -2124,17 +2280,18 @@
      <rect>
       <x>900</x>
       <y>10</y>
-      <width>145</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>22</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>下一页</string>
+     <string>NextPage</string>
     </property>
    </widget>
   </widget>

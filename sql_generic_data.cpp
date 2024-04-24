@@ -21,7 +21,7 @@ void readComDBData(QVector<lcd_show_data_f>& lcd_vector)
 
        // 查询全部数据
        sqlLcdComData.queryTable(tabNameStr,lcd_vector);
-       qDebug() << endl;
+       //qDebug() << endl;
        /*for (int i = 0; i < lcd_vector.size(); i++) {
                qDebug() << QString("%1  %2  %3  %4 %5").arg(i).arg(lcd_vector[i].font).arg(lcd_vector[i].str).arg(lcd_vector[i].data).arg(lcd_vector[i].other);
                //qDebug() << endl;
@@ -52,7 +52,7 @@ void writeTouchDBData(int id, int page ,int addr,int data, QString str, int swi,
        // 查询全部数据
        QVector<lcd_show_data_f> lcd_vector;
        sqlTest.queryTable(str1,lcd_vector);
-       qDebug() << endl;
+       //qDebug() << endl;
        //关闭数据库
        sqlTest.closeDb();
 }

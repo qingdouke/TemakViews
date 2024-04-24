@@ -103,6 +103,8 @@ signals:
     void parameterSetting_to_CANSET();
     void Request_Use_Keyboard_Signal(int);
     void Request_Use_Calculate_Signal(int);
+    void touch_InterfaceDataSignal(int,QString);
+
 };
 
 #endif // PARAMETER_SETTING_H

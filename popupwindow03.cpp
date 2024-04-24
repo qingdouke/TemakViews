@@ -1,6 +1,6 @@
 #include "popupwindow03.h"
 #include "ui_popupwindow03.h"
-
+// 停机确认弹出窗口
 PopUpWindow03::PopUpWindow03(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::PopUpWindow03)

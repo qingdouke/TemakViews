@@ -1,5 +1,6 @@
 #include "parameter_setting.h"
 #include "ui_parameter_setting.h"
+#include "address_data_show.h"
 
 #include <QTimer>
 #include <QDateTime>
@@ -395,7 +396,7 @@ void Parameter_Setting::on_checkBox_Screen_Lock_clicked()
 }
 
 void Parameter_Setting::freezeOneSec()
-{
+{/*
     ui->languageChinese_pBtn->setEnabled(false);
     ui->languageTraditionalChinese_pBtn->setEnabled(false);
     ui->languageEnglish_pBtn->setEnabled(false);
@@ -429,5 +430,5 @@ void Parameter_Setting::freezeOneSec()
     ui->pBtn_Light_Adjustment_High->setEnabled(true);
     ui->pBtn_Light_Adjustment_Low->setEnabled(true);
     ui->font_page_pbtn->setEnabled(true);
-    ui->next_page_pbtn->setEnabled(true);
+    ui->next_page_pbtn->setEnabled(true);*/
 }

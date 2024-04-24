@@ -1,5 +1,7 @@
 #include "internal_param_set.h"
-#include "ui_internal_param_set.h"
+#include "ui_InternalParamSet.h"
+#include "address_data_show.h"
+
 #include <QTimer>
 #include <QDateTime>
 InternalParamSet::InternalParamSet(QWidget *parent) :

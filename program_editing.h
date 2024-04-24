@@ -22,12 +22,12 @@ public:
 
     QStackedWidget* page;
 
-    QVector<QTableWidget*> table;
-    QVector<int> num;
-    int index = 0;
-    int count = 0;
-    int ncount = 0;
-    int nindex = 0;
+    //QVector<QTableWidget*> table;
+    //QVector<int> num;
+    //int index = 0;
+    //int count = 0;
+    //int ncount = 0;
+    //int nindex = 0;
 
     bool eventFilter(QObject *watched, QEvent *event);
     void programEditing_sendTo_mainWindow();
@@ -43,7 +43,7 @@ public:
     void InitProgram(int,QString);
 
     void deal_popUpWindow04PushButtonClickedSignals(int,QString);
-
+    void addrSetPgmEditInterfaceData(int, QString);
     void freezeOneSec();
 
 private:
@@ -55,6 +55,17 @@ private:
     QString highTempProtect="";
     int dataAddressInfoNum=1;
     QString* dataAddressInfo;
+    
+    QString edit_pgm_list_step[4] = {"1","2","3","4"};
+    QString edit_pgm_list_temp[4] = {"0.00","0.00","0.00","0.00"};
+    QString edit_pgm_list_humi[4] = {"0.0","0.0","0.0","0.0"};
+    QString edit_pgm_list_hour[4] = {"0","0","0","0"};
+    QString edit_pgm_list_min[4] = {"0","0","0","0"};
+    QString edit_pgm_list_sec[4] = {"0","0","0","0"};
+    QString edit_pgm_list_ts1[4] = {"0","0","0","0"};
+    QString edit_pgm_list_ts2[4] = {"0","0","0","0"};
+    QString edit_pgm_list_ts3[4] = {"0","0","0","0"};
+    QString edit_pgm_list_wt[4] = {"0","0","0","0"};
 
     PopUpWindow04 popUpWindow04;
 
@@ -87,6 +98,8 @@ signals:
 
     void Request_Use_Keyboard_Signal(int);
     void Request_Use_Calculate_Signal(int);
+    void touch_InterfaceDataSignal(int,QString);
+
 
 };
 

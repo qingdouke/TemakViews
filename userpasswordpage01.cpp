@@ -238,7 +238,7 @@ void UserPasswordPage01::userPasswordPage01_sendTo_userPasswordPage02()
 
 void UserPasswordPage01::freezeOneSec()
 {
-    ui->temperature_calorifier_checkBox_1->setEnabled(false);
+   /* ui->temperature_calorifier_checkBox_1->setEnabled(false);
     ui->temperature_calorifier_checkBox_2->setEnabled(false);
     ui->temperature_calorifier_checkBox_3->setEnabled(false);
     ui->temperature_calorifier_checkBox_4->setEnabled(false);
@@ -275,6 +275,6 @@ void UserPasswordPage01::freezeOneSec()
     ui->server_checkBox_1->setEnabled(true);
     ui->server_checkBox_2->setEnabled(true);
     ui->server_checkBox_3->setEnabled(true);
-    ui->server_checkBox_4->setEnabled(true);
+    ui->server_checkBox_4->setEnabled(true);*/
 }
 

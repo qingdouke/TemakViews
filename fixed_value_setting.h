@@ -53,12 +53,12 @@ private:
     Ui::Fixed_Value_Setting *ui;
     QString temperatureText="00.00";
     QString humidityText="0.0";
-    QString slopeTimeHText="0";
-    QString slopeTimeMText="0";
-    QString slopeTimeSText="0";
-    QString constantTempHText="0";
-    QString constantTempMText="0";
-    QString constantTempSText="0";
+    QString slopeTimeHText="987";
+    QString slopeTimeMText="65";
+    QString slopeTimeSText="43";
+    QString constantTempHText="123";
+    QString constantTempMText="456";
+    QString constantTempSText="789";
     QString TS1Text="0";
     QString TS2Text="0";
     QString TS3Text="0";

@@ -83,6 +83,7 @@ void UserPasswordPage03::userPasswordPage03_sendTo_userPasswordPage02(){
 
 void UserPasswordPage03::freezeOneSec()
 {
+    /*
     ui->turn_off_humidity_function_locked->setEnabled(false);
     ui->automatic_defrosting_locked->setEnabled(false);
     ui->remote_recording_locked->setEnabled(false);
@@ -105,4 +106,5 @@ void UserPasswordPage03::freezeOneSec()
     ui->temperature_control_checkBox_2->setEnabled(true);
     ui->font_page_pbtn->setEnabled(true);
     ui->previous_page_pbtn->setEnabled(true);
+    */
 }

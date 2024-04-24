@@ -102,6 +102,7 @@ void UserPasswordPage02::userPasswordPage02_sendTo_userPasswordPage03(){
 
 void UserPasswordPage02::freezeOneSec()
 {
+    /*
     ui->record_naming_method_checkBox_1->setEnabled(false);
     ui->record_naming_method_checkBox_2->setEnabled(false);
     ui->auto_temperature_protected_locked->setEnabled(false);
@@ -136,4 +137,5 @@ void UserPasswordPage02::freezeOneSec()
     ui->font_page_pbtn->setEnabled(true);
     ui->next_page_pbtn->setEnabled(true);
     ui->previous_page_pbtn->setEnabled(true);
+    */
 }

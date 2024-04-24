@@ -4,7 +4,7 @@
 #include "sqliteoperator.h"
 #include "general_tools.h"
 #include "mainwindow.h"
-
+#include "address_data_show.h"
 #include<QTimer>
 #include<QDateTime>
 #include <QDebug>
@@ -171,11 +171,11 @@ Monitoring_Interface::Monitoring_Interface(QWidget *parent) :
     //跳转至目录 发送信号
     connect(ui->font_page_pbtn,&QPushButton::clicked,this,&Monitoring_Interface::monitoring_interface_sendTo_mainwindow);
     connect(ui->next_page_pbtn,&QPushButton::clicked,this,&Monitoring_Interface::monitoringInterface_sendTo_outputMonitoring);
-    connect(ui->LED_pbtn,&QPushButton::clicked,this,&Monitoring_Interface::LED_pBtn_clicked);
-    connect(ui->running_pBtn,&QPushButton::clicked,this,&Monitoring_Interface::running_pBtn_clicked);
-    connect(ui->loading_pBtn,&QPushButton::clicked,this,&Monitoring_Interface::loading_pBtn_clicked);
-    connect(ui->reset_pbth,&QPushButton::clicked,this,&Monitoring_Interface::reset_pBtn_clicked);
-    connect(ui->constant_value_running_pbtn,&QPushButton::clicked,this,&Monitoring_Interface::onepoint_pBtn_clicked);
+    //connect(ui->LED_pbtn,&QPushButton::clicked,this,&Monitoring_Interface::LED_pBtn_clicked);
+   //connect(ui->running_pBtn,&QPushButton::clicked,this,&Monitoring_Interface::running_pBtn_clicked);
+    //connect(ui->loading_pBtn,&QPushButton::clicked,this,&Monitoring_Interface::loading_pBtn_clicked);
+    //connect(ui->reset_pbth,&QPushButton::clicked,this,&Monitoring_Interface::reset_pBtn_clicked);
+   // connect(ui->constant_value_running_pbtn,&QPushButton::clicked,this,&Monitoring_Interface::onepoint_pBtn_clicked);
 
     //弹窗
     connect(&popUpWindow01,&PopUpWindow01::popWindow01PushButtonOKClickedSignal,this,&Monitoring_Interface::deal_popUpWindow01PushButtonOKClickedSignal);
@@ -589,9 +589,8 @@ void Monitoring_Interface::monitor_nextpage_pBtn_clicked(){
  * effect: 信号发送函数 照明按钮被按下
  * influence: this
 */
-void Monitoring_Interface::LED_pBtn_clicked(){
-    isLEDChecked = !isLEDChecked;
-    if(isLEDChecked==true){
+void Monitoring_Interface::setLedPBtnState(bool isLight){
+    if(isLight == true){
         ui->LED_pbtn->setStyleSheet("QPushButton#LED_pbtn{border:2px solid rgb(74,122,60);"
                                     "background-color:rgb(74,122,60);"
                                     "border-radius:8px;"
@@ -603,11 +602,14 @@ void Monitoring_Interface::LED_pBtn_clicked(){
                                     "border-radius:8px;"
                                     "color:rgb(74,122,60)}");
     }
+}
+
+void Monitoring_Interface::LED_pBtn_clicked(){    
     emit touch_InterfaceDataSignal(addr_touch_lamp_pbtn,"2");
 }
 
 void Monitoring_Interface::running_pBtn_clicked(){
-    if(isRunning==false){
+    if(sys_info.sys_sta == false){
         popUpWindow01.move((this->width()-popUpWindow01.width())/2,(this->height()-popUpWindow01.height())/2);
         popUpWindow01.show();
     }
@@ -616,7 +618,6 @@ void Monitoring_Interface::running_pBtn_clicked(){
         popUpWindow03.move((this->width()-popUpWindow03.width())/2,(this->height()-popUpWindow03.height())/2);
         popUpWindow03.show();
     }
-    emit touch_InterfaceDataSignal(addr_touch_onepoint_pbtn,"0");
 }
 
 void Monitoring_Interface::loading_pBtn_clicked(){
@@ -627,7 +628,7 @@ void Monitoring_Interface::loading_pBtn_clicked(){
 }
 
 void Monitoring_Interface::start_run_gif(){
-    if(isStart==true){
+    if(sys_info.sys_sta == true){
         QString URL = ":/Image/24/"+QString::number(run_gif_currentBmp)+".bmp";
         ui->run_gif->setStyleSheet("QLabel#run_gif{background-image:url("+URL+")}");
         if(run_gif_currentBmp==13)
@@ -641,30 +642,37 @@ void Monitoring_Interface::start_run_gif(){
 
 void Monitoring_Interface::deal_popUpWindow01PushButtonOKClickedSignal(){
     popUpWindow01.close();
-    popUpWindow02.move((this->width()-popUpWindow02.width())/2,(this->height()-popUpWindow02.height())/2);
-    popUpWindow02.show();
+    //popUpWindow02.move((this->width()-popUpWindow02.width())/2,(this->height()-popUpWindow02.height())/2);
+    //popUpWindow02.show();
+
+    emit touch_InterfaceDataSignal(addr_run_popup_ok_pbtn,"1");
 }
 
+void Monitoring_Interface::setRunningPBtnState(bool run_stop){
+    if(true == run_stop) // when system is running
+    {
+        ui->running_pBtn->setStyleSheet("QPushButton#running_pBtn{background-color:red;"
+                                        "color:black;"
+                                        "border:none;"
+                                        "border-radius:10px}");
+        ui->running_pBtn->setText(tr("STOP"));
+    }else  // when system is stop
+    {
+        ui->running_pBtn->setStyleSheet("QPushButton#running_pBtn{background-color:rgb(72,129,52);"
+                                        "color:white;"
+                                        "border:none;"
+                                        "border-radius:10px}");
+        ui->running_pBtn->setText(tr("RUN"));
+    }
+
+}
 void Monitoring_Interface::deal_popUpWindow02PushButtonOKClickedSignal(){
     popUpWindow02.close();
-    ui->running_pBtn->setStyleSheet("QPushButton#running_pBtn{background-color:red;"
-                                    "color:black;"
-                                    "border:none;"
-                                    "border-radius:10px}");
-    ui->running_pBtn->setText(tr("停  止"));
-    isRunning = true;
-    isStart = true;
 }
 
 void Monitoring_Interface::deal_popUpWindow03PushButtonYESClickedSignal(){
-    popUpWindow03.close();
-    isRunning=false;
-    ui->running_pBtn->setStyleSheet("QPushButton#running_pBtn{background-color:rgb(72,129,52);"
-                                    "color:white;"
-                                    "border:none;"
-                                    "border-radius:10px}");
-    ui->running_pBtn->setText(tr("运  行"));
-    isStart = false;
+    popUpWindow03.close();   
+    emit touch_InterfaceDataSignal(addr_run_popup_ok_pbtn,"0");
 }
 
 void Monitoring_Interface::deal_popUpWindow04WithoutDataSignals(int WIDTH,int HEIGHT){
@@ -688,6 +696,7 @@ void Monitoring_Interface::deal_popUpWindow04PushButtonClickedSignals(int ID,QSt
 
 void Monitoring_Interface::freezeOneSec()
 {
+    /*
     ui->font_page_pbtn->setEnabled(false);
     ui->next_page_pbtn->setEnabled(false);
     ui->LED_pbtn->setEnabled(false);
@@ -706,7 +715,7 @@ void Monitoring_Interface::freezeOneSec()
     ui->loading_pBtn->setEnabled(true);
     ui->constant_value_running_pbtn->setEnabled(true);
     ui->running_pBtn->setEnabled(true);
-    ui->reset_pbth->setEnabled(true);
+    ui->reset_pbth->setEnabled(true);*/
 }
 
 void Monitoring_Interface::idSetMonitorInterfaceData(int id_num, QString data_string){
@@ -773,7 +782,7 @@ void Monitoring_Interface::idSetMonitorInterfaceData(int id_num, QString data_st
     if (id_program_run_segment < lcd_show_data.size())
     {
         program_run_segment = lcd_show_data[id_program_run_segment].str;
-        ui->program_run_period_label->setText(program_run_segment);
+        ui->program_run_period_edit->setText(program_run_segment);
     }
     if (id_program_link < lcd_show_data.size())
     {
@@ -807,23 +816,35 @@ void Monitoring_Interface::addrSetMonitorInterfaceData(int addr_num, QString set
         ui->humidity_edit_sv->setText((humidity_sv));
         break;
     case addr_test_temperature_heat_percent:
-        test_temperature_heat_percent = convertToDecimalString(set_value,1);
+        test_temperature_heat_percent = convertToDecimalString(set_value,2);
         ui->temperature_edit_percent->setText(test_temperature_heat_percent);
         break;
     case addr_humidity_heat_percent:
-        humidity_heat_percent = convertToDecimalString(set_value,1);
+        humidity_heat_percent = convertToDecimalString(set_value,2);
         ui->humidity_edit_percent->setText(humidity_heat_percent);
         break;
     case addr_run_program_name:
         run_program_name = set_value;
         ui->program_name_edit->setText(run_program_name);
         break;
-    case addr_program_time:
-        program_time = set_value;
+    case addr_program_run_time:
+        program_run_time = set_value;
+        program_time = program_run_time + "/" + program_free_time;
         ui->program_time_edit->setText(program_time);
         break;
-    case addr_segment_time :
-        segment_time = set_value;
+    case addr_program_free_time:
+        program_free_time = set_value;
+        program_time = program_run_time + "/" + program_free_time;
+        ui->program_time_edit->setText(program_time);
+        break;
+    case addr_segment_run_time:
+        segment_run_time = set_value;
+        segment_time = segment_run_time + "/" + segment_free_time;
+        ui->period_time_edit->setText(segment_time);
+        break;
+    case addr_segment_free_time :
+        segment_free_time = set_value;
+        segment_time = segment_run_time + "/" + segment_free_time;
         ui->period_time_edit->setText(segment_time);
         break;
     case addr_estimate_end_time:
@@ -842,11 +863,14 @@ void Monitoring_Interface::addrSetMonitorInterfaceData(int addr_num, QString set
         program_link = set_value;
         ui->program_link_edit->setText(program_link);
         break;
+    case addr_run_stop_pbtn_state:
+        sys_info.sys_sta = (bool)set_value.toInt();
+        setRunningPBtnState(sys_info.sys_sta);
+        break;
+    case addr_light_pbtn_state:
+        sys_info.led_sta = (bool)set_value.toInt();
+        setLedPBtnState(sys_info.led_sta);
+        break;
     default:break;
     }
-
-
-
-
-
 }

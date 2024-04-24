@@ -131,11 +131,13 @@ void CANSET::canset_sendTo_parameterSetting()
 //优化以上代码
 void CANSET::freezeOneSec()
 {
+    /*
     QList<QWidget*> widgetList = {ui->baudrate_1000k_checkBox, ui->baudrate_800k_checkBox, ui->baudrate_500k_checkBox,
                                    ui->baudrate_250k_checkBox, ui->baudrate_125k_checkBox, ui->baudrate_100k_checkBox,
                                    ui->baudrate_50k_checkBox, ui->baudrate_20k_checkBox, ui->baudrate_10k_checkBox,
                                    ui->baudrate_5k_checkBox, ui->baudrate_2k_checkBox, ui->previous_page_pbtn,
                                    ui->font_page_pbtn};
+
     for (auto& widget : widgetList) {
         widget->setEnabled(false);
     }
@@ -145,5 +147,5 @@ void CANSET::freezeOneSec()
     }
     for (auto& widget : widgetList) {
         widget->setEnabled(true);
-    }
+    }*/
 }

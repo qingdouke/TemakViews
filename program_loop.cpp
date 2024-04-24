@@ -620,6 +620,7 @@ void Program_Loop::programLoop_sendTo_fixedValueSetting(){
 
 void Program_Loop::freezeOneSec()
 {
+    /*
     ui->font_page_pbtn->setEnabled(false);
     ui->previous_page_pbtn->setEnabled(false);
     ui->next_page_pbtn->setEnabled(false);
@@ -631,6 +632,6 @@ void Program_Loop::freezeOneSec()
     ui->font_page_pbtn->setEnabled(true);
     ui->previous_page_pbtn->setEnabled(true);
     ui->next_page_pbtn->setEnabled(true);
-    ui->saving_pbtn->setEnabled(true);
+    ui->saving_pbtn->setEnabled(true);*/
 }
 

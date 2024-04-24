@@ -73,7 +73,8 @@ HEADERS += \
     sqliteoperator.h \
     sql_generic_data.h \
     server.h \
-    tcp_server.h
+    tcp_server.h \
+    address_data_show.h
 
 FORMS += \
     calculate.ui \

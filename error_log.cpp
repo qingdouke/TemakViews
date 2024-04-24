@@ -1,5 +1,6 @@
 #include "error_log.h"
 #include "ui_error_log.h"
+#include "address_data_show.h"
 
 #include <QTimer>
 #include <QDateTime>

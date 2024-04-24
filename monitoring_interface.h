@@ -67,6 +67,7 @@ public:
     void monitoring_interface_sendTo_mainwindow();
     void monitoringInterface_sendTo_outputMonitoring();
     void LED_pBtn_clicked();
+    void setLedPBtnState(bool);
     void running_pBtn_clicked();
     void loading_pBtn_clicked();
     void pause_pBtn_clicked();
@@ -77,6 +78,7 @@ public:
     void start_run_gif();
     void InitProgram(int,QString);
 
+    void setRunningPBtnState(bool );
     void deal_popUpWindow01PushButtonOKClickedSignal();
     void deal_popUpWindow02PushButtonOKClickedSignal();
     void deal_popUpWindow03PushButtonYESClickedSignal();
@@ -105,19 +107,17 @@ private:
     QString run_program_name = "--------";
     QString program_run_time = "0000:00:00";
     QString program_free_time = "0000:00:00";
-    QString program_time = program_run_time + "/" + program_free_time;
+    QString program_time = "0000:00:00/0000:00:00";
     QString segment_run_time = "0000:00:00";
     QString segment_free_time = "0000:00:00";
-    QString segment_time = segment_run_time + "/" + segment_free_time;
+    QString segment_time = "0000:00:00/0000:00:00";
     QString estimate_end_time = "2022-10-28 14:42:50";
     QString program_cycle = "0000/0000";
     QString program_run_segment = "000";
     QString program_link = "003/000";
 
-    bool isStart = false;
     int run_gif_currentBmp = 11;
-    bool isLEDChecked = false;
-    bool isRunning = false;
+
 
     PopUpWindow01 popUpWindow01;
     PopUpWindow02 popUpWindow02;
@@ -131,8 +131,10 @@ private slots:
 signals:
     void monitoring_interface_to_mainwindow();
     void monitoringInterface_to_outputMonitoring();
-    void Request_Use_Calculate_Signal(int);
     void monitoring_interface_choose_program(int,QString);
+
+    void Request_Use_Keyboard_Signal(int);
+    void Request_Use_Calculate_Signal(int);
     void touch_InterfaceDataSignal(int,QString);
 };
 

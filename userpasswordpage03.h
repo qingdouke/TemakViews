@@ -29,6 +29,8 @@ signals:
     void userPasswordPage03_to_userPasswordPage02();
     void Request_Use_Keyboard_Signal(int);
     void Request_Use_Calculate_Signal(int);
+    void touch_InterfaceDataSignal(int,QString);
+
 };
 
 #endif // USERPASSWORDPAGE03_H

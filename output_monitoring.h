@@ -28,7 +28,8 @@ public:
 
     QStackedWidget* page;
 
-    QVector<QTableWidget*> table;
+    QTableWidget table;
+
     QVector<int> num;
     int index = 0;
     int count = 0;
@@ -36,7 +37,8 @@ public:
     int nindex = 0;
 
     void idSetOutputInterfaceData(int, QString);
-
+    void addrSetOutputInterfaceData(int,QString);
+    
     QString getTestTemperaturePV();
     QString getTestTemperatureSV();
     void setTestTemperaturePV(QString);
@@ -93,7 +95,8 @@ public:
     void deal_popUpWindow03PushButtonYESClickedSignal();
     void deal_popUpWindow04WithoutDataSignals(int,int);
     void deal_popUpWindow04PushButtonClickedSignals(int,QString);
-
+    void setRunningPBtnState(bool);
+    QString getPgmTableHMS(int);
     void freezeOneSec();
 
 private:
@@ -119,26 +122,33 @@ private:
     QString run_program_name = "--------";
     QString program_run_time = "0000:00:00";
     QString program_free_time = "0000:00:00";
-    QString program_time = program_run_time + "/" + program_free_time;
+    QString program_time = "0000:00:00/0000:00:00";
     QString segment_run_time = "0000:00:00";
     QString segment_free_time = "0000:00:00";
-    QString segment_time = segment_run_time + "/" + segment_free_time;
+    QString segment_time = "0000:00:00/0000:00:00";
     QString estimate_end_time = "2022-10-28 14:42:50";
     QString program_cycle = "0000/0000";
     QString program_run_segment = "000";
     QString program_link = "003/000";
 
-    QString ry_output1;
-    QString ry_output2;
-    QString ry_output3;
-    QString ry_output4;
-    QString ry_output5;
-    QString ry_output6;
+    QString ry_output1 = " ";
+    QString ry_output2 = " ";
+    QString ry_output3 = " ";
+    QString ry_output4 = " ";
+    QString ry_output5 = " ";
+    QString ry_output6 = " ";
+    QString run_pgm_list_step[4] = {"1","2","3","4"};
+    QString run_pgm_list_temp[4] = {"0.00","0.00","0.00","0.00"};
+    QString run_pgm_list_humi[4] = {"0.0","0.0","0.0","0.0"};
+    QString run_pgm_list_hour[4] = {"0","0","0","0"};
+    QString run_pgm_list_min[4] = {"0","0","0","0"};
+    QString run_pgm_list_sec[4] = {"0","0","0","0"};
+    QString run_pgm_list_ts1[4] = {"0","0","0","0"};
+    QString run_pgm_list_ts2[4] = {"0","0","0","0"};
+    QString run_pgm_list_ts3[4] = {"0","0","0","0"};
+    QString run_pgm_list_wt[4] = {"0","0","0","0"};
 
-    QString H = "0";
-    QString M = "0";
-    QString S = "0";
-    QString HMS = H+":"+M+":"+S;
+    QString HMS[4];
     bool isRunning = false;
 
     PopUpWindow01 popUpWindow01;
@@ -150,6 +160,7 @@ private:
 public slots:
     void on_previousPage_pbtn_clicked();
     void on_nextPage_pbtn_clicked();
+    void setRunPgmTable(int);
     void on_edit_pbtn_clicked();
     void on_jumpping_pbtn_clicked();
     void on_running_pbtn_clicked();
@@ -169,7 +180,11 @@ signals:
     void tableEditClickedSignals();
     void tabelJumppingClickedSignals();
     void outputMonitoringChooseProgramSignals(int,QString);
+
+    void Request_Use_Keyboard_Signal(int);
     void Request_Use_Calculate_Signal(int);
+    void touch_InterfaceDataSignal(int,QString);
+
 
 };
 

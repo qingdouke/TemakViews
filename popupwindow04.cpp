@@ -2,6 +2,7 @@
 #include "ui_popupwindow04.h"
 #include <QTextStream>
 
+// 程序选择
 PopUpWindow04::PopUpWindow04(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::PopUpWindow04)

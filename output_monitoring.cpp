@@ -2,6 +2,9 @@
 #include "ui_output_monitoring.h"
 #include "sql_generic_data.h"
 #include "sqliteoperator.h"
+#include "address_data_show.h"
+#include "general_tools.h"
+#include "mainwindow.h"
 
 #include <QTimer>
 #include <QDateTime>
@@ -68,13 +71,13 @@ Output_Monitoring::Output_Monitoring(QWidget *parent) :
     //Temperature_sv
     ui->temperature_sv_unit->setStyleSheet("QLabel#temperature_sv_unit{color:rgb(255,127,36)}");
     ui->temperature_sv_edit->setStyleSheet("QLineEdit#temperature_sv_edit{border:none;background:transparent}");
-    ui->temperature_sv_edit->setInputMask("00.00");
+    ui->temperature_sv_edit->setInputMask("xxxxxx");
     ui->temperature_sv_edit->setText("12.12");
 
     //Temperature_pv
     ui->temperature_pv_unit->setStyleSheet("QLabel#temperature_pv_unit{color:rgb(255,127,36)}");
     ui->temperature_pv_edit->setStyleSheet("QLineEdit#temperature_pv_edit{border:none;background:transparent;color:red}");
-    ui->temperature_pv_edit->setInputMask("00.00");
+    ui->temperature_pv_edit->setInputMask("xxxxxx");
     ui->temperature_pv_edit->setText("12.12");
 
     //Humdity_image
@@ -83,13 +86,13 @@ Output_Monitoring::Output_Monitoring(QWidget *parent) :
     //Humidity_sv
     ui->humidity_sv_unit->setStyleSheet("QLabel#humidity_sv_unit{color:rgb(255,127,36)}");
     ui->humidity_sv_edit->setStyleSheet("QLineEdit#humidity_sv_edit{border:none;background:transparent}");
-    ui->humidity_sv_edit->setInputMask("00.00");
+    ui->humidity_sv_edit->setInputMask("xxxxxx");
     ui->humidity_sv_edit->setText("12.12");
 
     //Humidity_pv
     ui->humidity_pv_unit->setStyleSheet("QLabel#humidity_pv_unit{color:rgb(255,127,36)}");
     ui->humidity_pv_edit->setStyleSheet("QLineEdit#humidity_pv_edit{border:none;background:transparent;color:blue}");
-    ui->humidity_pv_edit->setInputMask("00.00");
+    ui->humidity_pv_edit->setInputMask("xxxxxx");
     ui->humidity_pv_edit->setText("12.12");
 
     //使用qss设定Signal_box checkbox样式
@@ -108,6 +111,7 @@ Output_Monitoring::Output_Monitoring(QWidget *parent) :
                                    "border-radius:2px}");
     ui->outputSignal_label->setStyleSheet("QLabel#outputSignal_label{color:rgb(255,127,36)}");
     ui->ry_output_edit_1->setStyleSheet("QLineEdit#ry_output_edit_1{background:white;border:white}");
+    ui->ry_output_edit_1->setText("POW C1 C2");
     ui->ry_output_edit_2->setStyleSheet("QLineEdit#ry_output_edit_2{background:white;border:white}");
     ui->ry_output_edit_3->setStyleSheet("QLineEdit#ry_output_edit_3{background:white;border:white}");
     ui->ry_output_edit_4->setStyleSheet("QLineEdit#ry_output_edit_4{background:white;border:white}");
@@ -116,105 +120,78 @@ Output_Monitoring::Output_Monitoring(QWidget *parent) :
     //Step_box
     ui->Step_box->setStyleSheet("QWidget#Step_box{border:2px solid rgb(117,138,107)}");
 
-    //创建Step组，共100组
-    for(int i=0 ;i<100 ;i++){
-        num.append(i+1);
-    }
     //创建初始化页面（共4个Step）
-    table.append(new QTableWidget(this));
+    //table.append(new QTableWidget(this));
     //设置行数列数和表格大小
-    table[0]->setRowCount(4);
-    table[0]->setColumnCount(8);
-    table[0]->resize(886,150);
+    table.setRowCount(4);
+    table.setColumnCount(8);
+    table.resize(886,150);
     //隐藏标题栏
-    QHeaderView* headerview_Vertical = table[0]->verticalHeader();
+    QHeaderView* headerview_Vertical = table.verticalHeader();
     headerview_Vertical->setHidden(true);
-    QHeaderView* headerview_Horizontal = table[0]->horizontalHeader();
+    QHeaderView* headerview_Horizontal = table.horizontalHeader();
     headerview_Horizontal->setHidden(true);
     //设置Step
-    for(int i=0 ;i<4 ;i++){
-        table[0]->setItem(i,0,new QTableWidgetItem(QString::number(num[count++])));
-    }
-    //设置其余每列内容
-    for(int i=0 ;i<4 ;i++){
-        table[0]->setItem(i,1,new QTableWidgetItem("0.00"));
-    }
-    for(int i=0 ;i<4 ;i++){
-        table[0]->setItem(i,2,new QTableWidgetItem("0.0"));
-    }
-    for(int i=0 ;i<4 ;i++){
-        table[0]->setItem(i,3,new QTableWidgetItem("0:0:0"));
-    }
-    for(int i=0 ;i<4 ;i++){
-        table[0]->setItem(i,4,new QTableWidgetItem("0"));
-    }
-    for(int i=0 ;i<4 ;i++){
-        table[0]->setItem(i,5,new QTableWidgetItem("0"));
-    }
-    for(int i=0 ;i<4 ;i++){
-        table[0]->setItem(i,6,new QTableWidgetItem("0"));
-    }
-    for(int i=0 ;i<4 ;i++){
-        table[0]->setItem(i,7,new QTableWidgetItem("0"));
-    }
+    setRunPgmTable(0);
     //设置Step不可修改
-    for(int i=0 ;i<table[0]->rowCount() ;i++){
-        table[0]->item(i,0)->setFlags(Qt::NoItemFlags);
-    }
-    table[0]->setSelectionBehavior(QAbstractItemView::SelectRows);
-    table[0]->setFocusPolicy(Qt::ClickFocus);
-    table[0]->viewport()->installEventFilter(this);
-    table[0]->setEditTriggers(QAbstractItemView::DoubleClicked | QAbstractItemView::SelectedClicked);
+
+    table.setSelectionBehavior(QAbstractItemView::SelectRows);
+    table.setFocusPolicy(Qt::ClickFocus);
+    table.viewport()->installEventFilter(this);
+    table.setEditTriggers(QAbstractItemView::DoubleClicked | QAbstractItemView::SelectedClicked);
     //设置item不可修改
-    for(int i=0 ;i<table[0]->rowCount() ;i++){
-        table[0]->item(i,1)->setFlags(Qt::NoItemFlags);
+    for(int i=0 ;i<table.rowCount() ;i++){
+        table.item(i,0)->setFlags(Qt::NoItemFlags);
     }
-    for(int i=0 ;i<table[0]->rowCount() ;i++){
-        table[0]->item(i,2)->setFlags(Qt::NoItemFlags);
+    for(int i=0 ;i<table.rowCount() ;i++){
+        table.item(i,1)->setFlags(Qt::NoItemFlags);
     }
-    for(int i=0 ;i<table[0]->rowCount() ;i++){
-        table[0]->item(i,3)->setFlags(Qt::NoItemFlags);
+    for(int i=0 ;i<table.rowCount() ;i++){
+        table.item(i,2)->setFlags(Qt::NoItemFlags);
     }
-    for(int i=0 ;i<table[0]->rowCount() ;i++){
-        table[0]->item(i,4)->setFlags(Qt::NoItemFlags);
+    for(int i=0 ;i<table.rowCount() ;i++){
+        table.item(i,3)->setFlags(Qt::NoItemFlags);
     }
-    for(int i=0 ;i<table[0]->rowCount() ;i++){
-        table[0]->item(i,5)->setFlags(Qt::NoItemFlags);
+    for(int i=0 ;i<table.rowCount() ;i++){
+        table.item(i,4)->setFlags(Qt::NoItemFlags);
     }
-    for(int i=0 ;i<table[0]->rowCount() ;i++){
-        table[0]->item(i,6)->setFlags(Qt::NoItemFlags);
+    for(int i=0 ;i<table.rowCount() ;i++){
+        table.item(i,5)->setFlags(Qt::NoItemFlags);
     }
-    for(int i=0 ;i<table[0]->rowCount() ;i++){
-        table[0]->item(i,7)->setFlags(Qt::NoItemFlags);
+    for(int i=0 ;i<table.rowCount() ;i++){
+        table.item(i,6)->setFlags(Qt::NoItemFlags);
+    }
+    for(int i=0 ;i<table.rowCount() ;i++){
+        table.item(i,7)->setFlags(Qt::NoItemFlags);
     }
     //设置表格文字格式居中
     for(int i=0 ;i<4 ;i++){
         for(int j=0 ;j<8 ;j++){
-            table[0]->item(i,j)->setTextAlignment(Qt::AlignCenter);
-            QFont font_tabel = table[0]->item(i,j)->font();
+            table.item(i,j)->setTextAlignment(Qt::AlignCenter);
+            QFont font_tabel = table.item(i,j)->font();
             font_tabel.setPointSize(18);
             font_tabel.setFamily("Micorsoft UI light");
-            table[0]->item(i,j)->setFont(font_tabel);
+            table.item(i,j)->setFont(font_tabel);
         }
     }
     //控制表格格式
-    table[0]->setColumnWidth(0,77);
-    table[0]->setColumnWidth(1,155);
-    table[0]->setColumnWidth(2,118);
-    table[0]->setColumnWidth(3,257);
-    table[0]->setColumnWidth(4,70);
-    table[0]->setColumnWidth(5,70);
-    table[0]->setColumnWidth(6,70);
-    table[0]->setColumnWidth(7,70);
-    table[0]->setRowHeight(0,38);
-    table[0]->setRowHeight(1,37);
-    table[0]->setRowHeight(2,37);
-    table[0]->setRowHeight(3,38);
-    table[0]->setStyleSheet("QTableWidget::item{border-top:1px solid rgba(0,0,0,0.4);color:black}"
+    table.setColumnWidth(0,77);
+    table.setColumnWidth(1,155);
+    table.setColumnWidth(2,118);
+    table.setColumnWidth(3,257);
+    table.setColumnWidth(4,70);
+    table.setColumnWidth(5,70);
+    table.setColumnWidth(6,70);
+    table.setColumnWidth(7,70);
+    table.setRowHeight(0,38);
+    table.setRowHeight(1,37);
+    table.setRowHeight(2,37);
+    table.setRowHeight(3,38);
+    table.setStyleSheet("QTableWidget::item{border-top:1px solid rgba(0,0,0,0.4);color:black}"
                             "QTableWidget{border:none;font-size:14}");
     //将表格加入StackedWidge页面
     page = new QStackedWidget(this);
-    page->addWidget(table[0]);
+    page->addWidget(&table);
     page->setGeometry(42,350,887,150);
     //表格标题设置
     ui->line_step->setStyleSheet("QLabel#line_step{background-color:rgb(200,200,200);border:none}");
@@ -313,6 +290,7 @@ Output_Monitoring::Output_Monitoring(QWidget *parent) :
     ui->program_link_edit->setInputMask("000/000");
     ui->program_link_edit->setText(program_link);
 
+
     //Footer
     ui->Footer->setStyleSheet("QWidget#Footer{background-color:rgb(171,199,158)}");
     ui->footer_line->setStyleSheet("QLabel#footer_line{background-color:rgb(74,122,60)}");
@@ -398,8 +376,8 @@ bool Output_Monitoring::eventFilter(QObject *watched, QEvent *event)
                 ui->humidity_sv_edit->clearFocus();
             else if(ui->humidity_pv_edit->hasFocus())
                 ui->humidity_pv_edit->clearFocus();
-            else if (table[nindex]->currentItem())
-                table[nindex]->setCurrentItem(nullptr);
+            else if (table.currentItem())
+                table.setCurrentItem(nullptr);
         }
     }
 
@@ -430,24 +408,7 @@ bool Output_Monitoring::eventFilter(QObject *watched, QEvent *event)
     return QWidget::eventFilter(watched,event);         //返回事件过滤器
 }
 
-/*
- * time: 2022-11-2
- * type: slots
- * effect: 表格跳转上一页
- * influence: table
-*/
-void Output_Monitoring::on_previousPage_pbtn_clicked()
-{
-    nindex--;
-    if(nindex>=0){
-        page->setCurrentIndex(nindex);
-    }
-    else{
-        nindex = index;
-        page->setCurrentIndex(nindex);
-    }
-    emit tablePreviousPageClickedSignals();
-}
+
 
 /*
  * time: 2022-11-2
@@ -455,108 +416,48 @@ void Output_Monitoring::on_previousPage_pbtn_clicked()
  * effect: 表格跳转下一页
  * influence: table
 */
-void Output_Monitoring::on_nextPage_pbtn_clicked()
+void Output_Monitoring::setRunPgmTable(int page_index)
 {
-    nindex++;
-    if(nindex>index&&nindex<=24){
-        table.append(new QTableWidget(this));
-        table[++index]->setRowCount(4);
-        table[index]->setColumnCount(8);
-        QHeaderView* headerview_Vertical = table[index]->verticalHeader();
-        headerview_Vertical->setHidden(true);
-        QHeaderView* headerview_Horizontal = table[index]->horizontalHeader();
-        headerview_Horizontal->setHidden(true);
-        for(int i=0 ;i<4 ;i++){
-            table[index]->setItem(i,0,new QTableWidgetItem(QString::number(num[count++])));
-        }
-        for(int i=0 ;i<4 ;i++){
-            table[index]->setItem(i,1,new QTableWidgetItem("0.00"));
-        }
-        for(int i=0 ;i<4 ;i++){
-            table[index]->setItem(i,2,new QTableWidgetItem("0.0"));
-        }
-        for(int i=0 ;i<4 ;i++){
-            table[index]->setItem(i,3,new QTableWidgetItem("0:0:0"));
-        }
-        for(int i=0 ;i<4 ;i++){
-            table[index]->setItem(i,4,new QTableWidgetItem("0"));
-        }
-        for(int i=0 ;i<4 ;i++){
-            table[index]->setItem(i,5,new QTableWidgetItem("0"));
-        }
-        for(int i=0 ;i<4 ;i++){
-            table[index]->setItem(i,6,new QTableWidgetItem("0"));
-        }
-        for(int i=0 ;i<4 ;i++){
-            table[index]->setItem(i,7,new QTableWidgetItem("0"));
-        }
-        for(int i=0 ;i<table[index]->rowCount() ;i++){
-            table[index]->item(i,0)->setFlags(Qt::NoItemFlags);
-            table[index]->setStyleSheet("color:black");
-        }
-        for(int i=0 ;i<4 ;i++){
-            for(int j=0 ;j<8 ;j++){
-                table[index]->item(i,j)->setTextAlignment(Qt::AlignCenter);
-                QFont font_tabel = table[index]->item(i,j)->font();
-                font_tabel.setPointSize(18);
-                font_tabel.setFamily("Micorsoft UI light");
-                table[index]->item(i,j)->setFont(font_tabel);
-            }
-        }
-        table[index]->setColumnWidth(0,77);
-        table[index]->setColumnWidth(1,155);
-        table[index]->setColumnWidth(2,118);
-        table[index]->setColumnWidth(3,257);
-        table[index]->setColumnWidth(4,70);
-        table[index]->setColumnWidth(5,70);
-        table[index]->setColumnWidth(6,70);
-        table[index]->setColumnWidth(7,70);
-        table[index]->setRowHeight(0,38);
-        table[index]->setRowHeight(1,37);
-        table[index]->setRowHeight(2,37);
-        table[index]->setRowHeight(3,38);
-        //设置item不可修改
-        for(int i=0 ;i<table[0]->rowCount() ;i++){
-            table[index]->item(i,1)->setFlags(Qt::NoItemFlags);
-        }
-        for(int i=0 ;i<table[0]->rowCount() ;i++){
-            table[index]->item(i,2)->setFlags(Qt::NoItemFlags);
-        }
-        for(int i=0 ;i<table[0]->rowCount() ;i++){
-            table[index]->item(i,3)->setFlags(Qt::NoItemFlags);
-        }
-        for(int i=0 ;i<table[0]->rowCount() ;i++){
-            table[index]->item(i,4)->setFlags(Qt::NoItemFlags);
-        }
-        for(int i=0 ;i<table[0]->rowCount() ;i++){
-            table[index]->item(i,5)->setFlags(Qt::NoItemFlags);
-        }
-        for(int i=0 ;i<table[0]->rowCount() ;i++){
-            table[index]->item(i,6)->setFlags(Qt::NoItemFlags);
-        }
-        for(int i=0 ;i<table[0]->rowCount() ;i++){
-            table[index]->item(i,7)->setFlags(Qt::NoItemFlags);
-        }
-        table[index]->setSelectionBehavior(QAbstractItemView::SelectRows);
-        table[index]->setFocusPolicy(Qt::ClickFocus);
-        table[index]->viewport()->installEventFilter(this);
-        table[index]->setEditTriggers(QAbstractItemView::DoubleClicked | QAbstractItemView::SelectedClicked);
-        table[index]->setStyleSheet("QTableWidget::item{border-top:1px solid rgba(0,0,0,0.4);color:black}"
-                                "QTableWidget{border:none;font-size:14}");
-        page->addWidget(table[index]);
+    page_index = page_index;
+    for(int i=0 ;i<4 ;i++){
+        table.setItem(i,0,new QTableWidgetItem(run_pgm_list_step[i]));
     }
-    if(nindex<=24)
-    {
-        page->setCurrentIndex(nindex);
+    for(int i=0 ;i<4 ;i++){
+        table.setItem(i,1,new QTableWidgetItem(run_pgm_list_temp[i]));
     }
-    else
-    {
-        nindex = 0;
-        page->setCurrentIndex(nindex);
+    for(int i=0 ;i<4 ;i++){
+        table.setItem(i,2,new QTableWidgetItem(run_pgm_list_humi[i]));
     }
-    emit tableNextPageClickedSignals();
+    for(int i=0 ;i<4 ;i++){
+        table.setItem(i,3,new QTableWidgetItem(run_pgm_list_hour[i] + ":" + run_pgm_list_min[i] + ":" +run_pgm_list_sec[i]));
+    }
+    for(int i=0 ;i<4 ;i++){
+        table.setItem(i,4,new QTableWidgetItem(run_pgm_list_ts1[i]));
+    }
+    for(int i=0 ;i<4 ;i++){
+        table.setItem(i,5,new QTableWidgetItem(run_pgm_list_ts2[i]));
+    }
+    for(int i=0 ;i<4 ;i++){
+        table.setItem(i,6,new QTableWidgetItem(run_pgm_list_ts3[i]));
+    }
+    for(int i=0 ;i<4 ;i++){
+        table.setItem(i,7,new QTableWidgetItem(run_pgm_list_wt[i]));
+    }
 }
-
+/*
+ * time: 2024-4-23
+ * type: slots
+ * effect: 表格跳转
+ * influence: table
+*/
+void Output_Monitoring::on_previousPage_pbtn_clicked()
+{
+    emit touch_InterfaceDataSignal(addr_touch_run_pgm_edit,"1");
+}
+void Output_Monitoring::on_nextPage_pbtn_clicked()
+{   
+    emit touch_InterfaceDataSignal(addr_touch_run_pgm_edit,"2");
+}
 /*
  * time: 2022-10-28
  * type: Get
@@ -720,9 +621,28 @@ void Output_Monitoring::setProgramLink(QString strs){
     this->program_link = strs;
     ui->program_link_edit->setText(program_link);
 }
+void Output_Monitoring::setRunningPBtnState(bool run_stop){
+    if(true == run_stop) // when system is running
+    {
+        ui->running_pbtn->setStyleSheet("QPushButton#running_pBtn{background-color:red;"
+                                        "color:black;"
+                                        "border:none;"
+                                        "border-radius:10px}");
+        ui->running_pbtn->setText(tr("STOP"));
+    }else  // when system is stop
+    {
+        ui->running_pbtn->setStyleSheet("QPushButton#running_pBtn{background-color:rgb(72,129,52);"
+                                        "color:white;"
+                                        "border:none;"
+                                        "border-radius:10px}");
+        ui->running_pbtn->setText(tr("RUN"));
+    }
+
+}
 
 void Output_Monitoring::setTableItem(int index,int row,int col,QString strs){
-    table[index]->setItem(row,col,new QTableWidgetItem(strs));
+    index = index;
+    table.setItem(row,col,new QTableWidgetItem(strs));
 }
 
 /*
@@ -733,6 +653,7 @@ void Output_Monitoring::setTableItem(int index,int row,int col,QString strs){
 */
 void Output_Monitoring::outputMonitoring_sendTo_mainWindow(){
     emit outputMonitoring_to_mainWindow();
+    emit touch_InterfaceDataSignal(addr_touch_pageturn_pbtn, QString::number(MAIN_PAGE));
 }
 
 /*
@@ -743,6 +664,7 @@ void Output_Monitoring::outputMonitoring_sendTo_mainWindow(){
 */
 void Output_Monitoring::outputMonitoring_sendTo_monitoringInterface(){
     emit outputMonitoring_to_monitoringInterface();
+    emit touch_InterfaceDataSignal(addr_touch_pageturn_pbtn, QString::number(STATE_MONITOR));
 }
 
 /*
@@ -753,6 +675,8 @@ void Output_Monitoring::outputMonitoring_sendTo_monitoringInterface(){
 */
 void Output_Monitoring::outputMonitoring_sendTo_curveMonitoring(){
     emit outputMonitoring_to_curveMonitoring();
+    emit touch_InterfaceDataSignal(addr_touch_pageturn_pbtn, QString::number(CURE_SHOW));
+
 }
 
 QString Output_Monitoring::getTestTemperaturePV(){
@@ -770,14 +694,6 @@ void Output_Monitoring::setTestTemperatureSV(QString strs){
     ui->temperature_sv_edit->setText(strs);
 }
 
-
-
-/*
- * time: 2024-3-21
- * type: Get
- * effect: 获取湿度
- * influence: QString humidity_pv
-*/
 QString Output_Monitoring::getHumidityPV(){
     return humidity_pv;
 }
@@ -835,21 +751,29 @@ void Output_Monitoring::setServerPercent(QString strs){
     ui->server_output_edit->setText(server_percent);
 }
 
+
+QString Output_Monitoring::getPgmTableHMS(int index){
+    QString re_strs = run_pgm_list_hour[index] + ":" + run_pgm_list_min[index] + ":" + run_pgm_list_sec[index];
+    return re_strs;
+}
+
 void Output_Monitoring::on_edit_pbtn_clicked()
 {
     emit tableEditClickedSignals();
+    emit touch_InterfaceDataSignal(addr_touch_run_pgm_edit,"3");
 }
 
 
 void Output_Monitoring::on_jumpping_pbtn_clicked()
 {
     emit tabelJumppingClickedSignals();
+    emit Request_Use_Calculate_Signal(addr_touch_run_pgm_jump);
 }
 
 
 void Output_Monitoring::on_running_pbtn_clicked()
 {
-    if(isRunning==false){
+    if(sys_info.sys_sta == false){
         popUpWindow01.move((this->width()-popUpWindow01.width())/2,(this->height()-popUpWindow01.height())/2);
         popUpWindow01.show();
     }
@@ -864,37 +788,31 @@ void Output_Monitoring::on_running_pbtn_clicked()
 void Output_Monitoring::on_loading_pbtn_clicked()
 {
     popUpWindow04.move(0,0);
+    popUpWindow04.setStatus(0);
     popUpWindow04.show();
+    emit touch_InterfaceDataSignal(addr_touch_load_pbtn,"0");
 }
 
 void Output_Monitoring::on_constant_value_running_pbtn_clicked()
 {
+    emit touch_InterfaceDataSignal(addr_touch_onepoint_pbtn,"0");
 }
 
 void Output_Monitoring::deal_popUpWindow01PushButtonOKClickedSignal(){
     popUpWindow01.close();
-    popUpWindow02.move((this->width()-popUpWindow02.width())/2,(this->height()-popUpWindow02.height())/2);
-    popUpWindow02.show();
+        //popUpWindow02.move((this->width()-popUpWindow02.width())/2,(this->height()-popUpWindow02.height())/2);
+        //popUpWindow02.show();
+
+    emit touch_InterfaceDataSignal(addr_run_popup_ok_pbtn,"1");
 }
 
 void Output_Monitoring::deal_popUpWindow02PushButtonOKClickedSignal(){
     popUpWindow02.close();
-    ui->running_pbtn->setStyleSheet("QPushButton#running_pbtn{background-color:red;"
-                                    "color:black;"
-                                    "border:none;"
-                                    "border-radius:10px}");
-    ui->running_pbtn->setText(tr("停  止"));
-    isRunning = true;
 }
 
 void Output_Monitoring::deal_popUpWindow03PushButtonYESClickedSignal(){
     popUpWindow03.close();
-    isRunning=false;
-    ui->running_pbtn->setStyleSheet("QPushButton#running_pbtn{background-color:rgb(72,129,52);"
-                                    "color:white;"
-                                    "border:none;"
-                                    "border-radius:10px}");
-    ui->running_pbtn->setText(tr("运  行"));
+    emit touch_InterfaceDataSignal(addr_run_popup_ok_pbtn,"0");
 }
 
 void Output_Monitoring::deal_popUpWindow04WithoutDataSignals(int WIDTH,int HEIGHT){
@@ -915,7 +833,7 @@ void Output_Monitoring::deal_popUpWindow04PushButtonClickedSignals(int ID,QStrin
 
 void Output_Monitoring::freezeOneSec()
 {
-    ui->font_page_pbtn->setEnabled(false);
+    /*ui->font_page_pbtn->setEnabled(false);
     ui->nextPage_pbtn->setEnabled(false);
     ui->previousPage_pbtn->setEnabled(false);
     ui->next_page_pbtn->setEnabled(false);
@@ -938,7 +856,7 @@ void Output_Monitoring::freezeOneSec()
     ui->running_pbtn->setEnabled(true);
     ui->edit_pbtn->setEnabled(true);
     ui->loading_pbtn->setEnabled(true);
-    ui->jumpping_pbtn->setEnabled(true);
+    ui->jumpping_pbtn->setEnabled(true);*/
 }
 
 void Output_Monitoring::idSetOutputInterfaceData(int addr_num, QString pv_or_sv){
@@ -1057,4 +975,209 @@ void Output_Monitoring::idSetOutputInterfaceData(int addr_num, QString pv_or_sv)
         ui->ry_output_edit_1->setText(ry_output5);
     }
 
+}
+
+void Output_Monitoring::addrSetOutputInterfaceData(int addr_num, QString set_value){
+
+    qDebug() << QString("addrSetMonitorInterfaceData addr_num: %1").arg(addr_num);
+    QString covert_data;
+    int now_row = 0;
+    switch(addr_num)
+    {
+    case addr_test_temperature_pv:
+        covert_data = convertToDecimalString(set_value,2);
+        setTestTemperaturePV(covert_data);
+        break;
+    case addr_test_temperature_sv:
+        covert_data = convertToDecimalString(set_value,2);
+        setTestTemperatureSV(covert_data);
+        break;
+    case addr_humidity_pv:
+        setHumidityPV(set_value);
+        break;
+    case addr_humidity_sv:
+        covert_data = convertToDecimalString(set_value,1);
+        setHumiditySV(covert_data);
+        break;
+    case addr_high_temperature_protect:
+        covert_data = convertToDecimalString(set_value,2);
+        setHighTempProtect(covert_data);
+        break;
+    case addr_low_temperature_protect:
+        covert_data = convertToDecimalString(set_value,2);
+        setLowTempProtect(covert_data);
+        break;
+    case addr_test_temperature_heat_percent:
+        covert_data = convertToDecimalString(set_value,2);
+        setTestTemperaturePercent(covert_data);
+        break;
+    case addr_humidity_heat_percent:
+        covert_data = convertToDecimalString(set_value,2);
+        setHumidityPercent(covert_data);
+        break;
+    case addr_server_percent:
+        covert_data = convertToDecimalString(set_value,2);
+        setServerPercent(covert_data);
+        break;
+    case addr_run_program_name:        
+        setProgramName(set_value);
+        break;
+    case addr_program_run_time:
+        program_run_time = set_value;
+        program_time = program_run_time + "/" + program_free_time;
+        ui->program_time_edit->setText(program_time);
+        break;
+    case addr_program_free_time:
+        program_free_time = set_value;
+        program_time = program_run_time + "/" + program_free_time;
+        ui->program_time_edit->setText(program_time);
+        break;
+    case addr_segment_run_time:
+        segment_run_time = set_value;
+        segment_time = segment_run_time + "/" + segment_free_time;
+        ui->period_time_edit->setText(segment_time);
+        break;
+    case addr_segment_free_time :
+        segment_free_time = set_value;
+        segment_time = segment_run_time + "/" + segment_free_time;
+        ui->period_time_edit->setText(segment_time);
+        break;
+    case addr_estimate_end_time:        
+        setEstimateEndTime(set_value);
+        break;
+    case addr_program_cycle:
+        setProgramCycle(set_value);
+        break;
+    case addr_program_run_segment:
+        setProgramRunSegment(set_value);
+        break;
+    case addr_program_link :
+        setProgramLink(set_value);
+        break;
+    case addr_ry_output1:
+        ry_output1 = set_value;
+        ui->ry_output_edit_1->setText(set_value);
+        break;
+    case addr_ry_output2:
+        ry_output2 = set_value;
+        ui->ry_output_edit_2->setText(set_value);
+        break;
+    case addr_ry_output3:
+        ry_output3= set_value;
+        ui->ry_output_edit_3->setText(set_value);
+        break;
+    case addr_ry_output4:
+        ry_output4 = set_value;
+        ui->ry_output_edit_4->setText(set_value);
+        break;
+    case addr_ry_output5:
+        ry_output5 = set_value;
+        ui->ry_output_edit_5->setText(set_value);
+        break;
+   /* case addr_ry_output6:
+        ry_output6 = set_value;
+        ui->ry_output_edit_6->setText(set_value);
+        break;*/
+    case addr_run_pgm_step_row1:
+    case addr_run_pgm_step_row2:
+    case addr_run_pgm_step_row3:
+    case addr_run_pgm_step_row4:
+        now_row = (addr_num - addr_run_pgm_step_row1) / 0x10;
+        now_row = now_row > 3 ? 3 :now_row;
+        run_pgm_list_step[now_row] = set_value;
+        setTableItem(0,now_row,0,run_pgm_list_step[now_row]);
+        break;
+    case addr_run_pgm_value1_row1:
+    case addr_run_pgm_value1_row2:
+    case addr_run_pgm_value1_row3:
+    case addr_run_pgm_value1_row4:
+        now_row = (addr_num - addr_run_pgm_value1_row1) / 0x10;
+        now_row = now_row > 3 ? 3 :now_row;
+        covert_data = convertToDecimalString(set_value,2);
+        run_pgm_list_temp[now_row] = covert_data;
+        setTableItem(0,now_row,1,run_pgm_list_temp[now_row]);
+        break;
+    case addr_run_pgm_value2_row1:
+    case addr_run_pgm_value2_row2:
+    case addr_run_pgm_value2_row3:
+    case addr_run_pgm_value2_row4:
+        now_row = (addr_num - addr_run_pgm_value2_row1) / 0x10;
+        now_row = now_row > 3 ? 3 :now_row;
+        covert_data = convertToDecimalString(set_value,1);
+        run_pgm_list_humi[0] = covert_data;
+        setTableItem(0,now_row,2,run_pgm_list_humi[now_row]);
+        break;
+    case addr_run_pgm_hour_row1:
+    case addr_run_pgm_hour_row2:
+    case addr_run_pgm_hour_row3:
+    case addr_run_pgm_hour_row4:
+        now_row = (addr_num - addr_run_pgm_hour_row1) / 0x10;
+        now_row = now_row > 3 ? 3 :now_row;
+        run_pgm_list_hour[now_row] = set_value;
+        HMS[now_row] = getPgmTableHMS(now_row);
+        setTableItem(0,now_row,3,HMS[now_row]);
+        break;
+    case addr_run_pgm_min_row1:
+    case addr_run_pgm_min_row2:
+    case addr_run_pgm_min_row3:
+    case addr_run_pgm_min_row4:
+        now_row = (addr_num - addr_run_pgm_min_row1) / 0x10;
+        now_row = now_row > 3 ? 3 :now_row;
+        run_pgm_list_min[0] = set_value;
+        HMS[now_row] = getPgmTableHMS(now_row);
+        setTableItem(0,now_row,3,HMS[now_row]);
+        break;
+    case addr_run_pgm_sec_row1:
+    case addr_run_pgm_sec_row2:
+    case addr_run_pgm_sec_row3:
+    case addr_run_pgm_sec_row4:
+        now_row = (addr_num - addr_run_pgm_sec_row1) / 0x10;
+        now_row = now_row > 3 ? 3 :now_row;
+        run_pgm_list_sec[now_row] = set_value;
+        HMS[0] = getPgmTableHMS(now_row);
+        setTableItem(0,now_row,3, HMS[now_row]);
+        break;
+    case addr_run_pgm_ts1_row1:
+    case addr_run_pgm_ts1_row2:
+    case addr_run_pgm_ts1_row3:
+    case addr_run_pgm_ts1_row4:
+        now_row = (addr_num - addr_run_pgm_ts1_row1) / 0x10;
+        now_row = now_row > 3 ? 3 :now_row;
+        run_pgm_list_ts1[now_row] = set_value;
+        setTableItem(0,now_row,4, run_pgm_list_ts1[now_row]);
+        break;
+    case addr_run_pgm_ts2_row1:
+    case addr_run_pgm_ts2_row2:
+    case addr_run_pgm_ts2_row3:
+    case addr_run_pgm_ts2_row4:
+        now_row = (addr_num - addr_run_pgm_ts2_row1) / 0x10;
+        now_row = now_row > 3 ? 3 :now_row;
+        run_pgm_list_ts2[now_row] = set_value;
+         setTableItem(0,now_row,5, run_pgm_list_ts2[now_row]);
+        break;
+    case addr_run_pgm_ts3_row1:
+    case addr_run_pgm_ts3_row2:
+    case addr_run_pgm_ts3_row3:
+    case addr_run_pgm_ts3_row4:
+        now_row = (addr_num - addr_run_pgm_ts3_row1) / 0x10;
+        now_row = now_row > 3 ? 3 :now_row;
+        run_pgm_list_ts3[now_row] = set_value;
+         setTableItem(0,now_row,6, run_pgm_list_ts3[now_row]);
+        break;
+    case addr_run_pgm_wt_row1:
+    case addr_run_pgm_wt_row2:
+    case addr_run_pgm_wt_row3:
+    case addr_run_pgm_wt_row4:
+        now_row = (addr_num - addr_run_pgm_wt_row1) / 0x10;
+        now_row = now_row > 3 ? 3 :now_row;
+        run_pgm_list_wt[now_row] = set_value;
+        setTableItem(0,now_row,7,run_pgm_list_wt[now_row]);
+        break;
+    case addr_run_stop_pbtn_state:
+        sys_info.sys_sta = (bool)set_value.toInt();
+        setRunningPBtnState(sys_info.sys_sta);
+        break;
+    
+    default:break;
+    }
 }

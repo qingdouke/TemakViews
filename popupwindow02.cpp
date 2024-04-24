@@ -1,6 +1,7 @@
 #include "popupwindow02.h"
 #include "ui_popupwindow02.h"
 
+//提示在有发热负载时，使用时序控制器的功能
 PopUpWindow02::PopUpWindow02(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::PopUpWindow02)
@@ -23,7 +24,7 @@ PopUpWindow02::PopUpWindow02(QWidget *parent) :
                                    "color:white;"
                                    "border:none}");
 
-    connect(ui->pBtn_OK,&QPushButton::clicked,this,&PopUpWindow02::on_pBtn_OK_clicked);
+    //connect(ui->pBtn_OK,&QPushButton::clicked,this,&PopUpWindow02::on_pBtn_OK_clicked);
 }
 
 PopUpWindow02::~PopUpWindow02()
