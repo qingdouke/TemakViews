@@ -1158,13 +1158,16 @@ void MainWindow::deal_CommInterfaceData_update(int addr_num,QString data_strs)
     {
     case STATE_MONITOR:     monitoring_interface_page.addrSetMonitorInterfaceData(addr_num , data_strs);   break;
     case OUTPUT_MONITOR:    output_monitoring_page.addrSetOutputInterfaceData(addr_num , data_strs);   break;
-    case CURE_SHOW:         break;
+    case CURE_SHOW:         curve_monitoring_page.addrSetCurveInterfaceData(addr_num , data_strs);   break;
     case PGM_EDIT:          program_editing_page.addrSetPgmEditInterfaceData(addr_num , data_strs);   break;
-    case PGM_CYCLE:         break;
+    case PGM_CYCLE:         program_loop_page.addrSetPgmLoopInterfaceData(addr_num , data_strs);   break;
     case FIXED_FUN:         fixed_value_setting_page.addrSetOnepointInterfaceData(addr_num,data_strs);  break;
-    case PARAM_SET:         break;
-    case ERR_LOG_PAGE:      break;
-    case PGM_SLT_PAGE:      break;
+    case PARAM_SET:
+        parameter_setting_page.addrSetParamSetInterfaceData(addr_num , data_strs);
+        canset_page.addrSetCanInterfaceData(addr_num , data_strs);
+        break;
+    case ERR_LOG_PAGE:      error_log_page.addrSetErrLogInterfaceData(addr_num , data_strs);   break;
+    case PGM_SLT_PAGE:      popUpWindow04.addrSetPgmListInterfaceData(addr_num,data_strs);  break;
     case CLT_DATA_PAGE:     break;
     case USER_PSD_PAGE1:    break;
     case USER_PSD_PAGE2:    break;

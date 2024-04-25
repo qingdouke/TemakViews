@@ -39,7 +39,7 @@ public:
     void curveMonitoring_sendTo_outputMonitoring();
 
     void deal_PopUpWindow06PushButtonClickedSignals(int);
-
+    void addrSetCurveInterfaceData(int, QString);
     void freezeOneSec();
 
     //曲线绘制
@@ -87,9 +87,39 @@ public slots:
     void real_time_pBtn_clicked();
 private slots:
     void currentTime();
-    void on_storage_frequency_pushButton_clicked();
 
-    void on_real_time_pbtn_clicked();
+
+    void on_curve_pbtn_1_clicked();
+    void on_curve_pbtn_2_clicked();
+    void on_curve_pbtn_3_clicked();
+    void on_curve_pbtn_4_clicked();
+    void on_curve_pbtn_5_clicked();
+    void on_curve_pbtn_6_clicked();
+    void on_curve_pbtn_7_clicked();
+    void on_curve_pbtn_8_clicked();
+    void on_curve_pbtn_9_clicked();
+    void on_curve_pbtn_10_clicked();
+
+
+    void on_pushButton_0_clicked();
+
+    void on_pushButton_6_clicked();
+
+    void on_pushButton_1_clicked();
+
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_3_clicked();
+
+    void on_pushButton_4_clicked();
+
+    void on_pushButton_5_clicked();
+
+    void on_pushButton_7_clicked();
+
+    void on_curve_lastpage_pbtn_clicked();
+
+    void on_curve_nextpage_pbtn_clicked();
 
 signals:
     void curveMonitoring_to_mainWindow();

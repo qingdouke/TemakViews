@@ -103,8 +103,8 @@ public:
 
     Keyboard keyboard;
     Calculate calculate;
+    PopUpWindow04 popUpWindow04;
     PopUpWindow07 popUpWindow07;
-
     Data* readData01;
     Data* readData02;
     Server serverTask;

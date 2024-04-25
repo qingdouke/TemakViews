@@ -92,3 +92,207 @@ void Error_Log::currentTime(){
 void Error_Log::errorLog_sendTo_mainWindow(){
     emit errorLog_to_mainWindow();
 }
+
+void Error_Log::addrSetErrLogInterfaceData(int addr_num, QString set_value){
+
+
+    switch(addr_num)
+    {
+    // set program id show
+    case 0xA90:
+        ui->SysTypeText_label->setText(set_value);
+        break;
+    case 0xAA0:
+        ui->VersionText_label->setText(set_value);
+        break;
+    case 0xA10:
+        err_time_1 = set_value;
+        err_time = err_time_1 + err_time_mid + err_time_2;
+        ui->ErrcodeText_label->setText(err_time);
+        break;
+    case 0xA0E:
+        err_time_mid = set_value;
+        err_time = err_time_1 + err_time_mid + err_time_2;
+        ui->ErrcodeText_label->setText(err_time);
+        break;
+    case 0xA22:
+        err_time_2 = set_value;
+        err_time = err_time_1 + err_time_mid + err_time_2;
+        ui->ErrcodeText_label->setText(err_time);
+        break;
+    case 0xA61:
+        err_code_1 = set_value;
+        err_code = err_code_1 + err_code_2;
+        ui->ErrcodeText_label->setText(err_code);
+        break;
+    case 0xA80:
+        err_code_2 = set_value;
+        err_code = err_code_1 + err_code_2;
+        ui->ErrcodeText_label->setText(err_code);
+        break;
+    case 0xAB0:
+        ui->LastTimeText_label->setText(set_value);
+        break;
+    case 0xA70:
+        ui->StaText_label->setText(set_value);
+        break;
+    case 0xA42:
+        ui->CycText_label->setText(set_value);
+        break;
+    case 0xA43:
+        ui->LinkText_label->setText(set_value);
+        break;
+    case 0xA30:
+        ui->PgmText_label->setText(set_value);
+        break;
+    case 0xA44:
+        freetime_1 = set_value;
+        freetime = freetime_1 + freetime_2;
+        ui->FreetimeText_label->setText(freetime);
+        break;
+    case 0xA45:
+        freetime_2 = set_value;
+        freetime = freetime_1 + freetime_2;
+        ui->FreetimeText_label->setText(freetime);
+        break;
+    case 0xA40:
+        ui->Step_label_1->setText(set_value);
+        break;
+    case 0xA41:
+        ui->Step_label_2->setText(set_value);
+        break;
+    case 0xA03:
+        ui->value1_label_1->setText(set_value);
+        break;
+    case 0xA04:
+        ui->value2_label_1->setText(set_value);
+        break;
+    case 0xA05:
+        ui->hour_label_1->setText(set_value);
+        break;
+    case 0xA06:
+        ui->min_label_1->setText(set_value);
+        break;
+    case 0xA07:
+        ui->sec_label_1->setText(set_value);
+        break;
+    case 0xA08:
+        ui->ts1_label_1->setText(set_value);
+        break;
+    case 0xA09:
+        ui->ts2_label_1->setText(set_value);
+        break;
+    case 0xA0A:
+        ui->ts3_label_1->setText(set_value);
+        break;
+    case 0xA0B:
+        ui->wt_label_1->setText(set_value);
+        break;
+    case 0xA53:
+        ui->value1_label_2->setText(set_value);
+        break;
+    case 0xA54:
+        ui->value2_label_2->setText(set_value);
+        break;
+    case 0xA55:
+        ui->hour_label_2->setText(set_value);
+        break;
+    case 0xA56:
+        ui->min_label_2->setText(set_value);
+        break;
+    case 0xA57:
+        ui->sec_label_2->setText(set_value);
+        break;
+    case 0xA58:
+        ui->ts1_label_2->setText(set_value);
+        break;
+    case 0xA59:
+        ui->ts2_label_2->setText(set_value);
+        break;
+    case 0xA5A:
+        ui->ts3_label_2->setText(set_value);
+        break;
+    case 0xA5B:
+        ui->wt_label_2->setText(set_value);
+        break;
+    case 0xA46:
+        ui->HilimitText_label->setText(set_value);
+        break;
+    case 0xA47:
+        ui->LolimitText_label->setText(set_value);
+        break;
+    case 0xA48:
+        ui->TpvText_label->setText(set_value);
+        break;
+    case 0xA4B:
+        ui->TsvText_label->setText(set_value);
+        break;
+    case 0xA49:
+        ui->HpvText_label->setText(set_value);
+        break;
+    case 0xA4C:
+        ui->HsvText_label->setText(set_value);
+        break;
+    case 0xA4A:
+        ui->WpvText_label->setText(set_value);
+        break;
+    case 0xA4D:
+        ui->WsvText_label->setText(set_value);
+        break;
+    case 0xAC0:
+        out_1 = set_value;
+        out = out_1 + out_2 + out_3;
+        ui->OutText_label->setText(out);
+        break;
+    case 0xAD0:
+        out_2 = set_value;
+        out = out_1 + out_2 + out_3;
+        ui->OutText_label->setText(out);
+        break;
+    case 0xAE0:
+        out_3 = set_value;
+        out = out_1 + out_2 + out_3;
+        ui->OutText_label->setText(out);
+        break;
+    case 0xA4E:
+        ui->TempPidText_label->setText(set_value);
+        break;
+    case 0xA4F:
+        ui->HumiPidText_label->setText(set_value);
+        break;
+    case 0xA50:
+        ui->SvrPidText_label->setText(set_value);
+        break;
+    case 0xA51:
+        page_1 = set_value;
+        page = page_1 + "/" +page_2;
+        ui->PageText_label->setText(set_value);
+        break;
+    case 0xA52:
+        page_2 = set_value;
+        page = page_1 + "/" +page_2;
+        ui->PageText_label->setText(set_value);
+        break;
+    default:break;
+    }
+}
+
+void Error_Log::on_LastPage_pbtn_clicked()
+{
+    emit touch_InterfaceDataSignal(0xA00,"1");
+}
+
+void Error_Log::on_NextPage_pbtn_clicked()
+{
+    emit touch_InterfaceDataSignal(0xA00,"2");
+}
+
+void Error_Log::on_clear_log_pbtn_clicked()
+{
+    emit Request_Use_Keyboard_Signal(0xA01);
+}
+
+void Error_Log::on_saving_pbtn_clicked()
+{
+     emit touch_InterfaceDataSignal(0xA02,"2");
+}

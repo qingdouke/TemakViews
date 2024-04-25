@@ -49,6 +49,45 @@ Program_Editing::Program_Editing(QWidget *parent) :
     //添加事件过滤器
     ui->choose_program_edit->installEventFilter(this);
     ui->program_name_edit->installEventFilter(this);
+    ui->pgm_table_temp_edit_1->installEventFilter(this);
+    ui->pgm_table_temp_edit_2->installEventFilter(this);
+    ui->pgm_table_temp_edit_3->installEventFilter(this);
+    ui->pgm_table_temp_edit_4->installEventFilter(this);
+    ui->pgm_table_humi_edit_1->installEventFilter(this);
+    ui->pgm_table_humi_edit_2->installEventFilter(this);
+    ui->pgm_table_humi_edit_3->installEventFilter(this);
+    ui->pgm_table_humi_edit_4->installEventFilter(this);
+    ui->pgm_table_hour_edit_1->installEventFilter(this);
+    ui->pgm_table_hour_edit_2->installEventFilter(this);
+    ui->pgm_table_hour_edit_3->installEventFilter(this);
+    ui->pgm_table_hour_edit_4->installEventFilter(this);
+    ui->pgm_table_min_edit_1->installEventFilter(this);
+    ui->pgm_table_min_edit_2->installEventFilter(this);
+    ui->pgm_table_min_edit_3->installEventFilter(this);
+    ui->pgm_table_min_edit_4->installEventFilter(this);
+    ui->pgm_table_sec_edit_1->installEventFilter(this);
+    ui->pgm_table_sec_edit_2->installEventFilter(this);
+    ui->pgm_table_sec_edit_3->installEventFilter(this);
+    ui->pgm_table_sec_edit_4->installEventFilter(this);
+    ui->pgm_table_ts1_edit_1->installEventFilter(this);
+    ui->pgm_table_ts1_edit_2->installEventFilter(this);
+    ui->pgm_table_ts1_edit_3->installEventFilter(this);
+    ui->pgm_table_ts1_edit_4->installEventFilter(this);
+    ui->pgm_table_ts2_edit_1->installEventFilter(this);
+    ui->pgm_table_ts2_edit_2->installEventFilter(this);
+    ui->pgm_table_ts2_edit_3->installEventFilter(this);
+    ui->pgm_table_ts2_edit_4->installEventFilter(this);
+    ui->pgm_table_ts3_edit_1->installEventFilter(this);
+    ui->pgm_table_ts3_edit_2->installEventFilter(this);
+    ui->pgm_table_ts3_edit_3->installEventFilter(this);
+    ui->pgm_table_ts3_edit_4->installEventFilter(this);
+    //ui->pgm_table_wt_edit_1->installEventFilter(this);
+    ui->pgm_table_wt_edit_2->installEventFilter(this);
+    //ui->pgm_table_wt_edit_3->installEventFilter(this);
+    ui->pgm_table_wt_edit_4->installEventFilter(this);
+
+
+
     this->installEventFilter(this);
 
     //选择程式、程式名称、高低温保护
@@ -236,6 +275,14 @@ bool Program_Editing::eventFilter(QObject *watched, QEvent *event)
             }
             else if(ui->program_name_edit->hasFocus()){
                 ui->program_name_edit->clearFocus();
+            }else if(ui->pgm_table_temp_edit_1->hasFocus()){
+                ui->pgm_table_temp_edit_1->clearFocus();
+            }else if(ui->pgm_table_temp_edit_2->hasFocus()){
+                ui->pgm_table_temp_edit_2->clearFocus();
+            }else if(ui->pgm_table_temp_edit_3->hasFocus()){
+                ui->pgm_table_temp_edit_3->clearFocus();
+            }else if(ui->pgm_table_temp_edit_4->hasFocus()){
+                ui->pgm_table_temp_edit_4->clearFocus();
             }
         }
     }
@@ -484,11 +531,13 @@ void Program_Editing::insertClicked(){
 
 void Program_Editing::on_saving_pbtn_clicked()
 {
+    emit touch_InterfaceDataSignal(addr_touch_edit_pgm_save,"1");
 }
 
 
 void Program_Editing::on_loop_setting_pbtn_clicked()
 {
+    emit touch_InterfaceDataSignal(addr_touch_edit_pgm_save,"1");
 }
 
 void Program_Editing::on_new_program_pbtn_clicked()

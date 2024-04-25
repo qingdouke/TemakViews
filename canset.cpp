@@ -149,3 +149,50 @@ void CANSET::freezeOneSec()
         widget->setEnabled(true);
     }*/
 }
+void CANSET::addrSetCanInterfaceData(int addr_num, QString set_value){
+
+    QString covert_data;
+    switch(addr_num)
+    {
+    case addr_onepoint_test_temperature:
+        covert_data = convertToDecimalString(set_value,2);
+        setTemperatureText(covert_data);
+        break;
+    case addr_onepoint_test_humidity :
+        covert_data = convertToDecimalString(set_value,1);
+        setHumidityText(covert_data);
+        break;
+    case addr_onepoint_ramptime_hour:
+        setSlopeTimeHText(set_value);
+        break;
+    case addr_onepoint_ramptime_min:
+        setSlopeTimeMText(set_value);
+        break;
+    case addr_onepoint_ramptime_sec:
+        setSlopeTimeSText(set_value);
+        break;
+    case addr_onepoint_constime_hour:
+        setconstantTempHText(set_value);
+        break;
+    case addr_onepoint_constime_min:
+        setconstantTempMText(set_value);
+        break;
+    case addr_onepoint_constime_sec:
+        setconstantTempSText(set_value);
+        break;
+    case addr_onepoint_timesignal_1:
+        setTS1Text(set_value);
+        break;
+    case addr_onepoint_timesignal_2:
+        setTS2Text(set_value);
+        break;
+    case addr_onepoint_timesignal_3:
+        setTS3Text(set_value);
+        break;
+    case addr_onepoint_wait:
+        setWaitText(set_value);
+        break;
+    default:
+        break;
+    }
+}

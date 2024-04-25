@@ -17,6 +17,7 @@ public:
 
     void canset_sendTo_mainWindow();
     void canset_sendTo_parameterSetting();
+    void addrSetCanInterfaceData(int, QString);
 
     void freezeOneSec();
 

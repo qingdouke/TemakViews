@@ -50,6 +50,7 @@ public:
     void programLoop_sendTo_mainWindow();
     void programLoop_sendTo_programEditing();
     void programLoop_sendTo_fixedValueSetting();
+    void addrSetPgmLoopInterfaceData(int , QString );
 
     void freezeOneSec();
 
@@ -76,8 +77,7 @@ private:
 private slots:
     void currentTime();
 
-
-
+    void on_saving_pbtn_clicked();
 
 signals:
     void programLoop_to_mainWindow();

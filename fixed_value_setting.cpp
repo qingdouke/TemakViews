@@ -660,5 +660,4 @@ void Fixed_Value_Setting::addrSetOnepointInterfaceData(int addr_num, QString set
     default:
         break;
     }
-
 }

@@ -432,3 +432,62 @@ void Parameter_Setting::freezeOneSec()
     ui->font_page_pbtn->setEnabled(true);
     ui->next_page_pbtn->setEnabled(true);*/
 }
+
+void Parameter_Setting::addrSetParamSetInterfaceData(int addr_num, QString set_value){
+
+    qDebug() << QString("addrSetMonitorInterfaceData addr_num: %1").arg(addr_num);
+    QString covert_data;
+    switch(addr_num)
+    {
+    case addr_pgm_edit_pgm_number:
+        setChooseProgram(set_value);
+        break;
+    case addr_pgm_edit_pgm_name:
+        setProgramName(set_value);
+        break;
+    case 0x512: // all cycle
+        setAllLoops(set_value);
+        break;
+    case 0x514: // pgm link
+        setLink(set_value);
+        break;
+    case 0x521: // partial cycle start  1
+        setr2h1Text(set_value);
+        break;
+    case 0x531: // partial cycle start  2
+        setr2h2Text(set_value);
+        break;
+    case 0x541: // partial cycle start  3
+        setr2h3Text(set_value);
+        break;
+    case 0x551: // partial cycle start  4
+        setr2h4Text(set_value);
+        break;
+    case 0x523: // partial cycle end  1
+        setr3h1Text(set_value);
+        break;
+    case 0x533: // partial cycle end  2
+        setr3h2Text(set_value);
+        break;
+    case 0x543:// partial cycle end  3
+        setr3h3Text(set_value);
+        break;
+    case 0x553:// partial cycle end  4
+        setr3h4Text(set_value);
+        break;
+    case 0x525: // partial cycle num  1
+        setr4h1Text(set_value);
+        break;
+    case 0x535: // partial cycle num  2
+        setr4h2Text(set_value);
+        break;
+    case 0x545: // partial cycle num  3
+        setr4h3Text(set_value);
+        break;
+    case 0x555:// partial cycle num  4
+        setr4h4Text(set_value);
+        break;
+    default:break;
+    }
+}
+

@@ -24,6 +24,8 @@ public:
     void insertMap(QString);
     int getMapIndex();
     int getEndNumber();
+    void addrSetPgmListInterfaceData(int, QString);
+
 private slots:
     void on_back_pbtn_clicked();
     void on_pervious_page_pbtn_clicked();
@@ -71,6 +73,7 @@ signals:
     void popUpWindow04WithoutDataSignals(int,int);
     void popUpWindow04InsertDataSignals();
     void popUpWindow04DeleteDataSignals(int,QString);
+    void touch_InterfaceDataSignal(int,QString);
 };
 
 #endif // POPUPWINDOW04_H

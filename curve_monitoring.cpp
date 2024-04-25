@@ -1,6 +1,7 @@
 ﻿#include "curve_monitoring.h"
 #include "ui_curve_monitoring.h"
 #include "address_data_show.h"
+#include "mainwindow.h"
 
 #include <QTimer>
 #include <QDateTime>
@@ -42,7 +43,13 @@ Curve_Monitoring::Curve_Monitoring(QWidget *parent) :
     QString stylesheet = filetext.readAll();
     this->setStyleSheet(stylesheet);
     file.close();
-
+    //添加事件过滤器
+    ui->curve_list_page->installEventFilter(this);
+    ui->storage_frequency_lineEdit ->installEventFilter(this);
+    ui->temperature_pv_label->installEventFilter(this);
+    ui->temperature_sv_label->installEventFilter(this);
+    ui->humidity_pv_label->installEventFilter(this);
+    ui->humidity_sv_label->installEventFilter(this);
     //status_box
     ui->status_box->setStyleSheet("QWidget#status_box{border:2px solid rgb(72,129,52);"
                                   "border-radius:10px;"
@@ -308,14 +315,56 @@ bool Curve_Monitoring::eventFilter(QObject *watched, QEvent *event)
         }
     }
 
-    //    //监听lineEdit
-    //    if(watched == ui->storage_frequency_lineEdit)
-    //    {
-    //        if(event->type() == QEvent::MouseButtonPress){
-    //            emit Request_Use_Keyboard_Signal(3);
-    //            ui->storage_frequency_lineEdit->setFocus();
-    //        }
-    //    }
+    //监听lineEdit
+    if(watched == ui->storage_frequency_lineEdit)
+    {
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(0x33C);
+            ui->storage_frequency_lineEdit->setFocus();
+        }
+    }else
+        if(watched == ui->temperature_pv_label)
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0x311,"0");
+                ui->temperature_pv_label->setFocus();
+            }
+        }else
+            if(watched == ui->temperature_sv_label)
+            {
+                if(event->type() == QEvent::MouseButtonPress){
+                    emit touch_InterfaceDataSignal(0x312,"0");
+                    ui->temperature_sv_label->setFocus();
+                }
+            }else
+                if(watched == ui->humidity_pv_label)
+                {
+                    if(event->type() == QEvent::MouseButtonPress){
+                        emit touch_InterfaceDataSignal(0x313,"0");
+                        ui->humidity_pv_label->setFocus();
+                    }
+                }else
+                    if(watched == ui->humidity_sv_label)
+                    {
+                        if(event->type() == QEvent::MouseButtonPress){
+                            emit touch_InterfaceDataSignal(0x314,"0");
+                            ui->humidity_sv_label->setFocus();
+                        }
+                    }else
+                        if(watched == ui->curve_list_page)
+                        {
+                            if(event->type() == QEvent::MouseButtonPress){
+                                if(true == sys_info.sys_sta)
+                                {
+                                    // pop up dialog box about can't edit storage frequent when system is runnning
+                                }else
+                                {
+                                    emit Request_Use_Calculate_Signal(0x31);
+                                    ui->curve_list_page->setFocus();
+                                }
+                            }
+                        }
+
     return QWidget::eventFilter(watched,event);         //返回事件过滤器
 }
 /*
@@ -402,6 +451,97 @@ void Curve_Monitoring::setCursorTime(QString strs){
 void Curve_Monitoring::curveMonitoring_sendTo_mainWindow(){
     emit curveMonitoring_to_mainWindow();
 }
+void Curve_Monitoring::on_curve_pbtn_1_clicked()
+{
+    emit touch_InterfaceDataSignal(0x330, "2");
+}
+void Curve_Monitoring::on_curve_pbtn_2_clicked()
+{
+    emit touch_InterfaceDataSignal(0x330, "3");
+}
+void Curve_Monitoring::on_curve_pbtn_3_clicked()
+{
+    emit touch_InterfaceDataSignal(0x330, "4");
+}
+void Curve_Monitoring::on_curve_pbtn_4_clicked()
+{
+    emit touch_InterfaceDataSignal(0x330, "5");
+}
+void Curve_Monitoring::on_curve_pbtn_5_clicked()
+{
+    emit touch_InterfaceDataSignal(0x330, "6");
+}
+void Curve_Monitoring::on_curve_pbtn_6_clicked()
+{
+    emit touch_InterfaceDataSignal(0x330, "7");
+}
+void Curve_Monitoring::on_curve_pbtn_7_clicked()
+{
+    emit touch_InterfaceDataSignal(0x330, "8");
+}
+void Curve_Monitoring::on_curve_pbtn_8_clicked()
+{
+    emit touch_InterfaceDataSignal(0x330, "9");
+}
+void Curve_Monitoring::on_curve_pbtn_9_clicked()
+{
+    emit touch_InterfaceDataSignal(0x330, "10");
+}
+void Curve_Monitoring::on_curve_pbtn_10_clicked()
+{
+    emit touch_InterfaceDataSignal(0x330, "11");
+}
+
+void Curve_Monitoring::on_curve_lastpage_pbtn_clicked()
+{
+   emit touch_InterfaceDataSignal(0x33D, "0");
+}
+
+void Curve_Monitoring::on_curve_nextpage_pbtn_clicked()
+{
+    emit touch_InterfaceDataSignal(0x33A, "0");
+}
+
+void Curve_Monitoring::on_pushButton_0_clicked()
+{
+    emit touch_InterfaceDataSignal(0x331, "0");
+}
+
+void Curve_Monitoring::on_pushButton_1_clicked()
+{
+    emit touch_InterfaceDataSignal(0x332, "0");
+}
+
+void Curve_Monitoring::on_pushButton_2_clicked()
+{
+    emit touch_InterfaceDataSignal(0x333, "0");
+}
+
+void Curve_Monitoring::on_pushButton_3_clicked()
+{
+    emit touch_InterfaceDataSignal(0x334, "0");
+}
+
+void Curve_Monitoring::on_pushButton_4_clicked()
+{
+    emit touch_InterfaceDataSignal(0x335, "0");
+}
+
+void Curve_Monitoring::on_pushButton_5_clicked()
+{
+    emit touch_InterfaceDataSignal(0x336, "0");
+}
+
+void Curve_Monitoring::on_pushButton_6_clicked()
+{
+    emit touch_InterfaceDataSignal(0x337, "0");
+}
+
+void Curve_Monitoring::on_pushButton_7_clicked()
+{
+    emit touch_InterfaceDataSignal(0x338, "0");
+}
+
 
 /*
  * time: 2022-11-3
@@ -418,7 +558,24 @@ void Curve_Monitoring::saving_pBtn_clicked(){
 }
 
 void Curve_Monitoring::real_time_pBtn_clicked(){
-    //    emit realTimeClickedSignals();
+    if(isconnect==true)
+    {
+        disconnect(curveTimer,&QTimer::timeout,this,&Curve_Monitoring::trendDraw);
+        isconnect = false;
+        ui->real_time_pbtn->setStyleSheet("QPushButton#real_time_pbtn{border:2px solid rgb(74,122,60);"
+                                          "background-color:rgb(173,199,160);"
+                                          "border-radius:8px;"
+                                          "color:rgb(74,122,60)}");
+    }
+    else{
+        connect(curveTimer,&QTimer::timeout,this,&Curve_Monitoring::trendDraw);
+        isconnect = true;
+        ui->real_time_pbtn->setStyleSheet("QPushButton#real_time_pbtn{border:2px solid rgb(74,122,60);"
+                                          "background-color:rgb(74,122,60);"
+                                          "border-radius:8px;"
+                                          "color:rgb(173,199,160)}");
+    }
+    emit touch_InterfaceDataSignal(0x330, "0");
 }
 
 QString Curve_Monitoring::getTemperaturePV(){
@@ -457,11 +614,6 @@ void Curve_Monitoring::setHumiditySV(QString strs){
     ui->humidity_sv_lineEdit->setText(humiditySV);
 }
 
-void Curve_Monitoring::on_storage_frequency_pushButton_clicked()
-{
-    popUpWindow06.move(270,250);
-    popUpWindow06.show();
-}
 
 void Curve_Monitoring::deal_PopUpWindow06PushButtonClickedSignals(int storage_frequency_num)
 {
@@ -586,41 +738,85 @@ void Curve_Monitoring::trendDraw()
     dataInfo[2] = endSize*1.0/100*1.0;
     this->draw(num,size,xdata,data,startTime,dataInfo,axisInfo,status);
 }
+void Curve_Monitoring::addrSetCurveInterfaceData(int addr_num, QString set_value){
 
-
-void Curve_Monitoring::on_real_time_pbtn_clicked()
-{
-    if(isconnect==true)
+    QString covert_data;
+    switch(addr_num)
     {
-        disconnect(curveTimer,&QTimer::timeout,this,&Curve_Monitoring::trendDraw);
-        isconnect = false;
-        ui->real_time_pbtn->setStyleSheet("QPushButton#real_time_pbtn{border:2px solid rgb(74,122,60);"
-                                          "background-color:rgb(173,199,160);"
-                                          "border-radius:8px;"
-                                          "color:rgb(74,122,60)}");
+    case 0x301:  // temperature pv
+        covert_data = convertToDecimalString(set_value,2);
+        setTemperaturePV(covert_data);
+        break;
+    case 0x302:    // temperature sv
+        covert_data = convertToDecimalString(set_value,2);
+        setTemperatureSV(covert_data);
+        break;
+    case 0x303 :    //humidity pv
+        covert_data = convertToDecimalString(set_value,1);
+        setHumidityPV(covert_data);
+        break;
+    case 0x304 :
+        covert_data = convertToDecimalString(set_value,1);
+        setHumiditySV(covert_data);
+        break;
+    case 0x321:
+        ui->temperature_pv_checkbox->setChecked((bool)set_value.toInt());
+        break;
+    case 0x322:
+        ui->temperature_sv_checkbox->setChecked((bool)set_value.toInt());
+        break;
+    case 0x323:
+        ui->humidity_pv_checkbox->setChecked((bool)set_value.toInt());
+        break;
+    case 0x324:
+        ui->humidity_sv_checkbox->setChecked((bool)set_value.toInt());
+        break;
+    case 0x33B:
+        ui->curve_list_page->setText(set_value);
+        break;
+    case 0x371: //sample rate
+        setStroageFrequency(set_value);
+        break;
+    case 0x370:  // storage space
+        covert_data = convertToDecimalString(set_value,2);
+        setStorageSpacing(covert_data);
+        break;
+    case 0x373:     // cursor time
+        setCursorTime(set_value);
+        break;
+    case 0x396:
+        ui->curve_pbtn_1->setText(set_value);
+        break;
+    case 0x3A0:
+        ui->curve_pbtn_2->setText(set_value);
+        break;
+    case 0x3AA:
+        ui->curve_pbtn_3->setText(set_value);
+        break;
+    case 0x3B4:
+        ui->curve_pbtn_4->setText(set_value);
+        break;
+    case 0x3BE:
+        ui->curve_pbtn_5->setText(set_value);
+        break;
+    case 0x3C8:
+        ui->curve_pbtn_6->setText(set_value);
+        break;
+    case 0x3D2:
+        ui->curve_pbtn_7->setText(set_value);
+        break;
+    case 0x3DC:
+        ui->curve_pbtn_8->setText(set_value);
+        break;
+    case 0x3E6:
+        ui->curve_pbtn_9->setText(set_value);
+        break;
+    case 0x3F0:
+        ui->curve_pbtn_10->setText(set_value);
+        break;
+    default:
+        break;
     }
-    else{
-        connect(curveTimer,&QTimer::timeout,this,&Curve_Monitoring::trendDraw);
-        isconnect = true;
-        ui->real_time_pbtn->setStyleSheet("QPushButton#real_time_pbtn{border:2px solid rgb(74,122,60);"
-                                          "background-color:rgb(74,122,60);"
-                                          "border-radius:8px;"
-                                          "color:rgb(173,199,160)}");
-    }
-    //    if(isconnect)
-    //    {
-    //        isconnect = false;
-    //        ui->real_time_pbtn->setStyleSheet("QPushButton#real_time_pbtn{border:2px solid rgb(74,122,60);"
-    //                                          "background-color:rgb(173,199,160);"
-    //                                          "border-radius:8px;"
-    //                                          "color:rgb(74,122,60)}");
-    //    }
-    //    else
-    //    {
-    //        isconnect = true;
-    //        ui->real_time_pbtn->setStyleSheet("QPushButton#real_time_pbtn{border:2px solid rgb(74,122,60);"
-    //                                          "background-color:rgb(74,122,60);"
-    //                                          "border-radius:8px;"
-    //                                          "color:rgb(173,199,160)}");
-    //    }
 }
+
+

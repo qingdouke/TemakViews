@@ -1,6 +1,8 @@
 #include "program_loop.h"
 #include "ui_program_loop.h"
-
+#include "general_tools.h"
+#include "mainwindow.h"
+#include "address_data_show.h"
 #include <QTimer>
 #include <QDateTime>
 #include <QDebug>
@@ -49,12 +51,15 @@ Program_Loop::Program_Loop(QWidget *parent) :
     ui->choose_program_edit->installEventFilter(this);
     ui->all_loops_edit->installEventFilter(this);
     ui->link_edit->installEventFilter(this);
+    ui->r2h1->installEventFilter(this);
     ui->r2h2->installEventFilter(this);
     ui->r2h3->installEventFilter(this);
     ui->r2h4->installEventFilter(this);
+    ui->r3h1->installEventFilter(this);
     ui->r3h2->installEventFilter(this);
     ui->r3h3->installEventFilter(this);
     ui->r3h4->installEventFilter(this);
+    ui->r4h1->installEventFilter(this);
     ui->r4h2->installEventFilter(this);
     ui->r4h3->installEventFilter(this);
     ui->r4h4->installEventFilter(this);
@@ -198,6 +203,10 @@ Program_Loop::~Program_Loop()
     delete ui;
 }
 
+void Program_Loop::on_saving_pbtn_clicked()
+{
+    emit touch_InterfaceDataSignal(addr_touch_edit_pgm_save,"2");
+}
 /*
  * time: 2022-11-14
  * type: private slots
@@ -266,74 +275,90 @@ bool Program_Loop::eventFilter(QObject *watched, QEvent *event)
     //监听lineEdit
     if(watched == ui->choose_program_edit)
     {
-        if(event->type() == QEvent::MouseButtonPress){
+       /* if(event->type() == QEvent::MouseButtonPress){
             emit Request_Use_Keyboard_Signal(6);
             ui->choose_program_edit->setFocus();   //lineEdit聚焦
-        }
+        }*/
     }
     else if(watched == ui->all_loops_edit){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Keyboard_Signal(7);
+            emit Request_Use_Calculate_Signal(0x511);
             ui->all_loops_edit->setFocus();   //lineEdit聚焦
         }
     }
     else if(watched == ui->link_edit){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Keyboard_Signal(8);
+            emit Request_Use_Calculate_Signal(0x513);
             ui->link_edit->setFocus();   //lineEdit聚焦
+        }
+    }
+    else if(watched == ui->r2h1){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(0x520);
+            ui->r2h2->setFocus();   //lineEdit聚焦
         }
     }
     else if(watched == ui->r2h2){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Keyboard_Signal(9);
+            emit Request_Use_Calculate_Signal(0x530);
             ui->r2h2->setFocus();   //lineEdit聚焦
         }
     }
     else if(watched == ui->r2h3){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Keyboard_Signal(10);
+            emit Request_Use_Calculate_Signal(0x540);
             ui->r2h3->setFocus();   //lineEdit聚焦
         }
     }
     else if(watched == ui->r2h4){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Keyboard_Signal(11);
+            emit Request_Use_Calculate_Signal(0x550);
             ui->r2h4->setFocus();   //lineEdit聚焦
+        }
+    } else if(watched == ui->r3h1){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(0x522);
+            ui->r3h2->setFocus();   //lineEdit聚焦
         }
     }
     else if(watched == ui->r3h2){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Keyboard_Signal(12);
+            emit Request_Use_Calculate_Signal(0x532);
             ui->r3h2->setFocus();   //lineEdit聚焦
         }
     }
     else if(watched == ui->r3h3){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Keyboard_Signal(13);
+            emit Request_Use_Calculate_Signal(0x542);
             ui->r3h3->setFocus();   //lineEdit聚焦
         }
     }
     else if(watched == ui->r3h4){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Keyboard_Signal(14);
+            emit Request_Use_Calculate_Signal(0x552);
             ui->r3h4->setFocus();   //lineEdit聚焦
+        }
+    } else if(watched == ui->r4h1){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(0x524);
+            ui->r4h2->setFocus();   //lineEdit聚焦
         }
     }
     else if(watched == ui->r4h2){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Keyboard_Signal(15);
+            emit Request_Use_Calculate_Signal(0x534);
             ui->r4h2->setFocus();   //lineEdit聚焦
         }
     }
     else if(watched == ui->r4h3){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Keyboard_Signal(16);
+            emit Request_Use_Calculate_Signal(0x544);
             ui->r4h3->setFocus();   //lineEdit聚焦
         }
     }
     else if(watched == ui->r4h4){
         if(event->type() == QEvent::MouseButtonPress){
-            emit Request_Use_Keyboard_Signal(17);
+            emit Request_Use_Calculate_Signal(0x554);
             ui->r4h4->setFocus();   //lineEdit聚焦
         }
     }
@@ -634,4 +659,63 @@ void Program_Loop::freezeOneSec()
     ui->next_page_pbtn->setEnabled(true);
     ui->saving_pbtn->setEnabled(true);*/
 }
+
+void Program_Loop::addrSetPgmLoopInterfaceData(int addr_num, QString set_value){
+
+    qDebug() << QString("addrSetMonitorInterfaceData addr_num: %1").arg(addr_num);
+    QString covert_data;
+    switch(addr_num)
+    {
+    case addr_pgm_edit_pgm_number:
+        setChooseProgram(set_value);
+        break;
+    case addr_pgm_edit_pgm_name:
+        setProgramName(set_value);
+        break;
+    case 0x512: // all cycle
+        setAllLoops(set_value);
+        break;
+    case 0x514: // pgm link
+        setLink(set_value);
+        break;
+    case 0x521: // partial cycle start  1
+        setr2h1Text(set_value);
+        break;
+    case 0x531: // partial cycle start  2
+        setr2h2Text(set_value);
+        break;
+    case 0x541: // partial cycle start  3
+        setr2h3Text(set_value);
+        break;
+    case 0x551: // partial cycle start  4
+        setr2h4Text(set_value);
+        break;
+    case 0x523: // partial cycle end  1
+        setr3h1Text(set_value);
+        break;
+    case 0x533: // partial cycle end  2
+        setr3h2Text(set_value);
+        break;
+    case 0x543:// partial cycle end  3
+        setr3h3Text(set_value);
+        break;
+    case 0x553:// partial cycle end  4
+        setr3h4Text(set_value);
+        break;
+    case 0x525: // partial cycle num  1
+        setr4h1Text(set_value);
+        break;
+    case 0x535: // partial cycle num  2
+        setr4h2Text(set_value);
+        break;
+    case 0x545: // partial cycle num  3
+        setr4h3Text(set_value);
+        break;
+    case 0x555:// partial cycle num  4
+        setr4h4Text(set_value);
+        break;
+    default:break;
+    }
+}
+
 
