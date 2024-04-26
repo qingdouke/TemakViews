@@ -34,6 +34,7 @@
     <property name="font">
      <font>
       <pointsize>24</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -55,7 +56,9 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>26</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -84,17 +87,18 @@
      <rect>
       <x>30</x>
       <y>10</y>
-      <width>145</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>22</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>目  录</string>
+     <string>Menu</string>
     </property>
    </widget>
    <widget class="QLabel" name="footer_line">
@@ -115,17 +119,18 @@
      <rect>
       <x>620</x>
       <y>10</y>
-      <width>145</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>22</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>上一页</string>
+     <string>LastPage</string>
     </property>
    </widget>
   </widget>
@@ -158,7 +163,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>18</pointsize>
+       <family>思源黑体</family>
+       <pointsize>20</pointsize>
       </font>
      </property>
      <property name="text">
@@ -179,7 +185,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <family>思源黑体</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -197,7 +204,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <family>思源黑体</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -215,7 +223,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <family>思源黑体</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -233,7 +242,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <family>思源黑体</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -251,7 +261,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <family>思源黑体</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -269,7 +280,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <family>思源黑体</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -287,7 +299,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <family>思源黑体</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -305,7 +318,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <family>思源黑体</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -323,7 +337,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <family>思源黑体</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -341,7 +356,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <family>思源黑体</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -359,7 +375,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <family>思源黑体</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -387,7 +404,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>18</pointsize>
+       <family>思源黑体</family>
+       <pointsize>20</pointsize>
       </font>
      </property>
      <property name="text">
@@ -397,17 +415,14 @@
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="period_line">
+    <widget class="QLineEdit" name="period_edit">
      <property name="geometry">
       <rect>
-       <x>153</x>
-       <y>70</y>
-       <width>120</width>
-       <height>2</height>
+       <x>190</x>
+       <y>40</y>
+       <width>161</width>
+       <height>41</height>
       </rect>
-     </property>
-     <property name="text">
-      <string/>
      </property>
     </widget>
    </widget>
@@ -431,7 +446,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>18</pointsize>
+       <family>思源黑体</family>
+       <pointsize>20</pointsize>
       </font>
      </property>
      <property name="text">
@@ -543,32 +559,12 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <family>思源黑体</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
       <string/>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="send_sys_value_0x_label">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>70</y>
-       <width>20</width>
-       <height>45</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>13</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>0x</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -585,7 +581,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <family>思源黑体</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -606,7 +603,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <family>思源黑体</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -614,27 +612,6 @@
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="send_sys_sta_0x_label">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>115</y>
-       <width>20</width>
-       <height>45</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>13</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>0x</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
     <widget class="QLabel" name="send_sys_sta_text_label">
@@ -648,7 +625,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <family>思源黑体</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -669,7 +647,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <family>思源黑体</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -690,7 +669,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <family>思源黑体</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -711,7 +691,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <family>思源黑体</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -732,7 +713,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <family>思源黑体</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -740,27 +722,6 @@
      </property>
      <property name="alignment">
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="send_pgm_run_time_0x_label">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>160</y>
-       <width>20</width>
-       <height>45</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>13</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>0x</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
     <widget class="QLabel" name="send_pgm_run_time_display_1">
@@ -774,7 +735,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <family>思源黑体</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -818,7 +780,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>18</pointsize>
+       <family>思源黑体</family>
+       <pointsize>20</pointsize>
       </font>
      </property>
      <property name="text">
@@ -901,33 +864,12 @@
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="set_sys_value_0x_label">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>70</y>
-       <width>20</width>
-       <height>45</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>13</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>0x</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
     <widget class="QLabel" name="set_sys_value_display_2">
      <property name="geometry">
       <rect>
        <x>110</x>
        <y>70</y>
-       <width>140</width>
+       <width>161</width>
        <height>45</height>
       </rect>
      </property>
@@ -954,7 +896,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <family>思源黑体</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -964,6 +907,46 @@
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
+   </widget>
+   <widget class="QLineEdit" name="comm_text_edit_1">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>230</y>
+      <width>301</width>
+      <height>41</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="comm_text_edit_2">
+    <property name="geometry">
+     <rect>
+      <x>870</x>
+      <y>230</y>
+      <width>301</width>
+      <height>41</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="comm_text_edit_3">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>280</y>
+      <width>301</width>
+      <height>41</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="comm_text_edit_4">
+    <property name="geometry">
+     <rect>
+      <x>870</x>
+      <y>280</y>
+      <width>301</width>
+      <height>41</height>
+     </rect>
+    </property>
    </widget>
   </widget>
  </widget>

@@ -16,6 +16,7 @@ Monitoring_Interface::Monitoring_Interface(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     //Header背景颜色
     ui->Header->setStyleSheet("QWidget#Header{background-color:rgb(72,129,52)}");
     //标题颜色
@@ -163,7 +164,7 @@ Monitoring_Interface::Monitoring_Interface(QWidget *parent) :
     ui->status_4->setStyleSheet("QLabel#status_4{background-image:url(:/Image/24/67.bmp)}");
     ui->status_5->setStyleSheet("QLabel#status_5{background-image:url(:/Image/24/69.bmp)}");
     ui->status_6->setStyleSheet("QLabel#status_6{background-image:url(:/Image/24/71.bmp)}");
-
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
 
     //ui->current_time的connect 显示实时时间
     connect(timer,&QTimer::timeout,this,&Monitoring_Interface::currentTime);

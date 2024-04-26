@@ -1,7 +1,7 @@
 #include "internal_param_set.h"
 #include "ui_InternalParamSet.h"
 #include "address_data_show.h"
-
+#include <QDebug>
 #include <QTimer>
 #include <QDateTime>
 InternalParamSet::InternalParamSet(QWidget *parent) :
@@ -9,6 +9,7 @@ InternalParamSet::InternalParamSet(QWidget *parent) :
     ui(new Ui::InternalParamSet)
 {
     ui->setupUi(this);
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
 
     setWindowFlags(Qt::FramelessWindowHint);
     //Header背景颜色
@@ -166,6 +167,7 @@ InternalParamSet::InternalParamSet(QWidget *parent) :
     ui->row12column7->setStyleSheet("font-family:Monospace;font-size:20pt;background:transparent;border-width:0;border-style:outset");
     ui->row12column8->setStyleSheet("font-family:Monospace;font-size:20pt;background:transparent;border-width:0;border-style:outset");
     clearPage();
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
 
     connect(ui->font_page_pbtn,&QPushButton::clicked,this,&InternalParamSet::internalParamSet_sendTo_mainWindow);
 

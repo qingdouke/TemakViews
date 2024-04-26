@@ -1,6 +1,7 @@
 #include "popupwindow04.h"
 #include "ui_popupwindow04.h"
 #include <QTextStream>
+#include <QDebug>
 
 // 程序列表 选择程序
 PopUpWindow04::PopUpWindow04(QWidget *parent) :
@@ -10,6 +11,7 @@ PopUpWindow04::PopUpWindow04(QWidget *parent) :
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
     //Header背景颜色
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     ui->Header->setStyleSheet("QWidget#Header{background-color:rgb(72,129,52)}");
     //标题颜色
     ui->title->setStyleSheet("QLabel#title{color:white}");
@@ -52,7 +54,7 @@ PopUpWindow04::PopUpWindow04(QWidget *parent) :
                                           "background-color:rgb(173,199,160);"
                                           "border-radius:8px;"
                                           "color:rgb(74,122,60)}");
-
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     //初始化
     map.insert(mapIndex++,"@Viola");
     map.insert(mapIndex++,"@Linne");

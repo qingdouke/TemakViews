@@ -19,6 +19,7 @@ Output_Monitoring::Output_Monitoring(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     //Header背景颜色
     ui->Header->setStyleSheet("QWidget#Header{background-color:rgb(72,129,52)}");
     //标题颜色
@@ -320,7 +321,7 @@ Output_Monitoring::Output_Monitoring(QWidget *parent) :
                                     "background-color:rgb(238,117,0);"
                                     "color:white;"
                                     "border-radius:8px}");
-
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     //ui->current_time的connect 显示实时时间
     connect(timer,&QTimer::timeout,this,&Output_Monitoring::currentTime);
     //页面跳转信号发送
@@ -622,6 +623,8 @@ void Output_Monitoring::setProgramLink(QString strs){
     ui->program_link_edit->setText(program_link);
 }
 void Output_Monitoring::setRunningPBtnState(bool run_stop){
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
+
     if(true == run_stop) // when system is running
     {
         ui->running_pbtn->setStyleSheet("QPushButton#running_pBtn{background-color:red;"
@@ -637,6 +640,8 @@ void Output_Monitoring::setRunningPBtnState(bool run_stop){
                                         "border-radius:10px}");
         ui->running_pbtn->setText(tr("RUN"));
     }
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
+
 
 }
 

@@ -1,6 +1,6 @@
 #include "popupwindow02.h"
 #include "ui_popupwindow02.h"
-
+#include <QDebug>
 //提示在有发热负载时，使用时序控制器的功能
 PopUpWindow02::PopUpWindow02(QWidget *parent) :
     QDialog(parent),
@@ -9,6 +9,7 @@ PopUpWindow02::PopUpWindow02(QWidget *parent) :
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
     this->setWindowModality(Qt::ApplicationModal);
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
 
     ui->widget->setStyleSheet("QWidget#widget{background-color:white;"
                               "border:3px solid rgb(74,122,60)}");
@@ -23,6 +24,7 @@ PopUpWindow02::PopUpWindow02(QWidget *parent) :
     ui->pBtn_Cancel->setStyleSheet("QPushButton#pBtn_Cancel{background-color:rgb(238,117,0);"
                                    "color:white;"
                                    "border:none}");
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
 
     //connect(ui->pBtn_OK,&QPushButton::clicked,this,&PopUpWindow02::on_pBtn_OK_clicked);
 }

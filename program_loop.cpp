@@ -14,7 +14,7 @@ Program_Loop::Program_Loop(QWidget *parent) :
     ui->setupUi(this);
 
     setWindowFlags(Qt::FramelessWindowHint);
-
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     //Header背景颜色
     ui->Header->setStyleSheet("QWidget#Header{background-color:rgb(72,129,52)}");
     //标题颜色
@@ -190,7 +190,7 @@ Program_Loop::Program_Loop(QWidget *parent) :
                                   "background-color:rgb(173,199,160);"
                                   "border-radius:8px;"
                                   "color:rgb(74,122,60)}");
-
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     //ui->current_time的connect 显示实时时间
     connect(timer,&QTimer::timeout,this,&Program_Loop::currentTime);
     connect(ui->font_page_pbtn,&QPushButton::clicked,this,&Program_Loop::programLoop_sendTo_mainWindow);

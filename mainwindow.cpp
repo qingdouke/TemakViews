@@ -22,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
     //Header背景颜色
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
+
     ui->Header->setStyleSheet("QWidget#Header{background-color:rgb(72,129,52)}");
     //标题颜色
     ui->title->setStyleSheet("QLabel#title{color:white}");
@@ -38,7 +40,6 @@ MainWindow::MainWindow(QWidget *parent)
     timer->start(1000);
     //Main背景颜色渐变
     ui->Main->setStyleSheet("QWidget#Main{background-color:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 white,stop:1 rgb(177,203,166))}");
-
 
 
     //九个image图标
@@ -111,6 +112,7 @@ MainWindow::MainWindow(QWidget *parent)
     //login pbtn
     ui->login->setStyleSheet("QPushButton#login{background:transparent;"
                              "border:none}");
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
 
     //数据线程初始化
     readData01 = new Data;
@@ -212,6 +214,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(&tcpServerTask,&tcpServer::comm_updateInterfaceDataSignal,this,&MainWindow::deal_CommInterfaceData_update);
     connect(readData01,&Data::updateCurve,this,&MainWindow::deal_curveData_update);
     connect(readData02,&Data::updateCurve,this,&MainWindow::deal_curveData_update);
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
 }
 
 MainWindow::~MainWindow()

@@ -1,5 +1,7 @@
 #include "parameter_setting.h"
 #include "ui_parameter_setting.h"
+#include "general_tools.h"
+#include "mainwindow.h"
 #include "address_data_show.h"
 
 #include <QTimer>
@@ -18,6 +20,7 @@ Parameter_Setting::Parameter_Setting(QWidget *parent) :
     QFile file(":/qss/Parameter_Setting_qss.qss");
     file.open(QFile::ReadOnly);
     QTextStream filetext(&file);
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     QString stylesheet = filetext.readAll();
     this->setStyleSheet(stylesheet);
     file.close();
@@ -99,7 +102,14 @@ Parameter_Setting::Parameter_Setting(QWidget *parent) :
     ui->languageEnglish_pBtn->setStyleSheet("QPushButton#languageEnglish_pBtn{background-color:rgb(69,130,50);"
                                             "border:none;"
                                             "color:white}");
-
+    ui->auto_static_pbtn->setStyleSheet("QPushButton#auto_static_pbtn{color:white;"
+                                         "background-color:rgb(7,75,34);"
+                                         "border:none;"
+                                         "border-radius:3px}");
+    ui->save_ip_pbtn->setStyleSheet("QPushButton#save_ip_pbtn{color:white;"
+                                     "background-color:rgb(7,75,34);"
+                                     "border:none;"
+                                     "border-radius:3px}");
     //设置单选按钮组
     box1 = new QButtonGroup(this);
     box2 = new QButtonGroup(this);
@@ -125,10 +135,31 @@ Parameter_Setting::Parameter_Setting(QWidget *parent) :
                                                    "background-color:rgb(173,199,160);"
                                                    "border-radius:8px;"
                                                    "color:rgb(74,122,60)}");
-
+qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     //添加事件过滤器
     this->installEventFilter(this);
     ui->passwordChange_lineEdit->installEventFilter(this);
+    ui->backLightingTime_lineEdit->installEventFilter(this);
+    ui->programPrepared_lineEdit->installEventFilter(this);
+    ui->programPrepared_lineEdit_2->installEventFilter(this);
+    ui->programPrepared_lineEdit_3->installEventFilter(this);
+    ui->programPrepared_lineEdit_4->installEventFilter(this);
+    ui->programPrepared_lineEdit_5->installEventFilter(this);
+    ui->chooseProgram_lineEdit->installEventFilter(this);
+    ui->communicationAddress485_lineEdit->installEventFilter(this);
+    ui->ipAddress_lineEdit->installEventFilter(this);
+    ui->ipAddress_lineEdit_2->installEventFilter(this);
+    ui->ipAddress_lineEdit_3->installEventFilter(this);
+    ui->ipAddress_lineEdit_4->installEventFilter(this);
+    ui->subnetMask_lineEdit->installEventFilter(this);
+    ui->subnetMask_lineEdit_2->installEventFilter(this);
+    ui->subnetMask_lineEdit_3->installEventFilter(this);
+    ui->subnetMask_lineEdit_4->installEventFilter(this);
+    ui->defaultGateway_lineEdit->installEventFilter(this);
+    ui->defaultGateway_lineEdit_2->installEventFilter(this);
+    ui->defaultGateway_lineEdit_3->installEventFilter(this);
+    ui->defaultGateway_lineEdit_4->installEventFilter(this);
+    ui->port_lineEdit->installEventFilter(this);
 
     //ui->current_time的connect 显示实时时间
     connect(timer,&QTimer::timeout,this,&Parameter_Setting::currentTime);
@@ -156,13 +187,147 @@ bool Parameter_Setting::eventFilter(QObject *watched, QEvent *event)
             }
         }
     }
-//    if(watched == ui->passwordChange_lineEdit)
-//    {
-//        if(event->type() == QEvent::MouseButtonPress){
-//            emit Request_Use_Keyboard_Signal(30);
-//            ui->passwordChange_lineEdit->setFocus();
-//        }
-//    }
+    if(watched == ui->passwordChange_lineEdit)
+    {
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Keyboard_Signal(0x712);
+            ui->passwordChange_lineEdit->setFocus();
+        }
+    }else
+        if(watched == ui->backLightingTime_lineEdit)
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit Request_Use_Calculate_Signal(0x745);
+                ui->backLightingTime_lineEdit->setFocus();
+            }
+        }else
+            if(watched == ui->programPrepared_lineEdit)
+            {
+                if(event->type() == QEvent::MouseButtonPress){
+                    emit Request_Use_Calculate_Signal(0x720);
+                    ui->programPrepared_lineEdit->setFocus();
+                }
+            }else
+                if(watched == ui->programPrepared_lineEdit_2)
+                {
+                    if(event->type() == QEvent::MouseButtonPress){
+                        emit Request_Use_Calculate_Signal(0x721);
+                        ui->programPrepared_lineEdit_2->setFocus();
+                    }
+                }else
+                    if(watched == ui->programPrepared_lineEdit_3)
+                    {
+                        if(event->type() == QEvent::MouseButtonPress){
+                            emit Request_Use_Calculate_Signal(0x722);
+                            ui->programPrepared_lineEdit_3->setFocus();
+                        }
+                    }else
+                        if(watched == ui->programPrepared_lineEdit_4)
+                        {
+                            if(event->type() == QEvent::MouseButtonPress){
+                                emit Request_Use_Calculate_Signal(0x723);
+                                ui->programPrepared_lineEdit_4->setFocus();
+                            }
+                        }else
+                            if(watched == ui->programPrepared_lineEdit_5)
+                            {
+                                if(event->type() == QEvent::MouseButtonPress){
+                                    emit Request_Use_Calculate_Signal(0x724);
+                                    ui->programPrepared_lineEdit_5->setFocus();
+                                }
+                            }else
+                                if(watched == ui->communicationAddress485_lineEdit)
+                                {
+                                    if(event->type() == QEvent::MouseButtonPress){
+                                        emit Request_Use_Keyboard_Signal(0x760);
+                                        ui->communicationAddress485_lineEdit->setFocus();
+                                    }
+                                }else
+                                    if(watched == ui->ipAddress_lineEdit)
+                                    {
+                                        if(event->type() == QEvent::MouseButtonPress){
+                                            emit Request_Use_Keyboard_Signal(0x780);
+                                            ui->ipAddress_lineEdit->setFocus();
+                                        }
+                                    }else
+                                        if(watched == ui->ipAddress_lineEdit_2)
+                                        {
+                                            if(event->type() == QEvent::MouseButtonPress){
+                                                emit Request_Use_Keyboard_Signal(0x781);
+                                                ui->ipAddress_lineEdit_2->setFocus();
+                                            }
+                                        }else
+                                            if(watched == ui->ipAddress_lineEdit_3)
+                                            {
+                                                if(event->type() == QEvent::MouseButtonPress){
+                                                    emit Request_Use_Keyboard_Signal(0x782);
+                                                    ui->ipAddress_lineEdit_3->setFocus();
+                                                }
+                                            }else
+                                                if(watched == ui->ipAddress_lineEdit_4)
+                                                {
+                                                    if(event->type() == QEvent::MouseButtonPress){
+                                                        emit Request_Use_Keyboard_Signal(0x783);
+                                                        ui->ipAddress_lineEdit_4->setFocus();
+                                                    }
+                                                }else
+                                                    if(watched == ui->subnetMask_lineEdit)
+                                                    {
+                                                        if(event->type() == QEvent::MouseButtonPress){
+                                                            emit Request_Use_Keyboard_Signal(0x790);
+                                                            ui->subnetMask_lineEdit->setFocus();
+                                                        }
+                                                    }else
+                                                        if(watched == ui->subnetMask_lineEdit_2)
+                                                        {
+                                                            if(event->type() == QEvent::MouseButtonPress){
+                                                                emit Request_Use_Keyboard_Signal(0x791);
+                                                                ui->subnetMask_lineEdit_2->setFocus();
+                                                            }
+                                                        }else
+                                                            if(watched == ui->subnetMask_lineEdit_3)
+                                                            {
+                                                                if(event->type() == QEvent::MouseButtonPress){
+                                                                    emit Request_Use_Keyboard_Signal(0x792);
+                                                                    ui->subnetMask_lineEdit_3->setFocus();
+                                                                }
+                                                            }else
+                                                                if(watched == ui->subnetMask_lineEdit_4)
+                                                                {
+                                                                    if(event->type() == QEvent::MouseButtonPress){
+                                                                        emit Request_Use_Keyboard_Signal(0x793);
+                                                                        ui->subnetMask_lineEdit_4->setFocus();
+                                                                    }
+                                                                }else
+                                                                    if(watched == ui->defaultGateway_lineEdit)
+                                                                    {
+                                                                        if(event->type() == QEvent::MouseButtonPress){
+                                                                            emit Request_Use_Keyboard_Signal(0x7A0);
+                                                                            ui->defaultGateway_lineEdit->setFocus();
+                                                                        }
+                                                                    }else
+                                                                        if(watched == ui->defaultGateway_lineEdit_2)
+                                                                        {
+                                                                            if(event->type() == QEvent::MouseButtonPress){
+                                                                                emit Request_Use_Keyboard_Signal(0x7A1);
+                                                                                ui->defaultGateway_lineEdit_2->setFocus();
+                                                                            }
+                                                                        }else
+                                                                            if(watched == ui->defaultGateway_lineEdit_3)
+                                                                            {
+                                                                                if(event->type() == QEvent::MouseButtonPress){
+                                                                                    emit Request_Use_Keyboard_Signal(0x7A2);
+                                                                                    ui->defaultGateway_lineEdit_3->setFocus();
+                                                                                }
+                                                                            }else
+                                                                                if(watched == ui->defaultGateway_lineEdit_4)
+                                                                                {
+                                                                                    if(event->type() == QEvent::MouseButtonPress){
+                                                                                        emit Request_Use_Keyboard_Signal(0x7A3);
+                                                                                        ui->defaultGateway_lineEdit_4->setFocus();
+                                                                                    }
+                                                                                }
+
     return QWidget::eventFilter(watched,event);         //返回事件过滤器
 }
 /*
@@ -259,31 +424,38 @@ QString Parameter_Setting::getBackLightingTime(){
 
 void Parameter_Setting::setprogramPrepared1(QString strs){
     this->programPrepared_1 = strs;
-    ui->programPrepared_lineEdit->setText(programPrepared);
+    programPrepared = getprogramPrepared();
+    ui->programPrepared_lineEdit->setText(strs);
 }
 
 void Parameter_Setting::setprogramPrepared2(QString strs){
     this->programPrepared_2 = strs;
-    ui->programPrepared_lineEdit->setText(programPrepared);
+    programPrepared = getprogramPrepared();
+    ui->programPrepared_lineEdit_2->setText(strs);
 }
 
 void Parameter_Setting::setprogramPrepared3(QString strs){
     this->programPrepared_3 = strs;
-    ui->programPrepared_lineEdit->setText(programPrepared);
+    programPrepared = getprogramPrepared();
+    ui->programPrepared_lineEdit_3->setText(strs);
 }
 
 void Parameter_Setting::setprogramPrepared4(QString strs){
     this->programPrepared_4 = strs;
-    ui->programPrepared_lineEdit->setText(programPrepared);
+    programPrepared = getprogramPrepared();
+    ui->programPrepared_lineEdit_4->setText(strs);
 }
 
 void Parameter_Setting::setprogramPrepared5(QString strs){
     this->programPrepared_5 = strs;
-    ui->programPrepared_lineEdit->setText(programPrepared);
+    programPrepared = getprogramPrepared();
+    ui->programPrepared_lineEdit_5->setText(strs);
 }
 
 QString Parameter_Setting::getprogramPrepared(){
-    return programPrepared;
+    QString repgmpre = programPrepared_1 + "/" + programPrepared_2 + "/" + programPrepared_3 + "   "
+            + programPrepared_4 + ":" + programPrepared_5;
+    return repgmpre;
 }
 
 void Parameter_Setting::setChooseProgram(QString strs){
@@ -306,73 +478,88 @@ QString Parameter_Setting::getCommunicationAddress485(){
 
 void Parameter_Setting::setIpAddress1(QString strs){
     this->ipAddress_1 = strs;
-    ui->ipAddress_lineEdit->setText(ipAddress);
+    getIpAddress();
+    ui->ipAddress_lineEdit->setText(strs);
 }
 
 void Parameter_Setting::setIpAddress2(QString strs){
     this->ipAddress_2 = strs;
-    ui->ipAddress_lineEdit->setText(ipAddress);
+    getIpAddress();
+    ui->ipAddress_lineEdit_2->setText(strs);
 }
 
 void Parameter_Setting::setIpAddress3(QString strs){
     this->ipAddress_3 = strs;
-    ui->ipAddress_lineEdit->setText(ipAddress);
+    getIpAddress();
+    ui->ipAddress_lineEdit_3->setText(strs);
 }
 
 void Parameter_Setting::setIpAddress4(QString strs){
     this->ipAddress_4 = strs;
-    ui->ipAddress_lineEdit->setText(ipAddress);
+    getIpAddress();
+    ui->ipAddress_lineEdit_4->setText(strs);
 }
 
 QString Parameter_Setting::getIpAddress(){
+    ipAddress = ipAddress_1 + "." + ipAddress_2 +"." + ipAddress_3 + "." + ipAddress_4;
     return ipAddress;
 }
 
 void Parameter_Setting::setSubnetMask1(QString strs){
     this->subnetMask_1 = strs;
-    ui->subnetMask_lineEdit->setText(subnetMask);
+    getSubnetMask();
+    ui->subnetMask_lineEdit->setText(strs);
 }
 
 void Parameter_Setting::setSubnetMask2(QString strs){
     this->subnetMask_2 = strs;
-    ui->subnetMask_lineEdit->setText(subnetMask);
+    getSubnetMask();
+    ui->subnetMask_lineEdit_2->setText(strs);
 }
 
 void Parameter_Setting::setSubnetMask3(QString strs){
     this->subnetMask_3 = strs;
-    ui->subnetMask_lineEdit->setText(subnetMask);
+    getSubnetMask();
+    ui->subnetMask_lineEdit_3->setText(strs);
 }
 
 void Parameter_Setting::setSubnetMask4(QString strs){
     this->subnetMask_4 = strs;
-    ui->subnetMask_lineEdit->setText(subnetMask);
+    getSubnetMask();
+    ui->subnetMask_lineEdit_4->setText(strs);
 }
 
 QString Parameter_Setting::getSubnetMask(){
+    subnetMask = subnetMask_1 + "." + subnetMask_2 +"." + subnetMask_3 + "." + subnetMask_4;
     return subnetMask;
 }
 
 void Parameter_Setting::setDefaultGateway1(QString strs){
     this->defaultGateway_1 = strs;
-    ui->defaultGateway_lineEdit->setText(defaultGateway);
+    getDefaultGateway();
+    ui->defaultGateway_lineEdit->setText(strs);
 }
 
 void Parameter_Setting::setDefaultGateway2(QString strs){
     this->defaultGateway_2 = strs;
-    ui->defaultGateway_lineEdit->setText(defaultGateway);
+    getDefaultGateway();
+    ui->defaultGateway_lineEdit_2->setText(strs);
 }
 
 void Parameter_Setting::setDefaultGateway3(QString strs){
     this->defaultGateway_3 = strs;
-    ui->defaultGateway_lineEdit->setText(defaultGateway);
+    getDefaultGateway();
+    ui->defaultGateway_lineEdit_3->setText(strs);
 }
 
 void Parameter_Setting::setDefaultGateway4(QString strs){
     this->defaultGateway_4 = strs;
-    ui->defaultGateway_lineEdit->setText(defaultGateway);
+    getDefaultGateway();
+    ui->defaultGateway_lineEdit_4->setText(strs);
 }
 
 QString Parameter_Setting::getDefaultGateway(){
+    defaultGateway = defaultGateway_1 + "." + defaultGateway_2 +"." + defaultGateway_3 + "." + defaultGateway_4;
     return defaultGateway;
 }
 
@@ -393,6 +580,7 @@ void Parameter_Setting::on_checkBox_Screen_Lock_clicked()
     else{
         screenLocked = false;
     }
+    emit touch_InterfaceDataSignal(0x711,QString::number(screenLocked));
 }
 
 void Parameter_Setting::freezeOneSec()
@@ -435,59 +623,189 @@ void Parameter_Setting::freezeOneSec()
 
 void Parameter_Setting::addrSetParamSetInterfaceData(int addr_num, QString set_value){
 
-    qDebug() << QString("addrSetMonitorInterfaceData addr_num: %1").arg(addr_num);
-    QString covert_data;
+
     switch(addr_num)
     {
-    case addr_pgm_edit_pgm_number:
+    case 0x70B:
+        ui->languageChinese_pBtn->setChecked(true);
+        break;
+    case 0x70C:
+        ui->languageTraditionalChinese_pBtn->setChecked(true);
+        break;
+    case 0x70D:
+        ui->languageEnglish_pBtn->setChecked(true);
+        break;
+    case 0x711:
+        ui->checkBox_Screen_Lock->setChecked((bool)set_value.toInt());
+        break;
+    case 0x712:
+        setPassword(set_value);
+        break;
+    case 0x745: //  screen light time
+        setBackLightingTime(set_value);
+        break;
+    case 0x746:
+        ui->checkBox_Screen_Sleep->setChecked((bool)set_value.toInt());
+        break;
+    case 0x720:  // appointment program time year
+        setprogramPrepared1(set_value);
+        break;
+    case 0x721:  // appointment program time mon
+        setprogramPrepared2(set_value);
+        break;
+    case 0x722:  // appointment program time day
+        setprogramPrepared3(set_value);
+        break;
+    case 0x723:  // appointment program hour
+        setprogramPrepared4(set_value);
+        break;
+    case 0x724: // appointment program min
+        setprogramPrepared5(set_value);
+        break;
+    case 0x725: // appointment program number
         setChooseProgram(set_value);
         break;
-    case addr_pgm_edit_pgm_name:
-        setProgramName(set_value);
+    case 0x755: //
+        ui->PCLINK_radioButton->setChecked((bool)set_value.toInt());
         break;
-    case 0x512: // all cycle
-        setAllLoops(set_value);
+    case 0x756: //
+        ui->PCLINK_SUM_radioButton->setChecked((bool)set_value.toInt());
         break;
-    case 0x514: // pgm link
-        setLink(set_value);
+    case 0x757: //
+        ui->MODBUS_RTU_radioButton->setChecked((bool)set_value.toInt());
         break;
-    case 0x521: // partial cycle start  1
-        setr2h1Text(set_value);
+    case 0x761://
+        setCommunicationAddress485(set_value);
         break;
-    case 0x531: // partial cycle start  2
-        setr2h2Text(set_value);
+    case 0x776://
+        ui->baudRate9600_radioButton->setChecked((bool)set_value.toInt());
         break;
-    case 0x541: // partial cycle start  3
-        setr2h3Text(set_value);
+    case 0x777://
+        ui->baudRate19200_radioButton->setChecked((bool)set_value.toInt());
         break;
-    case 0x551: // partial cycle start  4
-        setr2h4Text(set_value);
+    case 0x778://
+        ui->baudRate38400_radioButton->setChecked((bool)set_value.toInt());
         break;
-    case 0x523: // partial cycle end  1
-        setr3h1Text(set_value);
+    case 0x779://
+        ui->baudRate57600_radioButton->setChecked((bool)set_value.toInt());
         break;
-    case 0x533: // partial cycle end  2
-        setr3h2Text(set_value);
+    case 0x77A://
+        ui->baudRate115200_radioButton->setChecked((bool)set_value.toInt());
         break;
-    case 0x543:// partial cycle end  3
-        setr3h3Text(set_value);
+    case 0x786:
+        setIpAddress1(set_value);
         break;
-    case 0x553:// partial cycle end  4
-        setr3h4Text(set_value);
+    case 0x787:
+        setIpAddress2(set_value);
         break;
-    case 0x525: // partial cycle num  1
-        setr4h1Text(set_value);
+    case 0x788:
+        setIpAddress3(set_value);
         break;
-    case 0x535: // partial cycle num  2
-        setr4h2Text(set_value);
+    case 0x789:
+        setIpAddress4(set_value);
         break;
-    case 0x545: // partial cycle num  3
-        setr4h3Text(set_value);
+    case 0x796:
+        setSubnetMask1(set_value);
         break;
-    case 0x555:// partial cycle num  4
-        setr4h4Text(set_value);
+    case 0x797:
+        setSubnetMask2(set_value);
+        break;
+    case 0x798:
+        setSubnetMask3(set_value);
+        break;
+    case 0x799:
+        setSubnetMask4(set_value);
+        break;
+    case 0x7A6:
+        setDefaultGateway1(set_value);
+        break;
+    case 0x7A7:
+        setDefaultGateway2(set_value);
+        break;
+    case 0x7A8:
+        setDefaultGateway3(set_value);
+        break;
+    case 0x7A9:
+        setDefaultGateway4(set_value);
+        break;
+    case 0x7A5:
+        setPort(set_value);
+        break;
+    case 0x7B7:
+        if(set_value.toInt() < 10 )
+        {
+            ui->auto_static_pbtn->setText(tr("Auto IP"));
+        }else
+        {
+            ui->auto_static_pbtn->setText(tr("Static IP"));
+        }
         break;
     default:break;
     }
 }
 
+
+void Parameter_Setting::on_languageChinese_pBtn_clicked()
+{
+    emit touch_InterfaceDataSignal(0x709, "0");
+}
+
+void Parameter_Setting::on_languageEnglish_pBtn_clicked()
+{
+    emit touch_InterfaceDataSignal(0x709, "2");
+}
+
+void Parameter_Setting::on_languageTraditionalChinese_pBtn_clicked()
+{
+    emit touch_InterfaceDataSignal(0x709, "1");
+}
+
+void Parameter_Setting::on_PCLINK_radioButton_clicked()
+{
+    emit touch_InterfaceDataSignal(0x750, "0");
+}
+
+void Parameter_Setting::on_PCLINK_SUM_radioButton_clicked()
+{
+    emit touch_InterfaceDataSignal(0x751, "0");
+}
+
+void Parameter_Setting::on_MODBUS_RTU_radioButton_clicked()
+{
+    emit touch_InterfaceDataSignal(0x752, "0");
+}
+
+void Parameter_Setting::on_baudRate9600_radioButton_clicked()
+{
+    emit touch_InterfaceDataSignal(0x770, "0");
+}
+
+void Parameter_Setting::on_baudRate19200_radioButton_clicked()
+{
+    emit touch_InterfaceDataSignal(0x771, "0");
+}
+
+void Parameter_Setting::on_baudRate38400_radioButton_clicked()
+{
+    emit touch_InterfaceDataSignal(0x772, "0");
+}
+
+void Parameter_Setting::on_baudRate57600_radioButton_clicked()
+{
+    emit touch_InterfaceDataSignal(0x773, "0");
+}
+
+void Parameter_Setting::on_baudRate115200_radioButton_clicked()
+{
+    emit touch_InterfaceDataSignal(0x774, "0");
+}
+
+void Parameter_Setting::on_auto_static_pbtn_clicked()
+{
+    emit touch_InterfaceDataSignal(0x7B6, "0");
+}
+
+void Parameter_Setting::on_save_ip_pbtn_clicked()
+{
+    emit touch_InterfaceDataSignal(0x7B0, "0");
+}

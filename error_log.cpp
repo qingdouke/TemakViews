@@ -1,7 +1,8 @@
 #include "error_log.h"
 #include "ui_error_log.h"
 #include "address_data_show.h"
-
+#include "general_tools.h"
+#include "mainwindow.h"
 #include <QTimer>
 #include <QDateTime>
 
@@ -12,6 +13,7 @@ Error_Log::Error_Log(QWidget *parent) :
     ui->setupUi(this);
 
     setWindowFlags(Qt::FramelessWindowHint);
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     //Header背景颜色
     ui->Header->setStyleSheet("QWidget#Header{background-color:rgb(72,129,52)}");
     //标题颜色
@@ -58,7 +60,7 @@ Error_Log::Error_Log(QWidget *parent) :
                                                    "border-radius:8px;"
                                                    "color:rgb(74,122,60)}");
 
-
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     //ui->current_time的connect 显示实时时间
     connect(timer,&QTimer::timeout,this,&Error_Log::currentTime);
 
@@ -95,7 +97,7 @@ void Error_Log::errorLog_sendTo_mainWindow(){
 
 void Error_Log::addrSetErrLogInterfaceData(int addr_num, QString set_value){
 
-
+    QString covert_data;
     switch(addr_num)
     {
     // set program id show
@@ -162,10 +164,12 @@ void Error_Log::addrSetErrLogInterfaceData(int addr_num, QString set_value){
         ui->Step_label_2->setText(set_value);
         break;
     case 0xA03:
-        ui->value1_label_1->setText(set_value);
+        covert_data = convertToDecimalString(set_value,2);
+        ui->value1_label_1->setText(covert_data);
         break;
     case 0xA04:
-        ui->value2_label_1->setText(set_value);
+        covert_data = convertToDecimalString(set_value,1);
+        ui->value2_label_1->setText(covert_data);
         break;
     case 0xA05:
         ui->hour_label_1->setText(set_value);
@@ -189,10 +193,12 @@ void Error_Log::addrSetErrLogInterfaceData(int addr_num, QString set_value){
         ui->wt_label_1->setText(set_value);
         break;
     case 0xA53:
-        ui->value1_label_2->setText(set_value);
+        covert_data = convertToDecimalString(set_value,2);
+        ui->value1_label_2->setText(covert_data);
         break;
     case 0xA54:
-        ui->value2_label_2->setText(set_value);
+        covert_data = convertToDecimalString(set_value,1);
+        ui->value2_label_2->setText(covert_data);
         break;
     case 0xA55:
         ui->hour_label_2->setText(set_value);
@@ -216,28 +222,36 @@ void Error_Log::addrSetErrLogInterfaceData(int addr_num, QString set_value){
         ui->wt_label_2->setText(set_value);
         break;
     case 0xA46:
-        ui->HilimitText_label->setText(set_value);
+        covert_data = convertToDecimalString(set_value,2);
+        ui->HilimitText_label->setText(covert_data);
         break;
     case 0xA47:
-        ui->LolimitText_label->setText(set_value);
+        covert_data = convertToDecimalString(set_value,2);
+        ui->LolimitText_label->setText(covert_data);
         break;
     case 0xA48:
-        ui->TpvText_label->setText(set_value);
+        covert_data = convertToDecimalString(set_value,2);
+        ui->TpvText_label->setText(covert_data);
         break;
     case 0xA4B:
-        ui->TsvText_label->setText(set_value);
+        covert_data = convertToDecimalString(set_value,2);
+        ui->TsvText_label->setText(covert_data);
         break;
     case 0xA49:
-        ui->HpvText_label->setText(set_value);
+        covert_data = convertToDecimalString(set_value,2);
+        ui->HpvText_label->setText(covert_data);
         break;
     case 0xA4C:
-        ui->HsvText_label->setText(set_value);
+        covert_data = convertToDecimalString(set_value,2);
+        ui->HsvText_label->setText(covert_data);
         break;
     case 0xA4A:
-        ui->WpvText_label->setText(set_value);
+        covert_data = convertToDecimalString(set_value,2);
+        ui->WpvText_label->setText(covert_data);
         break;
     case 0xA4D:
-        ui->WsvText_label->setText(set_value);
+        covert_data = convertToDecimalString(set_value,2);
+        ui->WsvText_label->setText(covert_data);
         break;
     case 0xAC0:
         out_1 = set_value;
@@ -255,13 +269,16 @@ void Error_Log::addrSetErrLogInterfaceData(int addr_num, QString set_value){
         ui->OutText_label->setText(out);
         break;
     case 0xA4E:
-        ui->TempPidText_label->setText(set_value);
+        covert_data = convertToDecimalString(set_value,2);
+        ui->TempPidText_label->setText(covert_data);
         break;
     case 0xA4F:
-        ui->HumiPidText_label->setText(set_value);
+        covert_data = convertToDecimalString(set_value,2);
+        ui->HumiPidText_label->setText(covert_data);
         break;
     case 0xA50:
-        ui->SvrPidText_label->setText(set_value);
+        covert_data = convertToDecimalString(set_value,2);
+        ui->SvrPidText_label->setText(covert_data);
         break;
     case 0xA51:
         page_1 = set_value;

@@ -72,9 +72,9 @@
    <widget class="QLabel" name="title">
     <property name="geometry">
      <rect>
-      <x>550</x>
+      <x>539</x>
       <y>0</y>
-      <width>180</width>
+      <width>201</width>
       <height>60</height>
      </rect>
     </property>
@@ -115,16 +115,16 @@
    <widget class="QLabel" name="systemTimeSetting_label">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>270</x>
       <y>20</y>
-      <width>141</width>
+      <width>171</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>16</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -139,16 +139,16 @@
    <widget class="QLabel" name="language_label">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>270</x>
       <y>60</y>
-      <width>131</width>
+      <width>171</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>16</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -163,16 +163,16 @@
    <widget class="QLabel" name="passwordChange_label">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>270</x>
       <y>100</y>
-      <width>141</width>
+      <width>171</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>16</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -187,16 +187,16 @@
    <widget class="QLabel" name="screenLock_label">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>270</x>
       <y>140</y>
-      <width>131</width>
+      <width>171</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>16</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -211,16 +211,16 @@
    <widget class="QLabel" name="lightingSetting_label">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>270</x>
       <y>180</y>
-      <width>131</width>
+      <width>171</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>16</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -235,16 +235,16 @@
    <widget class="QLabel" name="backLightingTime_label">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>270</x>
       <y>220</y>
-      <width>131</width>
+      <width>171</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>16</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -259,22 +259,22 @@
    <widget class="QLabel" name="programPrepared_label">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>270</x>
       <y>260</y>
-      <width>161</width>
+      <width>171</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>16</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>AppointmentRun</string>
+     <string>AppointRun</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -283,16 +283,16 @@
    <widget class="QLabel" name="chooseProgram_label">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>270</x>
       <y>300</y>
-      <width>141</width>
+      <width>171</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>16</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -307,16 +307,16 @@
    <widget class="QLabel" name="communicationProtocal_label">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>270</x>
       <y>340</y>
-      <width>131</width>
+      <width>171</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>16</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -331,16 +331,16 @@
    <widget class="QLabel" name="communicationAddress485_label">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>270</x>
       <y>380</y>
-      <width>111</width>
+      <width>171</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>16</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -355,16 +355,16 @@
    <widget class="QLabel" name="baudRate_label">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>270</x>
       <y>420</y>
-      <width>91</width>
+      <width>171</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>16</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -379,16 +379,16 @@
    <widget class="QLabel" name="ipAddress_label">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>270</x>
       <y>460</y>
-      <width>81</width>
+      <width>171</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>16</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -403,16 +403,16 @@
    <widget class="QLabel" name="subnetMask_label">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>270</x>
       <y>500</y>
-      <width>111</width>
+      <width>171</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>16</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -427,16 +427,16 @@
    <widget class="QLabel" name="defaultGateway_label">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>270</x>
       <y>540</y>
-      <width>151</width>
+      <width>171</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>16</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -451,16 +451,16 @@
    <widget class="QLabel" name="port_label">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>270</x>
       <y>580</y>
-      <width>71</width>
+      <width>171</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>16</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -475,7 +475,7 @@
    <widget class="QPushButton" name="pBtn_Light_Adjustment_High">
     <property name="geometry">
      <rect>
-      <x>827</x>
+      <x>740</x>
       <y>179</y>
       <width>40</width>
       <height>40</height>
@@ -503,7 +503,7 @@
      <rect>
       <x>500</x>
       <y>180</y>
-      <width>325</width>
+      <width>241</width>
       <height>35</height>
      </rect>
     </property>
@@ -526,7 +526,7 @@
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>12</pointsize>
+      <pointsize>15</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -552,7 +552,8 @@
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <family>思源黑体</family>
+      <pointsize>15</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -648,7 +649,8 @@
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <family>思源黑体</family>
+      <pointsize>15</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -662,13 +664,14 @@
      <rect>
       <x>460</x>
       <y>260</y>
-      <width>321</width>
+      <width>101</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <family>思源黑体</family>
+      <pointsize>15</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -688,7 +691,8 @@
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <family>思源黑体</family>
+      <pointsize>15</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -708,7 +712,8 @@
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <family>思源黑体</family>
+      <pointsize>15</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -722,13 +727,14 @@
      <rect>
       <x>460</x>
       <y>460</y>
-      <width>321</width>
+      <width>81</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <family>思源黑体</family>
+      <pointsize>15</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -742,13 +748,14 @@
      <rect>
       <x>460</x>
       <y>500</y>
-      <width>321</width>
+      <width>81</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <family>思源黑体</family>
+      <pointsize>15</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -762,13 +769,14 @@
      <rect>
       <x>460</x>
       <y>540</y>
-      <width>321</width>
+      <width>81</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <family>思源黑体</family>
+      <pointsize>15</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -788,7 +796,8 @@
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <family>思源黑体</family>
+      <pointsize>15</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -809,7 +818,7 @@
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>15</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -830,7 +839,7 @@
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>15</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -851,7 +860,7 @@
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>15</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -872,7 +881,7 @@
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>15</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -893,7 +902,7 @@
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>15</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -914,7 +923,7 @@
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>15</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -935,7 +944,7 @@
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>15</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -956,13 +965,337 @@
     <property name="font">
      <font>
       <family>思源黑体</family>
-      <pointsize>14</pointsize>
+      <pointsize>15</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
     <property name="text">
      <string>MODBUS_RTU</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="auto_static_pbtn">
+    <property name="geometry">
+     <rect>
+      <x>830</x>
+      <y>460</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>思源黑体</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Auto IP</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="save_ip_pbtn">
+    <property name="geometry">
+     <rect>
+      <x>830</x>
+      <y>540</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>思源黑体</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Save</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_Screen_Sleep">
+    <property name="geometry">
+     <rect>
+      <x>840</x>
+      <y>220</y>
+      <width>91</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="programPrepared_lineEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>260</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>思源黑体</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="programPrepared_lineEdit_3">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>260</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>思源黑体</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="programPrepared_lineEdit_4">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>260</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>思源黑体</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="programPrepared_lineEdit_5">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>260</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>思源黑体</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="ipAddress_lineEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>460</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>思源黑体</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="ipAddress_lineEdit_3">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>460</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>思源黑体</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="ipAddress_lineEdit_4">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>460</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>思源黑体</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="subnetMask_lineEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>500</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>思源黑体</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="subnetMask_lineEdit_3">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>500</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>思源黑体</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="subnetMask_lineEdit_4">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>500</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>思源黑体</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="defaultGateway_lineEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>540</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>思源黑体</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="defaultGateway_lineEdit_3">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>540</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>思源黑体</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="defaultGateway_lineEdit_4">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>540</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>思源黑体</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
     </property>
    </widget>
   </widget>

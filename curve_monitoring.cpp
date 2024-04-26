@@ -2,6 +2,7 @@
 #include "ui_curve_monitoring.h"
 #include "address_data_show.h"
 #include "mainwindow.h"
+#include "general_tools.h"
 
 #include <QTimer>
 #include <QDateTime>
@@ -18,6 +19,7 @@ Curve_Monitoring::Curve_Monitoring(QWidget *parent) :
 
     this->setGeometry(0,0,1280,800);
     setWindowFlags(Qt::FramelessWindowHint);
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     //Header背景颜色
     ui->Header->setStyleSheet("QWidget#Header{background-color:rgb(72,129,52)}");
     //标题颜色
@@ -149,8 +151,7 @@ Curve_Monitoring::Curve_Monitoring(QWidget *parent) :
     ui->storage_frequency_lineEdit->setStyleSheet("QLineEdit#storage_frequency_lineEdit{border:none;"
                                                   "background:transparent}");
     ui->storage_frequency_lineEdit->setText(storage_frequency+"s");
-    ui->storage_frequency_pushButton->setStyleSheet("QPushButton#storage_frequency_pushButton{background-color:transparent;"
-                                                    "border:none}");
+
     ui->storage_spacing_line->setStyleSheet("QLabel#storage_spacing_line{background-color:rgb(72,129,52)}");
     ui->storage_spacing_lineEdit->setStyleSheet("QLineEdit#storage_spacing_lineEdit{border:none;"
                                                 "background:transparent}");
@@ -179,7 +180,7 @@ Curve_Monitoring::Curve_Monitoring(QWidget *parent) :
                                       "background-color:rgb(173,199,160);"
                                       "border-radius:8px;"
                                       "color:rgb(74,122,60)}");
-
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     //QCustomPlot
     ui->CurveWidget->yAxis2->setVisible(true);
     ui->CurveWidget->setBackground(QBrush(Qt::black));
