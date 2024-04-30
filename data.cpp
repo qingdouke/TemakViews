@@ -69,8 +69,6 @@ Data::~Data(){
 int count_data = 0;
 void Data::dataFunction(int pageID)
 {
-
-
     while(isRunning)
     {        
         qDebug()<<"current ID:"<<pageID;

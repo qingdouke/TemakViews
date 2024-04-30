@@ -184,10 +184,6 @@ Monitoring_Interface::Monitoring_Interface(QWidget *parent) :
     connect(&popUpWindow03,&PopUpWindow03::popWindow03PushButtonYESClickedSignal,this,&Monitoring_Interface::deal_popUpWindow03PushButtonYESClickedSignal);
     connect(&popUpWindow04,&PopUpWindow04::popUpWindow04WithoutDataSignals,this,&Monitoring_Interface::deal_popUpWindow04WithoutDataSignals);
 
-    //数据处理
-    connect(&popUpWindow04,&PopUpWindow04::popUpWindow04ButtonClickedSignals,this,&Monitoring_Interface::deal_popUpWindow04PushButtonClickedSignals);
-
-
 }
 
 
@@ -557,7 +553,7 @@ void Monitoring_Interface::setProgramLink(QString strs){
 */
 void Monitoring_Interface::monitoring_interface_sendTo_mainwindow(){
     emit monitoring_interface_to_mainwindow();
-    emit touch_InterfaceDataSignal(addr_touch_pageturn_pbtn, QString::number(MAIN_PAGE));
+    //emit touch_InterfaceDataSignal(addr_touch_pageturn_pbtn, QString::number(MAIN_PAGE));
 }
 
 /*
@@ -567,22 +563,12 @@ void Monitoring_Interface::monitoring_interface_sendTo_mainwindow(){
  * influence: this
 */
 void Monitoring_Interface::monitoringInterface_sendTo_outputMonitoring(){
-    emit monitoringInterface_to_outputMonitoring();
+    //emit monitoringInterface_to_outputMonitoring();
     emit touch_InterfaceDataSignal(addr_touch_monitor_nextpage_pbtn, "0");
 }
 
 void Monitoring_Interface::pause_pBtn_clicked(){
     emit touch_InterfaceDataSignal(addr_touch_pause_pbtn,"0");
-}
-void Monitoring_Interface::onepoint_pBtn_clicked(){
-    emit touch_InterfaceDataSignal(addr_touch_onepoint_pbtn,"0");
-}
-void Monitoring_Interface::reset_pBtn_clicked(){
-    emit touch_InterfaceDataSignal(addr_touch_reset_pbtn,"0");
-}
-
-void Monitoring_Interface::monitor_nextpage_pBtn_clicked(){
-    emit touch_InterfaceDataSignal(addr_touch_monitor_nextpage_pbtn,"0");
 }
 /*
  * time: 2022-10-31
@@ -605,28 +591,8 @@ void Monitoring_Interface::setLedPBtnState(bool isLight){
     }
 }
 
-void Monitoring_Interface::LED_pBtn_clicked(){    
-    emit touch_InterfaceDataSignal(addr_touch_lamp_pbtn,"2");
-}
 
-void Monitoring_Interface::running_pBtn_clicked(){
-    if(sys_info.sys_sta == false){
-        popUpWindow01.move((this->width()-popUpWindow01.width())/2,(this->height()-popUpWindow01.height())/2);
-        popUpWindow01.show();
-    }
-    else
-    {
-        popUpWindow03.move((this->width()-popUpWindow03.width())/2,(this->height()-popUpWindow03.height())/2);
-        popUpWindow03.show();
-    }
-}
 
-void Monitoring_Interface::loading_pBtn_clicked(){
-    popUpWindow04.move(0,0);
-    popUpWindow04.setStatus(0);
-    popUpWindow04.show();
-    emit touch_InterfaceDataSignal(addr_touch_load_pbtn,"0");
-}
 
 void Monitoring_Interface::start_run_gif(){
     if(sys_info.sys_sta == true){
@@ -678,21 +644,6 @@ void Monitoring_Interface::deal_popUpWindow03PushButtonYESClickedSignal(){
 
 void Monitoring_Interface::deal_popUpWindow04WithoutDataSignals(int WIDTH,int HEIGHT){
     popUpWindow05.centerShow(WIDTH,HEIGHT);
-}
-
-void Monitoring_Interface::InitProgram(int ID,QString Name)
-{
-    printf("—————Monitoring_Interface———————InitProgram——————%d/n",ID);
-
-    ui->program_name_edit->setText(Name);
-}
-
-/*
- *转发给父页面MainWindow以影响其他页面
- */
-void Monitoring_Interface::deal_popUpWindow04PushButtonClickedSignals(int ID,QString Name)
-{
-    emit monitoring_interface_choose_program(ID,Name);
 }
 
 void Monitoring_Interface::freezeOneSec()
@@ -874,4 +825,40 @@ void Monitoring_Interface::addrSetMonitorInterfaceData(int addr_num, QString set
         break;
     default:break;
     }
+}
+
+void Monitoring_Interface::on_LED_pbtn_clicked()
+{
+    emit touch_InterfaceDataSignal(addr_touch_lamp_pbtn,"2");
+}
+
+void Monitoring_Interface::on_reset_pbth_clicked()
+{
+    emit touch_InterfaceDataSignal(addr_touch_reset_pbtn,"0");
+
+}
+
+void Monitoring_Interface::on_constant_value_running_pbtn_clicked()
+{
+    emit touch_InterfaceDataSignal(addr_touch_onepoint_pbtn,"0");
+
+}
+
+void Monitoring_Interface::on_running_pBtn_clicked()
+{
+    if(sys_info.sys_sta == false){
+        popUpWindow01.move((this->width()-popUpWindow01.width())/2,(this->height()-popUpWindow01.height())/2);
+        popUpWindow01.show();
+    }
+    else
+    {
+        popUpWindow03.move((this->width()-popUpWindow03.width())/2,(this->height()-popUpWindow03.height())/2);
+        popUpWindow03.show();
+    }
+}
+
+void Monitoring_Interface::on_loading_pBtn_clicked()
+{
+    emit touch_InterfaceDataSignal(addr_touch_load_pbtn,"0");
+
 }

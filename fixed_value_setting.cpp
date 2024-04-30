@@ -330,7 +330,7 @@ bool Fixed_Value_Setting::eventFilter(QObject *watched, QEvent *event)
 */
 void Fixed_Value_Setting::fixedValueSetting_sendTo_mainWindow(){
     emit fixedValueSetting_to_mainWindow();
-    emit touch_InterfaceDataSignal(addr_touch_pageturn_pbtn, QString::number(PGM_CYCLE));
+    //emit touch_InterfaceDataSignal(addr_touch_pageturn_pbtn, QString::number(PGM_CYCLE));
 
 }
 
@@ -342,7 +342,7 @@ void Fixed_Value_Setting::fixedValueSetting_sendTo_mainWindow(){
 */
 void Fixed_Value_Setting::fixedValueSetting_sendTo_programLoop(){
     emit fixedValueSetting_to_programLoop();
-    emit touch_InterfaceDataSignal(addr_touch_pageturn_pbtn, QString::number(MAIN_PAGE));
+    //emit touch_InterfaceDataSignal(addr_touch_pageturn_pbtn, QString::number(MAIN_PAGE));
 }
 
 void Fixed_Value_Setting::OnepointSavePgm(){
@@ -662,3 +662,4 @@ void Fixed_Value_Setting::addrSetOnepointInterfaceData(int addr_num, QString set
         break;
     }
 }
+

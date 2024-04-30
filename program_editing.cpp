@@ -145,8 +145,7 @@ Program_Editing::Program_Editing(QWidget *parent) :
     //开新程式、删除程式、插入、删除
     ui->new_program_pbtn->setStyleSheet("QPushButton#new_program_pbtn{background:transparent;"
                                         "border:2px solid rgb(71,129,52)}");
-    ui->choose_program_pushButton->setStyleSheet("QPushButton#choose_program_pushButton{background:transparent;"
-                                                 "border:none}");
+
     ui->delete_program_pbtn->setStyleSheet("QPushButton#delete_program_pbtn{background:transparent;"
                                            "border:2px solid rgb(71,129,52)}");
     ui->insert_pbtn->setStyleSheet("QPushButton#insert_pbtn{background:transparent;"
@@ -174,12 +173,7 @@ Program_Editing::Program_Editing(QWidget *parent) :
     connect(timer,&QTimer::timeout,this,&Program_Editing::currentTime);
 
     //页面跳转
-    connect(ui->font_page_pbtn,&QPushButton::clicked,this,&Program_Editing::programEditing_sendTo_mainWindow);
-
-    //数据处理
-    connect(&popUpWindow04,&PopUpWindow04::popUpWindow04ButtonClickedSignals,this,&Program_Editing::deal_popUpWindow04PushButtonClickedSignals);
-
-
+    //connect(ui->font_page_pbtn,&QPushButton::clicked,this,&Program_Editing::programEditing_sendTo_mainWindow);
 
 }
 
@@ -208,9 +202,7 @@ void Program_Editing::currentTime(){
 */
 void Program_Editing::on_lastPage_pbtn_clicked()
 {
-
     emit touch_InterfaceDataSignal(addr_touch_edit_pgm_lastpage,"1");
-
 }
 
 /*
@@ -246,17 +238,6 @@ void Program_Editing::on_endPage_pbtn_clicked()
 {
     emit touch_InterfaceDataSignal(addr_touch_edit_pgm_endpage,"4");
 }
-
-/*
- * time: 2022-11-14
- * type: send Signals
- * effect: 信号发送函数 向mainwindow发送请求页面跳转信号
- * influence: this
-*/
-void Program_Editing::programEditing_sendTo_mainWindow(){
-    emit programEditing_to_mainWindow();
-}
-
 /*
  * time: 2022-11-1
  * type: System EventFilter
@@ -292,6 +273,11 @@ bool Program_Editing::eventFilter(QObject *watched, QEvent *event)
         if(event->type() == QEvent::MouseButtonPress){
             emit Request_Use_Keyboard_Signal(addr_touch_pgm_edit_pgm_name);
             ui->program_name_edit->setFocus();
+        }
+    }else if(watched == ui->choose_program_edit){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit touch_InterfaceDataSignal(addr_touch_pgm_edit_pgm_number, "0");
+            ui->choose_program_edit->setFocus();   //lineEdit聚焦
         }
     }else if(watched == ui->pgm_table_temp_edit_1){
         if(event->type() == QEvent::MouseButtonPress){
@@ -513,22 +499,8 @@ void Program_Editing::setHighTempProtect(QString strs){
     ui->highTemp_protect_edit->setText(highTempProtect);
 }
 
-void Program_Editing::creatNewProgramClicked(){
-    emit touch_InterfaceDataSignal(addr_touch_edit_pgm_newpgm,"0");
 
-}
 
-void Program_Editing::deleteProgramClicked(){
-    emit touch_InterfaceDataSignal(addr_touch_edit_pgm_delpgm,"0");
-}
-
-void Program_Editing::deleteClicked(){
-   emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_delsgm);
-}
-void Program_Editing::insertClicked(){
-    emit Request_Use_Calculate_Signal(addr_touch_edit_pgm_insertsgm);
-
-}
 
 void Program_Editing::on_saving_pbtn_clicked()
 {
@@ -543,41 +515,20 @@ void Program_Editing::on_loop_setting_pbtn_clicked()
 
 void Program_Editing::on_new_program_pbtn_clicked()
 {
-    popUpWindow04.setStatus(1);
-    int num = popUpWindow04.getMapIndex();
-    ui->choose_program_edit->setText(QString::number(num));
+    //popUpWindow04.setStatus(1);
+    //int num = popUpWindow04.getMapIndex();
+    //ui->choose_program_edit->setText(QString::number(num));
+    emit touch_InterfaceDataSignal(addr_touch_edit_pgm_newpgm,"0");
 }
 
 
-void Program_Editing::on_choose_program_pushButton_clicked()
-{
-    popUpWindow04.setStatus(0);
-    popUpWindow04.move(0,0);
-    popUpWindow04.show();
-}
-
-void Program_Editing::inset(QString strs)
-{
-    popUpWindow04.insertMap(strs);
-    popUpWindow04.changeLabelID(popUpWindow04.getEndNumber());
-}
 
 void Program_Editing::on_delete_program_pbtn_clicked()
 {
-    popUpWindow04.setStatus(2);
+    //popUpWindow04.setStatus(2);
+    emit touch_InterfaceDataSignal(addr_touch_edit_pgm_delpgm,"0");
 }
 
-void Program_Editing::InitProgram(int ID, QString Name)
-{
-    printf("—————Program_Editing———————InitProgram——————/n");
-    ui->program_name_edit->setText(Name);
-    ui->choose_program_edit->setText(QString::number(ID));
-}
-
-void Program_Editing::deal_popUpWindow04PushButtonClickedSignals(int ID,QString Name)
-{
-    emit programEditingChooseProgramSignals(ID,Name);
-}
 
 void Program_Editing::freezeOneSec()
 {
@@ -802,4 +753,21 @@ void Program_Editing::addrSetPgmEditInterfaceData(int addr_num, QString set_valu
 
     default:break;
     }
+}
+
+void Program_Editing::on_insert_pbtn_clicked()
+{
+    emit Request_Use_Keyboard_Signal(addr_touch_edit_pgm_insertsgm);
+
+}
+
+void Program_Editing::on_delete_program_clicked()
+{
+    emit Request_Use_Keyboard_Signal(addr_touch_edit_pgm_delsgm);
+
+}
+
+void Program_Editing::on_font_page_pbtn_clicked()
+{
+    emit programEditing_to_mainWindow();
 }

@@ -67,6 +67,7 @@ private:
 private slots:
     void currentTime();
 
+
 signals:
     void fixedValueSetting_to_mainWindow();
     void fixedValueSetting_to_programLoop();

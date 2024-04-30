@@ -33,7 +33,7 @@ tcpServer::tcpServer(QWidget *parent)
     connect(tcp_server, SIGNAL(newConnection()), this, SLOT(createConnection()));
 }
 int tcp_send_count = 0;
-void tcpServer::sendData(int addr,QString strs)
+bool tcpServer::sendData(int addr,QString strs)
 {
 
     if(1 == connect_flag)
@@ -61,9 +61,11 @@ void tcpServer::sendData(int addr,QString strs)
         strcat(sendbuf,strbuf);
         strcat(sendbuf,"SendEnd");
         tcp_socket->write(sendbuf);
+        return true;
     }
+    return false;
 }
-void tcpServer::sendText(int addr,QString strs)
+bool tcpServer::sendText(int addr,QString strs)
 {
 
     if(1 == connect_flag)
@@ -91,7 +93,9 @@ void tcpServer::sendText(int addr,QString strs)
         strcat(sendbuf,strbuf);
         strcat(sendbuf,"SendEnd");
         tcp_socket->write(sendbuf);
+        return true;
     }
+    return false;
 }
 QByteArray m_buffer_car;
 void tcpServer::recvData()
@@ -200,8 +204,8 @@ bool tcpServer:: getSocketData(QByteArray* socketbuf)
 
             for(int i = 0; i < numbers.size() - 1; ++i)
             {
-                qDebug() << QString("start addr: %1").arg(start_addr + i);
-                qDebug() << QString("out string: %1").arg(numbers[i + 1]);
+                //qDebug() << QString("start addr: %1").arg(start_addr + i);
+                //qDebug() << QString("out string: %1").arg(numbers[i + 1]);
                 emit comm_updateInterfaceDataSignal(start_addr + i,numbers[i + 1]);
             }
         }else

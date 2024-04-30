@@ -54,6 +54,10 @@ UserPasswordPage03::UserPasswordPage03(QWidget *parent) :
     this->setStyleSheet(stylesheet);
     file.close();
 
+    ui->water_level_warning_display->installEventFilter(this);
+    ui->water_replenishment_mode_display->installEventFilter(this);
+    ui->water_level_warning_M->installEventFilter(this);
+    this->installEventFilter(this);
     //ui->current_time的connect 显示previous_page_pbtn实时时间
     connect(timer,&QTimer::timeout,this,&UserPasswordPage03::currentTime);
 
@@ -80,7 +84,39 @@ void UserPasswordPage03::userPasswordPage03_sendTo_mainWindow(){
 void UserPasswordPage03::userPasswordPage03_sendTo_userPasswordPage02(){
     emit userPasswordPage03_to_userPasswordPage02();
 }
-
+bool UserPasswordPage03::eventFilter(QObject *watched, QEvent *event)
+{
+    //监听屏幕点击事件
+    if(watched == this)
+    {
+        //处理点击屏幕时的焦点问题
+        if(event->type() == QEvent::MouseButtonPress){
+            if(ui->water_level_warning_M->hasFocus()){
+                ui->water_level_warning_M->clearFocus();
+            }
+        }
+    }
+    if(watched == ui->water_level_warning_M)
+    {
+        if(event->type() == QEvent::MouseButtonPress){
+            emit Request_Use_Calculate_Signal(0x1413);
+            ui->water_level_warning_M->setFocus();
+        }
+    }else if(watched == ui->water_level_warning_display)
+    {
+        if(event->type() == QEvent::MouseButtonPress){
+            emit touch_InterfaceDataSignal(0x1451,"0");
+            ui->water_level_warning_display->setFocus();
+        }
+    }else if(watched == ui->water_replenishment_mode_display)
+    {
+        if(event->type() == QEvent::MouseButtonPress){
+            emit touch_InterfaceDataSignal(0x1452,"0");
+            ui->water_replenishment_mode_display->setFocus();
+        }
+    }
+    return QWidget::eventFilter(watched,event);         //返回事件过滤器
+}
 void UserPasswordPage03::freezeOneSec()
 {
     /*
@@ -107,4 +143,73 @@ void UserPasswordPage03::freezeOneSec()
     ui->font_page_pbtn->setEnabled(true);
     ui->previous_page_pbtn->setEnabled(true);
     */
+}
+
+void UserPasswordPage03::on_turn_off_humidity_function_locked_clicked()
+{
+    emit touch_InterfaceDataSignal(0x1441,"0");
+}
+
+void UserPasswordPage03::on_automatic_defrosting_locked_clicked()
+{
+    emit touch_InterfaceDataSignal(0x1442,"0");
+}
+
+void UserPasswordPage03::on_remote_recording_locked_clicked()
+{
+    emit touch_InterfaceDataSignal(0x1443,"0");
+}
+
+
+void UserPasswordPage03::on_excessive_warning_locked_clicked()
+{
+    emit touch_InterfaceDataSignal(0x1444,"0");
+}
+
+void UserPasswordPage03::on_text_messaging_locked_clicked()
+{
+    emit touch_InterfaceDataSignal(0x1446,"0");
+}
+
+void UserPasswordPage03::on_program_downloading_clicked()
+{
+    emit touch_InterfaceDataSignal(0x1447,"0");
+}
+
+void UserPasswordPage03::on_program_uploading_clicked()
+{
+    emit touch_InterfaceDataSignal(0x1448,"0");
+}
+void UserPasswordPage03::addrSetUserPsdInterfaceData(int addr_num, QString set_value){
+
+    switch(addr_num)
+    {
+    case 0x1441:
+        ui->turn_off_humidity_function_locked->setChecked((bool)set_value.toInt());
+        break;
+    case 0x1442:
+        ui->automatic_defrosting_locked->setChecked((bool)set_value.toInt());
+        break;
+    case 0x1443:
+        ui->remote_recording_locked->setChecked((bool)set_value.toInt());
+        break;
+    case 0x1444:
+        ui->excessive_warning_locked->setChecked((bool)set_value.toInt());
+        break;
+    case 0x1451:
+        ui->water_replenishment_mode_display->setText(set_value);
+        break;
+    case 0x1452:
+        ui->water_level_warning_display->setText(set_value);
+        break;
+    case 0x1453:
+        ui->water_level_warning_M->setText(set_value);
+        break;
+    case 0x1446:
+        ui->text_messaging_locked->setChecked((bool)set_value.toInt());
+        break;
+
+    default:
+        break;
+    }
 }

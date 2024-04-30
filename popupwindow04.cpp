@@ -55,18 +55,76 @@ PopUpWindow04::PopUpWindow04(QWidget *parent) :
                                           "border-radius:8px;"
                                           "color:rgb(74,122,60)}");
     qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
-    //初始化
-    map.insert(mapIndex++,"@Viola");
-    map.insert(mapIndex++,"@Linne");
-    this->changeLabelID(endNumber);
+    ui->label_id_1->installEventFilter(this);
+    ui->label_name_1->installEventFilter(this);
+    ui->label_id_2->installEventFilter(this);
+    ui->label_name_2->installEventFilter(this);
+    ui->label_id_3->installEventFilter(this);
+    ui->label_name_3->installEventFilter(this);
+    ui->label_id_4->installEventFilter(this);
+    ui->label_name_4->installEventFilter(this);
+    ui->label_id_5->installEventFilter(this);
+    ui->label_name_5->installEventFilter(this);
+    ui->label_id_6->installEventFilter(this);
+    ui->label_name_6->installEventFilter(this);
+    ui->label_id_7->installEventFilter(this);
+    ui->label_name_7->installEventFilter(this);
+    ui->label_id_8->installEventFilter(this);
+    ui->label_name_8->installEventFilter(this);
+    ui->label_id_9->installEventFilter(this);
+    ui->label_name_9->installEventFilter(this);
+    ui->label_id_10->installEventFilter(this);
+    ui->label_name_10->installEventFilter(this);
 
+    ui->label_id_11->installEventFilter(this);
+    ui->label_name_11->installEventFilter(this);
+    ui->label_id_12->installEventFilter(this);
+    ui->label_name_12->installEventFilter(this);
+    ui->label_id_13->installEventFilter(this);
+    ui->label_name_13->installEventFilter(this);
+    ui->label_id_14->installEventFilter(this);
+    ui->label_name_14->installEventFilter(this);
+    ui->label_id_15->installEventFilter(this);
+    ui->label_name_15->installEventFilter(this);
+    ui->label_id_16->installEventFilter(this);
+    ui->label_name_16->installEventFilter(this);
+    ui->label_id_17->installEventFilter(this);
+    ui->label_name_17->installEventFilter(this);
+    ui->label_id_18->installEventFilter(this);
+    ui->label_name_18->installEventFilter(this);
+    ui->label_id_19->installEventFilter(this);
+    ui->label_name_19->installEventFilter(this);
+    ui->label_id_20->installEventFilter(this);
+    ui->label_name_20->installEventFilter(this);
+
+    ui->label_id_21->installEventFilter(this);
+    ui->label_name_21->installEventFilter(this);
+    ui->label_id_22->installEventFilter(this);
+    ui->label_name_22->installEventFilter(this);
+    ui->label_id_23->installEventFilter(this);
+    ui->label_name_23->installEventFilter(this);
+    ui->label_id_24->installEventFilter(this);
+    ui->label_name_24->installEventFilter(this);
+    ui->label_id_25->installEventFilter(this);
+    ui->label_name_25->installEventFilter(this);
+    ui->label_id_26->installEventFilter(this);
+    ui->label_name_26->installEventFilter(this);
+    ui->label_id_27->installEventFilter(this);
+    ui->label_name_27->installEventFilter(this);
+    ui->label_id_28->installEventFilter(this);
+    ui->label_name_28->installEventFilter(this);
+    ui->label_id_29->installEventFilter(this);
+    ui->label_name_29->installEventFilter(this);
+    ui->label_id_30->installEventFilter(this);
+    ui->label_name_30->installEventFilter(this);
+    this->installEventFilter(this);
     //qss
-    QFile file(":/qss/popupwindow04.qss");
+   /* QFile file(":/qss/popupwindow04.qss");
     file.open(QFile::ReadOnly);
     QTextStream filetext(&file);
     QString stylesheet = filetext.readAll();
     this->setStyleSheet(stylesheet);
-    file.close();
+    file.close();*/
 }
 
 PopUpWindow04::~PopUpWindow04()
@@ -74,510 +132,189 @@ PopUpWindow04::~PopUpWindow04()
     delete ui;
 }
 
+
+bool PopUpWindow04::eventFilter(QObject *watched, QEvent *event)
+{
+    //监听屏幕点击事件
+    if(watched == this)
+    {
+        //处理点击屏幕时的焦点问题
+        if(event->type() == QEvent::MouseButtonPress){
+            if(ui->label_name_1->hasFocus()){
+                ui->label_name_1->clearFocus();//如果点击屏幕任意位置则取消对应lineEdit的聚焦
+            }
+        }
+    }
+        //监听lineEdit
+        if((watched == ui->label_id_1) || (watched == ui->label_name_1))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB01));
+            }
+        }else if((watched == ui->label_id_2) || (watched == ui->label_name_2))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB02));
+            }
+        }else if((watched == ui->label_id_3) || (watched == ui->label_name_3))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB03));
+            }
+        }else if((watched == ui->label_id_4) || (watched == ui->label_name_4))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB04));
+            }
+        }else if((watched == ui->label_id_5) || (watched == ui->label_name_5))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB05));
+            }
+        }else if((watched == ui->label_id_6) || (watched == ui->label_name_6))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB06));
+            }
+        }else if((watched == ui->label_id_7) || (watched == ui->label_name_7))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB07));
+            }
+        }else if((watched == ui->label_id_8) || (watched == ui->label_name_8))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB08));
+            }
+        }else if((watched == ui->label_id_9) || (watched == ui->label_name_9))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB09));
+            }
+        }else if((watched == ui->label_id_10) || (watched == ui->label_name_10))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB0A));
+            }
+        }else if((watched == ui->label_id_11) || (watched == ui->label_name_11))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB0B));
+            }
+        }else if((watched == ui->label_id_12) || (watched == ui->label_name_12))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB0C));
+            }
+        }else if((watched == ui->label_id_13) || (watched == ui->label_name_13))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB0D));
+            }
+        }else if((watched == ui->label_id_14) || (watched == ui->label_name_14))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB0E));
+            }
+        }else if((watched == ui->label_id_15) || (watched == ui->label_name_15))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB0F));
+            }
+        }else if((watched == ui->label_id_16) || (watched == ui->label_name_16))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB10));
+            }
+        }else if((watched == ui->label_id_17) || (watched == ui->label_name_17))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB11));
+            }
+        }else if((watched == ui->label_id_18) || (watched == ui->label_name_18))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB12));
+            }
+        }else if((watched == ui->label_id_19) || (watched == ui->label_name_19))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB13));
+            }
+        }else if((watched == ui->label_id_20) || (watched == ui->label_name_20))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB14));
+            }
+        }else if((watched == ui->label_id_21) || (watched == ui->label_name_21))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB15));
+            }
+        }else if((watched == ui->label_id_22) || (watched == ui->label_name_22))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB16));
+            }
+        }else if((watched == ui->label_id_23) || (watched == ui->label_name_23))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB17));
+            }
+        }else if((watched == ui->label_id_24) || (watched == ui->label_name_24))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB18));
+            }
+        }else if((watched == ui->label_id_25) || (watched == ui->label_name_25))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB19));
+            }
+        }else if((watched == ui->label_id_26) || (watched == ui->label_name_26))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB1A));
+            }
+        }else if((watched == ui->label_id_27) || (watched == ui->label_name_27))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB1B));
+            }
+        }else if((watched == ui->label_id_28) || (watched == ui->label_name_28))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB1C));
+            }
+        }else if((watched == ui->label_id_29) || (watched == ui->label_name_29))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB1D));
+            }
+        }else if((watched == ui->label_id_30) || (watched == ui->label_name_30))
+        {
+            if(event->type() == QEvent::MouseButtonPress){
+                emit touch_InterfaceDataSignal(0xB00, QString::number(0xB1E));
+            }
+        }
+    return QWidget::eventFilter(watched,event);         //返回事件过滤器
+}
 void PopUpWindow04::on_back_pbtn_clicked()
 {
-    this->close();
+    emit touch_InterfaceDataSignal(0xB1F, "0");
 }
-
 
 void PopUpWindow04::on_pervious_page_pbtn_clicked()
 {
-    if(endNumber==30)
-        endNumber=100;
-    else if(endNumber==100)
-        endNumber=90;
-    else
-        endNumber-=30;
-    this->changeLabelID(endNumber);
+    emit touch_InterfaceDataSignal(0xB1F, "1");
 }
-
-void PopUpWindow04::changeLabelID(int endNum){
-    if(endNum!=100){
-        ui->label_name_30->setText(this->checkMap(endNum));
-        ui->label_id_30->setText(QString::number(endNum--));
-        ui->label_name_29->setText(this->checkMap(endNum));
-        ui->label_id_29->setText(QString::number(endNum--));
-        ui->label_name_28->setText(this->checkMap(endNum));
-        ui->label_id_28->setText(QString::number(endNum--));
-        ui->label_name_27->setText(this->checkMap(endNum));
-        ui->label_id_27->setText(QString::number(endNum--));
-        ui->label_name_26->setText(this->checkMap(endNum));
-        ui->label_id_26->setText(QString::number(endNum--));
-        ui->label_name_25->setText(this->checkMap(endNum));
-        ui->label_id_25->setText(QString::number(endNum--));
-        ui->label_name_24->setText(this->checkMap(endNum));
-        ui->label_id_24->setText(QString::number(endNum--));
-        ui->label_name_23->setText(this->checkMap(endNum));
-        ui->label_id_23->setText(QString::number(endNum--));
-        ui->label_name_22->setText(this->checkMap(endNum));
-        ui->label_id_22->setText(QString::number(endNum--));
-        ui->label_name_21->setText(this->checkMap(endNum));
-        ui->label_id_21->setText(QString::number(endNum--));
-        ui->label_name_20->setText(this->checkMap(endNum));
-        ui->label_id_20->setText(QString::number(endNum--));
-        ui->label_name_19->setText(this->checkMap(endNum));
-        ui->label_id_19->setText(QString::number(endNum--));
-        ui->label_name_18->setText(this->checkMap(endNum));
-        ui->label_id_18->setText(QString::number(endNum--));
-        ui->label_name_17->setText(this->checkMap(endNum));
-        ui->label_id_17->setText(QString::number(endNum--));
-        ui->label_name_16->setText(this->checkMap(endNum));
-        ui->label_id_16->setText(QString::number(endNum--));
-        ui->label_name_15->setText(this->checkMap(endNum));
-        ui->label_id_15->setText(QString::number(endNum--));
-        ui->label_name_14->setText(this->checkMap(endNum));
-        ui->label_id_14->setText(QString::number(endNum--));
-        ui->label_name_13->setText(this->checkMap(endNum));
-        ui->label_id_13->setText(QString::number(endNum--));
-        ui->label_name_12->setText(this->checkMap(endNum));
-        ui->label_id_12->setText(QString::number(endNum--));
-        ui->label_name_11->setText(this->checkMap(endNum));
-        ui->label_id_11->setText(QString::number(endNum--));
-        ui->label_name_10->setText(this->checkMap(endNum));
-        ui->label_id_10->setText(QString::number(endNum--));
-        ui->label_name_9->setText(this->checkMap(endNum));
-        ui->label_id_9->setText(QString::number(endNum--));
-        ui->label_name_8->setText(this->checkMap(endNum));
-        ui->label_id_8->setText(QString::number(endNum--));
-        ui->label_name_7->setText(this->checkMap(endNum));
-        ui->label_id_7->setText(QString::number(endNum--));
-        ui->label_name_6->setText(this->checkMap(endNum));
-        ui->label_id_6->setText(QString::number(endNum--));
-        ui->label_name_5->setText(this->checkMap(endNum));
-        ui->label_id_5->setText(QString::number(endNum--));
-        ui->label_name_4->setText(this->checkMap(endNum));
-        ui->label_id_4->setText(QString::number(endNum--));
-        ui->label_name_3->setText(this->checkMap(endNum));
-        ui->label_id_3->setText(QString::number(endNum--));
-        ui->label_name_2->setText(this->checkMap(endNum));
-        ui->label_id_2->setText(QString::number(endNum--));
-        ui->label_name_1->setText(this->checkMap(endNum));
-        ui->label_id_1->setText(QString::number(endNum--));
-    }
-    else{
-        ui->label_name_30->setText("");
-        ui->label_id_30->setText("0");
-        ui->label_name_29->setText("");
-        ui->label_id_29->setText("0");
-        ui->label_name_28->setText("");
-        ui->label_id_28->setText("0");
-        ui->label_name_27->setText("");
-        ui->label_id_27->setText("0");
-        ui->label_name_26->setText("");
-        ui->label_id_26->setText("0");
-        ui->label_name_25->setText("");
-        ui->label_id_25->setText("0");
-        ui->label_name_24->setText("");
-        ui->label_id_24->setText("0");
-        ui->label_name_23->setText("");
-        ui->label_id_23->setText("0");
-        ui->label_name_22->setText("");
-        ui->label_id_22->setText("0");
-        ui->label_name_21->setText("");
-        ui->label_id_21->setText("0");
-        ui->label_name_20->setText("");
-        ui->label_id_20->setText("0");
-        ui->label_name_19->setText("");
-        ui->label_id_19->setText("0");
-        ui->label_name_18->setText("");
-        ui->label_id_18->setText("0");
-        ui->label_name_17->setText("");
-        ui->label_id_17->setText("0");
-        ui->label_name_16->setText("");
-        ui->label_id_16->setText("0");
-        ui->label_name_15->setText("");
-        ui->label_id_15->setText("0");
-        ui->label_name_14->setText("");
-        ui->label_id_14->setText("0");
-        ui->label_name_13->setText("");
-        ui->label_id_13->setText("0");
-        ui->label_name_12->setText("");
-        ui->label_id_12->setText("0");
-        ui->label_name_11->setText("");
-        ui->label_id_11->setText("0");
-        ui->label_name_10->setText(this->checkMap(endNum));
-        ui->label_id_10->setText(QString::number(endNum--));
-        ui->label_name_9->setText(this->checkMap(endNum));
-        ui->label_id_9->setText(QString::number(endNum--));
-        ui->label_name_8->setText(this->checkMap(endNum));
-        ui->label_id_8->setText(QString::number(endNum--));
-        ui->label_name_7->setText(this->checkMap(endNum));
-        ui->label_id_7->setText(QString::number(endNum--));
-        ui->label_name_6->setText(this->checkMap(endNum));
-        ui->label_id_6->setText(QString::number(endNum--));
-        ui->label_name_5->setText(this->checkMap(endNum));
-        ui->label_id_5->setText(QString::number(endNum--));
-        ui->label_name_4->setText(this->checkMap(endNum));
-        ui->label_id_4->setText(QString::number(endNum--));
-        ui->label_name_3->setText(this->checkMap(endNum));
-        ui->label_id_3->setText(QString::number(endNum--));
-        ui->label_name_2->setText(this->checkMap(endNum));
-        ui->label_id_2->setText(QString::number(endNum--));
-        ui->label_name_1->setText(this->checkMap(endNum));
-        ui->label_id_1->setText(QString::number(endNum--));
-    }
-}
-
 void PopUpWindow04::on_next_page_pbtn_clicked()
 {
-    if(endNumber==100)
-        endNumber=30;
-    else if(endNumber==90)
-        endNumber=100;
-    else
-        endNumber+=30;
-    this->changeLabelID(endNumber);
-}
-
-QString PopUpWindow04::checkMap(int index){
-    if(map.value(index)!=""){
-        return map.value(index);
-    }
-    else
-        return "";
-}
-
-void PopUpWindow04::on_pushButton_1_clicked()
-{
-    if(status == 0)
-    {
-        QString Name = ui->label_name_1->text();
-        if(Name!=""){            
-            emit touch_InterfaceDataSignal(0xB00, QString::number(0xB01));
-            this->close();
-        }        
-    }    
+   emit touch_InterfaceDataSignal(0xB1F, "2");
 }
 
 
-void PopUpWindow04::on_pushButton_2_clicked()
-{
-    if(status == 0)
-    {
-        QString Name = ui->label_name_2->text();
-        if(Name!=""){
-            emit touch_InterfaceDataSignal(0xB00, QString::number(0xB02));
-            this->close();
-        }        
-    }    
-}
 
-
-void PopUpWindow04::on_pushButton_3_clicked()
-{
-    if(status == 0)
-    {
-        QString Name = ui->label_name_3->text();
-        if(Name!=""){
-            emit touch_InterfaceDataSignal(0xB00, QString::number(0xB03));
-            this->close();
-        }
-    }    
-}
-
-
-void PopUpWindow04::on_pushButton_4_clicked()
-{
-    if(status == 0)
-    {
-        QString Name = ui->label_name_4->text();
-        if(Name!=""){
-            emit touch_InterfaceDataSignal(0xB00, QString::number(0xB04));
-            this->close();
-        }        
-    }
-}
-
-
-void PopUpWindow04::on_pushButton_5_clicked()
-{
-    if(status == 0)
-    {
-        QString Name = ui->label_name_5->text();
-        if(Name!=""){
-            emit touch_InterfaceDataSignal(0xB00, QString::number(0xB05));
-            this->close();
-        }
-     }
-}
-
-
-void PopUpWindow04::on_pushButton_6_clicked()
-{
-    QString Name = ui->label_name_6->text();
-    if(Name!=""){
-        emit touch_InterfaceDataSignal(0xB00, QString::number(0xB06));
-        this->close();
-    }
-}
-
-
-void PopUpWindow04::on_pushButton_7_clicked()
-{
-    QString Name = ui->label_name_7->text();
-    if(Name!=""){
-        emit touch_InterfaceDataSignal(0xB00, QString::number(0xB07));
-
-        this->close();
-    }    
-}
-
-
-void PopUpWindow04::on_pushButton_8_clicked()
-{
-    QString Name = ui->label_name_8->text();
-    if(Name!=""){
-        emit touch_InterfaceDataSignal(0xB00, QString::number(0xB08));
-        this->close();
-    }
-}
-
-
-void PopUpWindow04::on_pushButton_9_clicked()
-{
-    QString Name = ui->label_name_9->text();
-    if(Name!=""){
-        emit touch_InterfaceDataSignal(0xB00, QString::number(0xB09));
-        this->close();
-    }
-
-}
-
-
-void PopUpWindow04::on_pushButton_10_clicked()
-{
-    QString Name = ui->label_name_10->text();
-    if(Name!=""){
-       emit touch_InterfaceDataSignal(0xB00, QString::number(0xB0A));
-        this->close();
-    }
-
-}
-
-
-void PopUpWindow04::on_pushButton_11_clicked()
-{
-    QString Name = ui->label_name_11->text();
-    if(Name!=""){
-        emit touch_InterfaceDataSignal(0xB00, QString::number(0xB0B));
-        this->close();
-    }
-
-}
-
-
-void PopUpWindow04::on_pushButton_12_clicked()
-{
-    QString Name = ui->label_name_12->text();
-    if(Name!=""){
-        emit touch_InterfaceDataSignal(0xB00, QString::number(0xB0C));
-        this->close();
-    }   
-}
-
-
-void PopUpWindow04::on_pushButton_13_clicked()
-{
-    QString Name = ui->label_name_13->text();
-    if(Name!=""){
-        emit touch_InterfaceDataSignal(0xB00, QString::number(0xB0D));
-        this->close();
-    }   
-}
-
-
-void PopUpWindow04::on_pushButton_14_clicked()
-{
-    QString Name = ui->label_name_14->text();
-    if(Name!=""){
-        emit touch_InterfaceDataSignal(0xB00, QString::number(0xB0E));
-        this->close();
-    }   
-}
-
-
-void PopUpWindow04::on_pushButton_15_clicked()
-{
-    QString Name = ui->label_name_15->text();
-    if(Name!=""){
-        emit touch_InterfaceDataSignal(0xB00, QString::number(0xB0F));
-        this->close();
-    }    
-}
-
-
-void PopUpWindow04::on_pushButton_16_clicked()
-{
-    QString Name = ui->label_name_16->text();
-    if(Name!=""){
-        emit touch_InterfaceDataSignal(0xB00, QString::number(0xB10));
-        this->close();
-    }    
-}
-
-
-void PopUpWindow04::on_pushButton_17_clicked()
-{
-    QString Name = ui->label_name_17->text();
-    if(Name!=""){
-        emit touch_InterfaceDataSignal(0xB00, QString::number(0xB11));
-        this->close();
-    }
-}
-
-
-void PopUpWindow04::on_pushButton_18_clicked()
-{
-    QString Name = ui->label_name_18->text();
-    if(Name!=""){
-        emit touch_InterfaceDataSignal(0xB00, QString::number(0xB12));
-        this->close();
-    }
-}
-
-
-void PopUpWindow04::on_pushButton_19_clicked()
-{
-    QString Name = ui->label_name_19->text();
-    if(Name!=""){
-       emit touch_InterfaceDataSignal(0xB00, QString::number(0xB13));
-        this->close();
-    }
-}
-
-
-void PopUpWindow04::on_pushButton_20_clicked()
-{
-    QString Name = ui->label_name_20->text();
-    if(Name!=""){
-        emit touch_InterfaceDataSignal(0xB00, QString::number(0xB14));
-        this->close();
-    }
-}
-
-
-void PopUpWindow04::on_pushButton_21_clicked()
-{
-    QString Name = ui->label_name_21->text();
-    if(Name!=""){
-        emit touch_InterfaceDataSignal(0xB00, QString::number(0xB15));
-        this->close();
-    }
-}
-
-
-void PopUpWindow04::on_pushButton_22_clicked()
-{
-    QString Name = ui->label_name_22->text();
-    if(Name!=""){
-        emit touch_InterfaceDataSignal(0xB00, QString::number(0xB16));
-        this->close();
-    }
-}
-
-
-void PopUpWindow04::on_pushButton_23_clicked()
-{
-    QString Name = ui->label_name_23->text();
-    if(Name!=""){
-        emit touch_InterfaceDataSignal(0xB00, QString::number(0xB17));
-        this->close();
-    }
-}
-
-
-void PopUpWindow04::on_pushButton_24_clicked()
-{
-    QString Name = ui->label_name_24->text();
-    if(Name!=""){
-       emit touch_InterfaceDataSignal(0xB00, QString::number(0xB18));
-        this->close();
-    }
-}
-
-
-void PopUpWindow04::on_pushButton_25_clicked()
-{
-    QString Name = ui->label_name_25->text();
-    if(Name!=""){
-        emit touch_InterfaceDataSignal(0xB00, QString::number(0xB19));
-        this->close();
-    }
-}
-
-
-void PopUpWindow04::on_pushButton_26_clicked()
-{
-    QString Name = ui->label_name_26->text();
-    if(Name!=""){
-        emit touch_InterfaceDataSignal(0xB00, QString::number(0xB1A));
-        this->close();
-    }
-}
-
-
-void PopUpWindow04::on_pushButton_27_clicked()
-{
-    QString Name = ui->label_name_27->text();
-    if(Name!=""){
-        emit touch_InterfaceDataSignal(0xB00, QString::number(0xB1B));
-        this->close();
-    }
-}
-
-
-void PopUpWindow04::on_pushButton_28_clicked()
-{
-    QString Name = ui->label_name_28->text();
-    if(Name!=""){
-        emit touch_InterfaceDataSignal(0xB00, QString::number(0xB1C));
-        this->close();
-    }
-}
-
-
-void PopUpWindow04::on_pushButton_29_clicked()
-{
-    QString Name = ui->label_name_29->text();
-    if(Name!=""){
-       emit touch_InterfaceDataSignal(0xB00, QString::number(0xB1D));
-        this->close();
-    }
-}
-
-
-void PopUpWindow04::on_pushButton_30_clicked()
-{
-    QString Name = ui->label_name_30->text();
-    if(Name!=""){
-        emit touch_InterfaceDataSignal(0xB00, QString::number(0xB1E));
-        this->close();
-    }
-}
-
-void PopUpWindow04::setStatus(int num)
-{
-    this->status = num;
-}
-
-int PopUpWindow04::getStatus()
-{
-    return this->status;
-}
-
-void PopUpWindow04::insertMap(QString Name)
-{
-    map.insert(mapIndex++,Name);
-}
-
-int PopUpWindow04::getMapIndex()
-{
-    return mapIndex;
-}
-
-int PopUpWindow04::getEndNumber(){
-    return endNumber;
-}
 void PopUpWindow04::addrSetPgmListInterfaceData(int addr_num, QString set_value){
 
 

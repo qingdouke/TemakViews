@@ -30,7 +30,6 @@ public:
     //int nindex = 0;
 
     bool eventFilter(QObject *watched, QEvent *event);
-    void programEditing_sendTo_mainWindow();
     QString getChooseProgram();
     QString getProgramName();
     QString getLowTempProtect();
@@ -39,10 +38,7 @@ public:
     void setProgramName(QString);
     void setLowTempProtect(QString);
     void setHighTempProtect(QString);
-    void inset(QString);
-    void InitProgram(int,QString);
 
-    void deal_popUpWindow04PushButtonClickedSignals(int,QString);
     void addrSetPgmEditInterfaceData(int, QString);
     void freezeOneSec();
 
@@ -78,23 +74,18 @@ private slots:
     void on_saving_pbtn_clicked();
     void on_loop_setting_pbtn_clicked();
     void on_new_program_pbtn_clicked();
-    void on_choose_program_pushButton_clicked();
 
     void on_delete_program_pbtn_clicked();
 
-public slots:
-    void creatNewProgramClicked();
-    void deleteProgramClicked();
-    void insertClicked();
-    void deleteClicked();
+
+    void on_insert_pbtn_clicked();
+
+    void on_delete_program_clicked();
+
+    void on_font_page_pbtn_clicked();
 
 signals:
-    void programEditing_to_mainWindow();
-    void creatNewProgramClickedSignals();
-    void deleteProgramClickedSignals();
-    void insertClickedSignals();
-    void deleteClickedSignals();
-    void programEditingChooseProgramSignals(int,QString);
+    void programEditing_to_mainWindow();    
 
     void Request_Use_Keyboard_Signal(int);
     void Request_Use_Calculate_Signal(int);

@@ -228,17 +228,17 @@ Curve_Monitoring::Curve_Monitoring(QWidget *parent) :
     ui->CurveWidget->yAxis2->ticker()->setTickCount(11);
 
     //测试曲线
-    num = 12;
+    curve_numb = 12;
     size = 1000;
-    xdata.resize(num);
-    data.resize(num);
-    for(int i=0 ; i<num ; i++)
+    xdata.resize(curve_numb);
+    ydata.resize(curve_numb);
+    for(int i=0 ; i<curve_numb ; i++)
     {
         xdata[i].resize(size);
-        data[i].resize(size);
+        ydata[i].resize(size);
     }
     startTime = "2023-3-28 08:42:44";
-    dataInfoSize = num*2+3;
+    dataInfoSize = curve_numb*2+3;
     dataInfo = new double[dataInfoSize];
     dataInfo[0] = 0.01;
     dataInfo[1] = 0;
@@ -247,7 +247,7 @@ Curve_Monitoring::Curve_Monitoring(QWidget *parent) :
     dataInfo[4] = 1;
     dataInfo[5] = -5;
     dataInfo[6] = 5;
-    axisInfo = new QString[num];
+    axisInfo = new QString[curve_numb];
     axisInfo[0] = "Temperature(°C)";
     axisInfo[1] = "Humidity(%)";
     status=1;
@@ -266,20 +266,20 @@ Curve_Monitoring::Curve_Monitoring(QWidget *parent) :
         xdata[9][i] = i*1.0/100*1.0;
         xdata[10][i] = i*1.0/100*1.0;
         xdata[11][i] = i*1.0/100*1.0;
-        data[0][i] = sin(i*1.0/100*1.0);
-        data[1][i] = cos(i*1.0/100*1.0);
-        data[2][i] = asin((i*1.0/100*1.0));
-        data[3][i] = acos((i*1.0/100*1.0));
-        data[4][i] = tan((i*1.0/100*1.0));
-        data[5][i] = atan((i*1.0/100*1.0));
-        data[6][i] = sin((i*1.0/100*1.0)+1);
-        data[7][i] = cos((i*1.0/100*1.0)+1);
-        data[8][i] = asin((i*1.0/100*1.0)+1);
-        data[9][i] = acos((i*1.0/100*1.0)+1);
-        data[10][i] = tan((i*1.0/100*1.0)+1);
-        data[11][i] = atan((i*1.0/100*1.0)+1);
+        ydata[0][i] = sin(i*1.0/100*1.0);
+        ydata[1][i] = cos(i*1.0/100*1.0);
+        ydata[2][i] = asin((i*1.0/100*1.0));
+        ydata[3][i] = acos((i*1.0/100*1.0));
+        ydata[4][i] = tan((i*1.0/100*1.0));
+        ydata[5][i] = atan((i*1.0/100*1.0));
+        ydata[6][i] = sin((i*1.0/100*1.0)+1);
+        ydata[7][i] = cos((i*1.0/100*1.0)+1);
+        ydata[8][i] = asin((i*1.0/100*1.0)+1);
+        ydata[9][i] = acos((i*1.0/100*1.0)+1);
+        ydata[10][i] = tan((i*1.0/100*1.0)+1);
+        ydata[11][i] = atan((i*1.0/100*1.0)+1);
     }
-    this->draw(num,size,xdata,data,startTime,dataInfo,axisInfo,status);
+    this->draw(curve_numb,size,xdata,ydata,startTime,dataInfo,axisInfo,status);
     curveTimer = new QTimer(this);
     curveTimer->start(200);
 
@@ -660,16 +660,16 @@ void Curve_Monitoring::freezeOneSec()
 
 /*
  * Param:
- * num 曲线条数
+ * curve_numb 曲线条数
  * size 数据数量
  * xdata x轴数据 xdata[a][b] a为曲线index b为数据位
- * data y轴数据 data[a][b] a为曲线index b为数据位
+ * ydata y轴数据 ydata[a][b] a为曲线index b为数据位
  * startTime 格式为yy-MM-dd hh:mm:ss的起始时间
- * dataInfo 大小为num+3 存储了间隔时间 x轴 y轴范围 固定[0]为间隔时间 后每两个存储空间为轴范围 顺序为 x轴 y1轴 y2轴.....
- * axisInfo 大小为num 轴信息 依次对应y1轴 y2轴
+ * dataInfo 大小为curve_numb+3 存储了间隔时间 x轴 y轴范围 固定[0]为间隔时间 后每两个存储空间为轴范围 顺序为 x轴 y1轴 y2轴.....
+ * axisInfo 大小为curve_numb 轴信息 依次对应y1轴 y2轴
  * status 曲线状态 1为静态 2为动态
  */
-void Curve_Monitoring::draw(int num,int size,QVector<QVector<double>> xdata,QVector<QVector<double>> data,QString startTime,double* dataInfo,QString* axisInfo,int status)
+void Curve_Monitoring::draw(int num,int size,QVector<QVector<double>> xdata,QVector<QVector<double>> ydata,QString startTime,double* dataInfo,QString* axisInfo,int status)
 {
     startTime = startTime;
     axisInfo = axisInfo;
@@ -699,7 +699,7 @@ void Curve_Monitoring::draw(int num,int size,QVector<QVector<double>> xdata,QVec
             graphPen.setWidth(2);
             ui->CurveWidget->graph(i)->setPen(graphPen);
             ui->CurveWidget->graph(i)->setAntialiasedFill(true);
-            ui->CurveWidget->graph(i)->addData(xdata[i],data[i]);
+            ui->CurveWidget->graph(i)->addData(xdata[i],ydata[i]);
         }
         ui->CurveWidget->replot();
         break;
@@ -712,32 +712,32 @@ void Curve_Monitoring::draw(int num,int size,QVector<QVector<double>> xdata,QVec
 //动态曲线测试
 void Curve_Monitoring::trendDraw()
 {
-    for(int i=0 ; i<num ; i++)
+    for(int i=0 ; i<curve_numb ; i++)
     {
         xdata[i].removeAt(0);
-        data[i].removeAt(0);
+        ydata[i].removeAt(0);
     }
     endSize++;
-    for(int i=0 ; i<num ; i++)
+    for(int i=0 ; i<curve_numb ; i++)
     {
         xdata[i].append(endSize*1.0/100*1.0);
     }
-    data[0].append(sin(endSize*1.0/100*1.0));
-    data[1].append(cos(endSize*1.0/100*1.0));
-    data[2].append(asin(endSize*1.0/100*1.0));
-    data[3].append(acos(endSize*1.0/100*1.0));
-    data[4].append(tan(endSize*1.0/100*1.0));
-    data[5].append(atan(endSize*1.0/100*1.0));
-    data[6].append(sin(endSize*1.0/100*1.0+1));
-    data[7].append(cos(endSize*1.0/100*1.0+1));
-    data[8].append(asin(endSize*1.0/100*1.0+1));
-    data[9].append(acos(endSize*1.0/100*1.0+1));
-    data[10].append(tan(endSize*1.0/100*1.0+1));
-    data[11].append(atan(endSize*1.0/100*1.0+1));
+    ydata[0].append(sin(endSize*1.0/100*1.0));
+    ydata[1].append(cos(endSize*1.0/100*1.0));
+    ydata[2].append(asin(endSize*1.0/100*1.0));
+    ydata[3].append(acos(endSize*1.0/100*1.0));
+    ydata[4].append(tan(endSize*1.0/100*1.0));
+    ydata[5].append(atan(endSize*1.0/100*1.0));
+    ydata[6].append(sin(endSize*1.0/100*1.0+1));
+    ydata[7].append(cos(endSize*1.0/100*1.0+1));
+    ydata[8].append(asin(endSize*1.0/100*1.0+1));
+    ydata[9].append(acos(endSize*1.0/100*1.0+1));
+    ydata[10].append(tan(endSize*1.0/100*1.0+1));
+    ydata[11].append(atan(endSize*1.0/100*1.0+1));
     double temp = dataInfo[1];
     dataInfo[1] = temp+dataInfo[0];
     dataInfo[2] = endSize*1.0/100*1.0;
-    this->draw(num,size,xdata,data,startTime,dataInfo,axisInfo,status);
+    this->draw(curve_numb,size,xdata,ydata,startTime,dataInfo,axisInfo,status);
 }
 void Curve_Monitoring::addrSetCurveInterfaceData(int addr_num, QString set_value){
 

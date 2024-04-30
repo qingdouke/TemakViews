@@ -335,8 +335,6 @@ Output_Monitoring::Output_Monitoring(QWidget *parent) :
     connect(&popUpWindow03,&PopUpWindow03::popWindow03PushButtonYESClickedSignal,this,&Output_Monitoring::deal_popUpWindow03PushButtonYESClickedSignal);
     connect(&popUpWindow04,&PopUpWindow04::popUpWindow04WithoutDataSignals,this,&Output_Monitoring::deal_popUpWindow04WithoutDataSignals);
 
-    //数据处理
-    connect(&popUpWindow04,&PopUpWindow04::popUpWindow04ButtonClickedSignals,this,&Output_Monitoring::deal_popUpWindow04PushButtonClickedSignals);
 }
 
 Output_Monitoring::~Output_Monitoring()
@@ -658,7 +656,7 @@ void Output_Monitoring::setTableItem(int index,int row,int col,QString strs){
 */
 void Output_Monitoring::outputMonitoring_sendTo_mainWindow(){
     emit outputMonitoring_to_mainWindow();
-    emit touch_InterfaceDataSignal(addr_touch_pageturn_pbtn, QString::number(MAIN_PAGE));
+    //emit touch_InterfaceDataSignal(addr_touch_pageturn_pbtn, QString::number(MAIN_PAGE));
 }
 
 /*
@@ -669,7 +667,7 @@ void Output_Monitoring::outputMonitoring_sendTo_mainWindow(){
 */
 void Output_Monitoring::outputMonitoring_sendTo_monitoringInterface(){
     emit outputMonitoring_to_monitoringInterface();
-    emit touch_InterfaceDataSignal(addr_touch_pageturn_pbtn, QString::number(STATE_MONITOR));
+    //emit touch_InterfaceDataSignal(addr_touch_pageturn_pbtn, QString::number(STATE_MONITOR));
 }
 
 /*
@@ -680,8 +678,7 @@ void Output_Monitoring::outputMonitoring_sendTo_monitoringInterface(){
 */
 void Output_Monitoring::outputMonitoring_sendTo_curveMonitoring(){
     emit outputMonitoring_to_curveMonitoring();
-    emit touch_InterfaceDataSignal(addr_touch_pageturn_pbtn, QString::number(CURE_SHOW));
-
+    //emit touch_InterfaceDataSignal(addr_touch_pageturn_pbtn, QString::number(CURE_SHOW));
 }
 
 QString Output_Monitoring::getTestTemperaturePV(){
@@ -791,10 +788,7 @@ void Output_Monitoring::on_running_pbtn_clicked()
 
 
 void Output_Monitoring::on_loading_pbtn_clicked()
-{
-    popUpWindow04.move(0,0);
-    popUpWindow04.setStatus(0);
-    popUpWindow04.show();
+{    
     emit touch_InterfaceDataSignal(addr_touch_load_pbtn,"0");
 }
 
@@ -824,17 +818,6 @@ void Output_Monitoring::deal_popUpWindow04WithoutDataSignals(int WIDTH,int HEIGH
     popUpWindow05.centerShow(WIDTH,HEIGHT);
 }
 
-void Output_Monitoring::InitProgram(int ID,QString Name)
-{
-    ID = ID;
-    printf("—————Output_Monitorin———————InitProgram——————/n");
-    ui->program_name_edit->setText(Name);
-}
-
-void Output_Monitoring::deal_popUpWindow04PushButtonClickedSignals(int ID,QString Name)
-{
-    emit outputMonitoringChooseProgramSignals(ID,Name);
-}
 
 void Output_Monitoring::freezeOneSec()
 {

@@ -83,7 +83,6 @@ public:
     void setServerPercent(QString);
 
     void setCurrentReceive(QString);
-    void InitProgram(int,QString);
 
     bool eventFilter(QObject *watched, QEvent *event);
     void outputMonitoring_sendTo_monitoringInterface();
@@ -94,7 +93,6 @@ public:
     void deal_popUpWindow02PushButtonOKClickedSignal();
     void deal_popUpWindow03PushButtonYESClickedSignal();
     void deal_popUpWindow04WithoutDataSignals(int,int);
-    void deal_popUpWindow04PushButtonClickedSignals(int,QString);
     void setRunningPBtnState(bool);
     QString getPgmTableHMS(int);
     void freezeOneSec();
@@ -169,7 +167,6 @@ public slots:
 
 private slots:
     void currentTime();
-
 
 signals:
     void outputMonitoring_to_monitoringInterface();

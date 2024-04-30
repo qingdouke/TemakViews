@@ -992,6 +992,9 @@
     <property name="text">
      <string>Light</string>
     </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QPushButton" name="reset_pbth">
     <property name="geometry">

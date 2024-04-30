@@ -44,6 +44,8 @@ private slots:
     void on_baudrate_10k_checkBox_clicked();
     void on_baudrate_5k_checkBox_clicked();
     void on_baudrate_2k_checkBox_clicked();
+    void on_font_page_pbtn_clicked();
+    void on_previous_page_pbtn_clicked();
 };
 
 #endif // CANSET_H

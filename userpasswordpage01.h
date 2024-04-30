@@ -16,20 +16,14 @@ public:
     explicit UserPasswordPage01(QWidget *parent = nullptr);
     ~UserPasswordPage01();
 
-    bool eventFilter(QObject *watched, QEvent *event);
-    void setCurrentPassword(QString);
-    QString getCurrentPassword();
-    void setTempPassword(QString);
-    QString getTempPassword();
-    void setConfirmPassword(QString);
-    QString getConfirmPassword();
-    void setPasswordLineEdit(QString);
-    QString getPasswordLineEdit();
+    bool eventFilter(QObject *watched, QEvent *event);  
 
     void userPasswordPage01_sendTo_mainWindow();
     void userPasswordPage01_sendTo_userPasswordPage02();
-
     void freezeOneSec();
+    void addrSetUserPsdInterfaceData(int , QString );
+
+
 private:
     Ui::UserPasswordPage01 *ui;
     bool isChangingPassword = false;
@@ -40,8 +34,29 @@ private:
 
 private slots:
     void currentTime();
-    void on_confirm_pushButton_clicked();
 
+
+    void on_monitor_checkBox_clicked();
+
+    void on_pgm_monitor_checkBox_clicked();
+
+    void on_sick_checkBox_clicked();
+
+    void on_recorder_checkBox_clicked();
+
+    void on_edit_pgm_checkBox_clicked();
+
+    void on_pgm_cycle_checkBox_clicked();
+
+    void on_one_poinit_checkBox_clicked();
+
+    void on_param_set_checkBox_clicked();
+
+    void on_continue_checkBox_clicked();
+
+    void on_again_checkBox_clicked();
+
+    void on_stop_checkBox_clicked();
 
 signals:
     void userPasswordPage01_to_mainWindow();

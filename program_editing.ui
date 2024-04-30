@@ -1605,40 +1605,16 @@
      <string>Delete Sgm</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="choose_program_pushButton">
+   <widget class="QCustomPlot" name="CurveWidget" native="true">
     <property name="geometry">
      <rect>
-      <x>1010</x>
-      <y>100</y>
-      <width>191</width>
-      <height>41</height>
+      <x>40</x>
+      <y>50</y>
+      <width>841</width>
+      <height>361</height>
      </rect>
     </property>
-    <property name="text">
-     <string/>
-    </property>
    </widget>
-   <zorder>choose_program_label</zorder>
-   <zorder>program_name_label</zorder>
-   <zorder>highTemp_protect_label</zorder>
-   <zorder>lowTemp_protect_label</zorder>
-   <zorder>choose_program_edit</zorder>
-   <zorder>program_name_edit</zorder>
-   <zorder>highTemp_protect_edit</zorder>
-   <zorder>lowTemp_protect_edit</zorder>
-   <zorder>Step_box</zorder>
-   <zorder>lastPage_pbtn</zorder>
-   <zorder>nextPage_pbtn</zorder>
-   <zorder>firstPage_pbtn</zorder>
-   <zorder>endPage_pbtn</zorder>
-   <zorder>new_program_pbtn</zorder>
-   <zorder>delete_program_pbtn</zorder>
-   <zorder>insert_pbtn</zorder>
-   <zorder>delete_program</zorder>
-   <zorder>choose_program_pushButton</zorder>
-   <zorder>label_step</zorder>
-   <zorder>label_temp</zorder>
-   <zorder>label_humi</zorder>
   </widget>
   <widget class="QWidget" name="Footer" native="true">
    <property name="geometry">
@@ -1844,6 +1820,14 @@
    </widget>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

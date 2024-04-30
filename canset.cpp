@@ -84,26 +84,12 @@ CANSET::CANSET(QWidget *parent) :
     ui->set_form_line_3->setStyleSheet("QLabel#set_form_line_3{background-color:rgb(72,129,52)}");
     ui->set_form_line_4->setStyleSheet("QLabel#set_form_line_4{background-color:rgb(72,129,52)}");
     ui->set_form_line_5->setStyleSheet("QLabel#set_form_line_5{background-color:rgb(72,129,52)}");
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
-
-    //页面跳转
-    connect(ui->font_page_pbtn,&QPushButton::clicked,this,&CANSET::canset_sendTo_mainWindow);
-    connect(ui->previous_page_pbtn,&QPushButton::clicked,this,&CANSET::canset_sendTo_parameterSetting);
+    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;    
 }
 
 CANSET::~CANSET()
 {
     delete ui;
-}
-
-void CANSET::canset_sendTo_mainWindow()
-{
-    emit canset_to_mainWindow();
-}
-
-void CANSET::canset_sendTo_parameterSetting()
-{
-    emit canset_to_parameterSetting();
 }
 
 
@@ -311,4 +297,15 @@ void CANSET::on_baudrate_5k_checkBox_clicked()
 void CANSET::on_baudrate_2k_checkBox_clicked()
 {
     emit touch_InterfaceDataSignal(0x92B,"0");
+}
+
+void CANSET::on_font_page_pbtn_clicked()
+{
+    emit canset_to_mainWindow();
+
+}
+
+void CANSET::on_previous_page_pbtn_clicked()
+{
+    emit canset_to_parameterSetting();
 }

@@ -196,15 +196,17 @@ MainWindow::MainWindow(QWidget *parent)
     connect(&userPasswordPage02,&UserPasswordPage02::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
     connect(&userPasswordPage03,&UserPasswordPage03::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
     connect(&internal_param_set_page,&InternalParamSet::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
-
-    //数据处理
-    connect(&monitoring_interface_page,&Monitoring_Interface::monitoring_interface_choose_program,this,&MainWindow::deal_ChooseProgramSignals);
-    connect(&output_monitoring_page,&Output_Monitoring::outputMonitoringChooseProgramSignals,this,&MainWindow::deal_ChooseProgramSignals);
-    connect(&program_editing_page,&Program_Editing::programEditingChooseProgramSignals,this,&MainWindow::deal_ChooseProgramSignals);
+    //connect(&popUpWindow01,&PopUpWindow01::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
+    //connect(&popUpWindow02,&PopUpWindow02::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
+   // connect(&popUpWindow03,&PopUpWindow03::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
+    connect(&popUpWindow04,&PopUpWindow04::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
+   // connect(&popUpWindow05,&PopUpWindow05::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
+    //connect(&popUpWindow06,&PopUpWindow06::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
+    //connect(&popUpWindow07,&PopUpWindow07::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
 
     //线程处理
-    connect(this,&MainWindow::InitDataThread01,readData01,&Data::dataFunction);
-    connect(this,&MainWindow::InitDataThread02,readData02,&Data::dataFunction);
+    //connect(this,&MainWindow::InitDataThread01,readData01,&Data::dataFunction);
+   // connect(this,&MainWindow::InitDataThread02,readData02,&Data::dataFunction);
     connect(readData01,&Data::updateInterfaceNumberSignal,this,&MainWindow::deal_updateInterfaceNumber);
     connect(readData02,&Data::updateInterfaceNumberSignal,this,&MainWindow::deal_updateInterfaceNumber);
 
@@ -242,20 +244,22 @@ void MainWindow::currentTime(){
 */
 void MainWindow::on_pBtn_1_clicked()
 {
-    QMutexLocker locker(&page_mutex);
-    monitoring_interface_page.move(0,0);
-    monitoring_interface_page.show();
-    current_Page = STATE_MONITOR;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    //线程启动
-    this->dataThreadInit(current_Page);
-    monitoring_interface_page.freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    qDebug() <<"on_pBtn_1_clicked end";
-    this->hide();
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(STATE_MONITOR));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = STATE_MONITOR;
+        QMutexLocker locker(&page_mutex);
+        monitoring_interface_page.move(0,0);
+        monitoring_interface_page.show();
+        //线程启动
+        this->dataThreadInit(current_Page);
+        monitoring_interface_page.freezeOneSec();
+        qDebug() <<"on_pBtn_1_clicked end";
+        this->hide();
+    }
 }
 void MainWindow:: on_pBtn_1_pressed()
 {
@@ -269,19 +273,26 @@ void MainWindow:: on_pBtn_1_pressed()
  * influence: this
 */
 void MainWindow::deal_monitoring_interface_to_mainwindow(){
-    QMutexLocker locker(&page_mutex);
-    this->move(0,0);
-    this->show();
-    current_Page = MAIN_PAGE;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    this->freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    qDebug() <<"deal_monitoring_interface_to_mainwindow end";
-    monitoring_interface_page.hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(MAIN_PAGE));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = MAIN_PAGE;
+        QMutexLocker locker(&page_mutex);
+        this->move(0,0);
+        this->show();
+        this->dataThreadInit(current_Page);
+        this->freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        qDebug() <<"deal_monitoring_interface_to_mainwindow end";
+        monitoring_interface_page.hide();
+    }
 }
 
 /*
@@ -292,18 +303,25 @@ void MainWindow::deal_monitoring_interface_to_mainwindow(){
 */
 void MainWindow::on_pBtn_2_clicked()
 {
-    QMutexLocker locker(&page_mutex);
-    output_monitoring_page.move(0,0);
-    output_monitoring_page.show();
-    current_Page = OUTPUT_MONITOR;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    output_monitoring_page.freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    this->hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(OUTPUT_MONITOR));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = OUTPUT_MONITOR;
+        QMutexLocker locker(&page_mutex);
+        output_monitoring_page.move(0,0);
+        output_monitoring_page.show();
+        this->dataThreadInit(current_Page);
+        output_monitoring_page.freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        this->hide();
+    }
 
 }
 
@@ -314,18 +332,25 @@ void MainWindow::on_pBtn_2_clicked()
  * influence: this
 */
 void MainWindow::deal_outputMonitoring_to_mainWindow(){
-    QMutexLocker locker(&page_mutex);
-    this->move(0,0);
-    this->show();
-    current_Page = MAIN_PAGE;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    this->freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    output_monitoring_page.hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(MAIN_PAGE));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = MAIN_PAGE;
+        QMutexLocker locker(&page_mutex);
+        this->move(0,0);
+        this->show();
+        this->dataThreadInit(current_Page);
+        this->freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        output_monitoring_page.hide();
+    }
 }
 
 /*
@@ -335,14 +360,21 @@ void MainWindow::deal_outputMonitoring_to_mainWindow(){
  * influence: this
 */
 void MainWindow::deal_outputMonitoring_to_monitoringInterface(){
-    QMutexLocker locker(&page_mutex);
-    monitoring_interface_page.move(0,0);
-    monitoring_interface_page.show();
-    current_Page = STATE_MONITOR;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-   this->dataThreadInit(current_Page);
-    monitoring_interface_page.freezeOneSec();    
-    output_monitoring_page.hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(STATE_MONITOR));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = STATE_MONITOR;
+        QMutexLocker locker(&page_mutex);
+        monitoring_interface_page.move(0,0);
+        monitoring_interface_page.show();
+        this->dataThreadInit(current_Page);
+        monitoring_interface_page.freezeOneSec();
+        output_monitoring_page.hide();
+    }
 }
 
 /*
@@ -352,17 +384,24 @@ void MainWindow::deal_outputMonitoring_to_monitoringInterface(){
  * influence: this
 */
 void MainWindow::deal_monitoringInterface_to_outputMonitoring(){
-    QMutexLocker locker(&page_mutex);
-    output_monitoring_page.move(0,0);
-    output_monitoring_page.show();
-    current_Page = OUTPUT_MONITOR;
-    this->dataThreadInit(current_Page);
-    output_monitoring_page.freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    monitoring_interface_page.hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(OUTPUT_MONITOR));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = OUTPUT_MONITOR;
+        QMutexLocker locker(&page_mutex);
+        output_monitoring_page.move(0,0);
+        output_monitoring_page.show();
+        output_monitoring_page.freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        monitoring_interface_page.hide();
+    }
 }
 
 /*
@@ -373,18 +412,25 @@ void MainWindow::deal_monitoringInterface_to_outputMonitoring(){
 */
 void MainWindow::on_pBtn_3_clicked()
 {
-    QMutexLocker locker(&page_mutex);
-    curve_monitoring_page.move(0,0);
-    curve_monitoring_page.show();
-    current_Page = CURE_SHOW;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    curve_monitoring_page.freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    this->hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(CURE_SHOW));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = CURE_SHOW;
+        QMutexLocker locker(&page_mutex);
+        curve_monitoring_page.move(0,0);
+        curve_monitoring_page.show();
+        this->dataThreadInit(current_Page);
+        curve_monitoring_page.freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        this->hide();
+    }
 }
 
 
@@ -395,18 +441,26 @@ void MainWindow::on_pBtn_3_clicked()
  * influence: this
 */
 void MainWindow::deal_curveMonitoring_to_mainWindow(){
-    QMutexLocker locker(&page_mutex);
-    this->move(0,0);
-    this->show();
-    current_Page = MAIN_PAGE;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    this->freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    curve_monitoring_page.hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(MAIN_PAGE));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = MAIN_PAGE;
+        QMutexLocker locker(&page_mutex);
+        this->move(0,0);
+        this->show();
+        this->dataThreadInit(current_Page);
+        this->freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        curve_monitoring_page.hide();
+    }
+
 }
 
 /*
@@ -416,18 +470,25 @@ void MainWindow::deal_curveMonitoring_to_mainWindow(){
  * influence: this
 */
 void MainWindow::deal_curveMonitoring_to_outputMonitoring(){
-    QMutexLocker locker(&page_mutex);
-    output_monitoring_page.move(0,0);
-    output_monitoring_page.show();
-    current_Page = OUTPUT_MONITOR;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    output_monitoring_page.freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    curve_monitoring_page.hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(OUTPUT_MONITOR));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = OUTPUT_MONITOR;
+        QMutexLocker locker(&page_mutex);
+        output_monitoring_page.move(0,0);
+        output_monitoring_page.show();
+        this->dataThreadInit(current_Page);
+        output_monitoring_page.freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        curve_monitoring_page.hide();
+    }
 }
 
 /*
@@ -437,18 +498,25 @@ void MainWindow::deal_curveMonitoring_to_outputMonitoring(){
  * influence: this
 */
 void MainWindow::deal_outputMonitoring_to_curveMonitoring(){
-    QMutexLocker locker(&page_mutex);
-    curve_monitoring_page.move(0,0);
-    curve_monitoring_page.show();
-    current_Page = CURE_SHOW;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    curve_monitoring_page.freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    output_monitoring_page.hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(CURE_SHOW));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = CURE_SHOW;
+        QMutexLocker locker(&page_mutex);
+        curve_monitoring_page.move(0,0);
+        curve_monitoring_page.show();
+        this->dataThreadInit(current_Page);
+        curve_monitoring_page.freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        output_monitoring_page.hide();
+    }
 }
 
 /*
@@ -459,18 +527,25 @@ void MainWindow::deal_outputMonitoring_to_curveMonitoring(){
 */
 void MainWindow::on_pBtn_4_clicked()
 {
-    QMutexLocker locker(&page_mutex);
-    program_editing_page.move(0,0);
-    program_editing_page.show();
-    current_Page = PGM_EDIT;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    program_editing_page.freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    this->hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(PGM_EDIT));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = PGM_EDIT;
+        QMutexLocker locker(&page_mutex);
+        program_editing_page.move(0,0);
+        program_editing_page.show();
+        this->dataThreadInit(current_Page);
+        program_editing_page.freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        this->hide();
+    }
 }
 
 /*
@@ -480,18 +555,25 @@ void MainWindow::on_pBtn_4_clicked()
  * influence: this
 */
 void MainWindow::deal_programEditing_to_mainWindow(){
-    QMutexLocker locker(&page_mutex);
-    this->move(0,0);
-    this->show();
-    current_Page = MAIN_PAGE;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    this->freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    program_editing_page.hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(MAIN_PAGE));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = MAIN_PAGE;
+        QMutexLocker locker(&page_mutex);
+        this->move(0,0);
+        this->show();
+        this->dataThreadInit(current_Page);
+        this->freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        program_editing_page.hide();
+    }
 }
 
 /*
@@ -502,18 +584,25 @@ void MainWindow::deal_programEditing_to_mainWindow(){
 */
 void MainWindow::on_pBtn_5_clicked()
 {
-    QMutexLocker locker(&page_mutex);
-    program_loop_page.move(0,0);
-    program_loop_page.show();
-    current_Page = PGM_CYCLE;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    program_loop_page.freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    this->hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(PGM_CYCLE));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = PGM_CYCLE;
+        QMutexLocker locker(&page_mutex);
+        program_loop_page.move(0,0);
+        program_loop_page.show();
+        this->dataThreadInit(current_Page);
+        program_loop_page.freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        this->hide();
+    }
 }
 
 /*
@@ -523,18 +612,21 @@ void MainWindow::on_pBtn_5_clicked()
  * influence: this
 */
 void MainWindow::deal_programLoop_to_mainWindow(){
-    QMutexLocker locker(&page_mutex);
-    this->move(0,0);
-    this->show();
-    current_Page = MAIN_PAGE;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    this->freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    program_loop_page.hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(MAIN_PAGE));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = MAIN_PAGE;
+        QMutexLocker locker(&page_mutex);
+        this->move(0,0);
+        this->show();
+        this->dataThreadInit(current_Page);
+        this->freezeOneSec();
+        program_loop_page.hide();
+    }
 }
 
 /*
@@ -544,18 +636,25 @@ void MainWindow::deal_programLoop_to_mainWindow(){
  * influence: this
 */
 void MainWindow::deal_programLoop_to_programEditing(){
-    QMutexLocker locker(&page_mutex);
-    program_editing_page.move(0,0);
-    program_editing_page.show();
-    current_Page = PGM_EDIT;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    program_editing_page.freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    program_loop_page.hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(PGM_EDIT));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = PGM_EDIT;
+        QMutexLocker locker(&page_mutex);
+        program_editing_page.move(0,0);
+        program_editing_page.show();
+        this->dataThreadInit(current_Page);
+        program_editing_page.freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        program_loop_page.hide();
+    }
 }
 
 /*
@@ -566,18 +665,25 @@ void MainWindow::deal_programLoop_to_programEditing(){
 */
 void MainWindow::on_pBtn_6_clicked()
 {
-    QMutexLocker locker(&page_mutex);
-    fixed_value_setting_page.move(0,0);
-    fixed_value_setting_page.show();
-    current_Page = FIXED_FUN;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    fixed_value_setting_page.freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    this->hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(FIXED_FUN));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = FIXED_FUN;
+        QMutexLocker locker(&page_mutex);
+        fixed_value_setting_page.move(0,0);
+        fixed_value_setting_page.show();
+        this->dataThreadInit(current_Page);
+        fixed_value_setting_page.freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        this->hide();
+    }
 }
 
 /*
@@ -587,14 +693,21 @@ void MainWindow::on_pBtn_6_clicked()
  * influence: this
 */
 void MainWindow::deal_fixedValueSetting_to_mainWindow(){
-    QMutexLocker locker(&page_mutex);
-    fixed_value_setting_page.hide();
-    current_Page = MAIN_PAGE;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->move(0,0);
-    this->show();
-    this->dataThreadInit(current_Page);
-    this->freezeOneSec();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(MAIN_PAGE));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = MAIN_PAGE;
+        QMutexLocker locker(&page_mutex);
+        fixed_value_setting_page.hide();
+        this->move(0,0);
+        this->show();
+        this->dataThreadInit(current_Page);
+        this->freezeOneSec();
+    }
 }
 
 /*
@@ -604,18 +717,25 @@ void MainWindow::deal_fixedValueSetting_to_mainWindow(){
  * influence: this
 */
 void MainWindow::deal_fixedValueSetting_to_programLoop(){
-    QMutexLocker locker(&page_mutex);
-    program_loop_page.move(0,0);
-    program_loop_page.show();
-    current_Page = PGM_CYCLE;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    program_loop_page.freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    fixed_value_setting_page.hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(PGM_CYCLE));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = PGM_CYCLE;
+        QMutexLocker locker(&page_mutex);
+        program_loop_page.move(0,0);
+        program_loop_page.show();
+        this->dataThreadInit(current_Page);
+        program_loop_page.freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        fixed_value_setting_page.hide();
+    }
 }
 
 /*
@@ -625,18 +745,25 @@ void MainWindow::deal_fixedValueSetting_to_programLoop(){
  * influence: this
 */
 void MainWindow::deal_programLoop_to_fixedValueSetting(){
-    QMutexLocker locker(&page_mutex);
-    fixed_value_setting_page.move(0,0);
-    fixed_value_setting_page.show();
-    current_Page = FIXED_FUN;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    fixed_value_setting_page.freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    program_loop_page.hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(FIXED_FUN));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = FIXED_FUN;
+        QMutexLocker locker(&page_mutex);
+        fixed_value_setting_page.move(0,0);
+        fixed_value_setting_page.show();
+        this->dataThreadInit(current_Page);
+        fixed_value_setting_page.freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        program_loop_page.hide();
+    }
 }
 
 /*
@@ -647,18 +774,25 @@ void MainWindow::deal_programLoop_to_fixedValueSetting(){
 */
 void MainWindow::on_pBtn_7_clicked()
 {
-    QMutexLocker locker(&page_mutex);
-    parameter_setting_page.move(0,0);
-    parameter_setting_page.show();
-    current_Page = PARAM_SET;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    parameter_setting_page.freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    this->hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(PARAM_SET));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = PARAM_SET;
+        QMutexLocker locker(&page_mutex);
+        parameter_setting_page.move(0,0);
+        parameter_setting_page.show();
+        this->dataThreadInit(current_Page);
+        parameter_setting_page.freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        this->hide();
+    }
 }
 
 /*
@@ -669,17 +803,20 @@ void MainWindow::on_pBtn_7_clicked()
 */
 void MainWindow::on_pBtn_8_clicked()
 {
-    QMutexLocker locker(&page_mutex);
-    error_log_page.move(0,0);
-    error_log_page.show();
-    current_Page = ERR_LOG_PAGE;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    QTime dieTime = QTime::currentTime().addMSecs(100);
-    while(QTime::currentTime()<dieTime){
-        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(ERR_LOG_PAGE));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = ERR_LOG_PAGE;
+        QMutexLocker locker(&page_mutex);
+        error_log_page.move(0,0);
+        error_log_page.show();
+        this->dataThreadInit(current_Page);
+        this->hide();
     }
-    this->hide();
 }
 
 /*
@@ -689,18 +826,25 @@ void MainWindow::on_pBtn_8_clicked()
  * influence: this
 */
 void MainWindow::deal_errorLog_to_mainWindow(){
-    QMutexLocker locker(&page_mutex);
-    this->move(0,0);
-    this->show();
-    current_Page = MAIN_PAGE;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    this->freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents,100);
-    //    }
-    error_log_page.hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(MAIN_PAGE));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = MAIN_PAGE;
+        QMutexLocker locker(&page_mutex);
+        this->move(0,0);
+        this->show();
+        this->dataThreadInit(current_Page);
+        this->freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents,100);
+        //    }
+        error_log_page.hide();
+    }
 }
 
 /*
@@ -710,13 +854,17 @@ void MainWindow::deal_errorLog_to_mainWindow(){
  * influence: this
 */
 void MainWindow::on_login_clicked()
-{
-    keyboard.hide();
-    keyboard.move((this->width()-keyboard.width())/2,(this->height()-keyboard.height())/2);
-    keyboard.Clean_Keyboard_LineEdit();
+{    
     keyboard.Clean_Keyboard_CapsLock();
+    keyboard.Clean_Keyboard_LineEdit();
+   /*eyboard.hide();
+    QTime dieTime = QTime::currentTime().addMSecs(100);
+    while(QTime::currentTime()<dieTime){
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    }*/
+    keyboard.move((this->width()-keyboard.width())/2,(this->height()-keyboard.height())/2);
     keyboard.show();
-    current_ID = -1;
+    current_ID = 0xF00;
 }
 
 
@@ -727,18 +875,25 @@ void MainWindow::on_login_clicked()
  * influence: this
 */
 void MainWindow::deal_parameterSetting_to_mainWindow(){
-    QMutexLocker locker(&page_mutex);
-    this->move(0,0);
-    this->show();
-    current_Page = MAIN_PAGE;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    this->freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    parameter_setting_page.hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(MAIN_PAGE));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = MAIN_PAGE;
+        QMutexLocker locker(&page_mutex);
+        this->move(0,0);
+        this->show();
+        this->dataThreadInit(current_Page);
+        this->freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        parameter_setting_page.hide();
+    }
 }
 
 /*
@@ -748,18 +903,24 @@ void MainWindow::deal_parameterSetting_to_mainWindow(){
  * influence: this
 */
 void MainWindow::deal_parameterSetting_to_CANSET(){
-    QMutexLocker locker(&page_mutex);
-    canset_page.move(0,0);
-    canset_page.show();
-    current_Page = PARAM_SET + 1;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    canset_page.freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    parameter_setting_page.hide();
+    //last_page = current_Page;
+    //current_Page = PARAM_SET;
+    /*if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    }else*/
+    {
+        QMutexLocker locker(&page_mutex);
+        canset_page.move(0,0);
+        canset_page.show();
+        //this->dataThreadInit(current_Page);
+        canset_page.freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        parameter_setting_page.hide();
+    }
 }
 
 void MainWindow::deal_RequestUseKeyBoardSignal(int ID){
@@ -794,160 +955,220 @@ void MainWindow::deal_RequestUseCalculateSignal(int ID){
     calculate_ID = ID;
 }
 
-void MainWindow::deal_ChooseProgramSignals(int ID,QString Name)
-{
-    monitoring_interface_page.InitProgram(ID,Name);
-    output_monitoring_page.InitProgram(ID,Name);
-    program_editing_page.InitProgram(ID,Name);
-}
+
 
 void MainWindow::deal_userPasswordPage01_to_mainWindow(){
-    QMutexLocker locker(&page_mutex);
-    this->show();
-    current_Page = MAIN_PAGE;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    this->freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    userPasswordPage01.hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(MAIN_PAGE));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = MAIN_PAGE;
+        QMutexLocker locker(&page_mutex);
+        this->show();
+        this->dataThreadInit(current_Page);
+        this->freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        userPasswordPage01.hide();
+    }
 }
 
 void MainWindow::deal_userPasswordPage01_to_userPasswordPage02()
 {
-    QMutexLocker locker(&page_mutex);
-    userPasswordPage02.show();
-    current_Page = USER_PSD_PAGE2;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    userPasswordPage02.freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    userPasswordPage01.hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(USER_PSD_PAGE2));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = USER_PSD_PAGE2;
+        QMutexLocker locker(&page_mutex);
+        userPasswordPage02.show();
+        this->dataThreadInit(current_Page);
+        userPasswordPage02.freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        userPasswordPage01.hide();
+    }
 }
 
 void MainWindow::deal_userPasswordPage02_to_mainWindow()
 {
-    QMutexLocker locker(&page_mutex);
-    this->show();
-    current_Page = MAIN_PAGE;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    this->freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    userPasswordPage02.hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(MAIN_PAGE));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = MAIN_PAGE;
+        QMutexLocker locker(&page_mutex);
+        this->show();
+        this->dataThreadInit(current_Page);
+        this->freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        userPasswordPage02.hide();
+    }
 }
 
 void MainWindow::deal_userPasswordPage02_to_userPasswordPage01()
 {
-    QMutexLocker locker(&page_mutex);
-    userPasswordPage01.show();
-    current_Page = USER_PSD_PAGE1;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    userPasswordPage01.freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    userPasswordPage02.hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(USER_PSD_PAGE1));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = USER_PSD_PAGE1;
+        QMutexLocker locker(&page_mutex);
+        userPasswordPage01.show();
+        this->dataThreadInit(current_Page);
+        userPasswordPage01.freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        userPasswordPage02.hide();
+    }
 }
 
 void MainWindow::deal_userPasswordPage02_to_userPasswordPage03()
 {
-    QMutexLocker locker(&page_mutex);
-    userPasswordPage03.show();
-    current_Page = USER_PSD_PAGE3;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    userPasswordPage03.freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    userPasswordPage02.hide();
+
+    /*if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(USER_PSD_PAGE3));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = USER_PSD_PAGE3;*/
+        QMutexLocker locker(&page_mutex);
+        userPasswordPage03.show();
+        this->dataThreadInit(current_Page);
+        userPasswordPage03.freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        userPasswordPage02.hide();
+    //}
 }
 
 void MainWindow::deal_userPasswordPage03_to_mainWindow()
 {
-    QMutexLocker locker(&page_mutex);
-    this->show();
-    current_Page = MAIN_PAGE;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    this->freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    userPasswordPage03.hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(MAIN_PAGE));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = MAIN_PAGE;
+        QMutexLocker locker(&page_mutex);
+        this->show();
+        this->dataThreadInit(current_Page);
+        this->freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        userPasswordPage03.hide();
+    }
 }
 
 void MainWindow::deal_userPasswordPage03_to_userPasswordPage02()
 {
-    QMutexLocker locker(&page_mutex);
-    userPasswordPage02.show();
-    current_Page = USER_PSD_PAGE2;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-   this->dataThreadInit(current_Page);
-    userPasswordPage02.freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    userPasswordPage03.hide();
+
+    /*if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(USER_PSD_PAGE2));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = USER_PSD_PAGE2;*/
+        QMutexLocker locker(&page_mutex);
+        userPasswordPage02.show();
+        this->dataThreadInit(current_Page);
+        userPasswordPage02.freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        userPasswordPage03.hide();
+    //}
 }
 
 void MainWindow::deal_canset_to_mainWindow()
 {
-    QMutexLocker locker(&page_mutex);
-    this->show();
-    current_Page = MAIN_PAGE;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    this->freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    canset_page.hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(MAIN_PAGE));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = MAIN_PAGE;
+        QMutexLocker locker(&page_mutex);
+        this->show();
+        this->dataThreadInit(current_Page);
+        this->freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        canset_page.hide();
+    }
 }
 
 void MainWindow::deal_canset_to_parameterSetting()
 {
-    QMutexLocker locker(&page_mutex);
-    parameter_setting_page.show();
-    current_Page = PARAM_SET;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    parameter_setting_page.freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    canset_page.hide();
+    //last_page = current_Page;
+    //current_Page = PARAM_SET;
+    /*if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
+    }else*/
+    {
+        QMutexLocker locker(&page_mutex);
+        parameter_setting_page.show();
+       // this->dataThreadInit(current_Page);
+        parameter_setting_page.freezeOneSec();
+        //    QTime dieTime = QTime::currentTime().addMSecs(100);
+        //    while(QTime::currentTime()<dieTime){
+        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        //    }
+        canset_page.hide();
+    }
 }
 
 void MainWindow::deal_internalParamSet_to_mainWindow()
 {
-    QMutexLocker locker(&page_mutex);
-    this->show();
-    current_Page = MAIN_PAGE;
-    tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
-    this->dataThreadInit(current_Page);
-    this->freezeOneSec();
-    //    QTime dieTime = QTime::currentTime().addMSecs(100);
-    //    while(QTime::currentTime()<dieTime){
-    //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    //    }
-    internal_param_set_page.hide();
+
+    if(0 == page_debug_state)
+    {
+        tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(MAIN_PAGE));
+    }else
+    {
+        last_page = current_Page;
+        current_Page = MAIN_PAGE;
+        QMutexLocker locker(&page_mutex);
+        this->show();
+        this->dataThreadInit(current_Page);
+        this->freezeOneSec();
+        internal_param_set_page.hide();
+    }
 }
 ////鼠标按下
 //void MainWindow::mousePressEvent(QMouseEvent *event)
@@ -1029,17 +1250,21 @@ void MainWindow::deal_KeyboardEsc(){
 */
 void MainWindow::deal_KeyboardEnter(){
     keyboardStrs = keyboard.get_strs();
-    //    double number = keyboardStrs.toDouble();
-    switch (current_ID) {
-    case -1:
+
+    //last_page = current_Page;
+    //current_Page = last_page;
+    if(0 == page_debug_state)
     {
-        if(keyboardStrs==userPasswordPage01.getCurrentPassword())
+        tcpServerTask.sendText(current_ID,keyboardStrs);
+    }else
+    {
+        if(keyboardStrs=="3337")
         {
             QMutexLocker locker(&page_mutex);
             userPasswordPage01.move(0,0);
             userPasswordPage01.show();
+            last_page = current_Page;
             current_Page = USER_PSD_PAGE1;
-            tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
             this->dataThreadInit(current_Page);
             userPasswordPage01.freezeOneSec();
             //            QTime dieTime = QTime::currentTime().addMSecs(100);
@@ -1054,8 +1279,8 @@ void MainWindow::deal_KeyboardEnter(){
                 QMutexLocker locker(&page_mutex);
                 internal_param_set_page.move(0,0);
                 internal_param_set_page.show();
+                last_page = current_Page;
                 current_Page = TAB_PARAM_PAGE;
-                tcpServerTask.sendData(addr_touch_pageturn_pbtn,QString::number(current_Page));
                 this->dataThreadInit(current_Page);
                 this->hide();
             }
@@ -1064,31 +1289,8 @@ void MainWindow::deal_KeyboardEnter(){
                 popUpWindow07.setEnglish("Password Error!");
                 popUpWindow07.centerShow(this->width(),this->height());
             }
-        break;
     }
-    case 0:
-    {
-        if(keyboardStrs ==""){
-            popUpWindow07.setChinese("输入为空!");
-            popUpWindow07.setEnglish("Input Empty!");
-            popUpWindow07.centerShow(this->width(),this->height());
-        }
-        else{
-            program_editing_page.inset(keyboardStrs);
-            program_editing_page.setProgramName(keyboardStrs);
-            program_editing_page.setFocus();
-        }
-    }
-        break;
-    case 1:
-    {
-        userPasswordPage01.setPasswordLineEdit(keyboardStrs);
-        userPasswordPage01.setFocus();
-        break;
-    }
-    default:
-        break;
-    }
+
 }
 
 void MainWindow::deal_CalculateOk(){
@@ -1098,24 +1300,28 @@ void MainWindow::deal_CalculateOk(){
     switch (calculate_ID) {
     case addr_touch_test_temperature_sv:
     case addr_touch_onepoint_test_temperature:
-    {
-        if(number >= -1000 && number <= 30000)
-        {
-            tcpServerTask.sendData(calculate_ID,convertToIntegerString(calculateStrs,2));
-        }
+    case addr_touch_edit_pgm_value1_row1:
+    case addr_touch_edit_pgm_value1_row2:
+    case addr_touch_edit_pgm_value1_row3:
+    case addr_touch_edit_pgm_value1_row4:
+    case 0x1413:
+    case 0x1416:
+    case 0x1417:
+    case 0x1426:
+    case 0x1427:
+    case 0x1428:
+        tcpServerTask.sendData(calculate_ID,convertToIntegerString(calculateStrs,2));
         monitoring_interface_page.setFocus();
         break;
-    }
     case addr_touch_humidity_sv:
     case addr_touch_onepoint_test_humidity:
-    {
-        if(number >= -1000 && number <= 30000)
-        {
-            tcpServerTask.sendData(calculate_ID,convertToIntegerString(calculateStrs,1));
-        }
+    case addr_touch_edit_pgm_value2_row1:
+    case addr_touch_edit_pgm_value2_row2:
+    case addr_touch_edit_pgm_value2_row3:
+    case addr_touch_edit_pgm_value2_row4:
+        tcpServerTask.sendData(calculate_ID,convertToIntegerString(calculateStrs,1));
         monitoring_interface_page.setFocus();
         break;
-    }
     default:
         tcpServerTask.sendData(calculate_ID,calculateStrs);
         monitoring_interface_page.setFocus();
@@ -1154,29 +1360,40 @@ void MainWindow::deal_SQLInterfaceData_update(int id_num,QString data_strs)
 
 void MainWindow::deal_CommInterfaceData_update(int addr_num,QString data_strs)
 {
-    qDebug() << QString("addr_num: %1").arg(addr_num);
-    qDebug() << QString("data_strs: %1").arg(data_strs);
-    qDebug() << QString("current_Page:%1").arg(current_Page);
-    switch(current_Page)
+    //qDebug() << QString("addr_num: %1").arg(addr_num);
+   // qDebug() << QString("data_strs: %1").arg(data_strs);
+    //qDebug() << QString("current_Page:%1").arg(current_Page);
+    if(0x03 == addr_num)
     {
-    case STATE_MONITOR:     monitoring_interface_page.addrSetMonitorInterfaceData(addr_num , data_strs);   break;
-    case OUTPUT_MONITOR:    output_monitoring_page.addrSetOutputInterfaceData(addr_num , data_strs);   break;
-    case CURE_SHOW:         curve_monitoring_page.addrSetCurveInterfaceData(addr_num , data_strs);   break;
-    case PGM_EDIT:          program_editing_page.addrSetPgmEditInterfaceData(addr_num , data_strs);   break;
-    case PGM_CYCLE:         program_loop_page.addrSetPgmLoopInterfaceData(addr_num , data_strs);   break;
-    case FIXED_FUN:         fixed_value_setting_page.addrSetOnepointInterfaceData(addr_num,data_strs);  break;
-    case PARAM_SET:
-        parameter_setting_page.addrSetParamSetInterfaceData(addr_num , data_strs);
-        canset_page.addrSetCanInterfaceData(addr_num , data_strs);
-        break;
-    case ERR_LOG_PAGE:      error_log_page.addrSetErrLogInterfaceData(addr_num , data_strs);   break;
-    case PGM_SLT_PAGE:      popUpWindow04.addrSetPgmListInterfaceData(addr_num,data_strs);  break;
-    case CLT_DATA_PAGE:     break;
-    case USER_PSD_PAGE1:    break;
-    case USER_PSD_PAGE2:    break;
-    case USER_PSD_PAGE3:    break;
-    case TAB_PARAM_PAGE:    break;
-    default: break;
+        oldPageHide(current_Page);
+        newPageShow(data_strs.toInt());
+        //oldPageHide(last_page);
+    }else
+    {
+        switch(current_Page)
+        {
+        case STATE_MONITOR:     monitoring_interface_page.addrSetMonitorInterfaceData(addr_num , data_strs);   break;
+        case OUTPUT_MONITOR:    output_monitoring_page.addrSetOutputInterfaceData(addr_num , data_strs);   break;
+        case CURE_SHOW:         curve_monitoring_page.addrSetCurveInterfaceData(addr_num , data_strs);   break;
+        case PGM_EDIT:          program_editing_page.addrSetPgmEditInterfaceData(addr_num , data_strs);   break;
+        case PGM_CYCLE:         program_loop_page.addrSetPgmLoopInterfaceData(addr_num , data_strs);   break;
+        case FIXED_FUN:         fixed_value_setting_page.addrSetOnepointInterfaceData(addr_num,data_strs);  break;
+        case PARAM_SET:
+            parameter_setting_page.addrSetParamSetInterfaceData(addr_num , data_strs);
+            canset_page.addrSetCanInterfaceData(addr_num , data_strs);
+            break;
+        case ERR_LOG_PAGE:      error_log_page.addrSetErrLogInterfaceData(addr_num , data_strs);   break;
+        case PGM_SLT_PAGE:      popUpWindow04.addrSetPgmListInterfaceData(addr_num,data_strs);  break;
+        case CLT_DATA_PAGE:     break;
+        case USER_PSD_PAGE1:    userPasswordPage01.addrSetUserPsdInterfaceData(addr_num,data_strs);  break;
+        case USER_PSD_PAGE2:
+        case USER_PSD_PAGE3:
+            userPasswordPage02.addrSetUserPsdInterfaceData(addr_num,data_strs);
+            userPasswordPage03.addrSetUserPsdInterfaceData(addr_num,data_strs);
+            break;
+        case TAB_PARAM_PAGE:    internal_param_set_page.addrInternalParamInterfaceData(addr_num,data_strs);  break;
+        default: break;
+        }
     }
 }
 
@@ -1185,4 +1402,137 @@ void MainWindow::deal_CommInterfaceData_update(int addr_num,QString data_strs)
 void MainWindow::deal_curveData_update(int num, int size, QVector<QVector<double> > xdata, QVector<QVector<double> > data, QString startTime, double *dataInfo, QString *axisInfo, int status)
 {
     curve_monitoring_page.draw(num,size,xdata,data,startTime,dataInfo,axisInfo,status);
+}
+
+
+void MainWindow::newPageShow(int page_num)
+{
+    QMutexLocker locker(&page_mutex);
+    last_page = current_Page;
+    current_Page = page_num;
+    this->dataThreadInit(current_Page);
+
+    switch(current_Page)
+    {
+    case MAIN_PAGE:
+        this->move(0,0);
+        this->show();
+        this->freezeOneSec();
+        break;
+    case STATE_MONITOR:
+        monitoring_interface_page.move(0,0);
+        monitoring_interface_page.show();
+        monitoring_interface_page.freezeOneSec();
+        break;
+    case OUTPUT_MONITOR:
+        output_monitoring_page.move(0,0);
+        output_monitoring_page.show();
+        output_monitoring_page.freezeOneSec();
+        break;
+    case CURE_SHOW:
+        curve_monitoring_page.move(0,0);
+        curve_monitoring_page.show();
+        curve_monitoring_page.freezeOneSec();
+        break;
+    case PGM_EDIT:
+        program_editing_page.move(0,0);
+        program_editing_page.show();
+        program_editing_page.freezeOneSec();
+        break;
+    case PGM_CYCLE:
+        program_loop_page.move(0,0);
+        program_loop_page.show();
+        program_loop_page.freezeOneSec();
+        break;
+    case FIXED_FUN:
+        fixed_value_setting_page.move(0,0);
+        fixed_value_setting_page.show();
+        fixed_value_setting_page.freezeOneSec();
+        break;
+    case PARAM_SET:
+        parameter_setting_page.move(0,0);
+        parameter_setting_page.show();
+        parameter_setting_page.freezeOneSec();
+        break;
+    case ERR_LOG_PAGE:
+        error_log_page.move(0,0);
+        error_log_page.show();
+        break;
+    case PGM_SLT_PAGE:
+        popUpWindow04.move(0,0);
+        popUpWindow04.show();
+        break;
+    case CLT_DATA_PAGE:
+        break;
+    case USER_PSD_PAGE1:
+        userPasswordPage01.move(0,0);
+        userPasswordPage01.show();
+        break;
+    case USER_PSD_PAGE2:
+        userPasswordPage02.move(0,0);
+        userPasswordPage02.show();
+        break;
+    case USER_PSD_PAGE3:
+        userPasswordPage03.move(0,0);
+        userPasswordPage03.show();
+        break;
+    case TAB_PARAM_PAGE:
+        internal_param_set_page.move(0,0);
+        internal_param_set_page.show();
+        break;
+    default: break;
+    }
+}
+
+void MainWindow::oldPageHide(int page_num)
+{
+    switch(page_num)
+    {
+    case MAIN_PAGE:
+        this->hide();
+        break;
+    case STATE_MONITOR:
+        monitoring_interface_page.hide();
+        break;
+    case OUTPUT_MONITOR:
+        output_monitoring_page.hide();
+        break;
+    case CURE_SHOW:
+        curve_monitoring_page.hide();
+        break;
+    case PGM_EDIT:
+        program_editing_page.hide();
+        break;
+    case PGM_CYCLE:
+        program_loop_page.hide();
+        break;
+    case FIXED_FUN:
+        fixed_value_setting_page.hide();
+        break;
+    case PARAM_SET:
+        parameter_setting_page.hide();
+        canset_page.hide();
+        break;
+    case ERR_LOG_PAGE:
+        error_log_page.hide();
+        break;
+    case PGM_SLT_PAGE:
+        popUpWindow04.hide();
+        break;
+    case CLT_DATA_PAGE:
+        break;
+    case USER_PSD_PAGE1:
+        userPasswordPage01.hide();
+        break;
+    case USER_PSD_PAGE2:
+        userPasswordPage02.hide();
+        break;
+    case USER_PSD_PAGE3:
+        userPasswordPage03.hide();
+        break;
+    case TAB_PARAM_PAGE:
+        internal_param_set_page.hide();
+        break;
+    default: break;
+    }
 }

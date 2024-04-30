@@ -21,8 +21,8 @@ class tcpServer : public QDialog
 public:
     tcpServer(QWidget *parent = 0);
     int connect_flag;
-    void sendData(int,QString);
-    void sendText(int,QString);
+    bool sendData(int,QString);
+    bool sendText(int,QString);
 private slots:
     void recvData();
     void createConnection();

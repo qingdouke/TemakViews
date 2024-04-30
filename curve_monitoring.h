@@ -67,10 +67,10 @@ private:
     QVector<QVector<double>> XDATA;
 
     //曲线测试信息
-    int num;
+    int curve_numb;
     int size;
     QVector<QVector<double>> xdata;
-    QVector<QVector<double>> data;
+    QVector<QVector<double>> ydata;
     QString startTime;
     int dataInfoSize;
     double* dataInfo;

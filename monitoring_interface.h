@@ -66,24 +66,16 @@ public:
 
     void monitoring_interface_sendTo_mainwindow();
     void monitoringInterface_sendTo_outputMonitoring();
-    void LED_pBtn_clicked();
     void setLedPBtnState(bool);
-    void running_pBtn_clicked();
-    void loading_pBtn_clicked();
     void pause_pBtn_clicked();
-    void onepoint_pBtn_clicked();
-    void reset_pBtn_clicked();
-    void monitor_nextpage_pBtn_clicked();
 
     void start_run_gif();
-    void InitProgram(int,QString);
 
     void setRunningPBtnState(bool );
     void deal_popUpWindow01PushButtonOKClickedSignal();
     void deal_popUpWindow02PushButtonOKClickedSignal();
     void deal_popUpWindow03PushButtonYESClickedSignal();
     void deal_popUpWindow04WithoutDataSignals(int,int);
-    void deal_popUpWindow04PushButtonClickedSignals(int,QString);
 
     void freezeOneSec();
 private:
@@ -127,6 +119,16 @@ private:
 
 private slots:
     void currentTime();
+
+    void on_LED_pbtn_clicked();
+
+    void on_reset_pbth_clicked();
+
+    void on_constant_value_running_pbtn_clicked();
+
+    void on_running_pBtn_clicked();
+
+    void on_loading_pBtn_clicked();
 
 signals:
     void monitoring_interface_to_mainwindow();

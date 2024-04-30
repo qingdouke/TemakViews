@@ -103,7 +103,12 @@ public:
 
     Keyboard keyboard;
     Calculate calculate;
+    PopUpWindow01 popUpWindow01;
+    PopUpWindow02 popUpWindow02;
+    PopUpWindow03 popUpWindow03;
     PopUpWindow04 popUpWindow04;
+    PopUpWindow05 popUpWindow05;
+    PopUpWindow06 popUpWindow06;
     PopUpWindow07 popUpWindow07;
     Data* readData01;
     Data* readData02;
@@ -158,6 +163,8 @@ public:
     void deal_SQLInterfaceData_update(int ,QString);
     void deal_CommInterfaceData_update(int,QString);
     void deal_curveData_update(int num,int size,QVector<QVector<double>> xdata,QVector<QVector<double>> data,QString startTime,double* dataInfo,QString* axisInfo,int status);
+    void oldPageHide(int);
+    void newPageShow(int);
 
     void freezeOneSec();
     void dataThreadInit(int page_num);
@@ -168,7 +175,9 @@ private:
     QString calculateStrs;
     int current_ID=0;
     int calculate_ID=0;
-    int current_Page=-1;
+    int current_Page=MAIN_PAGE;
+    int last_page = 0;
+    int page_debug_state = 0;
     //鼠标移动时窗体与左上角的偏移
     //QPoint mOffset;
 private slots:
