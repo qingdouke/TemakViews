@@ -11,7 +11,7 @@ PopUpWindow04::PopUpWindow04(QWidget *parent) :
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
     //Header背景颜色
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
+    //qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     ui->Header->setStyleSheet("QWidget#Header{background-color:rgb(72,129,52)}");
     //标题颜色
     ui->title->setStyleSheet("QLabel#title{color:white}");
@@ -42,7 +42,7 @@ PopUpWindow04::PopUpWindow04(QWidget *parent) :
     //Footer
     ui->Footer->setStyleSheet("QWidget#Footer{background-color:rgb(171,199,158)}");
     ui->footer_line->setStyleSheet("QLabel#footer_line{background-color:rgb(74,122,60)}");
-    ui->back_pbtn->setStyleSheet("QPushButton#back_pbtn{border:2px solid rgb(74,122,60);"
+    /*ui->back_pbtn->setStyleSheet("QPushButton#back_pbtn{border:2px solid rgb(74,122,60);"
                                  "background-color:rgb(173,199,160);"
                                  "border-radius:8px;"
                                  "color:rgb(74,122,60)}");
@@ -53,8 +53,7 @@ PopUpWindow04::PopUpWindow04(QWidget *parent) :
     ui->pervious_page_pbtn->setStyleSheet("QPushButton#pervious_page_pbtn{border:2px solid rgb(74,122,60);"
                                           "background-color:rgb(173,199,160);"
                                           "border-radius:8px;"
-                                          "color:rgb(74,122,60)}");
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
+                                          "color:rgb(74,122,60)}");*/
     ui->label_id_1->installEventFilter(this);
     ui->label_name_1->installEventFilter(this);
     ui->label_id_2->installEventFilter(this);
@@ -322,190 +321,257 @@ void PopUpWindow04::addrSetPgmListInterfaceData(int addr_num, QString set_value)
     {
     // set program id show
     case 0xB01:
-        ui->label_id_1->setText(set_value);
+        label_id[1] = set_value;
         break;
     case 0xB02:
-        ui->label_id_2->setText(set_value);
+        label_id[2] = set_value;
         break;
     case 0xB03:
-        ui->label_id_3->setText(set_value);
+        label_id[3] = set_value;
         break;
     case 0xB04:
-        ui->label_id_4->setText(set_value);
+        label_id[4] = set_value;
         break;
     case 0xB05:
-        ui->label_id_5->setText(set_value);
+        label_id[5] = set_value;
         break;
     case 0xB06:
-        ui->label_id_6->setText(set_value);
+        label_id[6] = set_value;
         break;
     case 0xB07:
-        ui->label_id_7->setText(set_value);
+        label_id[7] = set_value;
         break;
     case 0xB08:
-        ui->label_id_8->setText(set_value);
+        label_id[8] = set_value;
         break;
     case 0xB09:
-        ui->label_id_9->setText(set_value);
+        label_id[9] = set_value;
         break;
     case 0xB0A:
-        ui->label_id_10->setText(set_value);
+        label_id[10] = set_value;
         break;
     case 0xB0B:
-        ui->label_id_11->setText(set_value);
+        label_id[11] = set_value;
         break;
     case 0xB0C:
-        ui->label_id_12->setText(set_value);
+        label_id[12] = set_value;
         break;
     case 0xB0D:
-        ui->label_id_13->setText(set_value);
+        label_id[13] = set_value;
         break;
     case 0xB0E:
-        ui->label_id_14->setText(set_value);
+        label_id[14] = set_value;
         break;
     case 0xB0F:
-        ui->label_id_15->setText(set_value);
+        label_id[15] = set_value;
         break;
     case 0xB10:
-        ui->label_id_16->setText(set_value);
+        label_id[16] = set_value;
         break;
     case 0xB11:
-        ui->label_id_17->setText(set_value);
+        label_id[17] = set_value;
         break;
     case 0xB12:
-        ui->label_id_18->setText(set_value);
+        label_id[18] = set_value;
         break;
     case 0xB13:
-        ui->label_id_19->setText(set_value);
+        label_id[19] = set_value;
         break;
     case 0xB14:
-        ui->label_id_20->setText(set_value);
+        label_id[20] = set_value;
         break;
     case 0xB15:
-        ui->label_id_21->setText(set_value);
+        label_id[21] = set_value;
         break;
     case 0xB16:
-        ui->label_id_22->setText(set_value);
+        label_id[22] = set_value;
         break;
     case 0xB17:
-        ui->label_id_23->setText(set_value);
+        label_id[23] = set_value;
         break;
     case 0xB18:
-        ui->label_id_24->setText(set_value);
+        label_id[24] = set_value;
         break;
     case 0xB19:
-        ui->label_id_25->setText(set_value);
+        label_id[25] = set_value;
         break;
     case 0xB1A:
-        ui->label_id_26->setText(set_value);
+        label_id[26] = set_value;
         break;
     case 0xB1B:
-        ui->label_id_27->setText(set_value);
+        label_id[27] = set_value;
         break;
     case 0xB1C:
-        ui->label_id_28->setText(set_value);
+        label_id[28] = set_value;
         break;
     case 0xB1D:
-        ui->label_id_29->setText(set_value);
+        label_id[29] = set_value;
         break;
     case 0xB1E:
-        ui->label_id_30->setText(set_value);
+        label_id[30] = set_value;
         break;
     // set program name show
-
     case 0xB20:
-        ui->label_name_1->setText(set_value);
+       label_name[1] = set_value;
         break;
     case 0xB30:
-        ui->label_name_2->setText(set_value);
+       label_name[2] = set_value;
         break;
     case 0xB40:
-        ui->label_name_3->setText(set_value);
+       label_name[3] = set_value;
         break;
     case 0xB50:
-        ui->label_name_4->setText(set_value);
+       label_name[4] = set_value;
         break;
     case 0xB60:
-        ui->label_name_5->setText(set_value);
+       label_name[5] = set_value;
         break;
     case 0xB70:
-        ui->label_name_6->setText(set_value);
+       label_name[6] = set_value;
         break;
     case 0xB80:
-        ui->label_name_7->setText(set_value);
+       label_name[7] = set_value;
         break;
     case 0xB90:
-        ui->label_name_8->setText(set_value);
+       label_name[8] = set_value;
         break;
     case 0xBA0:
-        ui->label_name_9->setText(set_value);
+       label_name[9] = set_value;
         break;
     case 0xBB0:
-        ui->label_name_10->setText(set_value);
+       label_name[10] = set_value;
         break;
     case 0xBC0:
-        ui->label_name_11->setText(set_value);
+       label_name[11] = set_value;
         break;
     case 0xBD0:
-        ui->label_name_12->setText(set_value);
+       label_name[12] = set_value;
         break;
     case 0xBE0:
-        ui->label_name_13->setText(set_value);
+       label_name[13] = set_value;
         break;
     case 0xBF0:
-        ui->label_name_14->setText(set_value);
+       label_name[14] = set_value;
         break;
     case 0xC00:
-        ui->label_name_15->setText(set_value);
+       label_name[15] = set_value;
         break;
     case 0xC10:
-        ui->label_name_16->setText(set_value);
+       label_name[16] = set_value;
         break;
     case 0xC20:
-        ui->label_name_17->setText(set_value);
+       label_name[17] = set_value;
         break;
     case 0xC30:
-        ui->label_name_18->setText(set_value);
+       label_name[18] = set_value;
         break;
     case 0xC40:
-        ui->label_name_19->setText(set_value);
+       label_name[19] = set_value;
         break;
     case 0xC50:
-        ui->label_name_20->setText(set_value);
+       label_name[20] = set_value;
         break;
     case 0xC60:
-        ui->label_name_21->setText(set_value);
+       label_name[21] = set_value;
         break;
     case 0xC70:
-        ui->label_name_22->setText(set_value);
+       label_name[22] = set_value;
         break;
     case 0xC80:
-        ui->label_name_23->setText(set_value);
+       label_name[23] = set_value;
         break;
     case 0xC90:
-        ui->label_name_24->setText(set_value);
+       label_name[24] = set_value;
         break;
     case 0xCA0:
-        ui->label_name_25->setText(set_value);
+       label_name[25] = set_value;
         break;
     case 0xCB0:
-        ui->label_name_26->setText(set_value);
+       label_name[26] = set_value;
         break;
     case 0xCC0:
-        ui->label_name_27->setText(set_value);
+       label_name[27] = set_value;
         break;
     case 0xCD0:
-        ui->label_name_28->setText(set_value);
+       label_name[28] = set_value;
         break;
     case 0xCE0:
-        ui->label_name_29->setText(set_value);
+       label_name[29] = set_value;
         break;
     case 0xCF0:
-        ui->label_name_30->setText(set_value);
+       label_name[30] = set_value;
         break;
 
     default:break;
     }
 }
+//刷新页面显示数据
+void PopUpWindow04::refreshOutPutInterfaceData()
+{
+
+    ui->label_id_1->setText(label_id[1]);
+    ui->label_id_2->setText(label_id[2]);
+    ui->label_id_3->setText(label_id[3]);
+    ui->label_id_4->setText(label_id[4]);
+    ui->label_id_5->setText(label_id[5]);
+    ui->label_id_6->setText(label_id[6]);
+    ui->label_id_7->setText(label_id[7]);
+    ui->label_id_8->setText(label_id[8]);
+    ui->label_id_9->setText(label_id[9]);
+    ui->label_id_10->setText(label_id[10]);
+    ui->label_id_11->setText(label_id[11]);
+    ui->label_id_12->setText(label_id[12]);
+    ui->label_id_13->setText(label_id[13]);
+    ui->label_id_14->setText(label_id[14]);
+    ui->label_id_15->setText(label_id[15]);
+    ui->label_id_16->setText(label_id[16]);
+    ui->label_id_17->setText(label_id[17]);
+    ui->label_id_18->setText(label_id[18]);
+    ui->label_id_19->setText(label_id[19]);
+    ui->label_id_20->setText(label_id[20]);
+    ui->label_id_21->setText(label_id[21]);
+    ui->label_id_22->setText(label_id[22]);
+    ui->label_id_23->setText(label_id[23]);
+    ui->label_id_24->setText(label_id[24]);
+    ui->label_id_25->setText(label_id[25]);
+    ui->label_id_26->setText(label_id[26]);
+    ui->label_id_27->setText(label_id[27]);
+    ui->label_id_28->setText(label_id[28]);
+    ui->label_id_29->setText(label_id[29]);
+    ui->label_id_30->setText(label_id[30]);
+
+     // set program name show
+    ui->label_name_1->setText(label_name[1]);
+    ui->label_name_2->setText(label_name[2]);
+    ui->label_name_3->setText(label_name[3]);
+    ui->label_name_4->setText(label_name[4]);
+    ui->label_name_5->setText(label_name[5]);
+    ui->label_name_6->setText(label_name[6]);
+    ui->label_name_7->setText(label_name[7]);
+    ui->label_name_8->setText(label_name[8]);
+    ui->label_name_9->setText(label_name[9]);
+    ui->label_name_10->setText(label_name[10]);
+    ui->label_name_11->setText(label_name[11]);
+    ui->label_name_12->setText(label_name[12]);
+    ui->label_name_13->setText(label_name[13]);
+    ui->label_name_14->setText(label_name[14]);
+    ui->label_name_15->setText(label_name[15]);
+    ui->label_name_16->setText(label_name[16]);
+    ui->label_name_17->setText(label_name[17]);
+    ui->label_name_18->setText(label_name[18]);
+    ui->label_name_19->setText(label_name[19]);
+    ui->label_name_20->setText(label_name[20]);
+    ui->label_name_21->setText(label_name[21]);
+    ui->label_name_22->setText(label_name[22]);
+    ui->label_name_23->setText(label_name[23]);
+    ui->label_name_24->setText(label_name[24]);
+    ui->label_name_25->setText(label_name[25]);
+    ui->label_name_26->setText(label_name[26]);
+    ui->label_name_27->setText(label_name[27]);
+    ui->label_name_28->setText(label_name[28]);
+    ui->label_name_29->setText(label_name[29]);
+    ui->label_name_30->setText(label_name[30]);
+}
+
 
 

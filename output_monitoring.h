@@ -38,7 +38,7 @@ public:
 
     void idSetOutputInterfaceData(int, QString);
     void addrSetOutputInterfaceData(int,QString);
-    
+    void refreshOutPutInterfaceData();
     QString getTestTemperaturePV();
     QString getTestTemperatureSV();
     void setTestTemperaturePV(QString);

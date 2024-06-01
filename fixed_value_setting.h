@@ -21,7 +21,7 @@ public:
     void fixedValueSetting_sendTo_programLoop();
     void OnepointSavePgm();
     void addrSetOnepointInterfaceData(int , QString );
-
+    void refreshOnePointInterfaceData();
     QString getTemperatureText();
     QString getHumidityText();
     QString getSlopeTimeHText();
@@ -54,7 +54,7 @@ private:
     QString temperatureText="00.00";
     QString humidityText="0.0";
     QString slopeTimeHText="987";
-    QString slopeTimeMText="65";
+    QString slopeTimeMText="59";
     QString slopeTimeSText="43";
     QString constantTempHText="123";
     QString constantTempMText="456";

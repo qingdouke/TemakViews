@@ -51,7 +51,7 @@ public:
     void programLoop_sendTo_programEditing();
     void programLoop_sendTo_fixedValueSetting();
     void addrSetPgmLoopInterfaceData(int , QString );
-
+    void refreshPgmLoopInterfaceData();
     void freezeOneSec();
 
 private:

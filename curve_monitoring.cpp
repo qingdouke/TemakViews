@@ -19,7 +19,6 @@ Curve_Monitoring::Curve_Monitoring(QWidget *parent) :
 
     this->setGeometry(0,0,1280,800);
     setWindowFlags(Qt::FramelessWindowHint);
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     //Header背景颜色
     ui->Header->setStyleSheet("QWidget#Header{background-color:rgb(72,129,52)}");
     //标题颜色
@@ -104,48 +103,6 @@ Curve_Monitoring::Curve_Monitoring(QWidget *parent) :
                                             "border:none}");
     ui->humidity_sv_company_label->setStyleSheet("QLabel#humidity_sv_company_label{color:rgb(153,204,101)}");
 
-    //pushButton 0~7
-    ui->pushButton_0->setStyleSheet("QPushButton#pushButton_0{background-color:rgb(72,129,52);"
-                                    "border:none;"
-                                    "background-image:url(:/Image/icon/pushButton_0.png);"
-                                    "background-repeat:no-repeat;"
-                                    "background-position:center}");
-    ui->pushButton_1->setStyleSheet("QPushButton#pushButton_1{background-color:rgb(72,129,52);"
-                                    "border:none;"
-                                    "background-image:url(:/Image/icon/pushButton_1.png);"
-                                    "background-repeat:no-repeat;"
-                                    "background-position:center}");
-    ui->pushButton_2->setStyleSheet("QPushButton#pushButton_2{background-color:rgb(72,129,52);"
-                                    "border:none;"
-                                    "background-image:url(:/Image/icon/pushButton_2.png);"
-                                    "background-repeat:no-repeat;"
-                                    "background-position:center}");
-    ui->pushButton_3->setStyleSheet("QPushButton#pushButton_3{background-color:rgb(72,129,52);"
-                                    "border:none;"
-                                    "background-image:url(:/Image/icon/pushButton_3.png);"
-                                    "background-repeat:no-repeat;"
-                                    "background-position:center}");
-    ui->pushButton_4->setStyleSheet("QPushButton#pushButton_4{background-color:rgb(72,129,52);"
-                                    "border:none;"
-                                    "background-image:url(:/Image/icon/pushButton_4.png);"
-                                    "background-repeat:no-repeat;"
-                                    "background-position:center}");
-    ui->pushButton_5->setStyleSheet("QPushButton#pushButton_5{background-color:rgb(72,129,52);"
-                                    "border:none;"
-                                    "background-image:url(:/Image/icon/pushButton_5.png);"
-                                    "background-repeat:no-repeat;"
-                                    "background-position:center}");
-    ui->pushButton_6->setStyleSheet("QPushButton#pushButton_6{background-color:rgb(72,129,52);"
-                                    "border:none;"
-                                    "background-image:url(:/Image/icon/pushButton_6.png);"
-                                    "background-repeat:no-repeat;"
-                                    "background-position:center}");
-    ui->pushButton_7->setStyleSheet("QPushButton#pushButton_7{background-color:rgb(72,129,52);"
-                                    "border:none;"
-                                    "background-image:url(:/Image/icon/pushButton_7.png);"
-                                    "background-repeat:no-repeat;"
-                                    "background-position:center}");
-
     //存储频率、存储空间、光标时间
     ui->storage_frequency_line->setStyleSheet("QLabel#storage_frequency_line{background-color:rgb(72,129,52)}");
     ui->storage_frequency_lineEdit->setStyleSheet("QLineEdit#storage_frequency_lineEdit{border:none;"
@@ -164,23 +121,7 @@ Curve_Monitoring::Curve_Monitoring(QWidget *parent) :
     //Footer
     ui->Footer->setStyleSheet("QWidget#Footer{background-color:rgb(171,199,158)}");
     ui->footer_line->setStyleSheet("QLabel#footer_line{background-color:rgb(74,122,60)}");
-    ui->font_page_pbtn->setStyleSheet("QPushButton#font_page_pbtn{border:2px solid rgb(74,122,60);"
-                                      "background-color:rgb(173,199,160);"
-                                      "border-radius:8px;"
-                                      "color:rgb(74,122,60)}");
-    ui->previous_page_pbth->setStyleSheet("QPushButton#previous_page_pbth{border:2px solid rgb(74,122,60);"
-                                          "background-color:rgb(173,199,160);"
-                                          "border-radius:8px;"
-                                          "color:rgb(74,122,60)}");
-    ui->saving_pbtn->setStyleSheet("QPushButton#saving_pbtn{border:2px solid rgb(74,122,60);"
-                                   "background-color:rgb(173,199,160);"
-                                   "border-radius:8px;"
-                                   "color:rgb(74,122,60)}");
-    ui->real_time_pbtn->setStyleSheet("QPushButton#real_time_pbtn{border:2px solid rgb(74,122,60);"
-                                      "background-color:rgb(173,199,160);"
-                                      "border-radius:8px;"
-                                      "color:rgb(74,122,60)}");
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
+
     //QCustomPlot
     ui->CurveWidget->yAxis2->setVisible(true);
     ui->CurveWidget->setBackground(QBrush(Qt::black));
@@ -213,7 +154,7 @@ Curve_Monitoring::Curve_Monitoring(QWidget *parent) :
     ui->CurveWidget->xAxis->setLabelFont(xFont);
     ui->CurveWidget->yAxis->setLabelFont(xFont);
     ui->CurveWidget->yAxis2->setLabelFont(xFont);
-    ui->CurveWidget->xAxis->setTickLabelColor(Qt::white);
+    ui->CurveWidget->xAxis->setTickLabelColor(Qt::transparent);
     ui->CurveWidget->yAxis->setTickLabelColor(Qt::white);
     ui->CurveWidget->yAxis2->setTickLabelColor(Qt::white);
     ui->CurveWidget->xAxis->setTickLabelFont(xFont);
@@ -222,14 +163,13 @@ Curve_Monitoring::Curve_Monitoring(QWidget *parent) :
     ui->CurveWidget->xAxis->setRange(0,100);
     ui->CurveWidget->xAxis->ticker()->setTickCount(11);
     //    ui->CurveWidget->xAxis->ticker()->setTickStepStrategy(QCPAxisTicker::tssMeetTickCount);
-    ui->CurveWidget->yAxis->setRange(-75,175);
+    ui->CurveWidget->yAxis->setRange(-90,210);
     ui->CurveWidget->yAxis->ticker()->setTickCount(11);
     ui->CurveWidget->yAxis2->setRange(0,100);
     ui->CurveWidget->yAxis2->ticker()->setTickCount(11);
 
     //测试曲线
-    curve_numb = 12;
-    size = 1000;
+    size = 360;
     xdata.resize(curve_numb);
     ydata.resize(curve_numb);
     for(int i=0 ; i<curve_numb ; i++)
@@ -240,44 +180,26 @@ Curve_Monitoring::Curve_Monitoring(QWidget *parent) :
     startTime = "2023-3-28 08:42:44";
     dataInfoSize = curve_numb*2+3;
     dataInfo = new double[dataInfoSize];
-    dataInfo[0] = 0.01;
+    dataInfo[0] = 1;
     dataInfo[1] = 0;
-    dataInfo[2] = 10;
-    dataInfo[3] = -1;
-    dataInfo[4] = 1;
-    dataInfo[5] = -5;
-    dataInfo[6] = 5;
+    dataInfo[2] = 360;
+    dataInfo[3] = -90;
+    dataInfo[4] = 210;
+    dataInfo[5] = 0;
+    dataInfo[6] = 100;
     axisInfo = new QString[curve_numb];
     axisInfo[0] = "Temperature(°C)";
     axisInfo[1] = "Humidity(%)";
     status=1;
-    endSize = size;
-    for(int i=0 ; i<endSize ; i++)
+    endSize = 0;
+    for(int i=0 ; i<curve_numb ; i++)
     {
-        xdata[0][i] = i*1.0/100*1.0;
-        xdata[1][i] = i*1.0/100*1.0;
-        xdata[2][i] = i*1.0/100*1.0;
-        xdata[3][i] = i*1.0/100*1.0;
-        xdata[4][i] = i*1.0/100*1.0;
-        xdata[5][i] = i*1.0/100*1.0;
-        xdata[6][i] = i*1.0/100*1.0;
-        xdata[7][i] = i*1.0/100*1.0;
-        xdata[8][i] = i*1.0/100*1.0;
-        xdata[9][i] = i*1.0/100*1.0;
-        xdata[10][i] = i*1.0/100*1.0;
-        xdata[11][i] = i*1.0/100*1.0;
-        ydata[0][i] = sin(i*1.0/100*1.0);
-        ydata[1][i] = cos(i*1.0/100*1.0);
-        ydata[2][i] = asin((i*1.0/100*1.0));
-        ydata[3][i] = acos((i*1.0/100*1.0));
-        ydata[4][i] = tan((i*1.0/100*1.0));
-        ydata[5][i] = atan((i*1.0/100*1.0));
-        ydata[6][i] = sin((i*1.0/100*1.0)+1);
-        ydata[7][i] = cos((i*1.0/100*1.0)+1);
-        ydata[8][i] = asin((i*1.0/100*1.0)+1);
-        ydata[9][i] = acos((i*1.0/100*1.0)+1);
-        ydata[10][i] = tan((i*1.0/100*1.0)+1);
-        ydata[11][i] = atan((i*1.0/100*1.0)+1);
+        xdata[i].clear();
+        ydata[i].clear();
+        curve_data_num_1 = 0;
+        curve_data_num_2 = 0;
+        curve_data_num_3 = 0;
+        curve_data_num_4 = 0;
     }
     this->draw(curve_numb,size,xdata,ydata,startTime,dataInfo,axisInfo,status);
     curveTimer = new QTimer(this);
@@ -286,6 +208,84 @@ Curve_Monitoring::Curve_Monitoring(QWidget *parent) :
     //事件注册
     this->installEventFilter(this);
     ui->storage_frequency_lineEdit->installEventFilter(this);
+
+    // 游标追踪器变量初始化
+    tracer_curve_1 = new QCPItemTracer(ui->CurveWidget);        //设置部件的父类
+    tracer_curve_1->setStyle(QCPItemTracer::tsCircle);        //标记点的类型设置为圆形
+    tracer_curve_1->setPen(QPen(Qt::white, 1, Qt::SolidLine));  //标记点颜色、粗细、线型
+    tracer_curve_1->setBrush(Qt::SolidPattern);               //画刷
+    tracer_curve_1->position->setType(QCPItemPosition::ptPlotCoords);//在曲线上显示
+    tracer_curve_1->setSize(1);//标记点大小
+    tracer_curve_1->setGraph(ui->CurveWidget->graph(0));    //标记点绑定曲线
+
+    tracer_curve_2 = new QCPItemTracer(ui->CurveWidget);//设置部件的父类
+    tracer_curve_2->setStyle(QCPItemTracer::tsCircle);   //标记点的类型设置为圆形
+    tracer_curve_2->setPen(QPen(Qt::white, 1, Qt::SolidLine));  //标记点颜色、粗细、线型
+    tracer_curve_2->setBrush(Qt::SolidPattern);         //画刷
+    tracer_curve_2->position->setType(QCPItemPosition::ptPlotCoords);//在曲线上显示
+    tracer_curve_2->setSize(1);    //标记点大小
+    tracer_curve_2->setGraph(ui->CurveWidget->graph(1));//标记点绑定曲线
+
+    tracer_curve_3 = new QCPItemTracer(ui->CurveWidget);//设置部件的父类
+    tracer_curve_3->setStyle(QCPItemTracer::tsCircle);   //标记点的类型设置为圆形
+    tracer_curve_3->setPen(QPen(Qt::white, 1, Qt::SolidLine));  //标记点颜色、粗细、线型
+    tracer_curve_3->setBrush(Qt::SolidPattern);         //画刷
+    tracer_curve_3->position->setType(QCPItemPosition::ptPlotCoords);//在曲线上显示
+    tracer_curve_3->setSize(1);    //标记点大小
+    tracer_curve_3->setGraph(ui->CurveWidget->graph(2));//标记点绑定曲线
+
+    tracer_curve_4 = new QCPItemTracer(ui->CurveWidget);//设置部件的父类
+    tracer_curve_4->setStyle(QCPItemTracer::tsCircle);   //标记点的类型设置为圆形
+    tracer_curve_4->setPen(QPen(Qt::white, 1, Qt::SolidLine));  //标记点颜色、粗细、线型
+    tracer_curve_4->setBrush(Qt::SolidPattern);         //画刷
+    tracer_curve_4->position->setType(QCPItemPosition::ptPlotCoords);//在曲线上显示
+    tracer_curve_4->setSize(1);    //标记点大小
+    tracer_curve_4->setGraph(ui->CurveWidget->graph(3));//标记点绑定曲线
+
+    cur_Label_curve_1 = new QCPItemText(ui->CurveWidget);//文本框父类设置
+    //cur_Label_curve_1->setPadding(QMargins(3, 3, 3, 3));    //这个根据需求设置，我这不需要
+    //cur_Label_curve_1->setPen(QPen(QColor(130, 130, 130), 0, Qt::DotLine));
+    //cur_Label_curve_1->setBrush(Qt::NoBrush);
+
+    //设置标签显示位置跟随锚点的位置
+    cur_Label_curve_1->position->setParentAnchor(tracer_curve_1->position);
+    cur_Label_curve_1->setFont(QFont(qApp->font().family(), 12));      //设置字体大小
+    cur_Label_curve_1->setColor(Qt::white);                            //设置字体颜色
+    cur_Label_curve_1->setText("");
+
+    cur_Label_curve_2 = new QCPItemText(ui->CurveWidget);//文本框父类设置
+    //设置标签显示位置跟随锚点的位置
+    cur_Label_curve_2->position->setParentAnchor(tracer_curve_2->position);
+    cur_Label_curve_2->setFont(QFont(qApp->font().family(), 12));
+    cur_Label_curve_2->setColor(Qt::white);
+    cur_Label_curve_2->setText("");
+
+    cur_Label_curve_3 = new QCPItemText(ui->CurveWidget);//文本框父类设置
+    //设置标签显示位置跟随锚点的位置
+    cur_Label_curve_3->position->setParentAnchor(tracer_curve_3->position);
+    cur_Label_curve_3->setFont(QFont(qApp->font().family(), 12));
+    cur_Label_curve_3->setColor(Qt::white);
+    cur_Label_curve_3->setText("");
+
+    cur_Label_curve_4 = new QCPItemText(ui->CurveWidget);//文本框父类设置
+    //设置标签显示位置跟随锚点的位置
+    cur_Label_curve_4->position->setParentAnchor(tracer_curve_4->position);
+    cur_Label_curve_4->setFont(QFont(qApp->font().family(), 12));
+    cur_Label_curve_4->setColor(Qt::white);
+    cur_Label_curve_4->setText("");
+
+    //设置标签对齐方式
+    cur_Label_curve_1->setPositionAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    cur_Label_curve_2->setPositionAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    cur_Label_curve_3->setPositionAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    cur_Label_curve_4->setPositionAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+
+    m_refer_lineV = new QCPItemStraightLine(ui->CurveWidget);
+    m_refer_lineV->setPen(QPen(QColor(255,255,255)));
+    m_refer_lineV->point1->setCoords(0, 0);               //设置点1的值
+    m_refer_lineV->point2->setCoords(0, 100);              //设置点2的值
+    //关联鼠标事件槽函数
+    connect(ui->CurveWidget, SIGNAL(mouseRelease(QMouseEvent *)), this, SLOT(slot_mouseRelease(QMouseEvent *)));
 
     //ui->current_time的connect 显示实时时间
     connect(timer,&QTimer::timeout,this,&Curve_Monitoring::currentTime);
@@ -311,7 +311,7 @@ bool Curve_Monitoring::eventFilter(QObject *watched, QEvent *event)
         //处理点击屏幕时的焦点问题
         if(event->type() == QEvent::MouseButtonPress){
             if(ui->storage_frequency_lineEdit->hasFocus()){
-                ui->storage_frequency_lineEdit->clearFocus();//如果点击屏幕任意位置则取消对应lineEdit的聚焦
+                ui->storage_frequency_lineEdit->clearFocus(); //如果点击屏幕任意位置则取消对应lineEdit的聚焦
             }
         }
     }
@@ -327,28 +327,33 @@ bool Curve_Monitoring::eventFilter(QObject *watched, QEvent *event)
         if(watched == ui->temperature_pv_label)
         {
             if(event->type() == QEvent::MouseButtonPress){
-                emit touch_InterfaceDataSignal(0x311,"0");
+                curve_swi_1 = !curve_swi_1;
+                ui->CurveWidget->graph(0)->setVisible(curve_swi_1);
                 ui->temperature_pv_label->setFocus();
             }
         }else
             if(watched == ui->temperature_sv_label)
             {
                 if(event->type() == QEvent::MouseButtonPress){
-                    emit touch_InterfaceDataSignal(0x312,"0");
+                    curve_swi_2 = !curve_swi_2;
+                    ui->CurveWidget->graph(1)->setVisible(curve_swi_2);
+                    //emit touch_InterfaceDataSignal(0x312,"0");
                     ui->temperature_sv_label->setFocus();
                 }
             }else
                 if(watched == ui->humidity_pv_label)
                 {
                     if(event->type() == QEvent::MouseButtonPress){
-                        emit touch_InterfaceDataSignal(0x313,"0");
+                        curve_swi_3 = !curve_swi_3;
+                        ui->CurveWidget->graph(2)->setVisible(curve_swi_3);
                         ui->humidity_pv_label->setFocus();
                     }
                 }else
                     if(watched == ui->humidity_sv_label)
                     {
                         if(event->type() == QEvent::MouseButtonPress){
-                            emit touch_InterfaceDataSignal(0x314,"0");
+                            curve_swi_4 = !curve_swi_4;
+                            ui->CurveWidget->graph(3)->setVisible(curve_swi_4);
                             ui->humidity_sv_label->setFocus();
                         }
                     }else
@@ -378,6 +383,7 @@ void Curve_Monitoring::currentTime(){
     QDateTime datetime = QDateTime::currentDateTime();
     QString datetimestrs = datetime.toString("yyyy-MM-dd hh:mm:ss");
     ui->current_time->setText(datetimestrs);
+    //refreshCurveInterfaceData();
 }
 
 /*
@@ -535,12 +541,14 @@ void Curve_Monitoring::on_pushButton_5_clicked()
 
 void Curve_Monitoring::on_pushButton_6_clicked()
 {
-    emit touch_InterfaceDataSignal(0x337, "0");
+    //emit touch_InterfaceDataSignal(0x337, "0");
+    --cur_x;
 }
 
 void Curve_Monitoring::on_pushButton_7_clicked()
 {
-    emit touch_InterfaceDataSignal(0x338, "0");
+    //emit touch_InterfaceDataSignal(0x338, "0");
+    ++cur_x;
 }
 
 
@@ -558,7 +566,9 @@ void Curve_Monitoring::saving_pBtn_clicked(){
     emit savingClickedSignals();
 }
 
-void Curve_Monitoring::real_time_pBtn_clicked(){
+void Curve_Monitoring::on_real_time_pbtn_clicked()
+{
+   /* qDebug() <<"isconnect" << isconnect;
     if(isconnect==true)
     {
         disconnect(curveTimer,&QTimer::timeout,this,&Curve_Monitoring::trendDraw);
@@ -575,7 +585,7 @@ void Curve_Monitoring::real_time_pBtn_clicked(){
                                           "background-color:rgb(74,122,60);"
                                           "border-radius:8px;"
                                           "color:rgb(173,199,160)}");
-    }
+    }*/
     emit touch_InterfaceDataSignal(0x330, "0");
 }
 
@@ -674,9 +684,12 @@ void Curve_Monitoring::draw(int num,int size,QVector<QVector<double>> xdata,QVec
     startTime = startTime;
     axisInfo = axisInfo;
     size = size;
+
     switch (status) {
     case 1:
     {
+        //qDebug() << "dataInfo[1]"<< dataInfo[1];
+        //qDebug() << "dataInfo[2]"<< dataInfo[2];
         ui->CurveWidget->xAxis->setRange(dataInfo[1],dataInfo[2]);
         ui->CurveWidget->yAxis->setRange(dataInfo[3],dataInfo[4]);
         ui->CurveWidget->yAxis2->setRange(dataInfo[5],dataInfo[6]);
@@ -684,14 +697,15 @@ void Curve_Monitoring::draw(int num,int size,QVector<QVector<double>> xdata,QVec
         ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis);
         ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis2);
         ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis2);
-        ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis);
-        ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis);
-        ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis);
-        ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis);
-        ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis2);
-        ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis2);
-        ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis);
-        ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis);
+
+        //ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis);
+        //ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis);
+        //ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis);
+        //ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis);
+        //ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis2);
+        //ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis2);
+        //ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis);
+        //ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis);
         QPen graphPen;
         for(int i=0 ; i<num; i++)
         {
@@ -699,8 +713,9 @@ void Curve_Monitoring::draw(int num,int size,QVector<QVector<double>> xdata,QVec
             graphPen.setWidth(2);
             ui->CurveWidget->graph(i)->setPen(graphPen);
             ui->CurveWidget->graph(i)->setAntialiasedFill(true);
-            ui->CurveWidget->graph(i)->addData(xdata[i],ydata[i]);
+            ui->CurveWidget->graph(i)->setData(xdata[i],ydata[i]);
         }
+
         ui->CurveWidget->replot();
         break;
     }
@@ -712,38 +727,45 @@ void Curve_Monitoring::draw(int num,int size,QVector<QVector<double>> xdata,QVec
 //动态曲线测试
 void Curve_Monitoring::trendDraw()
 {
-    for(int i=0 ; i<curve_numb ; i++)
-    {
-        xdata[i].removeAt(0);
-        ydata[i].removeAt(0);
-    }
+
     endSize++;
-    for(int i=0 ; i<curve_numb ; i++)
-    {
-        xdata[i].append(endSize*1.0/100*1.0);
-    }
-    ydata[0].append(sin(endSize*1.0/100*1.0));
-    ydata[1].append(cos(endSize*1.0/100*1.0));
-    ydata[2].append(asin(endSize*1.0/100*1.0));
-    ydata[3].append(acos(endSize*1.0/100*1.0));
-    ydata[4].append(tan(endSize*1.0/100*1.0));
-    ydata[5].append(atan(endSize*1.0/100*1.0));
-    ydata[6].append(sin(endSize*1.0/100*1.0+1));
-    ydata[7].append(cos(endSize*1.0/100*1.0+1));
-    ydata[8].append(asin(endSize*1.0/100*1.0+1));
-    ydata[9].append(acos(endSize*1.0/100*1.0+1));
-    ydata[10].append(tan(endSize*1.0/100*1.0+1));
-    ydata[11].append(atan(endSize*1.0/100*1.0+1));
-    double temp = dataInfo[1];
-    dataInfo[1] = temp+dataInfo[0];
-    dataInfo[2] = endSize*1.0/100*1.0;
+    xdata[0].append(endSize);
+    xdata[1].append(endSize);
+    xdata[2].append(endSize);
+    xdata[3].append(endSize);
+    ydata[0].append(endSize-75);
+    ydata[1].append(180 - endSize);
+    ydata[2].append(endSize + 1);
+    ydata[3].append(99 - endSize);
+    if(endSize < 100)
+        dataInfo[1] = 0;
+    else
+        dataInfo[1] = endSize - 360;
+    dataInfo[2] = dataInfo[1] + 360;
     this->draw(curve_numb,size,xdata,ydata,startTime,dataInfo,axisInfo,status);
 }
 void Curve_Monitoring::addrSetCurveInterfaceData(int addr_num, QString set_value){
 
     QString covert_data;
+    int for_i;
     switch(addr_num)
     {
+    case 0xEB:
+        if(0x55 == set_value.toInt())
+        {
+            for(for_i = 0; for_i < curve_numb; ++for_i)
+            {
+                xdata[for_i].clear();
+                ydata[for_i].clear();
+                curve_data_num_1 = 0;
+                curve_data_num_2 = 0;
+                curve_data_num_3 = 0;
+                curve_data_num_4 = 0;
+            }
+            ui->CurveWidget->clearGraphs();
+            ui->CurveWidget->replot();
+        }
+        break;
     case 0x301:  // temperature pv
         covert_data = convertToDecimalString(set_value,2);
         setTemperaturePV(covert_data);
@@ -759,21 +781,42 @@ void Curve_Monitoring::addrSetCurveInterfaceData(int addr_num, QString set_value
     case 0x304 :
         covert_data = convertToDecimalString(set_value,1);
         setHumiditySV(covert_data);
-        break;
-    case 0x321:
-        ui->temperature_pv_checkbox->setChecked((bool)set_value.toInt());
-        break;
-    case 0x322:
-        ui->temperature_sv_checkbox->setChecked((bool)set_value.toInt());
-        break;
-    case 0x323:
-        ui->humidity_pv_checkbox->setChecked((bool)set_value.toInt());
-        break;
-    case 0x324:
-        ui->humidity_sv_checkbox->setChecked((bool)set_value.toInt());
-        break;
+        break;   
     case 0x33B:
         ui->curve_list_page->setText(set_value);
+        break;
+    case 0x351:
+        ui->Y_axis_time_1->setText(set_value);
+        break;
+    case 0x353:
+        ui->Y_axis_time_2->setText(set_value);
+        break;
+    case 0x355:
+        ui->Y_axis_time_3->setText(set_value);
+        break;
+    case 0x357:
+        ui->Y_axis_time_4->setText(set_value);
+        break;
+    case 0x359:
+        ui->Y_axis_time_5->setText(set_value);
+        break;
+    case 0x35B:
+        ui->Y_axis_time_6->setText(set_value);
+        break;
+    case 0x35D:
+        ui->Y_axis_time_7->setText(set_value);
+        break;
+    case 0x361:
+        dataInfo[3] = set_value.toDouble() / 10;
+        break;
+    case 0x36B:
+        dataInfo[4] = set_value.toDouble() / 10;
+        break;
+    case 0x341:
+        dataInfo[5] = set_value.toDouble() / 10;
+        break;
+    case 0x34B:
+        dataInfo[6] = set_value.toDouble() / 10;
         break;
     case 0x371: //sample rate
         setStroageFrequency(set_value);
@@ -784,6 +827,30 @@ void Curve_Monitoring::addrSetCurveInterfaceData(int addr_num, QString set_value
         break;
     case 0x373:     // cursor time
         setCursorTime(set_value);
+        break;
+    case 0x2381: // curve 1
+        covert_data = convertToDecimalString(set_value,2);
+        xdata[0].append(curve_data_num_1++);
+        qDebug() << "new data is" << covert_data.toFloat();
+        ydata[0].append(covert_data.toFloat());
+        break;
+    case 0x2382: // curve 2
+        covert_data = convertToDecimalString(set_value,2);
+        xdata[1].append(curve_data_num_2++);
+        qDebug() << "new data is" << covert_data.toFloat();
+        ydata[1].append(covert_data.toFloat());
+        break;
+    case 0x2383: // curve 3
+        covert_data = convertToDecimalString(set_value,1);
+        xdata[2].append(curve_data_num_3++);
+        qDebug() << "new data is" << covert_data.toFloat();
+        ydata[2].append(covert_data.toFloat());
+        break;
+    case 0x2384: // curve 4
+        covert_data = convertToDecimalString(set_value,1);
+        xdata[3].append(curve_data_num_4++);
+        qDebug() << "new data is" << covert_data.toFloat();
+        ydata[3].append(covert_data.toFloat());
         break;
     case 0x396:
         ui->curve_pbtn_1->setText(set_value);
@@ -819,5 +886,112 @@ void Curve_Monitoring::addrSetCurveInterfaceData(int addr_num, QString set_value
         break;
     }
 }
+void Curve_Monitoring::on_temperature_pv_checkbox_clicked()
+{
+    curve_swi_1 = !curve_swi_1;
+    ui->CurveWidget->graph(0)->setVisible(curve_swi_1);
+}
 
+void Curve_Monitoring::on_temperature_sv_checkbox_clicked()
+{
+    curve_swi_2 = !curve_swi_2;
+    ui->CurveWidget->graph(1)->setVisible(curve_swi_2);
+}
 
+void Curve_Monitoring::on_humidity_pv_checkbox_clicked()
+{
+    curve_swi_3 = !curve_swi_3;
+    ui->CurveWidget->graph(2)->setVisible(curve_swi_3);
+}
+
+void Curve_Monitoring::on_humidity_sv_checkbox_clicked()
+{
+    curve_swi_4 = !curve_swi_4;
+    ui->CurveWidget->graph(3)->setVisible(curve_swi_4);
+}
+void Curve_Monitoring::refreshCurveInterfaceData()
+{
+    ui->temperature_pv_checkbox->setChecked(curve_swi_1);
+    ui->temperature_sv_checkbox->setChecked(curve_swi_2);
+    ui->humidity_pv_checkbox->setChecked(curve_swi_3);
+    ui->humidity_sv_checkbox->setChecked(curve_swi_4);
+    showTraceData(cur_x);
+    this->draw(curve_numb,size,xdata,ydata,startTime,dataInfo,axisInfo,status);
+
+    //qDebug()<< "xdata size is" <<xdata[0].size();
+
+}
+
+void Curve_Monitoring::slot_mouseRelease(QMouseEvent *event)
+{
+    //点击坐标
+    QPointF CPoint = event->pos();
+
+    //鼠标点击的后屏幕位置转换到下坐标轴对应坐标
+    cur_x = ui->CurveWidget->xAxis->pixelToCoord(CPoint.x());
+}
+
+void Curve_Monitoring::showTraceData(int cur_x)
+{
+    qDebug() << "cur_x = "<<cur_x;
+    double y_value1 = 0;
+    double y_value2 = 0;
+    double y_value3 = 0;
+    double y_value4 = 0;
+    QString y_value1_text = "";
+    QString y_value2_text = "";
+    QString y_value3_text = "";
+    QString y_value4_text = "";
+   //标记点和标签
+    if(cur_x < 0)
+    {
+        cur_x = 0;
+    }else
+    {
+        if((cur_x < ydata[0].size()))
+        {
+            y_value1 = ydata[0].at(cur_x);                     //获取曲线在X轴位置的Y值
+            y_value1_text = QString::number(y_value1, 'f', 2);
+        }
+        if((cur_x < ydata[1].size()))
+        {
+            y_value2 = ydata[1].at(cur_x);
+            y_value2_text = QString::number(y_value2, 'f', 2);
+        }
+        if((cur_x < ydata[2].size()))
+        {
+            y_value3 = ydata[2].at(cur_x);
+            y_value3_text = QString::number(y_value3, 'f', 2);
+        }
+        if((cur_x < ydata[3].size()))
+        {
+            y_value4 = ydata[3].at(cur_x);
+            y_value4_text = QString::number(y_value4, 'f', 2);
+        }
+    }
+
+    tracer_curve_1->setGraphKey(cur_x);                              //设置标记点X轴的位置
+    tracer_curve_1->position->setCoords(cur_x, y_value1);             //设置标记点在位置
+    cur_Label_curve_1->position->setCoords(0, 10);                   //设置标签显示偏移位置
+    cur_Label_curve_1->setText(y_value1_text);    //设置标签的值
+
+    tracer_curve_2->setGraphKey(cur_x);
+    tracer_curve_2->position->setCoords(cur_x, y_value2);
+    cur_Label_curve_2->position->setCoords(0, 10);
+    cur_Label_curve_2->setText(y_value2_text);
+
+    tracer_curve_3->setGraphKey(cur_x);
+    tracer_curve_3->position->setCoords(cur_x, y_value3);
+    cur_Label_curve_3->position->setCoords(0, 10);
+    cur_Label_curve_3->setText(y_value3_text);
+
+    tracer_curve_4->setGraphKey(cur_x);
+    tracer_curve_4->position->setCoords(cur_x, y_value4);
+    cur_Label_curve_4->position->setCoords(0, 10);
+    cur_Label_curve_4->setText(y_value4_text);
+
+    //垂直参考线，就是两点一线
+    m_refer_lineV->point1->setCoords(cur_x, 0);               //设置点1的值
+    m_refer_lineV->point2->setCoords(cur_x, 100);              //设置点2的值
+    //ui->CurveWidget->replot();
+}

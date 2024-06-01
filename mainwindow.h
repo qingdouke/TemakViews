@@ -20,6 +20,7 @@
 #include <QBuffer>
 #include <calculate.h>
 #include <popupwindow07.h>
+#include <popupwindow_saveEnd.h>
 #include <userpasswordpage01.h>
 #include <userpasswordpage02.h>
 #include <userpasswordpage03.h>
@@ -46,7 +47,42 @@
 //#define LIST_PARAM_PAGE		(20)				// 列表式系统参数页
 #define TAB_PARAM_PAGE			(21)				// 表格式系统参数页
 
-                        //湿度显示状态
+#define SAVE_SUC_KEY            (0x01)		 // 储存成功键码
+#define PWD_CHANGE_SUC_KEY      (0x02)		 // 密码修改成功键码
+#define SAVEING_KEY			    (0x03)		// 存储中，请稍候
+#define N0_PGM_LOAD_KEY         (0x04)		 // 运行中程式不可载入键码
+//#define PGM_LOAD_KEY			(0x05)		 // 程式载入键码
+//#define NO_CH_DEL_KEY			(0x06)		 // 载入中程式不可更名或删除键码
+#define NO_PGM_JUMP_KEY			(0x07)		 // 非运行中程式不可跳段键码
+#define THE_NUM_KEY				(0x08)			//目标段数字键盘
+#define NO_THIS_SGM				(0x09)			//无效段
+#define PGM_TIME_ZERO_KEY		(0x0B)		 // 程式时间不可为零键码
+//#define PGM_SAVE_SUC_KEY		(0x0A)		 // 程式储存成功
+#define RUN_NOT_SAVE_KEY   		(0x0C)		 // 运行中不可被编辑
+#define NO_PGM_RUN_KEY			(0x0D)		// 没有程式，请加载程式
+#define SAVE_FAL_KEY			(0x0F)		 // 储存失败键码
+#define SYS_RUN_KEY				(0x10)        // 系统运转键码
+#define SYS_STOP_KEY			(0x11)        // 系统停止键码
+//#define RELAY_REPEAT_KEY		(0x12)        // 继电器冲突键码
+#define	NO_THIS_FUNCTIION		(0x13)				// 暂不支持此功能
+#define PLEASE_ENTER_USB		(0x14)				// 请插入U盘
+#define PLEASE_ENTER_SD			(0x15)				// 请插入SD卡
+#define NO_ACCESS_KEY			(0x17)				// 无操作权限
+//#define SYS_LOCKED_KEY			(0x18)			// 系统已锁定
+#define	ENTER_ASCII_KEY			(0x20)				// 弹出字符输入键盘
+#define SYSTEM_STOP_KEY			(0x21)			// 停机取样提示
+#define PGM_LOG_SEC_DEY			(0x31)			// 程式运行数据保存时间间隔
+#define NUM_NO_DEC_KEY			(0x40)			// 整数键盘
+#define NUM_ONE_DEC_KEY			(0x41)			// 一位小数键盘
+#define NUM_TWO_DEC_KEY			(0x42)			// 两位小数键盘
+#define NUM_THR_DEC_KEY			(0x43)			// 两位小数键盘
+#define STR_DEC_KEY				(0x50)			// 字符串输入键盘
+#define THE_PASSWORD_ERR		(0x70)	  		// 密码错误
+#define PGMNAME_CANT_DEFT		(0x71)			// 程式名不能为空
+#define PGM_PAUSE_KEY			(0x74)			// 是否暂停确认窗口
+#define SCREEN_LOCK_KEY			(0x75)			// 系统已锁屏，提示窗口
+#define ENTER_KEY				(0xF1)			// 确定键码
+
 
 class  SYS_INFO_F{
  public:
@@ -110,6 +146,7 @@ public:
     PopUpWindow05 popUpWindow05;
     PopUpWindow06 popUpWindow06;
     PopUpWindow07 popUpWindow07;
+    PopupWindow_SaveEnd popUpWindow08;
     Data* readData01;
     Data* readData02;
     Server serverTask;
@@ -162,9 +199,10 @@ public:
     void deal_updateInterfaceNumber(int,QString);
     void deal_SQLInterfaceData_update(int ,QString);
     void deal_CommInterfaceData_update(int,QString);
-    void deal_curveData_update(int num,int size,QVector<QVector<double>> xdata,QVector<QVector<double>> data,QString startTime,double* dataInfo,QString* axisInfo,int status);
+    void deal_updateInterfaceDataSignal();
     void oldPageHide(int);
     void newPageShow(int);
+    void usePopupWindow(int);
 
     void freezeOneSec();
     void dataThreadInit(int page_num);
@@ -177,7 +215,7 @@ private:
     int calculate_ID=0;
     int current_Page=MAIN_PAGE;
     int last_page = 0;
-    int page_debug_state = 0;
+    int page_debug_state = 1;
     //鼠标移动时窗体与左上角的偏移
     //QPoint mOffset;
 private slots:

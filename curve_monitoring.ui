@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 white,stop:1 rgb(177,203,166))</string>
+  </property>
   <widget class="QWidget" name="Header" native="true">
    <property name="geometry">
     <rect>
@@ -129,6 +132,9 @@
        <family>思源黑体</family>
        <pointsize>18</pointsize>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color:rgb(255,0,0)</string>
      </property>
      <property name="text">
       <string>  Temp PV</string>
@@ -471,6 +477,27 @@
       <height>55</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    /* 正常状态 */
+	background-color:rgb(72,129,52);
+	border:none;
+	background-image:url(:/Image/icon/pushButton_0.png);
+	background-repeat:no-repeat;
+	background-position:center
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+
+    background-color: rgb(255,255,255);
+}</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -483,6 +510,27 @@
       <width>100</width>
       <height>55</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    /* 正常状态 */
+	background-color:rgb(72,129,52);
+	border:none;
+	background-image:url(:/Image/icon/pushButton_1.png);
+	background-repeat:no-repeat;
+	background-position:center
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+
+    background-color: rgb(255,255,255);
+}</string>
     </property>
     <property name="text">
      <string/>
@@ -497,6 +545,27 @@
       <height>55</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    /* 正常状态 */
+	background-color:rgb(72,129,52);
+	border:none;
+	background-image:url(:/Image/icon/pushButton_2.png);
+	background-repeat:no-repeat;
+	background-position:center
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+
+    background-color: rgb(255,255,255);
+}</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -509,6 +578,27 @@
       <width>100</width>
       <height>55</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    /* 正常状态 */
+	background-color:rgb(72,129,52);
+	border:none;
+	background-image:url(:/Image/icon/pushButton_3.png);
+	background-repeat:no-repeat;
+	background-position:center
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+
+    background-color: rgb(255,255,255);
+}</string>
     </property>
     <property name="text">
      <string/>
@@ -523,6 +613,27 @@
       <height>55</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    /* 正常状态 */
+	background-color:rgb(72,129,52);
+	border:none;
+	background-image:url(:/Image/icon/pushButton_4.png);
+	background-repeat:no-repeat;
+	background-position:center
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+
+    background-color: rgb(255,255,255);
+}</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -535,6 +646,27 @@
       <width>100</width>
       <height>55</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    /* 正常状态 */
+	background-color:rgb(72,129,52);
+	border:none;
+	background-image:url(:/Image/icon/pushButton_5.png);
+	background-repeat:no-repeat;
+	background-position:center
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+
+    background-color: rgb(255,255,255);
+}</string>
     </property>
     <property name="text">
      <string/>
@@ -549,6 +681,27 @@
       <height>55</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    /* 正常状态 */
+	background-color:rgb(72,129,52);
+	border:none;
+	background-image:url(:/Image/icon/pushButton_6.png);
+	background-repeat:no-repeat;
+	background-position:center
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+
+    background-color: rgb(255,255,255);
+}</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -561,6 +714,30 @@
       <width>100</width>
       <height>55</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+
+QPushButton {
+    /* 正常状态 */
+	background-color:rgb(72,129,52);
+	border:none;
+	background-image:url(:/Image/icon/pushButton_7.png);
+	background-repeat:no-repeat;
+	background-position:center
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+
+    background-color: rgb(255,255,255);
+}
+</string>
     </property>
     <property name="text">
      <string/>
@@ -702,7 +879,7 @@
    <widget class="QLineEdit" name="cursor_time_lineEdit">
     <property name="geometry">
      <rect>
-      <x>750</x>
+      <x>770</x>
       <y>605</y>
       <width>113</width>
       <height>30</height>
@@ -727,7 +904,7 @@
    <widget class="QLabel" name="cursor_time_line">
     <property name="geometry">
      <rect>
-      <x>750</x>
+      <x>770</x>
       <y>640</y>
       <width>110</width>
       <height>2</height>
@@ -743,7 +920,7 @@
       <x>30</x>
       <y>110</y>
       <width>981</width>
-      <height>411</height>
+      <height>371</height>
      </rect>
     </property>
    </widget>
@@ -753,7 +930,7 @@
       <x>1040</x>
       <y>110</y>
       <width>201</width>
-      <height>471</height>
+      <height>461</height>
      </rect>
     </property>
     <property name="title">
@@ -774,6 +951,23 @@
        <pointsize>16</pointsize>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    /* 正常状态 */
+	background:transparent;	
+    color:rgb(0,0,0);
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+    background-color: rgb(255,255,255);
+}</string>
+     </property>
      <property name="text">
       <string>PushButton</string>
      </property>
@@ -792,6 +986,23 @@
        <family>思源黑体</family>
        <pointsize>16</pointsize>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    /* 正常状态 */
+	background:transparent;	
+    color:rgb(0,0,0);
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+    background-color: rgb(255,255,255);
+}</string>
      </property>
      <property name="text">
       <string>PushButton</string>
@@ -812,6 +1023,23 @@
        <pointsize>16</pointsize>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    /* 正常状态 */
+	background:transparent;	
+    color:rgb(0,0,0);
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+    background-color: rgb(255,255,255);
+}</string>
+     </property>
      <property name="text">
       <string>PushButton</string>
      </property>
@@ -830,6 +1058,23 @@
        <family>思源黑体</family>
        <pointsize>16</pointsize>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    /* 正常状态 */
+	background:transparent;	
+    color:rgb(0,0,0);
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+    background-color: rgb(255,255,255);
+}</string>
      </property>
      <property name="text">
       <string>PushButton</string>
@@ -850,6 +1095,23 @@
        <pointsize>16</pointsize>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    /* 正常状态 */
+	background:transparent;	
+    color:rgb(0,0,0);
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+    background-color: rgb(255,255,255);
+}</string>
+     </property>
      <property name="text">
       <string>PushButton</string>
      </property>
@@ -868,6 +1130,23 @@
        <family>思源黑体</family>
        <pointsize>16</pointsize>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    /* 正常状态 */
+	background:transparent;	
+    color:rgb(0,0,0);
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+    background-color: rgb(255,255,255);
+}</string>
      </property>
      <property name="text">
       <string>PushButton</string>
@@ -888,6 +1167,23 @@
        <pointsize>16</pointsize>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    /* 正常状态 */
+	background:transparent;	
+    color:rgb(0,0,0);
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+    background-color: rgb(255,255,255);
+}</string>
+     </property>
      <property name="text">
       <string>PushButton</string>
      </property>
@@ -906,6 +1202,23 @@
        <family>思源黑体</family>
        <pointsize>16</pointsize>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    /* 正常状态 */
+	background:transparent;	
+    color:rgb(0,0,0);
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+    background-color: rgb(255,255,255);
+}</string>
      </property>
      <property name="text">
       <string>PushButton</string>
@@ -926,6 +1239,23 @@
        <pointsize>16</pointsize>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    /* 正常状态 */
+	background:transparent;	
+    color:rgb(0,0,0);
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+    background-color: rgb(255,255,255);
+}</string>
+     </property>
      <property name="text">
       <string>PushButton</string>
      </property>
@@ -945,6 +1275,23 @@
        <pointsize>16</pointsize>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    /* 正常状态 */
+	background:transparent;	
+    color:rgb(0,0,0);
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+    background-color: rgb(255,255,255);
+}</string>
+     </property>
      <property name="text">
       <string>PushButton</string>
      </property>
@@ -953,7 +1300,7 @@
      <property name="geometry">
       <rect>
        <x>80</x>
-       <y>440</y>
+       <y>430</y>
        <width>51</width>
        <height>31</height>
       </rect>
@@ -970,7 +1317,7 @@
     <property name="geometry">
      <rect>
       <x>1030</x>
-      <y>590</y>
+      <y>580</y>
       <width>111</width>
       <height>41</height>
      </rect>
@@ -980,6 +1327,25 @@
       <family>思源黑体</family>
       <pointsize>16</pointsize>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    /* 正常状态 */
+	border:1px solid rgb(74,122,60);
+	background-color:rgb(72, 129, 52);
+	border-radius:4px;
+    color:rgb(252,255,255);
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+    background-color: rgb(255,255,255);
+}</string>
     </property>
     <property name="text">
      <string>LastPage</string>
@@ -989,7 +1355,7 @@
     <property name="geometry">
      <rect>
       <x>1150</x>
-      <y>590</y>
+      <y>580</y>
       <width>111</width>
       <height>41</height>
      </rect>
@@ -1000,8 +1366,160 @@
       <pointsize>16</pointsize>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    /* 正常状态 */
+	border:1px solid rgb(74,122,60);
+	background-color:rgb(72, 129, 52);
+	border-radius:4px;
+    color:rgb(252,255,255);
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+    background-color: rgb(255,255,255);
+}</string>
+    </property>
     <property name="text">
      <string>NextPage</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Y_axis_time_1">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>490</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>思源黑体</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Y_axis_time_2">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>490</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>思源黑体</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Y_axis_time_3">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>490</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>思源黑体</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Y_axis_time_6">
+    <property name="geometry">
+     <rect>
+      <x>810</x>
+      <y>490</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>思源黑体</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Y_axis_time_4">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>490</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>思源黑体</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Y_axis_time_5">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>490</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>思源黑体</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Y_axis_time_7">
+    <property name="geometry">
+     <rect>
+      <x>960</x>
+      <y>490</y>
+      <width>81</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>思源黑体</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
     </property>
    </widget>
   </widget>
@@ -1029,6 +1547,27 @@
       <pointsize>22</pointsize>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    /* 正常状态 */
+	border:2px solid rgb(74,122,60);
+	background-color:rgb(173,199,160);
+	border-radius:6px;
+    color:rgb(74,122,60);
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+
+    background-color: rgb(255,255,255);
+}
+</string>
+    </property>
     <property name="text">
      <string>Menu</string>
     </property>
@@ -1047,6 +1586,27 @@
       <family>思源黑体</family>
       <pointsize>22</pointsize>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    /* 正常状态 */
+	border:2px solid rgb(74,122,60);
+	background-color:rgb(173,199,160);
+	border-radius:6px;
+    color:rgb(74,122,60);
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+
+    background-color: rgb(255,255,255);
+}
+</string>
     </property>
     <property name="text">
      <string>LastPage</string>
@@ -1067,6 +1627,27 @@
       <pointsize>18</pointsize>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    /* 正常状态 */
+	border:2px solid rgb(74,122,60);
+	background-color:rgb(173,199,160);
+	border-radius:6px;
+    color:rgb(74,122,60);
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+
+    background-color: rgb(255,255,255);
+}
+</string>
+    </property>
     <property name="text">
      <string>SaveToUSB</string>
     </property>
@@ -1086,8 +1667,28 @@
       <pointsize>18</pointsize>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    /* 正常状态 */
+	border:2px solid rgb(74,122,60);
+	background-color:rgb(173,199,160);
+	border-radius:6px;
+    color:rgb(74,122,60);
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+
+    background-color: rgb(255,255,255);
+}</string>
+    </property>
     <property name="text">
-     <string>RealTime</string>
+     <string>Real</string>
     </property>
    </widget>
    <widget class="QLabel" name="footer_line">

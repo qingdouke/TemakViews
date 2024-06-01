@@ -16,7 +16,6 @@ CANSET::CANSET(QWidget *parent) :
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint); //设置为无边框
     this->move(0,0); // 窗口移动到屏幕的左上角位置(0,0)
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
 
     //Header背景颜色
     ui->Header->setStyleSheet("QWidget#Header{background-color:rgb(72,129,52)}");
@@ -31,14 +30,14 @@ CANSET::CANSET(QWidget *parent) :
     //Footer
     ui->Footer->setStyleSheet("QWidget#Footer{background-color:rgb(171,199,158)}");
     ui->footer_line->setStyleSheet("QLabel#footer_line{background-color:rgb(74,122,60)}");
-    ui->font_page_pbtn->setStyleSheet("QPushButton#font_page_pbtn{border:2px solid rgb(74,122,60);"
+    /*ui->font_page_pbtn->setStyleSheet("QPushButton#font_page_pbtn{border:2px solid rgb(74,122,60);"
                                       "background-color:rgb(173,199,160);"
                                       "border-radius:8px;"
                                       "color:rgb(74,122,60)}");
     ui->previous_page_pbtn->setStyleSheet("QPushButton#previous_page_pbtn{border:2px solid rgb(74,122,60);"
                                   "background-color:rgb(173,199,160);"
                                   "border-radius:8px;"
-                                  "color:rgb(74,122,60)}");
+                                  "color:rgb(74,122,60)}");*/
 
     ui->baudrate_label->setStyleSheet("QLabel#baudrate_label{color:rgb(72,129,52)}");
 
@@ -84,7 +83,6 @@ CANSET::CANSET(QWidget *parent) :
     ui->set_form_line_3->setStyleSheet("QLabel#set_form_line_3{background-color:rgb(72,129,52)}");
     ui->set_form_line_4->setStyleSheet("QLabel#set_form_line_4{background-color:rgb(72,129,52)}");
     ui->set_form_line_5->setStyleSheet("QLabel#set_form_line_5{background-color:rgb(72,129,52)}");
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;    
 }
 
 CANSET::~CANSET()

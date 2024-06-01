@@ -64,8 +64,8 @@
 #define addr_ry_output5                       0x2E0
 #define addr_ry_output6                       0x2F0
 
-#define addr_touch_run_pgm_edit             0x200
-#define addr_touch_run_pgm_jump             0x361
+#define addr_touch_run_pgm_edit               0x200
+#define addr_touch_run_pgm_jump               0x201
 #define addr_run_pgm_step_row1                0x220
 #define addr_run_pgm_value1_row1              0x221
 #define addr_run_pgm_value2_row1              0x222

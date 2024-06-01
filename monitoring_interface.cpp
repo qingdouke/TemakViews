@@ -16,7 +16,7 @@ Monitoring_Interface::Monitoring_Interface(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
+    //qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     //Header背景颜色
     ui->Header->setStyleSheet("QWidget#Header{background-color:rgb(72,129,52)}");
     //标题颜色
@@ -121,15 +121,15 @@ Monitoring_Interface::Monitoring_Interface(QWidget *parent) :
 
     //Footer
     ui->Footer->setStyleSheet("QWidget#Footer{background-color:rgb(171,199,158)}");
-    ui->footer_line->setStyleSheet("QLabel#footer_line{background-color:rgb(74,122,60)}");
-    ui->font_page_pbtn->setStyleSheet("QPushButton#font_page_pbtn{border:2px solid rgb(74,122,60);"
-                                      "background-color:rgb(173,199,160);"
-                                      "border-radius:8px;"
-                                      "color:rgb(74,122,60)}");
+    ui->footer_line->setStyleSheet("QLabel#footer_line{background-color:rgb(74,122,60)}");    
     ui->LED_pbtn->setStyleSheet("QPushButton#LED_pbtn{border:2px solid rgb(74,122,60);"
                                 "background-color:rgb(173,199,160);"
                                 "border-radius:8px;"
                                 "color:rgb(74,122,60)}");
+   /* ui->font_page_pbtn->setStyleSheet("QPushButton#font_page_pbtn{border:2px solid rgb(74,122,60);"
+                                      "background-color:rgb(173,199,160);"
+                                      "border-radius:8px;"
+                                      "color:rgb(74,122,60)}");
     ui->reset_pbth->setStyleSheet("QPushButton#reset_pbth{border:2px solid rgb(74,122,60);"
                                   "background-color:rgb(173,199,160);"
                                   "border-radius:8px;"
@@ -141,7 +141,7 @@ Monitoring_Interface::Monitoring_Interface(QWidget *parent) :
     ui->next_page_pbtn->setStyleSheet("QPushButton#next_page_pbtn{border:2px solid rgb(74,122,60);"
                                       "background-color:rgb(173,199,160);"
                                       "border-radius:8px;"
-                                      "color:rgb(74,122,60)}");
+                                      "color:rgb(74,122,60)}");*/
 
     //运行 加载
     ui->running_pBtn->setStyleSheet("QPushButton#running_pBtn{background-color:rgb(72,129,52);"
@@ -164,7 +164,7 @@ Monitoring_Interface::Monitoring_Interface(QWidget *parent) :
     ui->status_4->setStyleSheet("QLabel#status_4{background-image:url(:/Image/24/67.bmp)}");
     ui->status_5->setStyleSheet("QLabel#status_5{background-image:url(:/Image/24/69.bmp)}");
     ui->status_6->setStyleSheet("QLabel#status_6{background-image:url(:/Image/24/71.bmp)}");
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
+    //qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
 
     //ui->current_time的connect 显示实时时间
     connect(timer,&QTimer::timeout,this,&Monitoring_Interface::currentTime);

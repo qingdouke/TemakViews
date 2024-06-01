@@ -13,7 +13,6 @@ Error_Log::Error_Log(QWidget *parent) :
     ui->setupUi(this);
 
     setWindowFlags(Qt::FramelessWindowHint);
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     //Header背景颜色
     ui->Header->setStyleSheet("QWidget#Header{background-color:rgb(72,129,52)}");
     //标题颜色
@@ -47,7 +46,7 @@ Error_Log::Error_Log(QWidget *parent) :
     //Footer
     ui->Footer->setStyleSheet("QWidget#Footer{background-color:rgb(171,199,158)}");
     ui->footer_line->setStyleSheet("QLabel#footer_line{background-color:rgb(74,122,60)}");
-    ui->font_page_pbtn->setStyleSheet("QPushButton#font_page_pbtn{border:2px solid rgb(74,122,60);"
+    /*ui->font_page_pbtn->setStyleSheet("QPushButton#font_page_pbtn{border:2px solid rgb(74,122,60);"
                                       "background-color:rgb(173,199,160);"
                                       "border-radius:8px;"
                                       "color:rgb(74,122,60)}");
@@ -58,9 +57,8 @@ Error_Log::Error_Log(QWidget *parent) :
     ui->saving_pbtn->setStyleSheet("QPushButton#saving_pbtn{border:2px solid rgb(74,122,60);"
                                                    "background-color:rgb(173,199,160);"
                                                    "border-radius:8px;"
-                                                   "color:rgb(74,122,60)}");
+                                                   "color:rgb(74,122,60)}");*/
 
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     //ui->current_time的connect 显示实时时间
     connect(timer,&QTimer::timeout,this,&Error_Log::currentTime);
 

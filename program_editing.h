@@ -7,7 +7,7 @@
 #include <QTableWidget>
 #include <QBuffer>
 #include <popupwindow04.h>
-
+#include "qcustomplot.h"
 namespace Ui {
 class Program_Editing;
 }
@@ -41,6 +41,8 @@ public:
 
     void addrSetPgmEditInterfaceData(int, QString);
     void freezeOneSec();
+    void refreshPgmEditInterfaceData();
+    void draw(int num,int size,QVector<QVector<double>> xdata,QVector<QVector<double>> ydata,QString startTime,double* dataInfo,QString* axisInfo,int status);
 
 private:
     Ui::Program_Editing *ui;
@@ -62,6 +64,25 @@ private:
     QString edit_pgm_list_ts2[4] = {"0","0","0","0"};
     QString edit_pgm_list_ts3[4] = {"0","0","0","0"};
     QString edit_pgm_list_wt[4] = {"0","0","0","0"};
+
+
+    //曲线部分
+    QColor color[12] = {QColor(253,154,52),QColor(107,149,255),QColor(153,204,101),QColor(172,45,79),
+                        QColor(54,78,189),QColor(112,45,128),QColor(202,125,78),QColor(202,17,202),QColor(12,152,12),
+                        QColor(102,145,152),QColor(255,255,205),QColor(203,153,204)};//曲线颜色
+    //曲线测试信息
+    int curve_numb = 2;
+    int curve_data_num[12];
+    int size;
+    QVector<QVector<double>> xdata;
+    QVector<QVector<double>> ydata;
+    QString startTime;
+    int dataInfoSize;
+    double* dataInfo;
+    QString* axisInfo;
+    int status;
+    int endSize;
+    QTimer* curveTimer;
 
     PopUpWindow04 popUpWindow04;
 

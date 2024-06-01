@@ -8,6 +8,7 @@ PopUpWindow02::PopUpWindow02(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
+    setWindowFlags(Qt::WindowStaysOnTopHint);
     this->setWindowModality(Qt::ApplicationModal);
     qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
 

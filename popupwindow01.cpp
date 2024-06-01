@@ -7,6 +7,7 @@ PopUpWindow01::PopUpWindow01(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
+    setWindowFlags(Qt::WindowStaysOnTopHint);
     this->setWindowModality(Qt::ApplicationModal);
     ui->widget->setStyleSheet("QWidget#widget{background-color:white;"
                               "border:3px solid rgb(74,122,60)}");

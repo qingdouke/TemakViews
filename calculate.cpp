@@ -11,7 +11,7 @@ Calculate::Calculate(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
-
+    setWindowFlags(Qt::WindowStaysOnTopHint);
     ui->background->setStyleSheet("QWidget#background{border-image:url(:/Image/icon/Calculater.bmp)}");
 
     QFile file(":/qss/keyboard_pBtn.qss");

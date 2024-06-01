@@ -20,7 +20,7 @@ Parameter_Setting::Parameter_Setting(QWidget *parent) :
     QFile file(":/qss/Parameter_Setting_qss.qss");
     file.open(QFile::ReadOnly);
     QTextStream filetext(&file);
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
+    //qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     QString stylesheet = filetext.readAll();
     this->setStyleSheet(stylesheet);
     file.close();
@@ -127,15 +127,15 @@ Parameter_Setting::Parameter_Setting(QWidget *parent) :
     //Footer
     ui->Footer->setStyleSheet("QWidget#Footer{background-color:rgb(171,199,158)}");
     ui->footer_line->setStyleSheet("QLabel#footer_line{background-color:rgb(74,122,60)}");
-    ui->font_page_pbtn->setStyleSheet("QPushButton#font_page_pbtn{border:2px solid rgb(74,122,60);"
+    /*ui->font_page_pbtn->setStyleSheet("QPushButton#font_page_pbtn{border:2px solid rgb(74,122,60);"
                                       "background-color:rgb(173,199,160);"
                                       "border-radius:8px;"
                                       "color:rgb(74,122,60)}");
     ui->next_page_pbtn->setStyleSheet("QPushButton#next_page_pbtn{border:2px solid rgb(74,122,60);"
                                                    "background-color:rgb(173,199,160);"
                                                    "border-radius:8px;"
-                                                   "color:rgb(74,122,60)}");
-qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
+                                                   "color:rgb(74,122,60)}");*/
+    //qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     //添加事件过滤器
     this->installEventFilter(this);
     ui->passwordChange_lineEdit->installEventFilter(this);

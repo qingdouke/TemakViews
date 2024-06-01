@@ -16,7 +16,6 @@ Fixed_Value_Setting::Fixed_Value_Setting(QWidget *parent) :
     ui->setupUi(this);
 
     setWindowFlags(Qt::FramelessWindowHint);
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     //Header背景颜色
     ui->Header->setStyleSheet("QWidget#Header{background-color:rgb(72,129,52)}");
     //标题颜色
@@ -157,7 +156,7 @@ Fixed_Value_Setting::Fixed_Value_Setting(QWidget *parent) :
     //Footer
     ui->Footer->setStyleSheet("QWidget#Footer{background-color:rgb(171,199,158)}");
     ui->footer_line->setStyleSheet("QLabel#footer_line{background-color:rgb(74,122,60)}");
-    ui->font_page_pbtn->setStyleSheet("QPushButton#font_page_pbtn{border:2px solid rgb(74,122,60);"
+    /*ui->font_page_pbtn->setStyleSheet("QPushButton#font_page_pbtn{border:2px solid rgb(74,122,60);"
                                       "background-color:rgb(173,199,160);"
                                       "border-radius:8px;"
                                       "color:rgb(74,122,60)}");
@@ -168,8 +167,7 @@ Fixed_Value_Setting::Fixed_Value_Setting(QWidget *parent) :
     ui->saving_pbtn->setStyleSheet("QPushButton#saving_pbtn{border:2px solid rgb(74,122,60);"
                                                    "background-color:rgb(173,199,160);"
                                                    "border-radius:8px;"
-                                                   "color:rgb(74,122,60)}");
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
+                                                   "color:rgb(74,122,60)}");*/
     //ui->current_time的connect 显示实时时间
     connect(timer,&QTimer::timeout,this,&Fixed_Value_Setting::currentTime);
 
@@ -622,40 +620,52 @@ void Fixed_Value_Setting::addrSetOnepointInterfaceData(int addr_num, QString set
     {
     case addr_onepoint_test_temperature:
         covert_data = convertToDecimalString(set_value,2);
-        setTemperatureText(covert_data);
+        temperatureText = covert_data;
+        setTemperatureText(temperatureText);
         break;
     case addr_onepoint_test_humidity :
         covert_data = convertToDecimalString(set_value,1);
-        setHumidityText(covert_data);
+        humidityText = covert_data;
+        setHumidityText(humidityText);
         break;
     case addr_onepoint_ramptime_hour:
-        setSlopeTimeHText(set_value);
+        slopeTimeHText = set_value;
+        setSlopeTimeHText(slopeTimeHText);
         break;
     case addr_onepoint_ramptime_min:
-        setSlopeTimeMText(set_value);
+        slopeTimeMText = set_value;
+        setSlopeTimeMText(slopeTimeMText);
         break;
     case addr_onepoint_ramptime_sec:
-        setSlopeTimeSText(set_value);
+        slopeTimeSText = set_value;
+        setSlopeTimeSText(slopeTimeSText);
         break;
     case addr_onepoint_constime_hour:
+        constantTempHText = set_value;
         setconstantTempHText(set_value);
         break;
     case addr_onepoint_constime_min:
+        constantTempMText = set_value;
         setconstantTempMText(set_value);
         break;
     case addr_onepoint_constime_sec:
+        constantTempSText = set_value;
         setconstantTempSText(set_value);
         break;
     case addr_onepoint_timesignal_1:
+        TS1Text = set_value;
         setTS1Text(set_value);
         break;
     case addr_onepoint_timesignal_2:
+        TS2Text = set_value;
         setTS2Text(set_value);
         break;
     case addr_onepoint_timesignal_3:
+        TS3Text = set_value;
         setTS3Text(set_value);
         break;
     case addr_onepoint_wait:
+        waitText = set_value;
         setWaitText(set_value);
         break;
     default:
@@ -663,3 +673,18 @@ void Fixed_Value_Setting::addrSetOnepointInterfaceData(int addr_num, QString set
     }
 }
 
+void Fixed_Value_Setting::refreshOnePointInterfaceData()
+{
+    setTemperatureText(temperatureText);
+    setHumidityText(humidityText);
+    setSlopeTimeHText(slopeTimeHText);
+    setSlopeTimeMText(slopeTimeMText);
+    setSlopeTimeSText(slopeTimeSText);
+    setconstantTempHText(constantTempHText);
+    setconstantTempMText(constantTempMText);
+    setconstantTempSText(constantTempSText);
+    setTS1Text(TS1Text);
+    setTS2Text(TS2Text);
+    setTS3Text(TS3Text);
+    setWaitText(waitText);
+}

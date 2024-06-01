@@ -1,3 +1,5 @@
+// 调试QT本地socket功能，因为QT本地socket功能不能和其它应的TCP通信，所以本程序文件暂未使用
+
 #include <QtWidgets>
 #include <QtNetwork>
 

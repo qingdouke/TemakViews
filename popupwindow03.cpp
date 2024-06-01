@@ -7,6 +7,7 @@ PopUpWindow03::PopUpWindow03(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
+    setWindowFlags(Qt::WindowStaysOnTopHint);
     this->setWindowModality(Qt::ApplicationModal);
 
     ui->pBtn_YES->setStyleSheet("QPushButton#pBtn_YES{background-color:rgb(72,129,52);"

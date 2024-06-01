@@ -14,7 +14,7 @@ Program_Loop::Program_Loop(QWidget *parent) :
     ui->setupUi(this);
 
     setWindowFlags(Qt::FramelessWindowHint);
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
+   // qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     //Header背景颜色
     ui->Header->setStyleSheet("QWidget#Header{background-color:rgb(72,129,52)}");
     //标题颜色
@@ -174,7 +174,7 @@ Program_Loop::Program_Loop(QWidget *parent) :
     //Footer
     ui->Footer->setStyleSheet("QWidget#Footer{background-color:rgb(171,199,158)}");
     ui->footer_line->setStyleSheet("QLabel#footer_line{background-color:rgb(74,122,60)}");
-    ui->font_page_pbtn->setStyleSheet("QPushButton#font_page_pbtn{border:2px solid rgb(74,122,60);"
+   /* ui->font_page_pbtn->setStyleSheet("QPushButton#font_page_pbtn{border:2px solid rgb(74,122,60);"
                                       "background-color:rgb(173,199,160);"
                                       "border-radius:8px;"
                                       "color:rgb(74,122,60)}");
@@ -189,8 +189,8 @@ Program_Loop::Program_Loop(QWidget *parent) :
     ui->next_page_pbtn->setStyleSheet("QPushButton#next_page_pbtn{border:2px solid rgb(74,122,60);"
                                   "background-color:rgb(173,199,160);"
                                   "border-radius:8px;"
-                                  "color:rgb(74,122,60)}");
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
+                                  "color:rgb(74,122,60)}");*/
+    //qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     //ui->current_time的connect 显示实时时间
     connect(timer,&QTimer::timeout,this,&Program_Loop::currentTime);
     connect(ui->font_page_pbtn,&QPushButton::clicked,this,&Program_Loop::programLoop_sendTo_mainWindow);
@@ -718,4 +718,9 @@ void Program_Loop::addrSetPgmLoopInterfaceData(int addr_num, QString set_value){
     }
 }
 
+void Program_Loop::refreshPgmLoopInterfaceData()
+{
 
+    //qDebug()<< "xdata size is" <<xdata[0].size();
+
+}

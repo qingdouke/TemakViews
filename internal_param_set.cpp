@@ -11,7 +11,7 @@ InternalParamSet::InternalParamSet(QWidget *parent) :
     ui(new Ui::InternalParamSet)
 {
     ui->setupUi(this);
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
+    //qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
 
     setWindowFlags(Qt::FramelessWindowHint);
     //Header背景颜色
@@ -27,7 +27,7 @@ InternalParamSet::InternalParamSet(QWidget *parent) :
     //Footer
     ui->Footer->setStyleSheet("QWidget#Footer{background-color:rgb(171,199,158)}");
     ui->footer_line->setStyleSheet("QLabel#footer_line{background-color:rgb(74,122,60)}");
-    ui->font_page_pbtn->setStyleSheet("QPushButton#font_page_pbtn{border:2px solid rgb(74,122,60);"
+    /*ui->font_page_pbtn->setStyleSheet("QPushButton#font_page_pbtn{border:2px solid rgb(74,122,60);"
                                       "background-color:rgb(173,199,160);"
                                       "border-radius:8px;"
                                       "color:rgb(74,122,60)}");
@@ -42,7 +42,7 @@ InternalParamSet::InternalParamSet(QWidget *parent) :
     ui->retrun_pbtn->setStyleSheet("QPushButton#retrun_pbtn{border:2px solid rgb(74,122,60);"
                                                    "background-color:rgb(173,199,160);"
                                                    "border-radius:8px;"
-                                                   "color:rgb(74,122,60)}");
+                                                   "color:rgb(74,122,60)}");*/
 
 
     ui->status_box->setStyleSheet("QWidget#status_box{border:2px solid rgb(72,129,52);"
@@ -169,7 +169,7 @@ InternalParamSet::InternalParamSet(QWidget *parent) :
     ui->row12column7->setStyleSheet("font-family:Monospace;font-size:20pt;background:transparent;border-width:0;border-style:outset");
     ui->row12column8->setStyleSheet("font-family:Monospace;font-size:20pt;background:transparent;border-width:0;border-style:outset");
     clearPage();
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
+    //qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
 
     connect(ui->font_page_pbtn,&QPushButton::clicked,this,&InternalParamSet::internalParamSet_sendTo_mainWindow);
 

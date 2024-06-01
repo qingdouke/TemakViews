@@ -15,7 +15,6 @@ Program_Editing::Program_Editing(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
-        qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     //Header背景颜色
     ui->Header->setStyleSheet("QWidget#Header{background-color:rgb(72,129,52)}");
     //标题颜色
@@ -112,8 +111,8 @@ Program_Editing::Program_Editing(QWidget *parent) :
     //表格标题设置
 
     ui->label_step->setStyleSheet("QLabel#label_step{color:rgb(53,87,54);border:1px solid rgb(200,200,200)}");
-    ui->label_temp->setStyleSheet("QLabel#label_temp{color:rgb(53,87,54)};border:1px solid rgb(200,200,200)}");
-    ui->label_humi->setStyleSheet("QLabel#label_humi{color:rgb(53,87,54)};border:1px solid rgb(200,200,200)}");
+    ui->label_temp->setStyleSheet("QLabel#label_temp{color:rgb(53,87,54);border:1px solid rgb(200,200,200)}");
+    ui->label_humi->setStyleSheet("QLabel#label_humi{color:rgb(53,87,54);border:1px solid rgb(200,200,200)}");
     ui->label_hms->setStyleSheet("QLabel#label_hms{color:rgb(53,87,54);border:1px solid rgb(200,200,200)}");
     ui->label_ts1->setStyleSheet("QLabel#label_ts1{color:rgb(53,87,54);border:1px solid rgb(200,200,200)}");
     ui->label_ts2->setStyleSheet("QLabel#label_ts2{color:rgb(53,87,54);border:1px solid rgb(200,200,200)}");
@@ -156,7 +155,7 @@ Program_Editing::Program_Editing(QWidget *parent) :
     //Footer
     ui->Footer->setStyleSheet("QWidget#Footer{background-color:rgb(171,199,158)}");
     ui->footer_line->setStyleSheet("QLabel#footer_line{background-color:rgb(74,122,60)}");
-    ui->font_page_pbtn->setStyleSheet("QPushButton#font_page_pbtn{border:2px solid rgb(74,122,60);"
+   /* ui->font_page_pbtn->setStyleSheet("QPushButton#font_page_pbtn{border:2px solid rgb(74,122,60);"
                                       "background-color:rgb(173,199,160);"
                                       "border-radius:8px;"
                                       "color:rgb(74,122,60)}");
@@ -167,8 +166,87 @@ Program_Editing::Program_Editing(QWidget *parent) :
     ui->saving_pbtn->setStyleSheet("QPushButton#saving_pbtn{border:2px solid rgb(74,122,60);"
                                                    "background-color:rgb(173,199,160);"
                                                    "border-radius:8px;"
-                                                   "color:rgb(74,122,60)}");
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
+                                                   "color:rgb(74,122,60)}");*/
+    //QCustomPlot
+    ui->CurveWidget->yAxis2->setVisible(true);
+    ui->CurveWidget->setBackground(QBrush(Qt::black));
+    ui->CurveWidget->axisRect()->setBackground(QBrush(Qt::black));
+    ui->CurveWidget->xAxis->setBasePen(QPen(Qt::white,1));
+    ui->CurveWidget->yAxis->setBasePen(QPen(Qt::white,1));
+    ui->CurveWidget->yAxis2->setBasePen(QPen(Qt::white,1));
+    ui->CurveWidget->xAxis->grid()->setPen(QPen(QColor(180,180,180),1,Qt::PenStyle::DashLine));
+    ui->CurveWidget->yAxis->grid()->setPen(QPen(QColor(180,180,180),1,Qt::PenStyle::DashLine));
+    ui->CurveWidget->yAxis2->grid()->setPen(QPen(QColor(180,180,180),1,Qt::PenStyle::DashLine));
+    ui->CurveWidget->xAxis->grid()->setSubGridVisible(false);
+    ui->CurveWidget->yAxis->grid()->setSubGridVisible(false);
+    ui->CurveWidget->yAxis2->grid()->setSubGridVisible(false);
+    QPen xM;
+    xM.setColor(Qt::white);
+    xM.setWidth(1);
+    ui->CurveWidget->xAxis->setTickPen(xM);
+    ui->CurveWidget->yAxis->setTickPen(xM);
+    ui->CurveWidget->yAxis2->setTickPen(xM);
+    QPen xS;
+    xS.setColor(Qt::white);
+    ui->CurveWidget->xAxis->setSubTickPen(xS);
+    ui->CurveWidget->yAxis->setSubTickPen(xS);
+    ui->CurveWidget->yAxis2->setSubTickPen(xS);
+    QFont xFont;
+    xFont.setPixelSize(14);
+    ui->CurveWidget->xAxis->setLabelColor(Qt::white);
+    ui->CurveWidget->yAxis->setLabelColor(Qt::white);
+    ui->CurveWidget->yAxis2->setLabelColor(Qt::white);
+    ui->CurveWidget->xAxis->setLabelFont(xFont);
+    ui->CurveWidget->yAxis->setLabelFont(xFont);
+    ui->CurveWidget->yAxis2->setLabelFont(xFont);
+    ui->CurveWidget->xAxis->setTickLabelColor(Qt::transparent);
+    ui->CurveWidget->yAxis->setTickLabelColor(Qt::white);
+    ui->CurveWidget->yAxis2->setTickLabelColor(Qt::white);
+    ui->CurveWidget->xAxis->setTickLabelFont(xFont);
+    ui->CurveWidget->yAxis->setTickLabelFont(xFont);
+    ui->CurveWidget->yAxis2->setTickLabelFont(xFont);
+    ui->CurveWidget->xAxis->setRange(0,100);
+    ui->CurveWidget->xAxis->ticker()->setTickCount(11);
+    //    ui->CurveWidget->xAxis->ticker()->setTickStepStrategy(QCPAxisTicker::tssMeetTickCount);
+    ui->CurveWidget->yAxis->setRange(-75,175);
+    ui->CurveWidget->yAxis->ticker()->setTickCount(11);
+    ui->CurveWidget->yAxis2->setRange(0,100);
+    ui->CurveWidget->yAxis2->ticker()->setTickCount(11);
+
+    //测试曲线
+    size = 660;
+    xdata.resize(curve_numb);
+    ydata.resize(curve_numb);
+    for(int i=0 ; i<curve_numb ; i++)
+    {
+        xdata[i].resize(size);
+        ydata[i].resize(size);
+    }
+    startTime = "2023-3-28 08:42:44";
+    dataInfoSize = curve_numb*2+3;
+    dataInfo = new double[dataInfoSize];
+    dataInfo[0] = 1;
+    dataInfo[1] = 0;
+    dataInfo[2] = 660;
+    dataInfo[3] = -75;
+    dataInfo[4] = 180;
+    dataInfo[5] = 0;
+    dataInfo[6] = 100;
+    axisInfo = new QString[curve_numb];
+    axisInfo[0] = "Temperature(°C)";
+    axisInfo[1] = "Humidity(%)";
+    status=1;
+    endSize = 0;
+    for(int i=0 ; i<curve_numb ; i++)
+    {
+        xdata[i].clear();
+        ydata[i].clear();
+        curve_data_num[i] = 0;
+    }
+    this->draw(curve_numb,size,xdata,ydata,startTime,dataInfo,axisInfo,status);
+    curveTimer = new QTimer(this);
+    curveTimer->start(200);
+
     //ui->current_time的connect 显示实时时间
     connect(timer,&QTimer::timeout,this,&Program_Editing::currentTime);
 
@@ -562,12 +640,100 @@ void Program_Editing::freezeOneSec()
     ui->saving_pbtn->setEnabled(true);
     ui->loop_setting_pbtn->setEnabled(true);*/
 }
+
+
+/*
+ * Param:
+ * curve_numb 曲线条数
+ * size 数据数量
+ * xdata x轴数据 xdata[a][b] a为曲线index b为数据位
+ * ydata y轴数据 ydata[a][b] a为曲线index b为数据位
+ * startTime 格式为yy-MM-dd hh:mm:ss的起始时间
+ * dataInfo 大小为curve_numb+3 存储了间隔时间 x轴 y轴范围 固定[0]为间隔时间 后每两个存储空间为轴范围 顺序为 x轴 y1轴 y2轴.....
+ * axisInfo 大小为curve_numb 轴信息 依次对应y1轴 y2轴
+ * status 曲线状态 1为静态 2为动态
+ */
+void Program_Editing::draw(int num,int size,QVector<QVector<double>> xdata,QVector<QVector<double>> ydata,QString startTime,double* dataInfo,QString* axisInfo,int status)
+{
+    startTime = startTime;
+    axisInfo = axisInfo;
+    size = size;
+
+    switch (status) {
+    case 1:
+    {
+        //qDebug() << "dataInfo[1]"<< dataInfo[1];
+        //qDebug() << "dataInfo[2]"<< dataInfo[2];
+        ui->CurveWidget->xAxis->setRange(dataInfo[1],dataInfo[2]);
+        ui->CurveWidget->yAxis->setRange(dataInfo[3],dataInfo[4]);
+        ui->CurveWidget->yAxis2->setRange(dataInfo[5],dataInfo[6]);
+        ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis);
+        ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis);
+        ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis2);
+        ui->CurveWidget->addGraph(ui->CurveWidget->xAxis,ui->CurveWidget->yAxis2);
+
+        QPen graphPen;
+        for(int i=0 ; i<num; i++)
+        {
+            graphPen.setColor(color[i]);
+            graphPen.setWidth(2);
+            ui->CurveWidget->graph(i)->setPen(graphPen);
+            ui->CurveWidget->graph(i)->setAntialiasedFill(true);
+            ui->CurveWidget->graph(i)->setData(xdata[i],ydata[i]);
+        }
+
+        ui->CurveWidget->replot();
+        break;
+    }
+    default:
+        break;
+    }
+}
+
 void Program_Editing::addrSetPgmEditInterfaceData(int addr_num, QString set_value){
 
     qDebug() << QString("addrSetMonitorInterfaceData addr_num: %1").arg(addr_num);
     QString covert_data;
+    int for_i;
     switch(addr_num)
     {
+    case 0xEB:
+        if(0x55 == set_value.toInt())
+        {
+            for(for_i = 0; for_i < curve_numb; ++for_i)
+            {
+                xdata[for_i].clear();
+                ydata[for_i].clear();
+                curve_data_num[for_i] = 0;
+            }
+            ui->CurveWidget->clearGraphs();
+            ui->CurveWidget->replot();
+        }else
+        if(0x5A == set_value.toInt())
+        {
+            xdata[0].clear();
+            ydata[0].clear();
+            curve_data_num[0] = 0;
+        }else
+            if(0x5B == set_value.toInt())
+            {
+                xdata[1].clear();
+                ydata[1].clear();
+                curve_data_num[1] = 0;
+            }
+        break;
+    case 0x2385: // curve 5
+        covert_data = convertToDecimalString(set_value,1);
+        xdata[0].append(curve_data_num[0]++);
+        qDebug() << "new data is" << covert_data.toFloat();
+        ydata[0].append(covert_data.toFloat());
+        break;
+    case 0x2386: // curve 6
+        covert_data = convertToDecimalString(set_value,1);
+        xdata[1].append(curve_data_num[1]++);
+        qDebug() << "new data is" << covert_data.toFloat();
+        ydata[1].append(covert_data.toFloat());
+        break;
     case addr_pgm_edit_pgm_number:
         setChooseProgram(set_value);
         break;
@@ -770,4 +936,11 @@ void Program_Editing::on_delete_program_clicked()
 void Program_Editing::on_font_page_pbtn_clicked()
 {
     emit programEditing_to_mainWindow();
+}
+void Program_Editing::refreshPgmEditInterfaceData()
+{
+    this->draw(curve_numb,size,xdata,ydata,startTime,dataInfo,axisInfo,status);
+
+    //qDebug()<< "xdata size is" <<xdata[0].size();
+
 }

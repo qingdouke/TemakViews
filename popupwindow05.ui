@@ -33,6 +33,7 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>18</pointsize>
      </font>
     </property>
@@ -54,6 +55,7 @@
     </property>
     <property name="font">
      <font>
+      <family>思源黑体</family>
       <pointsize>18</pointsize>
      </font>
     </property>
@@ -69,13 +71,15 @@
      <rect>
       <x>110</x>
       <y>120</y>
-      <width>121</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>18</pointsize>
+      <family>思源黑体</family>
+      <pointsize>22</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>

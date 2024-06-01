@@ -38,14 +38,14 @@ UserPasswordPage03::UserPasswordPage03(QWidget *parent) :
     //Footer
     ui->Footer->setStyleSheet("QWidget#Footer{background-color:rgb(171,199,158)}");
     ui->footer_line->setStyleSheet("QLabel#footer_line{background-color:rgb(74,122,60)}");
-    ui->font_page_pbtn->setStyleSheet("QPushButton#font_page_pbtn{border:2px solid rgb(74,122,60);"
+    /*ui->font_page_pbtn->setStyleSheet("QPushButton#font_page_pbtn{border:2px solid rgb(74,122,60);"
                                       "background-color:rgb(173,199,160);"
                                       "border-radius:8px;"
                                       "color:rgb(74,122,60)}");
     ui->previous_page_pbtn->setStyleSheet("QPushButton#previous_page_pbtn{border:2px solid rgb(74,122,60);"
                                   "background-color:rgb(173,199,160);"
                                   "border-radius:8px;"
-                                  "color:rgb(74,122,60)}");
+                                  "color:rgb(74,122,60)}");*/
 
     QFile file(":/qss/Userpasswordpage03.qss");
     file.open(QFile::ReadOnly);

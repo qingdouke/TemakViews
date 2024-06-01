@@ -18,7 +18,7 @@ public:
     ~PopUpWindow04();
     bool eventFilter(QObject *watched, QEvent *event);
     void addrSetPgmListInterfaceData(int, QString);
-
+    void refreshOutPutInterfaceData();
 private slots:
     void on_back_pbtn_clicked();
     void on_pervious_page_pbtn_clicked();
@@ -31,7 +31,8 @@ private:
     QMap<int,QString> map;
     int mapIndex = 1;
     int status = 0; //0选择 1添加 2删除
-
+    QString label_id[31];
+    QString label_name[31];
 signals:
     void popUpWindow04WithoutDataSignals(int,int);
     void popUpWindow04InsertDataSignals();

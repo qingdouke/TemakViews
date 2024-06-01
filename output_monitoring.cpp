@@ -19,7 +19,7 @@ Output_Monitoring::Output_Monitoring(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
+    //qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     //Header背景颜色
     ui->Header->setStyleSheet("QWidget#Header{background-color:rgb(72,129,52)}");
     //标题颜色
@@ -164,17 +164,7 @@ Output_Monitoring::Output_Monitoring(QWidget *parent) :
     }
     for(int i=0 ;i<table.rowCount() ;i++){
         table.item(i,7)->setFlags(Qt::NoItemFlags);
-    }
-    //设置表格文字格式居中
-    for(int i=0 ;i<4 ;i++){
-        for(int j=0 ;j<8 ;j++){
-            table.item(i,j)->setTextAlignment(Qt::AlignCenter);
-            QFont font_tabel = table.item(i,j)->font();
-            font_tabel.setPointSize(18);
-            font_tabel.setFamily("Micorsoft UI light");
-            table.item(i,j)->setFont(font_tabel);
-        }
-    }
+    }    
     //控制表格格式
     table.setColumnWidth(0,77);
     table.setColumnWidth(1,155);
@@ -188,8 +178,23 @@ Output_Monitoring::Output_Monitoring(QWidget *parent) :
     table.setRowHeight(1,37);
     table.setRowHeight(2,37);
     table.setRowHeight(3,38);
-    table.setStyleSheet("QTableWidget::item{border-top:1px solid rgba(0,0,0,0.4);color:black}"
-                            "QTableWidget{border:none;font-size:14}");
+    table.setStyleSheet("QTableWidget::item{border-top:1px solid rgba(0,0,0,0.4);}"
+                            "QTableWidget{font-family:楷体;}"
+                            "QTableWidget{border:none;font-size:22px}");
+    /*table.setStyleSheet("QTableWidget::item{border-top:1px solid rgba(0,0,0,0.4);color:blue}"
+                        "QTableWidget{font-family:楷体;}"
+                        "QTableWidget{border:none;font-size:22px}");*/
+    //设置表格文字格式居中
+    for(int i=0 ;i<4 ;i++){
+        for(int j=0 ;j<8 ;j++){
+            QFont font_tabel = table.item(i,j)->font();
+            font_tabel.setPointSize(22);
+            font_tabel.setFamily("Micorsoft UI light");
+            table.item(i,j)->setFont(font_tabel);
+            //table.item(i,j)->setTextAlignment(Qt::AlignCenter);
+            table.item(i,j)->setTextColor(QColor(0,0,0));
+        }
+    }
     //将表格加入StackedWidge页面
     page = new QStackedWidget(this);
     page->addWidget(&table);
@@ -295,7 +300,7 @@ Output_Monitoring::Output_Monitoring(QWidget *parent) :
     //Footer
     ui->Footer->setStyleSheet("QWidget#Footer{background-color:rgb(171,199,158)}");
     ui->footer_line->setStyleSheet("QLabel#footer_line{background-color:rgb(74,122,60)}");
-    ui->font_page_pbtn->setStyleSheet("QPushButton#font_page_pbtn{border:2px solid rgb(74,122,60);"
+   /* ui->font_page_pbtn->setStyleSheet("QPushButton#font_page_pbtn{border:2px solid rgb(74,122,60);"
                                       "background-color:rgb(173,199,160);"
                                       "border-radius:8px;"
                                       "color:rgb(74,122,60)}");
@@ -310,7 +315,7 @@ Output_Monitoring::Output_Monitoring(QWidget *parent) :
     ui->next_page_pbtn->setStyleSheet("QPushButton#next_page_pbtn{border:2px solid rgb(74,122,60);"
                                       "background-color:rgb(173,199,160);"
                                       "border-radius:8px;"
-                                      "color:rgb(74,122,60)}");
+                                      "color:rgb(74,122,60)}");*/
 
     //运行、加载
     ui->running_pbtn->setStyleSheet("QPushButton#running_pbtn{border:none;"
@@ -321,7 +326,7 @@ Output_Monitoring::Output_Monitoring(QWidget *parent) :
                                     "background-color:rgb(238,117,0);"
                                     "color:white;"
                                     "border-radius:8px}");
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
+   // qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
     //ui->current_time的connect 显示实时时间
     connect(timer,&QTimer::timeout,this,&Output_Monitoring::currentTime);
     //页面跳转信号发送
@@ -621,8 +626,6 @@ void Output_Monitoring::setProgramLink(QString strs){
     ui->program_link_edit->setText(program_link);
 }
 void Output_Monitoring::setRunningPBtnState(bool run_stop){
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
-
     if(true == run_stop) // when system is running
     {
         ui->running_pbtn->setStyleSheet("QPushButton#running_pBtn{background-color:red;"
@@ -637,15 +640,14 @@ void Output_Monitoring::setRunningPBtnState(bool run_stop){
                                         "border:none;"
                                         "border-radius:10px}");
         ui->running_pbtn->setText(tr("RUN"));
-    }
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
-
-
+    }   
 }
 
 void Output_Monitoring::setTableItem(int index,int row,int col,QString strs){
     index = index;
     table.setItem(row,col,new QTableWidgetItem(strs));
+    table.item(row,col)->setTextAlignment(Qt::AlignCenter);
+    //table.item(row,col)->setTextColor(QColor(255,0,0));
 }
 
 /*
@@ -970,6 +972,7 @@ void Output_Monitoring::addrSetOutputInterfaceData(int addr_num, QString set_val
     qDebug() << QString("addrSetMonitorInterfaceData addr_num: %1").arg(addr_num);
     QString covert_data;
     int now_row = 0;
+    int i;
     switch(addr_num)
     {
     case addr_test_temperature_pv:
@@ -1160,12 +1163,64 @@ void Output_Monitoring::addrSetOutputInterfaceData(int addr_num, QString set_val
         now_row = now_row > 3 ? 3 :now_row;
         run_pgm_list_wt[now_row] = set_value;
         setTableItem(0,now_row,7,run_pgm_list_wt[now_row]);
-        break;
+        break;  
     case addr_run_stop_pbtn_state:
         sys_info.sys_sta = (bool)set_value.toInt();
         setRunningPBtnState(sys_info.sys_sta);
         break;
     
-    default:break;
+    default:
+        if((addr_num >＝　0x5003) && (addr_num <=　0x53A3))
+        {
+            now_row = (addr_num - 0x5003)/ 0x100;
+            if(set_value != "0")
+            {
+                for(i = 0; i < 8; ++i)
+                    table.item(now_row,i)->setTextColor(QColor(0,0,0));
+            }else
+            {
+                for(i = 0; i < 8; ++i)
+                    table.item(now_row,i)->setTextColor(QColor(0,255,0));
+            }
+        }
+        break;
     }
+}
+
+//刷新页面显示数据
+void Output_Monitoring::refreshOutPutInterfaceData()
+{
+    setHighTempProtect(high_temperature_protect);
+    setLowTempProtect(low_temperature_protect);
+    setTestTemperaturePercent(test_temperature_heat_percent);
+    setHumidityPercent(humidity_heat_percent);
+    setServerPercent(server_percent);
+    setProgramName(run_program_name);
+    ui->program_time_edit->setText(program_time);
+    ui->program_time_edit->setText(program_time);
+    ui->period_time_edit->setText(segment_time);
+    ui->period_time_edit->setText(segment_time);
+    setEstimateEndTime(estimate_end_time);
+    setProgramCycle(program_cycle);
+    setProgramRunSegment(program_run_segment);
+    setProgramLink(program_link);
+    ui->ry_output_edit_1->setText(ry_output1);
+    ui->ry_output_edit_2->setText(ry_output2);
+    ui->ry_output_edit_3->setText(ry_output3);
+    ui->ry_output_edit_4->setText(ry_output4);
+    ui->ry_output_edit_5->setText(ry_output5);
+    //ui->ry_output_edit_6->setText(ry_output6);
+    for(int row = 0;row < 4; ++row)
+    {
+        setTableItem(0,row,0,run_pgm_list_step[row]);
+        setTableItem(0,row,1,run_pgm_list_temp[row]);
+        setTableItem(0,row,2,run_pgm_list_humi[row]);
+        setTableItem(0,row,3,HMS[row]);
+        setTableItem(0,row,4, run_pgm_list_ts1[row]);
+        setTableItem(0,row,5, run_pgm_list_ts2[row]);
+        setTableItem(0,row,6, run_pgm_list_ts3[row]);
+        setTableItem(0,row,7,run_pgm_list_wt[row]);
+
+    }
+    setRunningPBtnState(sys_info.sys_sta);
 }

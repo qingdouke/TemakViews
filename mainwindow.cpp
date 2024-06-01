@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
     //Header背景颜色
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
+   // qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
 
     ui->Header->setStyleSheet("QWidget#Header{background-color:rgb(72,129,52)}");
     //标题颜色
@@ -89,8 +89,8 @@ MainWindow::MainWindow(QWidget *parent)
                                "background-position:center;"
                                "border-radius:10px}");
 
-    //九个pushbutton
-    ui->pBtn_1->setStyleSheet("QPushButton#pBtn_1{background-color:rgba(255,255,255,0);"
+    //九个pushbutton  // 改用样式表完成
+   /* ui->pBtn_1->setStyleSheet("QPushButton#pBtn_1{background-color:rgba(255,255,255,0);"
                               "border:none}");
     ui->pBtn_2->setStyleSheet("QPushButton#pBtn_2{background-color:rgba(255,255,255,0);"
                               "border:none}");
@@ -107,7 +107,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->pBtn_8->setStyleSheet("QPushButton#pBtn_8{background-color:rgba(255,255,255,0);"
                               "border:none}");
     ui->pBtn_9->setStyleSheet("QPushButton#pBtn_9{background-color:rgba(255,255,255,0);"
-                              "border:none}");
+                              "border:none}");*/
 
     //login pbtn
     ui->login->setStyleSheet("QPushButton#login{background:transparent;"
@@ -203,20 +203,23 @@ MainWindow::MainWindow(QWidget *parent)
    // connect(&popUpWindow05,&PopUpWindow05::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
     //connect(&popUpWindow06,&PopUpWindow06::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
     //connect(&popUpWindow07,&PopUpWindow07::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
+    connect(&popUpWindow08,&PopupWindow_SaveEnd::touch_InterfaceDataSignal,this,&MainWindow::deal_TouchInterfaceDataSignal);
 
     //线程处理
-    //connect(this,&MainWindow::InitDataThread01,readData01,&Data::dataFunction);
+    connect(this,&MainWindow::InitDataThread01,readData01,&Data::dataFunction);
    // connect(this,&MainWindow::InitDataThread02,readData02,&Data::dataFunction);
-    connect(readData01,&Data::updateInterfaceNumberSignal,this,&MainWindow::deal_updateInterfaceNumber);
-    connect(readData02,&Data::updateInterfaceNumberSignal,this,&MainWindow::deal_updateInterfaceNumber);
+    //connect(readData01,&Data::updateInterfaceNumberSignal,this,&MainWindow::deal_updateInterfaceNumber);
+    //connect(readData02,&Data::updateInterfaceNumberSignal,this,&MainWindow::deal_updateInterfaceNumber);
 
     //connect(readData01,&Data::sql_updateMonitorInterfaceDataSignal,this,&MainWindow::deal_SQLInterfaceData_update);
     //connect(readData02,&Data::sql_updateMonitorInterfaceDataSignal,this,&MainWindow::deal_SQLInterfaceData_update);
     //connect(&serverTask,&Server::comm_updateInterfaceDataSignal,this,&MainWindow::deal_CommInterfaceData_update);
     connect(&tcpServerTask,&tcpServer::comm_updateInterfaceDataSignal,this,&MainWindow::deal_CommInterfaceData_update);
-    connect(readData01,&Data::updateCurve,this,&MainWindow::deal_curveData_update);
-    connect(readData02,&Data::updateCurve,this,&MainWindow::deal_curveData_update);
-    qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
+    connect(readData01,&Data::updateInterfaceDataSignal,this,&MainWindow::deal_updateInterfaceDataSignal);
+    //connect(readData02,&Data::updateCurve,this,&MainWindow::deal_curveData_update);
+    //qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
+
+
 }
 
 MainWindow::~MainWindow()
@@ -1035,11 +1038,7 @@ void MainWindow::deal_userPasswordPage02_to_userPasswordPage01()
         QMutexLocker locker(&page_mutex);
         userPasswordPage01.show();
         this->dataThreadInit(current_Page);
-        userPasswordPage01.freezeOneSec();
-        //    QTime dieTime = QTime::currentTime().addMSecs(100);
-        //    while(QTime::currentTime()<dieTime){
-        //        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-        //    }
+        userPasswordPage01.freezeOneSec();       
         userPasswordPage02.hide();
     }
 }
@@ -1170,17 +1169,7 @@ void MainWindow::deal_internalParamSet_to_mainWindow()
         internal_param_set_page.hide();
     }
 }
-////鼠标按下
-//void MainWindow::mousePressEvent(QMouseEvent *event)
-//{
-//    mOffset =  event->globalPosition().toPoint() - this->pos();
-//}
 
-////鼠标移动
-//void MainWindow::mouseMoveEvent(QMouseEvent *event)
-//{
-//    this->move(event->globalPosition().toPoint()-mOffset);
-//}
 void MainWindow:: dataThreadInit(int page_num)
 {
     if(readData01->isRunning==false)
@@ -1249,10 +1238,7 @@ void MainWindow::deal_KeyboardEsc(){
  * influence: keyboard
 */
 void MainWindow::deal_KeyboardEnter(){
-    keyboardStrs = keyboard.get_strs();
-
-    //last_page = current_Page;
-    //current_Page = last_page;
+    keyboardStrs = keyboard.get_strs();    
     if(0 == page_debug_state)
     {
         tcpServerTask.sendText(current_ID,keyboardStrs);
@@ -1266,11 +1252,7 @@ void MainWindow::deal_KeyboardEnter(){
             last_page = current_Page;
             current_Page = USER_PSD_PAGE1;
             this->dataThreadInit(current_Page);
-            userPasswordPage01.freezeOneSec();
-            //            QTime dieTime = QTime::currentTime().addMSecs(100);
-            //            while(QTime::currentTime()<dieTime){
-            //                QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-            //            }
+            userPasswordPage01.freezeOneSec();            
             this->hide();
         }
         else
@@ -1290,7 +1272,6 @@ void MainWindow::deal_KeyboardEnter(){
                 popUpWindow07.centerShow(this->width(),this->height());
             }
     }
-
 }
 
 void MainWindow::deal_CalculateOk(){
@@ -1360,10 +1341,16 @@ void MainWindow::deal_SQLInterfaceData_update(int id_num,QString data_strs)
 
 void MainWindow::deal_CommInterfaceData_update(int addr_num,QString data_strs)
 {
-    //qDebug() << QString("addr_num: %1").arg(addr_num);
+    qDebug() << QString("addr_num: %1").arg(addr_num);
    // qDebug() << QString("data_strs: %1").arg(data_strs);
     //qDebug() << QString("current_Page:%1").arg(current_Page);
-    if(0x03 == addr_num)
+    if(0x4F == addr_num)        // pop up window
+    {
+
+        int data_key = data_strs.toInt();
+        usePopupWindow(data_key);
+    }
+    if(0x03 == addr_num)       // interface switch
     {
         oldPageHide(current_Page);
         newPageShow(data_strs.toInt());
@@ -1398,11 +1385,38 @@ void MainWindow::deal_CommInterfaceData_update(int addr_num,QString data_strs)
 }
 
 
-
-void MainWindow::deal_curveData_update(int num, int size, QVector<QVector<double> > xdata, QVector<QVector<double> > data, QString startTime, double *dataInfo, QString *axisInfo, int status)
+void MainWindow::deal_updateInterfaceDataSignal(void)
 {
-    curve_monitoring_page.draw(num,size,xdata,data,startTime,dataInfo,axisInfo,status);
+    switch(current_Page)
+    {
+    //case STATE_MONITOR:     monitoring_interface_page.addrSetMonitorInterfaceData(addr_num , data_strs);   break;
+    case OUTPUT_MONITOR:    output_monitoring_page.refreshOutPutInterfaceData();   break;
+    case CURE_SHOW:         curve_monitoring_page.refreshCurveInterfaceData();   break;
+    case PGM_EDIT:          program_editing_page.refreshPgmEditInterfaceData();   break;
+    case PGM_CYCLE:         program_loop_page.refreshPgmLoopInterfaceData();   break;
+    case FIXED_FUN:         fixed_value_setting_page.refreshOnePointInterfaceData();  break;
+
+    case PGM_SLT_PAGE:      popUpWindow04.refreshOutPutInterfaceData();break;
+    /*case PARAM_SET:
+        parameter_setting_page.addrSetParamSetInterfaceData(addr_num , data_strs);
+        canset_page.addrSetCanInterfaceData(addr_num , data_strs);
+        break;
+    case ERR_LOG_PAGE:      error_log_page.addrSetErrLogInterfaceData(addr_num , data_strs);   break;
+    case CLT_DATA_PAGE:     break;
+    case USER_PSD_PAGE1:    userPasswordPage01.addrSetUserPsdInterfaceData(addr_num,data_strs);  break;
+    //case CLT_DATA_PAGE:     break;
+    case USER_PSD_PAGE2:
+    case USER_PSD_PAGE3:
+        userPasswordPage02.addrSetUserPsdInterfaceData(addr_num,data_strs);
+        userPasswordPage03.addrSetUserPsdInterfaceData(addr_num,data_strs);
+        break;
+    case TAB_PARAM_PAGE:    internal_param_set_page.addrInternalParamInterfaceData(addr_num,data_strs);  break;*/
+
+    default: break;
+    }
 }
+
+
 
 
 void MainWindow::newPageShow(int page_num)
@@ -1536,3 +1550,135 @@ void MainWindow::oldPageHide(int page_num)
     default: break;
     }
 }
+
+
+void MainWindow::usePopupWindow(int key_code)
+{
+    switch(key_code)
+    {
+    case SAVE_SUC_KEY:
+        popUpWindow07.setChinese("存储成功");
+        popUpWindow07.setEnglish("Saved successfully");
+        popUpWindow07.centerShow(this->width(),this->height());
+        break;
+    case PWD_CHANGE_SUC_KEY:
+        popUpWindow07.setChinese("密码修改成功");
+        popUpWindow07.setEnglish("Password be changed");
+        popUpWindow07.centerShow(this->width(),this->height());
+        break;
+    case SAVEING_KEY:
+        popUpWindow07.setChinese("存储中请稍后");
+        popUpWindow07.setEnglish("Please wait storing");
+        popUpWindow07.centerShow(this->width(),this->height());
+        break;
+    case N0_PGM_LOAD_KEY:
+        popUpWindow07.setChinese("运行中不可载入程式");
+        popUpWindow07.setEnglish("Can't load pgm when system is running");
+        popUpWindow07.centerShow(this->width(),this->height());
+        break;
+    case NO_PGM_JUMP_KEY:
+        popUpWindow07.setChinese("程式未运行不可跳段");
+        popUpWindow07.setEnglish("Pgm is't running,can't jump sgm");
+        popUpWindow07.centerShow(this->width(),this->height());
+        break;
+    case THE_NUM_KEY:  //跳段使用数字键盘输入目标段
+        deal_RequestUseCalculateSignal(0x361);
+        break;
+    case NO_THIS_SGM:
+        popUpWindow07.setChinese("无效段");
+        popUpWindow07.setEnglish("Have no this sgm");
+        popUpWindow07.centerShow(this->width(),this->height());
+        break;
+    case PGM_TIME_ZERO_KEY:
+        popUpWindow07.setChinese("程式时间不能为0");
+        popUpWindow07.setEnglish("Pgm time can't set to 0");
+        popUpWindow07.centerShow(this->width(),this->height());
+        break;
+    case RUN_NOT_SAVE_KEY:
+        popUpWindow07.setChinese("运行时不可编辑");
+        popUpWindow07.setEnglish("Can't edit when system is running");
+        popUpWindow07.centerShow(this->width(),this->height());
+        break;
+    case NO_PGM_RUN_KEY:
+        popUpWindow07.setChinese("程式未载入，请先加载程式");
+        popUpWindow07.setEnglish("Please load pgm");
+        popUpWindow07.centerShow(this->width(),this->height());
+        break;
+    case SAVE_FAL_KEY:
+        popUpWindow07.setChinese("保存失败");
+        popUpWindow07.setEnglish("Save failure");
+        popUpWindow07.centerShow(this->width(),this->height());
+        break;
+    case SYS_RUN_KEY:
+        break;
+    case SYS_STOP_KEY:
+        break;
+    case NO_THIS_FUNCTIION:
+        popUpWindow07.setChinese("本版本暂不支持此功能");
+        popUpWindow07.setEnglish("This version haven't this function");
+        popUpWindow07.centerShow(this->width(),this->height());
+        break;
+    case PLEASE_ENTER_USB:
+        popUpWindow07.setChinese("请插入U盘");
+        popUpWindow07.setEnglish("Please enter USB");
+        popUpWindow07.centerShow(this->width(),this->height());
+        break;
+    case PLEASE_ENTER_SD:
+        popUpWindow07.setChinese("请插入SD卡");
+        popUpWindow07.setEnglish("Please enter SD");
+        popUpWindow07.centerShow(this->width(),this->height());
+        break;
+    case NO_ACCESS_KEY:
+        popUpWindow07.setChinese("暂无权限进行此操作");
+        popUpWindow07.setEnglish("Have no permission to perform this operation");
+        popUpWindow07.centerShow(this->width(),this->height());
+        break;
+    case ENTER_ASCII_KEY:
+        deal_RequestUseKeyBoardSignal(0x1D0);
+        break;
+    case SYSTEM_STOP_KEY:
+        popUpWindow07.setChinese("设备已停机，请取放样品");
+        popUpWindow07.setEnglish("The system is stop,please take the sample");
+        popUpWindow07.centerShow(this->width(),this->height());
+        break;
+    case NUM_NO_DEC_KEY:
+        deal_RequestUseCalculateSignal(0x3010);
+        break;
+    case NUM_ONE_DEC_KEY:
+        deal_RequestUseCalculateSignal(0x3011);
+        break;
+    case NUM_TWO_DEC_KEY:
+        deal_RequestUseCalculateSignal(0x3012);
+        break;
+    case NUM_THR_DEC_KEY:
+        deal_RequestUseCalculateSignal(0x3013);
+        break;
+    case STR_DEC_KEY:
+        deal_RequestUseKeyBoardSignal(0x30F0);
+        break;
+    case THE_PASSWORD_ERR:
+        popUpWindow07.setChinese("密码错误");
+        popUpWindow07.setEnglish("Password Error");
+        popUpWindow07.centerShow(this->width(),this->height());
+        break;
+    case PGMNAME_CANT_DEFT:
+        popUpWindow07.setChinese("程式名称不能为空");
+        popUpWindow07.setEnglish("Pgm must have name");
+        popUpWindow07.centerShow(this->width(),this->height());
+        break;
+    case PGM_PAUSE_KEY:
+        popUpWindow08.setChinese("是否暂停?");
+        popUpWindow08.setEnglish("Pause running?");
+        popUpWindow08.setPopupWindowAddr(0x74);
+        popUpWindow08.centerShow(this->width(),this->height());
+        break;
+    case ENTER_KEY:
+        popUpWindow08.hide();
+        popUpWindow07.hide();
+        break;
+    default:
+        break;
+    }
+
+}
+

@@ -37,6 +37,26 @@
       <pointsize>22</pointsize>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    /* 正常状态 */
+	border:2px solid rgb(74,122,60);
+	background-color:rgb(173,199,160);
+	border-radius:6px;
+    color:rgb(74,122,60);
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+
+    background-color: rgb(255,255,255);
+}</string>
+    </property>
     <property name="text">
      <string>Menu</string>
     </property>
@@ -55,6 +75,26 @@
       <family>思源黑体</family>
       <pointsize>22</pointsize>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    /* 正常状态 */
+	border:2px solid rgb(74,122,60);
+	background-color:rgb(173,199,160);
+	border-radius:6px;
+    color:rgb(74,122,60);
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+
+    background-color: rgb(255,255,255);
+}</string>
     </property>
     <property name="text">
      <string>Back</string>
@@ -75,6 +115,26 @@
       <pointsize>22</pointsize>
       <kerning>false</kerning>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    /* 正常状态 */
+	border:2px solid rgb(74,122,60);
+	background-color:rgb(173,199,160);
+	border-radius:6px;
+    color:rgb(74,122,60);
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+
+    background-color: rgb(255,255,255);
+}</string>
     </property>
     <property name="text">
      <string>LastPage</string>
@@ -107,6 +167,26 @@
       <family>思源黑体</family>
       <pointsize>22</pointsize>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    /* 正常状态 */
+	border:2px solid rgb(74,122,60);
+	background-color:rgb(173,199,160);
+	border-radius:6px;
+    color:rgb(74,122,60);
+}
+
+QPushButton:hover {
+    /* 鼠标停留状态 */
+    background-color: rgb(184, 192, 193);
+}
+
+QPushButton:pressed {
+    /* 鼠标按下状态 */
+
+    background-color: rgb(255,255,255);
+}</string>
     </property>
     <property name="text">
      <string>NextPage</string>

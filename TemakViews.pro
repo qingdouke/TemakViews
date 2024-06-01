@@ -41,7 +41,8 @@ SOURCES += \
     sql_generic_data.cpp \
     sqliteoperator.cpp \
     server.cpp \
-    tcp_server.cpp
+    tcp_server.cpp \
+    popupwindow_saveEnd.cpp
 
 HEADERS += \
     calculate.h \
@@ -74,7 +75,8 @@ HEADERS += \
     sql_generic_data.h \
     server.h \
     tcp_server.h \
-    address_data_show.h
+    address_data_show.h \
+    popupwindow_saveEnd.h
 
 FORMS += \
     calculate.ui \
@@ -99,7 +101,8 @@ FORMS += \
     userpasswordpage01.ui \
     userpasswordpage02.ui \
     userpasswordpage03.ui \
-    internal_param_set.ui
+    internal_param_set.ui \
+    popupwindow_saveEnd.ui
 #! [0] #! [1]
 TRANSLATIONS = temak_cn.ts \
                temak_tw.ts

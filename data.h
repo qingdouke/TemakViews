@@ -222,7 +222,7 @@ private:
 
 signals:
     void updateInterfaceNumberSignal(int,QString);
-
+    void updateInterfaceDataSignal();
     void sql_updateMonitorInterfaceDataSignal(int,QString);
     void sql_updateOutputInterfaceDataSignal(int,QString);
 
