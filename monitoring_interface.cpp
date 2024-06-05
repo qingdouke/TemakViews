@@ -158,12 +158,6 @@ Monitoring_Interface::Monitoring_Interface(QWidget *parent) :
                                   "border-radius:10px;"
                                   "background-color:white}");
     ui->status_box_line->setStyleSheet("QLabel#status_box_line{background-color:rgb(127,127,127)}");
-    ui->status_1->setStyleSheet("QLabel#status_1{background-image:url(:/Image/24/61.bmp)}");
-    ui->status_2->setStyleSheet("QLabel#status_2{background-image:url(:/Image/24/63.bmp)}");
-    ui->status_3->setStyleSheet("QLabel#status_3{background-image:url(:/Image/24/65.bmp)}");
-    ui->status_4->setStyleSheet("QLabel#status_4{background-image:url(:/Image/24/67.bmp)}");
-    ui->status_5->setStyleSheet("QLabel#status_5{background-image:url(:/Image/24/69.bmp)}");
-    ui->status_6->setStyleSheet("QLabel#status_6{background-image:url(:/Image/24/71.bmp)}");
     //qDebug () << "[" << __FILE__ << ":" << __LINE__ << "]" ;
 
     //ui->current_time的connect 显示实时时间
@@ -631,7 +625,6 @@ void Monitoring_Interface::setRunningPBtnState(bool run_stop){
                                         "border-radius:10px}");
         ui->running_pBtn->setText(tr("RUN"));
     }
-
 }
 void Monitoring_Interface::deal_popUpWindow02PushButtonOKClickedSignal(){
     popUpWindow02.close();
@@ -817,7 +810,6 @@ void Monitoring_Interface::addrSetMonitorInterfaceData(int addr_num, QString set
         break;
     case addr_run_stop_pbtn_state:
         sys_info.sys_sta = (bool)set_value.toInt();
-        setRunningPBtnState(sys_info.sys_sta);
         break;
     case addr_light_pbtn_state:
         sys_info.led_sta = (bool)set_value.toInt();
@@ -860,5 +852,65 @@ void Monitoring_Interface::on_running_pBtn_clicked()
 void Monitoring_Interface::on_loading_pBtn_clicked()
 {
     emit touch_InterfaceDataSignal(addr_touch_load_pbtn,"0");
+
+}
+
+void Monitoring_Interface::refreshMonitorInterfaceData()
+{
+
+    setRunningPBtnState(sys_info.sys_sta);
+    ui->status_text->setText(sys_info.run_sta_string);
+    if(sys_info.run_sta_color == 0) // green
+    {
+        ui->status_text->setStyleSheet("QLabel#status_text{color:rgb(72,129,52)}");
+    }else
+        if(sys_info.run_sta_color == 1) //red
+        {
+            ui->status_text->setStyleSheet("QLabel#status_text{color:rgb(253,0,0)}");
+        }else
+            if(sys_info.run_sta_color == 2) // black
+            {
+                ui->status_text->setStyleSheet("QLabel#status_text{color:rgb(253,0,0)}");
+            }else
+                if(sys_info.run_sta_color == 3) //orange
+                {
+                    ui->status_text->setStyleSheet("QLabel#status_text{color:rgb(255, 170, 0)}");
+                }
+    if(sys_info.sd_flag)
+    {
+        ui->status_1->setStyleSheet("QLabel#status_1{background-image:url(:/Image/24/62.bmp)}");
+    }else{
+        ui->status_1->setStyleSheet("QLabel#status_1{background-image:url(:/Image/24/61.bmp)}");
+    }
+    if(sys_info.usb_flag)
+    {
+        ui->status_2->setStyleSheet("QLabel#status_2{background-image:url(:/Image/24/64.bmp)}");
+    }else{
+        ui->status_2->setStyleSheet("QLabel#status_2{background-image:url(:/Image/24/63.bmp)}");
+    }
+    if(sys_info.burn_flag)
+    {
+        ui->status_3->setStyleSheet("QLabel#status_3{background-image:url(:/Image/24/66.bmp)}");
+    }else{
+        ui->status_3->setStyleSheet("QLabel#status_3{background-image:url(:/Image/24/65.bmp)}");
+    }
+    if(sys_info.wifi_flag)
+    {
+        ui->status_4->setStyleSheet("QLabel#status_4{background-image:url(:/Image/24/68.bmp)}");
+    }else{
+        ui->status_4->setStyleSheet("QLabel#status_4{background-image:url(:/Image/24/67.bmp)}");
+    }
+    if(sys_info.host_mode)
+    {
+        ui->status_5->setStyleSheet("QLabel#status_5{background-image:url(:/Image/24/70.bmp)}");
+    }else{
+        ui->status_5->setStyleSheet("QLabel#status_5{background-image:url(:/Image/24/69.bmp)}");
+    }
+    if(sys_info.abnormal_flag)
+    {
+        ui->status_6->setStyleSheet("QLabel#status_6{background-image:url(:/Image/24/72.bmp)}");
+    }else{
+        ui->status_6->setStyleSheet("QLabel#status_6{background-image:url(:/Image/24/71.bmp)}");
+    }
 
 }

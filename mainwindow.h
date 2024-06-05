@@ -89,12 +89,17 @@ class  SYS_INFO_F{
     bool sys_sta = false;					// 系统状态 definition
     int lcd_socket_sta = 0;
     int run_sta = 0;					// 运行状态
+    QString run_sta_string = "定值运行";			// 运行状态字符串
+    int run_sta_color = 0;					// 运行状态颜色
     int temp_sta = 0;					// 温度状态
     int humi_sta = 0;					// 湿度状态
     bool humi_sw = false;					// 湿度开闭状态,0开1关,2，只显示不计算
     bool usb_flag = false;					// U盘连接标志位，1：已连接 0：未连接
     bool sd_flag = false;
     bool host_mode = false;				// 与上位连接标志，0：未连接，1：通过485方式连接，2：通过网口连接
+    bool burn_flag = false;
+    bool wifi_flag = false;
+    bool abnormal_flag = false;
     bool err_code = false;					// 错误码
     short         alarm = 0;					// 系统警告模式，16位bit类型（short），alarm0 - alarm15
     unsigned char lohumi = 0;					// 低湿状态  1105008
@@ -195,7 +200,9 @@ public:
 
     //数据处理
     void deal_TouchInterfaceDataSignal(int ,QString );
-
+    QString getRunStateString(int);
+    int getRunStatecolor(int);
+    void setRunningPBtnState(bool);
     void deal_updateInterfaceNumber(int,QString);
     void deal_SQLInterfaceData_update(int ,QString);
     void deal_CommInterfaceData_update(int,QString);
@@ -206,6 +213,7 @@ public:
 
     void freezeOneSec();
     void dataThreadInit(int page_num);
+    void addrSetSystemData(int, QString);
 
 private:
     Ui::MainWindow *ui;

@@ -42,7 +42,8 @@ SOURCES += \
     sqliteoperator.cpp \
     server.cpp \
     tcp_server.cpp \
-    popupwindow_saveEnd.cpp
+    popupwindow_saveEnd.cpp \
+    errorinstruction.cpp
 
 HEADERS += \
     calculate.h \
@@ -76,7 +77,8 @@ HEADERS += \
     server.h \
     tcp_server.h \
     address_data_show.h \
-    popupwindow_saveEnd.h
+    popupwindow_saveEnd.h \
+    errorinstruction.h
 
 FORMS += \
     calculate.ui \
@@ -102,7 +104,8 @@ FORMS += \
     userpasswordpage02.ui \
     userpasswordpage03.ui \
     internal_param_set.ui \
-    popupwindow_saveEnd.ui
+    popupwindow_saveEnd.ui \
+    errorinstruction.ui
 #! [0] #! [1]
 TRANSLATIONS = temak_cn.ts \
                temak_tw.ts

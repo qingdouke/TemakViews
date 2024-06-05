@@ -39,12 +39,7 @@ Program_Editing::Program_Editing(QWidget *parent) :
                                   "border-radius:10px;"
                                   "background-color:white}");
     ui->status_box_line->setStyleSheet("QLabel#status_box_line{background-color:rgb(127,127,127)}");
-    ui->status_1->setStyleSheet("QLabel#status_1{background-image:url(:/Image/24/61.bmp)}");
-    ui->status_2->setStyleSheet("QLabel#status_2{background-image:url(:/Image/24/63.bmp)}");
-    ui->status_3->setStyleSheet("QLabel#status_3{background-image:url(:/Image/24/65.bmp)}");
-    ui->status_4->setStyleSheet("QLabel#status_4{background-image:url(:/Image/24/67.bmp)}");
-    ui->status_5->setStyleSheet("QLabel#status_5{background-image:url(:/Image/24/69.bmp)}");
-    ui->status_6->setStyleSheet("QLabel#status_6{background-image:url(:/Image/24/71.bmp)}");
+
 
     //添加事件过滤器
     ui->choose_program_edit->installEventFilter(this);
@@ -940,7 +935,103 @@ void Program_Editing::on_font_page_pbtn_clicked()
 void Program_Editing::refreshPgmEditInterfaceData()
 {
     this->draw(curve_numb,size,xdata,ydata,startTime,dataInfo,axisInfo,status);
+    setChooseProgram(chooseProgram);
+    setProgramName(programName);
+    setHighTempProtect(highTempProtect);
+    setLowTempProtect(lowTempProtect);
+    ui->pgm_table_step_edit_1->setText(edit_pgm_list_step[0]);
+    ui->pgm_table_step_edit_2->setText(edit_pgm_list_step[1]);
+    ui->pgm_table_step_edit_3->setText(edit_pgm_list_step[2]);
+    ui->pgm_table_step_edit_4->setText(edit_pgm_list_step[3]);
+    ui->pgm_table_temp_edit_1->setText(edit_pgm_list_temp[0]);
+    ui->pgm_table_temp_edit_2->setText(edit_pgm_list_temp[1]);
+    ui->pgm_table_temp_edit_3->setText(edit_pgm_list_temp[2]);
+    ui->pgm_table_temp_edit_4->setText(edit_pgm_list_temp[3]);
+    ui->pgm_table_humi_edit_1->setText(edit_pgm_list_humi[0]);
+    ui->pgm_table_humi_edit_2->setText(edit_pgm_list_humi[1]);
+    ui->pgm_table_humi_edit_3->setText(edit_pgm_list_humi[2]);
+    ui->pgm_table_humi_edit_4->setText(edit_pgm_list_humi[3]);
+    ui->pgm_table_hour_edit_1->setText( edit_pgm_list_hour[0]);
+    ui->pgm_table_hour_edit_2->setText(edit_pgm_list_hour[1]);
+    ui->pgm_table_hour_edit_3->setText(edit_pgm_list_hour[2]);
+    ui->pgm_table_hour_edit_4->setText(edit_pgm_list_hour[3]);
+    ui->pgm_table_min_edit_1->setText(edit_pgm_list_min[0]);
+    ui->pgm_table_min_edit_2->setText(edit_pgm_list_min[1]);
+    ui->pgm_table_min_edit_3->setText(edit_pgm_list_min[2]);
+    ui->pgm_table_min_edit_4->setText(edit_pgm_list_min[3]);
+    ui->pgm_table_sec_edit_1->setText(edit_pgm_list_sec[0]);
+    ui->pgm_table_sec_edit_2->setText(edit_pgm_list_sec[1]);
+    ui->pgm_table_sec_edit_3->setText(edit_pgm_list_sec[2]);
+    ui->pgm_table_sec_edit_4->setText(edit_pgm_list_sec[3]);
+    ui->pgm_table_ts1_edit_1->setText(edit_pgm_list_ts1[0]);
+    ui->pgm_table_ts1_edit_2->setText(edit_pgm_list_ts1[1]);
+    ui->pgm_table_ts1_edit_3->setText(edit_pgm_list_ts1[2]);
+    ui->pgm_table_ts1_edit_4->setText(edit_pgm_list_ts1[3]);
+    ui->pgm_table_ts2_edit_1->setText(edit_pgm_list_ts2[0]);
+    ui->pgm_table_ts2_edit_2->setText(edit_pgm_list_ts2[1]);
+    ui->pgm_table_ts2_edit_3->setText(edit_pgm_list_ts2[2]);
+    ui->pgm_table_ts2_edit_4->setText(edit_pgm_list_ts2[3]);
+    ui->pgm_table_ts3_edit_1->setText(edit_pgm_list_ts3[0]);
+    ui->pgm_table_ts3_edit_2->setText(edit_pgm_list_ts3[1]);
+    ui->pgm_table_ts3_edit_3->setText(edit_pgm_list_ts3[2]);
+    ui->pgm_table_ts3_edit_4->setText(edit_pgm_list_ts3[3]);
+    ui->pgm_table_wt_edit_1->setText(edit_pgm_list_wt[0]);
+    ui->pgm_table_wt_edit_2->setText(edit_pgm_list_wt[1]);
+    ui->pgm_table_wt_edit_3->setText(edit_pgm_list_wt[2]);
+    ui->pgm_table_wt_edit_4->setText(edit_pgm_list_wt[3]);
 
-    //qDebug()<< "xdata size is" <<xdata[0].size();
+    ui->status_text->setText(sys_info.run_sta_string);
+    if(sys_info.run_sta_color == 0) // green
+    {
+        ui->status_text->setStyleSheet("QLabel#status_text{color:rgb(72,129,52)}");
+    }else
+        if(sys_info.run_sta_color == 1) //red
+        {
+            ui->status_text->setStyleSheet("QLabel#status_text{color:rgb(253,0,0)}");
+        }else
+            if(sys_info.run_sta_color == 2) // black
+            {
+                ui->status_text->setStyleSheet("QLabel#status_text{color:rgb(253,0,0)}");
+            }else
+                if(sys_info.run_sta_color == 3) //orange
+                {
+                    ui->status_text->setStyleSheet("QLabel#status_text{color:rgb(255, 170, 0)}");
+                }
+    if(sys_info.sd_flag)
+    {
+        ui->status_1->setStyleSheet("QLabel#status_1{background-image:url(:/Image/24/62.bmp)}");
+    }else{
+        ui->status_1->setStyleSheet("QLabel#status_1{background-image:url(:/Image/24/61.bmp)}");
+    }
+    if(sys_info.usb_flag)
+    {
+        ui->status_2->setStyleSheet("QLabel#status_2{background-image:url(:/Image/24/64.bmp)}");
+    }else{
+        ui->status_2->setStyleSheet("QLabel#status_2{background-image:url(:/Image/24/63.bmp)}");
+    }
+    if(sys_info.burn_flag)
+    {
+        ui->status_3->setStyleSheet("QLabel#status_3{background-image:url(:/Image/24/66.bmp)}");
+    }else{
+        ui->status_3->setStyleSheet("QLabel#status_3{background-image:url(:/Image/24/65.bmp)}");
+    }
+    if(sys_info.wifi_flag)
+    {
+        ui->status_4->setStyleSheet("QLabel#status_4{background-image:url(:/Image/24/68.bmp)}");
+    }else{
+        ui->status_4->setStyleSheet("QLabel#status_4{background-image:url(:/Image/24/67.bmp)}");
+    }
+    if(sys_info.host_mode)
+    {
+        ui->status_5->setStyleSheet("QLabel#status_5{background-image:url(:/Image/24/70.bmp)}");
+    }else{
+        ui->status_5->setStyleSheet("QLabel#status_5{background-image:url(:/Image/24/69.bmp)}");
+    }
+    if(sys_info.abnormal_flag)
+    {
+        ui->status_6->setStyleSheet("QLabel#status_6{background-image:url(:/Image/24/72.bmp)}");
+    }else{
+        ui->status_6->setStyleSheet("QLabel#status_6{background-image:url(:/Image/24/71.bmp)}");
+    }
 
 }

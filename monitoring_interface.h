@@ -76,7 +76,7 @@ public:
     void deal_popUpWindow02PushButtonOKClickedSignal();
     void deal_popUpWindow03PushButtonYESClickedSignal();
     void deal_popUpWindow04WithoutDataSignals(int,int);
-
+    void refreshMonitorInterfaceData();
     void freezeOneSec();
 private:
     Ui::Monitoring_Interface *ui;

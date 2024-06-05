@@ -55,13 +55,7 @@ Curve_Monitoring::Curve_Monitoring(QWidget *parent) :
     ui->status_box->setStyleSheet("QWidget#status_box{border:2px solid rgb(72,129,52);"
                                   "border-radius:10px;"
                                   "background-color:white}");
-    ui->status_box_line->setStyleSheet("QLabel#status_box_line{background-color:rgb(127,127,127)}");
-    ui->status_1->setStyleSheet("QLabel#status_1{background-image:url(:/Image/24/61.bmp)}");
-    ui->status_2->setStyleSheet("QLabel#status_2{background-image:url(:/Image/24/63.bmp)}");
-    ui->status_3->setStyleSheet("QLabel#status_3{background-image:url(:/Image/24/65.bmp)}");
-    ui->status_4->setStyleSheet("QLabel#status_4{background-image:url(:/Image/24/67.bmp)}");
-    ui->status_5->setStyleSheet("QLabel#status_5{background-image:url(:/Image/24/69.bmp)}");
-    ui->status_6->setStyleSheet("QLabel#status_6{background-image:url(:/Image/24/71.bmp)}");
+    ui->status_box_line->setStyleSheet("QLabel#status_box_line{background-color:rgb(127,127,127)}");   
 
     //Temperature_PV_box
     ui->Temperature_PV_box->setStyleSheet("QWidget#Temperature_PV_box{background-color:white;"
@@ -917,8 +911,59 @@ void Curve_Monitoring::refreshCurveInterfaceData()
     ui->humidity_sv_checkbox->setChecked(curve_swi_4);
     showTraceData(cur_x);
     this->draw(curve_numb,size,xdata,ydata,startTime,dataInfo,axisInfo,status);
-
-    //qDebug()<< "xdata size is" <<xdata[0].size();
+    ui->status_text->setText(sys_info.run_sta_string);
+    if(sys_info.run_sta_color == 0) // green
+    {
+        ui->status_text->setStyleSheet("QLabel#status_text{color:rgb(72,129,52)}");
+    }else
+        if(sys_info.run_sta_color == 1) //red
+        {
+            ui->status_text->setStyleSheet("QLabel#status_text{color:rgb(253,0,0)}");
+        }else
+            if(sys_info.run_sta_color == 2) // black
+            {
+                ui->status_text->setStyleSheet("QLabel#status_text{color:rgb(253,0,0)}");
+            }else
+                if(sys_info.run_sta_color == 3) //orange
+                {
+                    ui->status_text->setStyleSheet("QLabel#status_text{color:rgb(255, 170, 0)}");
+                }
+    if(sys_info.sd_flag)
+    {
+        ui->status_1->setStyleSheet("QLabel#status_1{background-image:url(:/Image/24/62.bmp)}");
+    }else{
+        ui->status_1->setStyleSheet("QLabel#status_1{background-image:url(:/Image/24/61.bmp)}");
+    }
+    if(sys_info.usb_flag)
+    {
+        ui->status_2->setStyleSheet("QLabel#status_2{background-image:url(:/Image/24/64.bmp)}");
+    }else{
+        ui->status_2->setStyleSheet("QLabel#status_2{background-image:url(:/Image/24/63.bmp)}");
+    }
+    if(sys_info.burn_flag)
+    {
+        ui->status_3->setStyleSheet("QLabel#status_3{background-image:url(:/Image/24/66.bmp)}");
+    }else{
+        ui->status_3->setStyleSheet("QLabel#status_3{background-image:url(:/Image/24/65.bmp)}");
+    }
+    if(sys_info.wifi_flag)
+    {
+        ui->status_4->setStyleSheet("QLabel#status_4{background-image:url(:/Image/24/68.bmp)}");
+    }else{
+        ui->status_4->setStyleSheet("QLabel#status_4{background-image:url(:/Image/24/67.bmp)}");
+    }
+    if(sys_info.host_mode)
+    {
+        ui->status_5->setStyleSheet("QLabel#status_5{background-image:url(:/Image/24/70.bmp)}");
+    }else{
+        ui->status_5->setStyleSheet("QLabel#status_5{background-image:url(:/Image/24/69.bmp)}");
+    }
+    if(sys_info.abnormal_flag)
+    {
+        ui->status_6->setStyleSheet("QLabel#status_6{background-image:url(:/Image/24/72.bmp)}");
+    }else{
+        ui->status_6->setStyleSheet("QLabel#status_6{background-image:url(:/Image/24/71.bmp)}");
+    }
 
 }
 

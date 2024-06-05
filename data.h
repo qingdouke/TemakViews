@@ -66,14 +66,14 @@ public:
 private:
     //共有数据
     //温湿度数据
-    QString temperaturePv;
-    QString temperatureSv;
-    QString temperaturePercent;
-    QString humidityPv;
-    QString humiditySv;
-    QString humidityPercent;
-    QString highTempProtect;
-    QString lowTempProtect;
+    //QString temperaturePv;
+    //QString temperatureSv;
+    //QString temperaturePercent;
+    //QString humidityPv;
+    //QString humiditySv;
+    //QString humidityPercent;
+    //QString highTempProtect;
+    //QString lowTempProtect;
     //程式信息
     QMap<int,QString> programNameMap;
     QMap<int,QString> programTimeMap;

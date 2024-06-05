@@ -17,7 +17,7 @@ public:
 
     void errorLog_sendTo_mainWindow();
     void addrSetErrLogInterfaceData(int, QString);
-
+    void refreshErrorLogInterfaceData();
 private:
     Ui::Error_Log *ui;
     QString err_time;

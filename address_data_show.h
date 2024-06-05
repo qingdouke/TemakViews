@@ -16,11 +16,12 @@
 
 #define addr_sys_prompt_info                0xE0
 #define addr_run_stop_pbtn_state            0x75
+#define addr_run_flag_state                0xA1
 #define addr_light_pbtn_state               0xA3
 #define addr_sys_usb_state                  0x79
 #define addr_sys_sd_state                   0x78
 #define addr_sys_burn_state                 0x7A
-#define addr_sys_wife_state                 0x7B
+#define addr_sys_wifi_state                 0x7B
 #define addr_sys_comm_state                 0x7C
 #define addr_sys_abnormal_state             0x7D
 

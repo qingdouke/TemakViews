@@ -1183,6 +1183,12 @@ QPushButton:pressed {
        <pointsize>18</pointsize>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    /* 正常状态 */	
+    color:rgb(253, 0, 0);
+}</string>
+     </property>
      <property name="text">
       <string>One-Point</string>
      </property>

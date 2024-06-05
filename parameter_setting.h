@@ -58,7 +58,7 @@ public:
     void parameterSetting_sendTo_mainWindow();
     void parameterSetting_sendTo_CANSET();
     void addrSetParamSetInterfaceData(int, QString);
-
+    void refreshParamSetInterfaceData();
     void freezeOneSec();
 
 private:

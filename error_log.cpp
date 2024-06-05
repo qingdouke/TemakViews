@@ -311,3 +311,61 @@ void Error_Log::on_saving_pbtn_clicked()
 {
      emit touch_InterfaceDataSignal(0xA02,"2");
 }
+void Error_Log::refreshErrorLogInterfaceData()
+{
+
+    ui->status_text->setText(sys_info.run_sta_string);
+    if(sys_info.run_sta_color == 0) // green
+    {
+        ui->status_text->setStyleSheet("QLabel#status_text{color:rgb(72,129,52)}");
+    }else
+        if(sys_info.run_sta_color == 1) //red
+        {
+            ui->status_text->setStyleSheet("QLabel#status_text{color:rgb(253,0,0)}");
+        }else
+            if(sys_info.run_sta_color == 2) // black
+            {
+                ui->status_text->setStyleSheet("QLabel#status_text{color:rgb(253,0,0)}");
+            }else
+                if(sys_info.run_sta_color == 3) //orange
+                {
+                    ui->status_text->setStyleSheet("QLabel#status_text{color:rgb(255, 170, 0)}");
+                }
+    if(sys_info.sd_flag)
+    {
+        ui->status_1->setStyleSheet("QLabel#status_1{background-image:url(:/Image/24/62.bmp)}");
+    }else{
+        ui->status_1->setStyleSheet("QLabel#status_1{background-image:url(:/Image/24/61.bmp)}");
+    }
+    if(sys_info.usb_flag)
+    {
+        ui->status_2->setStyleSheet("QLabel#status_2{background-image:url(:/Image/24/64.bmp)}");
+    }else{
+        ui->status_2->setStyleSheet("QLabel#status_2{background-image:url(:/Image/24/63.bmp)}");
+    }
+    if(sys_info.burn_flag)
+    {
+        ui->status_3->setStyleSheet("QLabel#status_3{background-image:url(:/Image/24/66.bmp)}");
+    }else{
+        ui->status_3->setStyleSheet("QLabel#status_3{background-image:url(:/Image/24/65.bmp)}");
+    }
+    if(sys_info.wifi_flag)
+    {
+        ui->status_4->setStyleSheet("QLabel#status_4{background-image:url(:/Image/24/68.bmp)}");
+    }else{
+        ui->status_4->setStyleSheet("QLabel#status_4{background-image:url(:/Image/24/67.bmp)}");
+    }
+    if(sys_info.host_mode)
+    {
+        ui->status_5->setStyleSheet("QLabel#status_5{background-image:url(:/Image/24/70.bmp)}");
+    }else{
+        ui->status_5->setStyleSheet("QLabel#status_5{background-image:url(:/Image/24/69.bmp)}");
+    }
+    if(sys_info.abnormal_flag)
+    {
+        ui->status_6->setStyleSheet("QLabel#status_6{background-image:url(:/Image/24/72.bmp)}");
+    }else{
+        ui->status_6->setStyleSheet("QLabel#status_6{background-image:url(:/Image/24/71.bmp)}");
+    }
+
+}

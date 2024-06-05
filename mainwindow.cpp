@@ -1315,6 +1315,121 @@ void MainWindow::deal_TouchInterfaceDataSignal(int addr,QString strs)
     tcpServerTask.sendData(addr,strs);
 }
 
+QString MainWindow::getRunStateString(int run_state){
+    QString runsta_string = "定值运行";
+    switch(run_state)
+    {
+        case 0: runsta_string = "定值运行";break;
+        case 1: runsta_string = "定值運行";break;
+        case 2: runsta_string = "POINT RUN";break;
+        case 10: runsta_string = "程式运行";break;
+        case 11: runsta_string = "程式運行";break;
+        case 12: runsta_string = "PGM RUN";break;
+        case 20: runsta_string = "停机回常温";break;
+        case 21: runsta_string = "停機回常溫";break;
+        case 22: runsta_string = "BACK ROOM";break;
+        case 30: runsta_string = "系统停止";break;
+        case 31: runsta_string = "系統停止";break;
+        case 32: runsta_string = "SYS STOP";break;
+        case 40: runsta_string = "系统运行";break;
+        case 41: runsta_string = "系統運行";break;
+        case 42: runsta_string = "SYS RUNING";break;
+        case 50: runsta_string = "系统故障";break;
+        case 51: runsta_string = "系統故障";break;
+        case 52: runsta_string = "SYS ERROR";break;
+        case 60: runsta_string = "预约运行";break;
+        case 61: runsta_string = "預約運行";break;
+        case 62: runsta_string = "APPT RUN";break;
+        case 70: runsta_string = "系统调试";break;
+        case 71: runsta_string = "系統調試";break;
+        case 72: runsta_string = "SYS DEBUG";break;
+        case 80: runsta_string = "系统警告";break;
+        case 81: runsta_string = "系統警告";break;
+        case 82: runsta_string = "SYS ALARM";break;
+        case 90: runsta_string = "除霜中";break;
+        case 91: runsta_string = "除霜中";break;
+        case 92: runsta_string = "DEFROST";break;
+        case 100: runsta_string = "高温冲击";break;
+        case 101: runsta_string = "高溫衝擊";break;
+        case 102: runsta_string = "HI SHOCK";break;
+        case 110: runsta_string = "低温冲击";break;
+        case 111: runsta_string = "低溫衝擊";break;
+        case 112: runsta_string = "LOW SHOCK";break;
+        case 120: runsta_string = "恒温状态";break;
+        case 121: runsta_string = "恆溫狀態";break;
+        case 122: runsta_string = "TEMP CONS";break;
+        case 130: runsta_string = "低温恒温";break;
+        case 131: runsta_string = "低溫恆溫";break;
+        case 132: runsta_string = "LOWT CONS";break;
+        case 140: runsta_string = "等待预冷";break;
+        case 141: runsta_string = "等待預冷";break;
+        case 142: runsta_string = "COOL WAIT";break;
+        case 150: runsta_string = "湿度上升";break;
+        case 151: runsta_string = "溼度上升";break;
+        case 152: runsta_string = "H RAISE";break;
+        case 160: runsta_string = "常温状态";break;
+        case 161: runsta_string = "常溫狀態";break;
+        case 162: runsta_string = "ROOM TEMP";break;
+        case 170: runsta_string = "恒湿状态";break;
+        case 171: runsta_string = "恆溼狀態";break;
+        case 172: runsta_string = "HUMI CONS";break;
+        case 180: runsta_string = "高温状态";break;
+        case 181: runsta_string = "高溫狀態";break;
+        case 182: runsta_string = "HIGH TEMP";break;
+        case 190: runsta_string = "湿度下降";break;
+        case 191: runsta_string = "溼度下降";break;
+        case 192: runsta_string = "HUMI DROP";break;
+        case 200: runsta_string = "低温状态";break;
+        case 201: runsta_string = "低溫狀態";break;
+        case 202: runsta_string = "LOW TEMP";break;
+        case 210: runsta_string = "超低温状态";break;
+        case 211: runsta_string = "超低溫狀態";break;
+        case 212: runsta_string = "ULTRA LOWT";break;
+        case 220: runsta_string = "高湿状态";break;
+        case 221: runsta_string = "高溼狀態";break;
+        case 222: runsta_string = "HIGT HUMI";break;
+        case 230: runsta_string = "样品预热";break;
+        case 231: runsta_string = "樣品預熱";break;
+        case 232: runsta_string = "SAMP PREH";break;
+        case 240: runsta_string = "";break;
+        case 241: runsta_string = "";break;
+        case 242: runsta_string = "";break;
+        case 250: runsta_string = "暂停运行";break;
+        case 251: runsta_string = "暫停運行";break;
+        case 252: runsta_string = "RUN PAUSE";break;
+    default:break;
+    }
+    return runsta_string;
+}
+
+int MainWindow::getRunStatecolor(int run_state){
+    int runsta_color = 0;
+    switch(run_state)
+    {
+        case 50:
+        case 51:
+        case 52:
+        case 80:
+        case 81:
+        case 82: runsta_color = 1;break;
+        case 30:
+        case 31:
+        case 32:
+        case 40:
+        case 41:
+        case 42:
+        case 60:
+        case 61:
+        case 62: runsta_color = 2;break;
+        case 250:
+        case 251:
+        case 252: runsta_color = 3;break;
+    default:
+        break;
+    }
+    return runsta_color;
+}
+
 void MainWindow::deal_SQLInterfaceData_update(int id_num,QString data_strs)
 {
     switch(current_Page)
@@ -1357,29 +1472,51 @@ void MainWindow::deal_CommInterfaceData_update(int addr_num,QString data_strs)
         //oldPageHide(last_page);
     }else
     {
-        switch(current_Page)
+        this->addrSetSystemData(addr_num , data_strs);
+       // switch(current_Page)
         {
-        case STATE_MONITOR:     monitoring_interface_page.addrSetMonitorInterfaceData(addr_num , data_strs);   break;
-        case OUTPUT_MONITOR:    output_monitoring_page.addrSetOutputInterfaceData(addr_num , data_strs);   break;
-        case CURE_SHOW:         curve_monitoring_page.addrSetCurveInterfaceData(addr_num , data_strs);   break;
-        case PGM_EDIT:          program_editing_page.addrSetPgmEditInterfaceData(addr_num , data_strs);   break;
-        case PGM_CYCLE:         program_loop_page.addrSetPgmLoopInterfaceData(addr_num , data_strs);   break;
-        case FIXED_FUN:         fixed_value_setting_page.addrSetOnepointInterfaceData(addr_num,data_strs);  break;
-        case PARAM_SET:
+        //case STATE_MONITOR:
+            monitoring_interface_page.addrSetMonitorInterfaceData(addr_num , data_strs);
+         //   break;
+        //case OUTPUT_MONITOR:
+            output_monitoring_page.addrSetOutputInterfaceData(addr_num , data_strs);
+            //break;
+        //case CURE_SHOW:
+            curve_monitoring_page.addrSetCurveInterfaceData(addr_num , data_strs);
+         //   break;
+       // case PGM_EDIT:
+            program_editing_page.addrSetPgmEditInterfaceData(addr_num , data_strs);
+            //break;
+       // case PGM_CYCLE:
+            program_loop_page.addrSetPgmLoopInterfaceData(addr_num , data_strs);
+       //    break;
+       // case FIXED_FUN:
+            fixed_value_setting_page.addrSetOnepointInterfaceData(addr_num,data_strs);
+        //    break;
+       // case PARAM_SET:
             parameter_setting_page.addrSetParamSetInterfaceData(addr_num , data_strs);
             canset_page.addrSetCanInterfaceData(addr_num , data_strs);
-            break;
-        case ERR_LOG_PAGE:      error_log_page.addrSetErrLogInterfaceData(addr_num , data_strs);   break;
-        case PGM_SLT_PAGE:      popUpWindow04.addrSetPgmListInterfaceData(addr_num,data_strs);  break;
-        case CLT_DATA_PAGE:     break;
-        case USER_PSD_PAGE1:    userPasswordPage01.addrSetUserPsdInterfaceData(addr_num,data_strs);  break;
-        case USER_PSD_PAGE2:
-        case USER_PSD_PAGE3:
+        //    break;
+        //case ERR_LOG_PAGE:
+            error_log_page.addrSetErrLogInterfaceData(addr_num , data_strs);
+        //    break;
+        //case PGM_SLT_PAGE:
+            popUpWindow04.addrSetPgmListInterfaceData(addr_num,data_strs);
+         //   break;
+       // case CLT_DATA_PAGE:
+        //     break;
+       // case USER_PSD_PAGE1:
+            userPasswordPage01.addrSetUserPsdInterfaceData(addr_num,data_strs);
+        //    break;
+       //case USER_PSD_PAGE2:
+       // case USER_PSD_PAGE3:
             userPasswordPage02.addrSetUserPsdInterfaceData(addr_num,data_strs);
             userPasswordPage03.addrSetUserPsdInterfaceData(addr_num,data_strs);
-            break;
-        case TAB_PARAM_PAGE:    internal_param_set_page.addrInternalParamInterfaceData(addr_num,data_strs);  break;
-        default: break;
+        //   break;
+       // case TAB_PARAM_PAGE:
+            internal_param_set_page.addrInternalParamInterfaceData(addr_num,data_strs);
+        //    break;
+        //default: break;
         }
     }
 }
@@ -1389,28 +1526,24 @@ void MainWindow::deal_updateInterfaceDataSignal(void)
 {
     switch(current_Page)
     {
-    //case STATE_MONITOR:     monitoring_interface_page.addrSetMonitorInterfaceData(addr_num , data_strs);   break;
+    case STATE_MONITOR:     monitoring_interface_page.refreshMonitorInterfaceData();   break;
     case OUTPUT_MONITOR:    output_monitoring_page.refreshOutPutInterfaceData();   break;
     case CURE_SHOW:         curve_monitoring_page.refreshCurveInterfaceData();   break;
     case PGM_EDIT:          program_editing_page.refreshPgmEditInterfaceData();   break;
     case PGM_CYCLE:         program_loop_page.refreshPgmLoopInterfaceData();   break;
     case FIXED_FUN:         fixed_value_setting_page.refreshOnePointInterfaceData();  break;
-
     case PGM_SLT_PAGE:      popUpWindow04.refreshOutPutInterfaceData();break;
-    /*case PARAM_SET:
-        parameter_setting_page.addrSetParamSetInterfaceData(addr_num , data_strs);
-        canset_page.addrSetCanInterfaceData(addr_num , data_strs);
-        break;
-    case ERR_LOG_PAGE:      error_log_page.addrSetErrLogInterfaceData(addr_num , data_strs);   break;
+    case PARAM_SET:         parameter_setting_page.refreshParamSetInterfaceData();      break;
+    case ERR_LOG_PAGE:      error_log_page.refreshErrorLogInterfaceData();   break;
     case CLT_DATA_PAGE:     break;
-    case USER_PSD_PAGE1:    userPasswordPage01.addrSetUserPsdInterfaceData(addr_num,data_strs);  break;
+   /* case USER_PSD_PAGE1:    userPasswordPage01.addrSetUserPsdInterfaceData(addr_num,data_strs);  break;
     //case CLT_DATA_PAGE:     break;
     case USER_PSD_PAGE2:
     case USER_PSD_PAGE3:
         userPasswordPage02.addrSetUserPsdInterfaceData(addr_num,data_strs);
         userPasswordPage03.addrSetUserPsdInterfaceData(addr_num,data_strs);
-        break;
-    case TAB_PARAM_PAGE:    internal_param_set_page.addrInternalParamInterfaceData(addr_num,data_strs);  break;*/
+        break;*/
+    case TAB_PARAM_PAGE:    internal_param_set_page.refreshInternalSetInterface();  break;
 
     default: break;
     }
@@ -1682,3 +1815,38 @@ void MainWindow::usePopupWindow(int key_code)
 
 }
 
+void MainWindow::addrSetSystemData(int addr_num, QString set_value){
+
+    //QString covert_data;
+    switch(addr_num)
+    {
+
+    case addr_run_stop_pbtn_state:
+        sys_info.sys_sta = (bool)set_value.toInt();
+        break;
+    case addr_run_flag_state:
+        sys_info.run_sta = set_value.toInt();
+        sys_info.run_sta_string = getRunStateString(sys_info.run_sta);
+        sys_info.run_sta_color = getRunStatecolor(sys_info.run_sta);
+        break;
+    case addr_sys_usb_state:
+        sys_info.usb_flag = (bool)set_value.toInt();
+        break;
+    case addr_sys_sd_state:
+        sys_info.sd_flag = (bool)set_value.toInt();
+        break;
+    case addr_sys_comm_state:
+        sys_info.host_mode = (bool)set_value.toInt();
+        break;
+    case addr_sys_burn_state:
+        sys_info.burn_flag = (bool)set_value.toInt();
+        break;
+    case addr_sys_wifi_state:
+        sys_info.wifi_flag = (bool)set_value.toInt();
+        break;
+    case addr_sys_abnormal_state:
+        sys_info.abnormal_flag = (bool)set_value.toInt();
+        break;
+    default:break;
+    }
+}

@@ -534,3 +534,4 @@ void UserPasswordPage01::addrSetUserPsdInterfaceData(int addr_num, QString set_v
         break;
     }
 }
+
